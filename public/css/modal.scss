@@ -1,0 +1,271 @@
+/* By Uk */
+@import 'mixin';
+@import 'fonts';
+
+
+
+.btn{
+    width: 180px;
+    height: 45px;
+    background-color: #253AA3;
+    font-family: Poppins-Medium;
+    font-size: 13px;
+    outline: none;            
+    color: #ffffff;
+    border: 0;
+    padding: 0px 12px;
+    box-sizing: content-box;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 350ms ease;
+    &:hover{     
+        outline: none;
+        color: #ffffff;
+        transform: scale(1.05);
+        border-radius: 4px;
+        box-shadow: 0px 4px 15px rgba(7, 79, 223, 0.329);
+    }
+}
+
+.btn2{
+    width: auto;
+    height: 25px;
+    background-color: #20BDC9;
+    font-family: Poppins-Light;
+    font-size: 12px;
+    outline: none;            
+    color: #ffffff;
+    border: 0;
+    padding: 0px 12px;
+    box-sizing: content-box;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 350ms ease;
+    &:focus{
+        outline: none;
+    }
+    &:hover{   
+        color: #ffffff;
+        transform: scale(1.05);
+        border-radius: 4px;
+        box-shadow: 0px 4px 15px rgba(7, 79, 223, 0.329);
+    }
+}
+
+.close{
+    outline: none;
+    border: 2px solid #353536 !important;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 6px;
+    right: 6px;
+    position: relative;
+    &:focus{
+        outline: none;
+    }
+    span{
+        position: relative;
+        top: -2px;
+    }
+}
+
+.mb-10{
+    margin-bottom: 10px;
+}
+.mb-15{
+    margin-bottom: 15px;
+}
+.mb-20{
+    margin-bottom: 20px;
+}
+
+// ===================================== HIRING CRITERIA
+.hiring-modal{
+    width: 100%;
+    border-radius: 4px;
+    border: 0px;
+    background-color: #F8F9FE;
+    .hiring-modal-header{
+        background-color: #253AA3;
+        .modal-title{
+            color: #ffffff;
+            text-align: center;
+            width: 100%;
+            font-family: Poppins-Medium;
+        }
+    }
+    .hiring-modal-form{
+        padding: 3% 5%;
+        .modal-grp{
+            display: block;
+            margin-bottom: 18px;
+            position: relative;
+            .inp-caption{
+                position: absolute;
+                top: -10px;
+                left: 10px;
+                background-color: #fff;
+                color: #878BA6;
+                font-family: Poppins-Medium;
+                font-size: 10px;
+                padding: 2px;
+            }
+            .modal-inp{
+                width: 100%;
+                height: 42px;
+                border-radius: 4px;
+                padding: 0px 10px;
+                border: 2px solid #878BA6;
+                font-family: Poppins-Regular;
+                font-size: 14px;
+                background-color: #F8F9FE;
+                &:focus{
+                    box-shadow: none;
+                    outline-color: #253AA3;
+                }
+                &.modal-textarea{
+                    height: auto !important;
+                    padding: 10px 10px;
+                }
+            }
+            span{
+                font-family: Poppins-Regular;
+                font-size: 14px;
+                margin-right: 8px;
+                color: #878BA6;
+            }
+            .custom-control-inline{
+                font-family: Poppins-Regular;
+                margin-right: 0.6rem;
+                font-size: 14px;
+                color: #878BA6;
+                .custom-control-label{
+                    &::before, &::after{
+                        width: 0.8rem;
+                        height: 0.8rem;
+                    }
+                    vertical-align: middle;
+                }
+            }
+        }
+        .gaps{
+            position: relative;
+            &.gaps-disable{
+                cursor: not-allowed;
+                // pointer-events: none;
+                user-select: none;
+                &::before{
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #f8f9fe73;
+                    z-index: 99;
+                }
+            }
+            .gaps-item{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                margin-bottom: 2px;
+                .gaps-title{
+                    font-family: Poppins-Medium;
+                    font-size: 16px;
+                    color: #878BA6;
+                    text-align: right;
+                    text-decoration: underline;
+                    margin-right: 8px;
+                    // flex: 1;
+                    // margin-left: 50px;
+                    width: 50%;
+                }
+                .gaps-name{
+                    font-family: Poppins-Regular;
+                    font-size: 12px;
+                    color: #878BA6;
+                    margin-right: 8px;
+                    flex: 2;
+                    text-align: right;
+                }
+                .gaps-content{
+                    display: flex;
+                    align-items: center;
+                    // flex: 3;
+                    // flex-grow: 4;
+                    .custom-control-inline{
+                        font-size: 13px;
+                    }
+                    .modal-grp{
+                        margin-bottom: 0;
+                        .modal-inp{
+                            height: 30px;
+                            padding: 5px;
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.modal-icon{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 20px auto;
+    background-color: rgba(37, 58, 163, 0.25);
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i{
+        font-size: 30px;
+        color: #253AA3;
+    }
+}
+.modal-success{
+    padding: 10px 20px 40px 20px;
+    border-radius: 4px;
+    text-align: center;
+    .modal-success-txt{
+        color: #2A3050;
+        font-family: Poppins-Medium;
+        font-size: 14px;
+        margin: 0;
+    }
+    .modal-university-box{
+        margin: 7px auto;
+        background-color: rgba(135, 139, 166, 0.288);
+        padding: 3px 6px;
+        width: 90%;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2A3050;
+        span{
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background-color: #ffffff;
+            border: 1px solid #878BA6;
+            font-size: 16px;
+            margin-right: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

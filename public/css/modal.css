@@ -1,0 +1,388 @@
+/* By Uk */
+@font-face {
+  font-family: Poppins-ExBold;
+  src: url("../fonts/Poppins/Poppins-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  src: url("../fonts/Poppins/Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url("../fonts/Poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: Poppins-Light;
+  src: url("../fonts/Poppins/Poppins-Light.ttf");
+}
+
+@font-face {
+  font-family: Poppins-Semibold;
+  src: url("../fonts/Poppins/Poppins-Semibold.ttf");
+}
+
+@font-face {
+  font-family: Poppins-Medium;
+  src: url("../fonts/Poppins/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: noah-ExtraBold;
+  src: url("../fonts/noah/Noah-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: noah-Bold;
+  src: url("../fonts/noah/Noah-Bold.ttf");
+}
+
+.btn {
+  width: 180px;
+  height: 45px;
+  background-color: #253AA3;
+  font-family: Poppins-Medium;
+  font-size: 13px;
+  outline: none;
+  color: #ffffff;
+  border: 0;
+  padding: 0px 12px;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: all 350ms ease;
+  transition: all 350ms ease;
+}
+
+.btn:hover {
+  outline: none;
+  color: #ffffff;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 4px 15px rgba(7, 79, 223, 0.329);
+          box-shadow: 0px 4px 15px rgba(7, 79, 223, 0.329);
+}
+
+.btn2 {
+  width: auto;
+  height: 25px;
+  background-color: #20BDC9;
+  font-family: Poppins-Light;
+  font-size: 12px;
+  outline: none;
+  color: #ffffff;
+  border: 0;
+  padding: 0px 12px;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  border-radius: 4px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: all 350ms ease;
+  transition: all 350ms ease;
+}
+
+.btn2:focus {
+  outline: none;
+}
+
+.btn2:hover {
+  color: #ffffff;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 4px 15px rgba(7, 79, 223, 0.329);
+          box-shadow: 0px 4px 15px rgba(7, 79, 223, 0.329);
+}
+
+.close {
+  outline: none;
+  border: 2px solid #353536 !important;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: 6px;
+  right: 6px;
+  position: relative;
+}
+
+.close:focus {
+  outline: none;
+}
+
+.close span {
+  position: relative;
+  top: -2px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.hiring-modal {
+  width: 100%;
+  border-radius: 4px;
+  border: 0px;
+  background-color: #F8F9FE;
+}
+
+.hiring-modal .hiring-modal-header {
+  background-color: #253AA3;
+}
+
+.hiring-modal .hiring-modal-header .modal-title {
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  font-family: Poppins-Medium;
+}
+
+.hiring-modal .hiring-modal-form {
+  padding: 3% 5%;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp {
+  display: block;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp .inp-caption {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-color: #fff;
+  color: #878BA6;
+  font-family: Poppins-Medium;
+  font-size: 10px;
+  padding: 2px;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp .modal-inp {
+  width: 100%;
+  height: 42px;
+  border-radius: 4px;
+  padding: 0px 10px;
+  border: 2px solid #878BA6;
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  background-color: #F8F9FE;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp .modal-inp:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline-color: #253AA3;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp .modal-inp.modal-textarea {
+  height: auto !important;
+  padding: 10px 10px;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp span {
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  margin-right: 8px;
+  color: #878BA6;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp .custom-control-inline {
+  font-family: Poppins-Regular;
+  margin-right: 0.6rem;
+  font-size: 14px;
+  color: #878BA6;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp .custom-control-inline .custom-control-label {
+  vertical-align: middle;
+}
+
+.hiring-modal .hiring-modal-form .modal-grp .custom-control-inline .custom-control-label::before, .hiring-modal .hiring-modal-form .modal-grp .custom-control-inline .custom-control-label::after {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.hiring-modal .hiring-modal-form .gaps {
+  position: relative;
+}
+
+.hiring-modal .hiring-modal-form .gaps.gaps-disable {
+  cursor: not-allowed;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.hiring-modal .hiring-modal-form .gaps.gaps-disable::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f9fe73;
+  z-index: 99;
+}
+
+.hiring-modal .hiring-modal-form .gaps .gaps-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 2px;
+}
+
+.hiring-modal .hiring-modal-form .gaps .gaps-item .gaps-title {
+  font-family: Poppins-Medium;
+  font-size: 16px;
+  color: #878BA6;
+  text-align: right;
+  text-decoration: underline;
+  margin-right: 8px;
+  width: 50%;
+}
+
+.hiring-modal .hiring-modal-form .gaps .gaps-item .gaps-name {
+  font-family: Poppins-Regular;
+  font-size: 12px;
+  color: #878BA6;
+  margin-right: 8px;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  text-align: right;
+}
+
+.hiring-modal .hiring-modal-form .gaps .gaps-item .gaps-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hiring-modal .hiring-modal-form .gaps .gaps-item .gaps-content .custom-control-inline {
+  font-size: 13px;
+}
+
+.hiring-modal .hiring-modal-form .gaps .gaps-item .gaps-content .modal-grp {
+  margin-bottom: 0;
+}
+
+.hiring-modal .hiring-modal-form .gaps .gaps-item .gaps-content .modal-grp .modal-inp {
+  height: 30px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.modal-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 20px auto;
+  background-color: rgba(37, 58, 163, 0.25);
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.modal-icon i {
+  font-size: 30px;
+  color: #253AA3;
+}
+
+.modal-success {
+  padding: 10px 20px 40px 20px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.modal-success .modal-success-txt {
+  color: #2A3050;
+  font-family: Poppins-Medium;
+  font-size: 14px;
+  margin: 0;
+}
+
+.modal-success .modal-university-box {
+  margin: 7px auto;
+  background-color: rgba(135, 139, 166, 0.288);
+  padding: 3px 6px;
+  width: 90%;
+  border-radius: 6px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #2A3050;
+}
+
+.modal-success .modal-university-box span {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid #878BA6;
+  font-size: 16px;
+  margin-right: 3px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=modal.css.map */

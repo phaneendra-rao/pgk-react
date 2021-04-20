@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const DashboardSidebar = () => {
     return (
-        <aside className="sidebar">
+        <aside className="sidebar" id="side-bar">
             <div className="logo-section">
                 <img src="./images/logo.png" alt="logo" className="img img-fluid logo" />
                 <p className="label">Corporate</p>

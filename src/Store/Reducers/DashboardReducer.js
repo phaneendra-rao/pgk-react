@@ -1,4 +1,5 @@
-import * as actionTypes from '../Actions/DashboardActions/actionTypes'
+import * as actionTypes from '../Actions/DashboardActions/actionTypes';
+
 const INITIAL = {
     apiStatus: false,
     apiSuccess: false,

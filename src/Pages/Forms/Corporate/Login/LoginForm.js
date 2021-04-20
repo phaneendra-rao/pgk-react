@@ -15,6 +15,14 @@ const LoginForm = (props) => {
     // const type = localStorage.getItem('type') || props.type;
     const type = props.type || localStorage.getItem('type');
 
+    useEffect(() => {
+        localStorage.removeItem('amount');
+        localStorage.removeItem('regStatus');
+        localStorage.removeItem('steps');
+        localStorage.removeItem('token');
+        localStorage.removeItem('orderID');
+    }, [])
+    
     // useEffect(() => {
     //     if (apiStatus) {
     //         props.history.push('/register/payment');

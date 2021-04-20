@@ -104,26 +104,26 @@ export const StudentSignupAction = (model, history, type) => {
         }
         dispatch(APIStatus(true));
         dispatch({ type: actionTypes.CORPORATE, payload: model });
-        // Axios.post(URL, formData)
-        //     .then((res) => {
-        //         let resp = res.data;
-        //         localStorage.removeItem('imgpath');
-        //         localStorage.setItem('regStatus', JSON.stringify(resp));
-        //         localStorage.setItem('steps', 3);
-        //         dispatch({ type: actionTypes.STEPS, payload: 3 });
-        //         dispatch(APIStatus(false));
-        //         toast.success(resp.message);
-        //         history.push('/register/studentAuthentication');
-        //     })
-        //     .catch((err) => {
-        //         if (err.response) {
-        //             toast.error(err.response.data.errors[0].message);
-        //             // console.log("errors.response", err.response.data);
-        //         } else {
-        //             toast.error("Something Wrong!", err.message);
-        //         }
-        //         dispatch(APIStatus(false));
-        //     })
+        Axios.post(URL, formData)
+            .then((res) => {
+                let resp = res.data;
+                localStorage.removeItem('imgpath');
+                localStorage.setItem('regStatus', JSON.stringify(resp));
+                localStorage.setItem('steps', 3);
+                dispatch({ type: actionTypes.STEPS, payload: 3 });
+                dispatch(APIStatus(false));
+                toast.success(resp.message);
+                history.push('/register/studentAuthentication');
+            })
+            .catch((err) => {
+                if (err.response) {
+                    toast.error(err.response.data.errors[0].message);
+                    // console.log("errors.response", err.response.data);
+                } else {
+                    toast.error("Something Wrong!", err.message);
+                }
+                dispatch(APIStatus(false));
+            })
     }
 }
 

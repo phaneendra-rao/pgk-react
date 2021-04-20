@@ -8,7 +8,7 @@ const Dashboard = () => {
                     <div className="row welcome-widget d-flex flex-row justify-content-start align-items-center">
                         <div className="row d-flex flex-row justify-content-start align-items-center">
                             <div className="welcome-avatar d-flex flex-column justify-content-center align-items-center">
-                                <img src="./images/logo.png" alt="logo" className="welcome-avatar-logo" />
+                                <img src="../../../images/logo.png" alt="logo" className="welcome-avatar-logo" />
                             </div>
                             <div className="welcome-content d-flex flex-column justify-content-start align-items-start">
                                 <p className="title">Welcome, Shalmali!</p>

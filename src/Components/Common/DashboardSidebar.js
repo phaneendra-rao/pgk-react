@@ -5,7 +5,7 @@ const DashboardSidebar = () => {
     return (
         <aside className="sidebar" id="side-bar">
             <div className="logo-section">
-                <img src="./images/logo.png" alt="logo" className="img img-fluid logo" />
+                <img src="../../../images/logo.png" alt="logo" className="img img-fluid logo" />
                 <p className="label">Corporate</p>
             </div>
             <ul className="sidebar-list" id="accordion">

@@ -26,7 +26,7 @@ const DashboardLayout = () => {
             <DashboardSidebar />
             <div className="main-container">
                 <DashboardHeader />
-                <div class="page-body">
+                <div className="page-body">
                     <Switch>
                         {getRoutes(routes)}
                     </Switch>

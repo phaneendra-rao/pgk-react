@@ -2,15 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { toast } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import Provider from 'react-redux/es/components/Provider';
 import { applyMiddleware, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import 'react-toastify/dist/ReactToastify.css';
 import AllReducers from './Store/Reducers';
-
+import {webportalAppRootSaga} from './Store/Sagas';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import history from './@history';
 
 toast.configure({
   autoClose: 4000,
@@ -20,13 +23,18 @@ toast.configure({
   pauseOnFocusLoss: false,
 });
 
-const store = createStore(AllReducers, applyMiddleware(thunk));
+// Middleware: Redux Saga
+const sagaMiddleware = createSagaMiddleware();
 
+const store = createStore(AllReducers, composeWithDevTools(applyMiddleware(sagaMiddleware, thunk)));
+// const store = createStore(AllReducers, applyMiddleware(thunk));
+
+sagaMiddleware.run(webportalAppRootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <App />
       </Router>
     </Provider>

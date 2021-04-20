@@ -1,103 +1,118 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import LoginCmp from '../../../../Components/Forms/CorporateCmp/LoginCmp';
-import { LoginUserAction } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import LoginCmp from "../../../../Components/Forms/CorporateCmp/LoginCmp";
+// import { LoginUserAction } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import { actionLoginRequestSaga } from "../../../../Store/Actions/SagaActions/DashboardSaga/LoginSagaActions";
 
 const LoginForm = (props) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({ emailErr: '', passwordErr: '' });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ emailErr: "", passwordErr: "" });
 
-    const dispatch = useDispatch();
-    const apiStatus = useSelector(state => state.CorporateReducer.apiStatus);
+  const dispatch = useDispatch();
+  const apiStatus = useSelector((state) => state.CorporateReducer.apiStatus);
 
-    // const type = localStorage.getItem('type') || props.type;
-    const type = props.type || localStorage.getItem('type');
+  // const type = localStorage.getItem('type') || props.type;
+  const type = props.type || localStorage.getItem("type");
 
-    useEffect(() => {
-        localStorage.removeItem('amount');
-        localStorage.removeItem('regStatus');
-        localStorage.removeItem('steps');
-        localStorage.removeItem('token');
-        localStorage.removeItem('orderID');
-    }, [])
-    
-    // useEffect(() => {
-    //     if (apiStatus) {
-    //         props.history.push('/register/payment');
-    //     }
-    //     // return () => {
-    //     //     dispatch(ResetRdrAction());
-    //     // }
-    // }, [apiStatus])
+  useEffect(() => {
+    localStorage.removeItem("amount");
+    localStorage.removeItem("regStatus");
+    localStorage.removeItem("steps");
+    localStorage.removeItem("token");
+    localStorage.removeItem("orderID");
+  }, []);
 
-    const handlerChange = (event) => {
-        const { name, value } = event.target;
+  // useEffect(() => {
+  //     if (apiStatus) {
+  //         props.history.push('/register/payment');
+  //     }
+  //     // return () => {
+  //     //     dispatch(ResetRdrAction());
+  //     // }
+  // }, [apiStatus])
 
-        switch (name) {
-            case 'email':
-                const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                if (value && mailformat.test(value)) {
-                    setEmail(value);
-                    setErrors(preState => ({
-                        ...preState,
-                        emailErr: ''
-                    }));
-                } else if (!value || !mailformat.test(value)) {
-                    setEmail(value);
-                    setErrors(preState => ({
-                        ...preState,
-                        emailErr: 'Email error'
-                    }));
-                }
-                return;
-            case 'password':
-                if (value && value.length >= 8) {
-                    setPassword(value);
-                    setErrors(preState => ({
-                        ...preState,
-                        passwordErr: ''
-                    }));
-                } else {
-                    setPassword(value)
-                    setErrors(preState => ({
-                        ...preState,
-                        passwordErr: 'Password error'
-                    }));
-                }
-                return;
+  const handlerChange = (event) => {
+    const { name, value } = event.target;
 
-            default:
-                break;
+    switch (name) {
+      case "email":
+        const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (value && mailformat.test(value)) {
+          setEmail(value);
+          setErrors((preState) => ({
+            ...preState,
+            emailErr: "",
+          }));
+        } else if (!value || !mailformat.test(value)) {
+          setEmail(value);
+          setErrors((preState) => ({
+            ...preState,
+            emailErr: "Email error",
+          }));
         }
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const { emailErr, passwordErr } = errors;
-        if (email && password && !emailErr && !passwordErr) {
-            const model = {
-                stakeholder: type,
-                userID: email,
-                password: password
-            }
-            dispatch(LoginUserAction(model, props.history))
+        return;
+      case "password":
+        if (value && value.length >= 8) {
+          setPassword(value);
+          setErrors((preState) => ({
+            ...preState,
+            passwordErr: "",
+          }));
         } else {
-            toast.error("Please enter all input fields")
+          setPassword(value);
+          setErrors((preState) => ({
+            ...preState,
+            passwordErr: "Password error",
+          }));
         }
-    }
+        return;
 
-    return (
-        <LoginCmp
-            email={email}
-            type={type}
-            password={password}
-            handlerChange={handlerChange}
-            handleSubmit={handleSubmit}
-            errors={errors}
-        />
-    )
-}
+      default:
+        break;
+    }
+  };
+
+  const onSuccess = (redirectUrl) => {
+    if (redirectUrl === "/dashboard") {
+      props.history.push("/dashboard");
+    } else {
+      props.history.push("/register/payment");
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { emailErr, passwordErr } = errors;
+    if (email && password && !emailErr && !passwordErr) {
+      const model = {
+        stakeholder: type,
+        userID: email,
+        password: password,
+      };
+      // dispatch(LoginUserAction(model, props.history))
+      dispatch(
+        actionLoginRequestSaga({
+            apiPayloadRequest: model,
+            callback: onSuccess,
+        })
+      );
+    } else {
+      toast.error("Please enter all input fields");
+    }
+  };
+
+  return (
+    <LoginCmp
+      email={email}
+      type={type}
+      password={password}
+      handlerChange={handlerChange}
+      handleSubmit={handleSubmit}
+      errors={errors}
+    />
+  );
+};
 
 export default LoginForm;

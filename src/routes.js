@@ -13,6 +13,7 @@ const StudentAuthentication = React.lazy(() => import('./Pages/Forms/Student/Stu
 const StudentRegCompleted = React.lazy(() => import('./Pages/Forms/Student/StudentRegCompleted'));
 const StudentPayment = React.lazy(() => import('./Pages/Forms/Student/StudentPayment'));
 const Dashboard = React.lazy(() => import('./Pages/Dashboard/Dashboard'));
+const Profile = React.lazy(() => import('./Pages/Profile/Profile'));
 
 
 const routes = [
@@ -31,6 +32,7 @@ const routes = [
     { path: "/register/studentPayment", strict: true, exact: true, role: "corporateReg", name: 'StudentPayment', component: StudentPayment },
     // DASHBOARD
     { path: "/dashboard", strict: true, exact: true, role: "dashboard", name: 'Dashboard', component: Dashboard },
+    { path: "/dashboard/profile", strict: true, exact: true, role: "dashboard", name: 'Profile', component: Profile },
 
 ];
 

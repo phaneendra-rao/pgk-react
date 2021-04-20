@@ -6,6 +6,7 @@ const ContactPersonnel = React.lazy(() => import('./Pages/Forms/Corporate/Regist
 const Authentication = React.lazy(() => import('./Pages/Forms/Corporate/Register/Authentication'));
 const RegistrationCompleted = React.lazy(() => import('./Pages/Forms/Corporate/Register/RegistrationCompleted'));
 const CorporatePayment = React.lazy(() => import('./Pages/Forms/Corporate/Register/CorporatePayment'));
+const Payment = React.lazy(() => import('./Pages/Forms/Payment/'));
 const StudentRegister = React.lazy(() => import('./Pages/Forms/Student/StudentRegister'));
 const StudentSecondary = React.lazy(() => import('./Pages/Forms/Student/StudentSecondary'));
 const StudentAuthentication = React.lazy(() => import('./Pages/Forms/Student/StudentAuthentication'));
@@ -22,6 +23,7 @@ const routes = [
     { path: "/register/authentication", strict: true, exact: true, role: "corporateReg", name: 'Authentication', component: Authentication },
     { path: "/register/completed", strict: true, exact: true, role: "corporateReg", name: 'RegistrationCompleted', component: RegistrationCompleted },
     { path: "/register/payment", strict: true, exact: true, role: "corporateReg", name: 'CorporatePayment', component: CorporatePayment },
+    { path: "/payment", strict: true, exact: true, role: "corporateReg", name: 'Payment', component: Payment },
     { path: "/register/studentRegister", strict: true, exact: true, role: "corporateReg", name: 'StudentRegister', component: StudentRegister },
     { path: "/register/studentSecondary", strict: true, exact: true, role: "corporateReg", name: 'StudentSecondary', component: StudentSecondary },
     { path: "/register/studentAuthentication", strict: true, exact: true, role: "corporateReg", name: 'StudentAuthentication', component: StudentAuthentication },

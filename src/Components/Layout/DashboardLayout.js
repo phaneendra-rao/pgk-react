@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router';
 import routes from '../../routes';
 import DashboardHeader from '../Common/DashboardHeader';
 import DashboardSidebar from '../Common/DashboardSidebar';
+import HeaderModalForm from '../Common/HeaderModalForm';
 
 const DashboardLayout = () => {
 
@@ -39,7 +40,7 @@ const DashboardLayout = () => {
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <form>
+                        {/* <form>
                             <div className="modal-body purchase-modal-body d-flex flex-column justify-content-center align-items-center">
                                 <p className="heading">How many credits would you like to purchase ?</p>
                                 <input type="number" name="credit_points" className="form-control credits-input" required />
@@ -49,7 +50,8 @@ const DashboardLayout = () => {
                                     Purchase
                             </button>
                             </div>
-                        </form>
+                        </form> */}
+                        <HeaderModalForm />
                     </div>
                 </div>
             </div>

@@ -1,14 +1,12 @@
-import React, { useEffect, useReducer } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetTokensAction } from '../../Store/Actions/DashboardActions/DashboardAction';
 const $ = window.$;
 
 const DashboardHeader = () => {
 
-    const balance = useReducer(state => state.DashboardReducer);
+    const balance = useSelector(state => state.DashboardReducer.balance);
     const dispatch = useDispatch();
-
-    console.log(balance);
 
     useEffect(() => {
         dispatch(GetTokensAction());

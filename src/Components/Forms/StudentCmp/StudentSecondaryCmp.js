@@ -40,7 +40,7 @@ const StudentSecondaryCmp = ({ history, errors, attachment, path, studentSeconda
                     </div>
                     <div className="login-grp">
                         <input
-                            type="tel"
+                            type="number"
                             name="aadharNumber"
                             onChange={handlerChange}
                             defaultValue={studentSecondary.aadharNumber}

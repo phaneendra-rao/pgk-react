@@ -8,7 +8,7 @@ import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/Commo
 
 
 const getDependencyLookupsRequest = (queryString) => {
-  const URL = `/u/lut?${queryString}`;
+  const URL = `/u/lut/?${queryString}`;
   return Axios.get(URL).then((res) => {
     return res.data;
   });
@@ -16,7 +16,7 @@ const getDependencyLookupsRequest = (queryString) => {
 
 const getStringifyLookupKeys = (keys) => {
     if(keys.length) {
-        return keys.map((item)=>`lutList=${item}&`).join('')
+        return keys.map((item)=>`lutList=${item}&`).join('').replace(/&$/,"")
     } else {
         return '';
     }
@@ -25,7 +25,7 @@ const getStringifyLookupKeys = (keys) => {
 function* getDependencyLookupsRequestSaga(action) {
     yield put(actionUpdateGlobalLoaderSagaAction(true));
 
-    const lookupQueryString  = getStringifyLookupKeys(action.payload);
+    const lookupQueryString  = getStringifyLookupKeys(action.payload.apiPayloadRequest);
 
     console.log(('lookupQueryString ', lookupQueryString));
     

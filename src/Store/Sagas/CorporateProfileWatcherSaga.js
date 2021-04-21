@@ -8,7 +8,7 @@ import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/Commo
 
 
 const getCorporateProfileRequest = () => {
-  const URL = "/u/profile";
+  const URL = "/u/profile/";
   return Axios.get(URL).then((res) => {
     return res.data;
   });

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
 import CorporatePaymentCmp from '../../../../Components/Forms/CorporateCmp/RegisterCmp/CorporatePaymentCmp';
 import { CreatePaymentAction, ValidatePaymentAction } from '../../../../Store/Actions/CorporateActions/CorporateAction';
 const $ = window.$;
 
 const CorporatePayment = (props) => {
+    let history = useHistory()
     const initialState = {
         name: '',
         email: '',
@@ -19,14 +21,28 @@ const CorporatePayment = (props) => {
 
     const dispatch = useDispatch();
 
-
     useEffect(() => {
-        dispatch(CreatePaymentAction());
+        let tokensPurchase = localStorage.getItem('tokensPurchase');
+        let model;
+        if (tokensPurchase) {
+            model = {
+                payType: 'ADD_TKN',
+                tokensToAdd: tokensPurchase
+            }
+        } else {
+            model = {
+                payType: 'REG_FEE',
+            }            
+        }
+        dispatch(CreatePaymentAction(model));
         // $('#role').modal('show');
         const script = document.createElement("script");
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
         script.async = true;
         document.body.appendChild(script);
+        return () => {
+            localStorage.removeItem('tokensPurchase');
+        }
     }, []);
 
     useEffect(() => {
@@ -171,7 +187,7 @@ const CorporatePayment = (props) => {
 
     const closeModal = () => {
         $('#paymentSuccess').modal('hide');
-        props.history.replace('/')
+        history.replace('/dashboard')
     }
 
     return (
@@ -234,12 +250,12 @@ const CorporatePayment = (props) => {
                     <div className="modal-content modal-form">
                         <div className="modal-body">
                             <h4 className="modal-title mb-1 mt-0">Payment is successful</h4>
-                            <form className="login-form mx-auto" onSubmit={closeModal}>
+                            <form className="login-form mx-auto">
                                 <div className="login-grp mb-2 mx-auto text-center text-success">
                                     <i className="fas fa-check-circle" style={{ fontSize: '70px' }}></i>
                                 </div>
                                 <div className="text-center">
-                                    <button type="submit" className="login-btn mb-0">Proceed</button>
+                                    <button type="button" onClick={closeModal} className="login-btn mb-0">Proceed</button>
                                 </div>
                             </form>
                         </div>

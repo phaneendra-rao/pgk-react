@@ -70,7 +70,7 @@ const Login = (props) => {
                             <h4 className="modal-title mb-1 mt-0">You are a</h4>
                             <form className="login-form mx-auto" onSubmit={closeModal}>
                                 <div className="login-grp mb-2 mx-auto">
-                                    <span className="modal-icon"><i className="fas fa-envelope" /></span>
+                                    <span className="modal-icon1"><i className="fas fa-envelope" /></span>
                                     <select name="type" defaultValue={'DEFAULT'} onChange={handlerChange} className="modal-inp" required>
                                         <option value={'DEFAULT'} disabled>Select type</option>
                                         <option value="Corporate">Corporate</option>

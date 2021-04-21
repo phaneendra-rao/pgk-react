@@ -249,11 +249,15 @@ export const SaveCoprorateData = (data, step) => {
 
 
 // CREATE PAYMENT
-export const CreatePaymentAction = () => {
+export const CreatePaymentAction = (model) => {
     return (dispatch) => {
         const URL = "/pg/createPayment";
         let formData = new FormData();
-        formData.append('payType', 'REG_FEE');
+        for (const key in model) {
+            formData.append(key, model[key]);
+        }
+        // formData.append('payType', val);
+        // formData.append('payType', 'REG_FEE');
         dispatch(APIStatus(true));
         const token = localStorage.getItem('token');
         const header = {

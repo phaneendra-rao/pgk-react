@@ -34,11 +34,22 @@ const StudentRegister = (props) => {
         presentAddressemail: '',
         fathersFirstName: '',
         fathersMiddleName: '',
-        fathersLastName: ''
+        fathersLastName: '',
+        fathersGuardianOccupation: '',
+        fathersGuardianCompany: '',
+        fathersGuardianPhoneNumber: '',
+        fathersGuardianEmailID: '',
+        mothersGuardianFullName: '',
+        mothersGuardianOccupation: '',
+        mothersGuardianCompany: '',
+        mothersGuardianDesignation: '',
+        mothersGuardianPhoneNumber: '',
+        mothersGuardianEmailID: '',
+        collegeEmail: ''
     };
 
     const [studentPrimaryData, setStudentPrimaryData] = useState(initialState);
-    const [errors, setErrors] = useState({ emailErr: '', email2Err: '', mobileErr: '', mobile2Err: '' });
+    const [errors, setErrors] = useState({ emailErr: '', email2Err: '', mobileErr: '', mobile2Err: '', cgemailErr: '', femailErr: '' });
     const [code, setCode] = useState('');
     const [code2, setCode2] = useState('');
 
@@ -81,6 +92,36 @@ const StudentRegister = (props) => {
                 }
                 return;
 
+            case 'collegeEmail':
+                const mailformat2 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                if (value && mailformat2.test(value)) {
+                    setErrors(preState => ({
+                        ...preState,
+                        cgemailErr: ''
+                    }));
+                } else if (!value || !mailformat2.test(value)) {
+                    setErrors(preState => ({
+                        ...preState,
+                        cgemailErr: 'Email error'
+                    }));
+                }
+                return;
+
+            case 'fathersGuardianEmailID':
+                const mailformat3 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                if (value && mailformat3.test(value)) {
+                    setErrors(preState => ({
+                        ...preState,
+                        femailErr: ''
+                    }));
+                } else if (!value || !mailformat3.test(value)) {
+                    setErrors(preState => ({
+                        ...preState,
+                        femailErr: 'Email error'
+                    }));
+                }
+                return;
+
             // case 'corporateLocalBranchAddressEmail':
             //     const mailformat1 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
             //     if (value && mailformat1.test(value)) {
@@ -115,6 +156,29 @@ const StudentRegister = (props) => {
                     setErrors(preState => ({
                         ...preState,
                         mobileErr: 'Invalid'
+                    }));
+                }
+                return;
+
+            case 'fathersGuardianPhoneNumber':
+                const num2 = /^[+-]?[0-9\b]+$/;
+                if (num2.test(value)) {
+                    // if (val.match(phoneno)) {
+                    if (value.length === 13) {
+                        setErrors(preState => ({
+                            ...preState,
+                            fmobileErr: ''
+                        }));
+                    } else {
+                        setErrors(preState => ({
+                            ...preState,
+                            fmobileErr: 'Invalid'
+                        }));
+                    }
+                } else {
+                    setErrors(preState => ({
+                        ...preState,
+                        fmobileErr: 'Invalid'
                     }));
                 }
                 return;
@@ -192,6 +256,9 @@ const StudentRegister = (props) => {
         if (firstName && lastName && email && phoneNuber && !emailErr && !mobileErr) {
             studentPrimaryData.phoneNuber = code + phoneNuber;
             studentPrimaryData.permanentAddressPhone = code + phoneNuber;
+            studentPrimaryData.presentAddressPhone = code + phoneNuber;
+            studentPrimaryData.fathersGuardianFullName = studentPrimaryData.fathersFirstName + " " + studentPrimaryData.fathersLastName
+                + " " + studentPrimaryData.fathersMiddleName;
             dispatch(SaveCoprorateData(studentPrimaryData, 1));
             props.history.push('/register/studentSecondary');
         } else {

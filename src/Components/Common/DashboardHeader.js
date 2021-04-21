@@ -32,24 +32,24 @@ const DashboardHeader = () => {
           aria-expanded="false"
           data-offset="0,10"
         >
-          <p className="btn-label">Available Tokens</p>
-          <p className="points">{balance?.balance}</p>
+          <p className="btn-label">Available Tokens </p>
+          <p className="points">{balance?.bonusTokenBalance + balance?.paidTokenBalance}</p>
         </button>
         <div className="dropdown-menu dropdown-menu-right">
           <div className="points-container">
             <div className="credits-container">
               <p className="label-head">Available Tokens</p>
-              <p className="label-body">{balance?.balance}</p>
+              <p className="label-body">{balance?.bonusTokenBalance + balance?.paidTokenBalance}</p>
               <div className="credits-body">
                 <table className="credits-table">
                   <tbody>
                     <tr className="t-row">
                       <td className="t-label">Bonus Credits</td>
-                      <td className="t-value">50</td>
+                      <td className="t-value">{balance?.bonusTokenBalance}</td>
                     </tr>
                     <tr className="t-row">
                       <td className="t-label">Purchased Credits</td>
-                      <td className="t-value">112</td>
+                      <td className="t-value">{balance?.paidTokenBalance}</td>
                     </tr>
                   </tbody>
                 </table>

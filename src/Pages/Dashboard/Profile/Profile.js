@@ -7,7 +7,8 @@ import ProfileForm from "./ProfileForm/ProfileForm";
 import AccountSettingsForm from "./ProfileForm/AccountSettingsForm";
 import PasswordForm from "./ProfileForm/PasswordForm";
 
-import { actionGetCorporateProfileSagaAction } from '../../Store/Actions/SagaActions/CorporateProfileSagaActions';
+// import { actionGetCorporateProfileSagaAction } from '../../Store/Actions/SagaActions/CorporateProfileSagaActions';
+import { actionGetCorporateProfileSagaAction } from '../../../Store/Actions/SagaActions/CorporateProfileSagaActions';
 
 const Profile = () => {
 

@@ -13,7 +13,7 @@ const StudentAuthentication = React.lazy(() => import('./Pages/Forms/Student/Stu
 const StudentRegCompleted = React.lazy(() => import('./Pages/Forms/Student/StudentRegCompleted'));
 const StudentPayment = React.lazy(() => import('./Pages/Forms/Student/StudentPayment'));
 const Dashboard = React.lazy(() => import('./Pages/Dashboard/Dashboard'));
-const Profile = React.lazy(() => import('./Pages/Profile/Profile'));
+const Profile = React.lazy(() => import('./Pages/Dashboard/Profile/Profile'));
 
 
 const routes = [

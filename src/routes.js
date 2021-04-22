@@ -16,6 +16,7 @@ const Dashboard = React.lazy(() => import('./Pages/Dashboard/Dashboard'));
 const Profile = React.lazy(() => import('./Pages/Dashboard/Profile/Profile'));
 // const Profile = React.lazy(() => import('./Pages/Profile/Profile'));
 const HiringCriteria = React.lazy(() => import('./Pages/Dashboard/CreateJob/HiringCriteria/index'));
+const Jobs = React.lazy(() => import('./Pages/Dashboard/CreateJob/Jobs/Jobs'));
 
 
 const routes = [
@@ -33,9 +34,10 @@ const routes = [
     { path: "/register/studentRegisterCompleted", strict: true, exact: true, role: "corporateReg", name: 'StudentRegCompleted', component: StudentRegCompleted },
     { path: "/register/studentPayment", strict: true, exact: true, role: "corporateReg", name: 'StudentPayment', component: StudentPayment },
     // DASHBOARD
-    { path: "/dashboard/", strict: true, exact: true, role: "dashboard", name: 'Dashboard', component: Dashboard },
+    { path: "/dashboard", strict: true, exact: true, role: "dashboard", name: 'Dashboard', component: Dashboard },
     { path: "/dashboard/profile/", strict: true, exact: true, role: "dashboard", name: 'Profile', component: Profile },
     { path: "/dashboard/createjob/hiring", strict: true, exact: true, role: "dashboard", name: 'HiringCriteria', component: HiringCriteria },
+    { path: "/dashboard/createjob/jobs", strict: true, exact: true, role: "dashboard", name: 'Jobs', component: Jobs },
 
 ];
 

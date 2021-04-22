@@ -20,7 +20,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                             onChange={handleChange}
                             className="modal-inp" required>
                             <option value={'DEFAULT'} disabled>Program</option>
-                            {lookUpData && lookUpData?.programs.length >= 0
+                            {lookUpData && lookUpData?.programs?.length >= 0
                                 ? lookUpData?.programs.map((item, i) => <option key={i} value={item.ProgramID}>{item.program}</option>) : (null)
                             }
                         </select>
@@ -34,7 +34,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                             defaultValue={'DEFAULT'}
                             className="modal-inp" required>
                             <option value={'DEFAULT'} disabled selected>Course</option>
-                            {lookUpData && lookUpData?.departments.length >= 0
+                            {lookUpData && lookUpData?.departments?.length >= 0
                                 ? lookUpData?.departments.map((item, i) => <option key={i} value={item.departmentID}>{item.ProgramID}</option>) : (null)
                             }
                         </select>

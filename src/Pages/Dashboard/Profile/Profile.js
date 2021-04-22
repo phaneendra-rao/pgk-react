@@ -7,7 +7,10 @@ import ProfileForm from "./ProfileForm/ProfileForm";
 import AccountSettingsForm from "./ProfileForm/AccountSettingsForm";
 import PasswordForm from "./ProfileForm/PasswordForm";
 
-import { actionGetCorporateProfileSagaAction, actionPatchCorporateProfileSagaAction } from "../../../Store/Actions/SagaActions/CorporateProfileSagaActions";
+import {
+  actionGetCorporateProfileSagaAction,
+  actionPatchCorporateProfileSagaAction,
+} from "../../../Store/Actions/SagaActions/CorporateProfileSagaActions";
 
 const Profile = () => {
   const [profile, setProfile] = useState();
@@ -28,7 +31,7 @@ const Profile = () => {
     setProfile({
       ...response,
       profilePicture: undefined,
-      attachment: undefined
+      attachment: undefined,
     });
   };
 
@@ -38,7 +41,7 @@ const Profile = () => {
         callback: onGetCorporateProfileRequest,
       })
     );
-  }
+  };
 
   useEffect(() => {
     getProfile();
@@ -68,12 +71,12 @@ const Profile = () => {
     for (let i = 0; i < val; i++) {
       let reader = new FileReader();
       reader.onload = function (ev) {
-        if(name==='profilePicture') {
+        if (name === "profilePicture") {
           setProfilePicture(ev.target.result.split(",")[1]);
-        } else if(name==='attachment') {
+        } else if (name === "attachment") {
           setAttachment(ev.target.result.split(",")[1]);
         }
-      }.bind(this);
+      };
 
       reader.readAsDataURL(event.target.files[i]);
     }
@@ -85,15 +88,15 @@ const Profile = () => {
 
   const saveProfile = () => {
     const updatedProfile = {
-      ...profile
+      ...profile,
     };
 
-    if(updatedProfile?.attachment===undefined) {
-      delete updatedProfile.attachment
+    if (updatedProfile?.attachment === undefined) {
+      delete updatedProfile.attachment;
     }
 
-    if(updatedProfile?.profilePicture===undefined) {
-      delete updatedProfile.profilePicture
+    if (updatedProfile?.profilePicture === undefined) {
+      delete updatedProfile.profilePicture;
     }
 
     dispatch(
@@ -102,6 +105,30 @@ const Profile = () => {
         callback: getProfile,
       })
     );
+  };
+
+  const isFormValid = () => {
+    if (
+      profile?.stakeHolderID &&
+      profile?.CIN &&
+      profile?.corporateType &&
+      profile?.corporateCategory &&
+      profile?.corporateIndustry &&
+      profile?.dateOfJoining &&
+      profile?.corporateHQAddressLine1 &&
+      profile?.corporateHQAddressCountry &&
+      profile?.corporateHQAddressState &&
+      profile?.corporateHQAddressCity &&
+      profile?.corporateHQAddressDistrict &&
+      profile?.corporateHQAddressZipCode &&
+      profile?.corporateHQAddressPhone &&
+      profile?.corporateHQAddressEmail &&
+      isTermsAndConditionsChecked
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -165,7 +192,12 @@ const Profile = () => {
       </div>
 
       <div className="w-100 text-center">
-        <button type="button" onClick={saveProfile} className="btn">
+        <button
+          type="button"
+          onClick={saveProfile}
+          disabled={!isFormValid()}
+          className="btn"
+        >
           Save
         </button>
       </div>

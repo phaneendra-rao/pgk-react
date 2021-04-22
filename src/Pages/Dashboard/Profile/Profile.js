@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BasicForm from "./ProfileForm/BasicForm";
@@ -11,12 +11,26 @@ import PasswordForm from "./ProfileForm/PasswordForm";
 import { actionGetCorporateProfileSagaAction } from '../../../Store/Actions/SagaActions/CorporateProfileSagaActions';
 
 const Profile = () => {
+  const [profile, setProfile] = useState();
+  const [isTermsAndConditionsChecked, setIsTermsAndConditionsChecked] = useState(false);
 
   const dispatch = useDispatch();
 
+  const onGetCorporateProfileRequest = (response) => {
+    console.log('response ', response);
+    setProfile(response);
+  }
+
   useEffect(()=>{
-    dispatch(actionGetCorporateProfileSagaAction());
+    dispatch(actionGetCorporateProfileSagaAction({
+      callback: onGetCorporateProfileRequest
+    }));
   }, [])
+
+
+  const updateProfileData = (e) => {
+    console.log('e ', e);
+  }
 
 
   return (
@@ -40,20 +54,25 @@ const Profile = () => {
           />
         </div>
       </div>
-      <BasicForm />
-      <AddressAndContactForm />
-      <ProfileForm />
-      <AccountSettingsForm />
+      <BasicForm profileData={profile} onChange={updateProfileData} />
+      <AddressAndContactForm profileData={profile} onChange={updateProfileData} />
+      <ProfileForm profileData={profile} onChange={updateProfileData} />
+      <AccountSettingsForm profileData={profile} onChange={updateProfileData} />
       <PasswordForm />
+
       <div className="d-grp">
         <div className="custom-control custom-checkbox">
           <input
+            onChange={()=>{
+              setIsTermsAndConditionsChecked(!isTermsAndConditionsChecked)
+            }}
+            checked={isTermsAndConditionsChecked}
             type="checkbox"
             className="custom-control-input"
             id="accept"
             required
           />
-          <label className="custom-control-label" for="accept">
+          <label className="custom-control-label" htmlFor="accept">
             I hereby accept the Terms & Conditions of the Platform
           </label>
         </div>

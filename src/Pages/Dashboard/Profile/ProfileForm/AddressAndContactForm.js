@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddressAndContactForm = () => {
+const AddressAndContactForm = (props) => {
     return (
         <div className="profile-box">
                         <aside className="profile-side">
@@ -78,7 +78,7 @@ const AddressAndContactForm = () => {
                                         <h6 className="reg-label">Corporate Headquarters</h6>
                                         <div className="custom-control custom-checkbox">
                                             <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                            <label className="custom-control-label" for="customCheck1">Same as Corporate
+                                            <label className="custom-control-label" htmlFor="customCheck1">Same as Corporate
                                                 Head
                                                 Quarters</label>
                                         </div>

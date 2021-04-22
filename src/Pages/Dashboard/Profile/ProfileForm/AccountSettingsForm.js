@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AccountSettingsForm = () => {
+const AccountSettingsForm = (props) => {
     return (
         <div className="profile-box">
                         <aside className="profile-side">
@@ -11,7 +11,7 @@ const AccountSettingsForm = () => {
                             <div className="row">
                                 <div className="col-md-4">
                                     <div className="d-grp">
-                                        <input type="text" name="addr" className="d-inp" placeholder="First Name" autofocus
+                                        <input type="text" name="addr" className="d-inp" placeholder="First Name" autoFocus
                                             required />
                                     </div>
                                 </div>
@@ -30,7 +30,7 @@ const AccountSettingsForm = () => {
 
                                 <div className="col-md-4">
                                     <div className="d-grp">
-                                        <input type="text" name="addr" className="d-inp" placeholder="Designation" autofocus
+                                        <input type="text" name="addr" className="d-inp" placeholder="Designation" autoFocus
                                             required />
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@ import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/Commo
 
 
 const getCorporateProfileRequest = () => {
-  const URL = "/u/profile";
+  const URL = "/u/profile/";
   return Axios.get(URL).then((res) => {
     return res.data;
   });
@@ -18,14 +18,11 @@ function* getCorporateProfileRequestSaga(action) {
     yield put(actionUpdateGlobalLoaderSagaAction(true));
 
     try {
-
         const response = yield call(getCorporateProfileRequest);
         action.payload.callback(response);
-
     } catch (err) {
         if (err.response) {
             toast.error(err.response.data.errors[0].message);
-            // console.log("errors.response", err.response.data);
         } else {
             toast.error("Something Wrong!", err.message);
         }

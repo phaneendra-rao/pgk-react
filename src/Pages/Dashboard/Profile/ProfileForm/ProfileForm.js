@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileForm = () => {
+const ProfileForm = (props) => {
     return (
         <div className="profile-box">
         <aside className="profile-side">
@@ -15,7 +15,7 @@ const ProfileForm = () => {
                     </div>
                     <div className="d-attach">
                         <input type="file" className="d-inp" name="attachment" id="attachment" />
-                        <label for="attachment" className="d-label"> <i className="fas fa-paperclip mr-2"></i> Attachment</label>
+                        <label htmlFor="attachment" className="d-label"> <i className="fas fa-paperclip mr-2"></i> Attachment</label>
                     </div>
                 </div>
             </div>

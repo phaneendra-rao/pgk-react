@@ -1,6 +1,7 @@
 import React from "react";
 
-const BasicForm = () => {
+const BasicForm = (props) => {
+  console.log('props?.profileData?.dateOfJoining ', props?.profileData?.dateOfJoining);
   return (
     <div className="profile-box">
       <aside className="profile-side">
@@ -12,7 +13,9 @@ const BasicForm = () => {
             <div className="d-grp">
               <input
                 type="text"
-                name=""
+                name="stakeholderID"
+                defaultValue={props?.profileData?.stakeholderID}
+                onChange={props?.onChange}
                 className="d-inp"
                 placeholder="Stakeholder ID"
                 required
@@ -23,7 +26,9 @@ const BasicForm = () => {
             <div className="d-grp">
               <input
                 type="text"
-                name=""
+                name="CIN"
+                defaultValue={props?.profileData?.CIN}
+                onChange={props?.onChange}
                 className="d-inp"
                 placeholder="Organization Registration ID / CIN *"
                 required
@@ -63,7 +68,9 @@ const BasicForm = () => {
             <div className="d-grp">
               <input
                 type="date"
-                name=""
+                name="dateOfJoining"
+                value={props?.profileData?.dateOfJoining ? new Date(props?.profileData?.dateOfJoining).toISOString().substring(0, 10) : undefined}
+                onChange={props?.onChange}
                 className="d-inp"
                 title="Date of Commencement"
                 placeholder="Date of Commencement"

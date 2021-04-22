@@ -1025,7 +1025,7 @@ body .main-body .page-body .welcome-widget {
 }
 
 .add-new-jobs-section .job-details-form {
-    background-color: rgb(190, 190, 190);
+    background-color: rgba(135, 139, 166, 0.31);
     padding: 10px 14px;
 }
 

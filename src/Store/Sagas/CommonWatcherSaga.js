@@ -1,8 +1,8 @@
 // import packages
-import { take, put, call, takeLatest } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
-import history from '../../@history';
+// import history from '../../@history';
 import { ACTION_GET_DEPENDENCY_LOOKUPS_REQUEST } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
@@ -32,10 +32,10 @@ function* getDependencyLookupsRequestSaga(action) {
         action.payload.callback(response);
 
     } catch (err) {
-        if (err.response) {
-            toast.error(err.response.data.errors[0].message);
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
         } else {
-            toast.error("Something Wrong!", err.message);
+            toast.error("Something Wrong!", err?.message);
         }
     } finally {
         yield put(actionUpdateGlobalLoaderSagaAction(false));

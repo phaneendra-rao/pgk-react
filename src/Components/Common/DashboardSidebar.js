@@ -40,7 +40,7 @@ const DashboardSidebar = () => {
                                 </NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to="/dashboard/" exact className="sidebar-link">
+                                <NavLink to="/dashboard/createjob/jobs" exact className="sidebar-link">
                                     <i className="fas fa-briefcase"></i>
                                 Job
                                 </NavLink></li>

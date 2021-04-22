@@ -17,26 +17,25 @@ const loginRequest = (model) => {
 };
 
 function* loginRequestSaga(action) {
-    yield put(actionUpdateGlobalLoaderSagaAction(true));
+  yield put(actionUpdateGlobalLoaderSagaAction(true));
 
-    try {      
-        const response = yield call(loginRequest, action.payload.apiPayloadRequest);
-        localStorage.setItem('token', response.token);
-        toast.success("Login successful");
+  try {
+    const response = yield call(loginRequest, action.payload.apiPayloadRequest);
+    localStorage.setItem('token', response.token);
+    toast.success("Login successful");
 
-        action.payload.callback(response.redirectURL);
+    action.payload.callback(response.redirectURL);
 
-    } catch (err) {
-        if (err.response) {
-            toast.error(err.response.data.errors[0].message);
-            // console.log("errors.response", err.response.data);
-        } else {
-            toast.error("Something Wrong!", err.message);
-        }
-
-    } finally {
-      yield put(actionUpdateGlobalLoaderSagaAction(false));
+  } catch (err) {
+    if (err?.response) {
+      toast.error(err?.response?.data?.errors[0]?.message);
+    } else {
+      toast.error("Something Wrong!", err?.message);
     }
+
+  } finally {
+    yield put(actionUpdateGlobalLoaderSagaAction(false));
+  }
 }
 
 export default function* LoginWatcherSaga() {

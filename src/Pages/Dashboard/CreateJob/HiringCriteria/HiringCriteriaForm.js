@@ -7,14 +7,14 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
         hiringCriteriaName: '',
         programID: '',
         departmentID: '',
-        cutOffCategory: '',
+        cutOffCategory: 'CGPA',
         cutOff: '',
         eduGapsSchoolAllowed: false,
         eduGaps11N12Allowed: false,
         eduGapsGradAllowed: false,
         eduGapsPGAllowed: false,
         allowActiveBacklogs: false,
-        numberOfAllowedBacklogs: '',
+        numberOfAllowedBacklogs: 0,
         yearOfPassing: '',
         remarks: ''
     };
@@ -24,21 +24,34 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        console.log(value);
 
         switch (name) {
             case 'hiringCriteriaName':
             case 'programID':
             case 'departmentID':
             case 'cutOffCategory':
-            case 'cutOff':
-            case 'numberOfAllowedBacklogs':
-            case 'yearOfPassing':
             case 'remarks':
                 setHiringData(preState => ({
                     ...preState,
                     [name]: value
                 }));
+                break;
+
+            case 'cutOff':
+                setHiringData(preState => ({
+                    ...preState,
+                    [name]: parseFloat(value)
+                }));
+                break;
+
+
+            case 'numberOfAllowedBacklogs':
+            case 'yearOfPassing':
+                setHiringData(preState => ({
+                    ...preState,
+                    [name]: parseInt(value)
+                }));
+                break;
 
             case 'eduGaps':
                 const eduGaps = value === 'true' ? true : false;
@@ -48,11 +61,12 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
                 // }));
                 setEduGaps(eduGaps)
                 break;
+
             case 'allowActiveBacklogs':
-                case 'eduGapsSchoolAllowed':
-                case 'eduGaps11N12Allowed':
-                case 'eduGapsGradAllowed':
-                case 'eduGapsPGAllowed':
+            case 'eduGapsSchoolAllowed':
+            case 'eduGaps11N12Allowed':
+            case 'eduGapsGradAllowed':
+            case 'eduGapsPGAllowed':
                 const allowActiveBacklogs = value === 'true' ? true : false;
                 setHiringData(preState => ({
                     ...preState,

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StudentPrimaryCmp = ({ countryCodes, code, history, studentPrimaryData, errors, saveData, handlerChange, handleSubmit }) => {
-    const { emailErr, email2Err, mobileErr, mobile2Err } = errors;
+    const { emailErr, email2Err, mobileErr, mobile2Err, cgemailErr, fmobileErr, femailErr } = errors;
     return (
         <form onSubmit={handleSubmit} className="login-form reg-form">
             <div className="row">
@@ -46,7 +46,7 @@ const StudentPrimaryCmp = ({ countryCodes, code, history, studentPrimaryData, er
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-6">
                     <div className="login-grp">
                         <input
                             type="text"
@@ -59,7 +59,21 @@ const StudentPrimaryCmp = ({ countryCodes, code, history, studentPrimaryData, er
                             required={true} />
                     </div>
                 </div>
-                <div className="col-md-5">
+                <div className="col-md-6">
+                    <div className="login-grp">
+                        <input
+                            type="email"
+                            name="collegeEmail"
+                            onChange={handlerChange}
+                            defaultValue={studentPrimaryData.collegeEmail}
+                            className={`login-inp${cgemailErr ? ' login-inp-error' : ''}`}
+                            placeholder="College mail"
+                            required={false} />
+                        {cgemailErr ? <p className="inp-errors">{cgemailErr}</p> : null}
+                    </div>
+                </div>
+                <div className="w-100"></div>
+                <div className="col-md-6">
                     <div className="login-grp">
                         <div className="d-flex">
                             <input
@@ -73,7 +87,7 @@ const StudentPrimaryCmp = ({ countryCodes, code, history, studentPrimaryData, er
                                 readOnly
                                 disabled
                                 required={true} />
-                            <div>
+                            <div className="w-100">
                                 <input
                                     type="tel"
                                     name="phoneNuber"
@@ -87,7 +101,7 @@ const StudentPrimaryCmp = ({ countryCodes, code, history, studentPrimaryData, er
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-6">
                     <div className="login-grp">
                         <input
                             type="email"
@@ -375,12 +389,12 @@ const StudentPrimaryCmp = ({ countryCodes, code, history, studentPrimaryData, er
                             onChange={handlerChange}
                             defaultValue={studentPrimaryData.fathersMiddleName}
                             className="login-inp"
-                            placeholder="Father's Middle Name"
+                            placeholder="Father's last Name"
                             autoFocus
                             required={true} />
                     </div>
                 </div>
-                <div className="col-md-4">
+                {/* <div className="col-md-4">
                     <div className="login-grp">
                         <input
                             type="text"
@@ -392,7 +406,63 @@ const StudentPrimaryCmp = ({ countryCodes, code, history, studentPrimaryData, er
                             autoFocus
                             required={true} />
                     </div>
+                </div> */}
+
+                <div className="col-md-4">
+                    <div className="login-grp">
+                        <input
+                            type="email"
+                            name="fathersGuardianEmailID"
+                            onChange={handlerChange}
+                            defaultValue={studentPrimaryData.fathersGuardianEmailID}
+                            className={`login-inp${femailErr ? ' login-inp-error' : ''}`}
+                            placeholder="Father's mail"
+                            required={false} />
+                        {femailErr ? <p className="inp-errors">{femailErr}</p> : null}
+                    </div>
                 </div>
+
+                <div className="w-100"></div>
+                <div className="col-md-4">
+                    <div className="login-grp">
+                        <input
+                            type="text"
+                            name="fathersGuardianOccupation"
+                            onChange={handlerChange}
+                            defaultValue={studentPrimaryData.fathersGuardianOccupation}
+                            className="login-inp"
+                            placeholder="Father's Occupation"
+                            autoFocus
+                            required={true} />
+                    </div>
+                </div>
+                <div className="col-md-4">
+                    <div className="login-grp">
+                        <input
+                            type="text"
+                            name="fathersGuardianCompany"
+                            onChange={handlerChange}
+                            defaultValue={studentPrimaryData.fathersGuardianCompany}
+                            className="login-inp"
+                            placeholder="Father's Company name"
+                            autoFocus
+                            required={true} />
+                    </div>
+                </div>
+                <div className="col-md-4">
+                    <div className="login-grp">
+                        <input
+                            type="tel"
+                            name="fathersGuardianPhoneNumber"
+                            onChange={handlerChange}
+                            defaultValue={studentPrimaryData.fathersGuardianPhoneNumber}
+                            className={`login-inp${fmobileErr ? ' login-inp-error' : ''}`}
+                            placeholder="Father's Phone Number"
+                            required={true} />
+                        {fmobileErr ? <p className="inp-errors">{fmobileErr}</p> : null}
+                    </div>
+                </div>
+
             </div>
             <div className="text-right">
                 <button type="submit" className="reg-btn">Next</button>

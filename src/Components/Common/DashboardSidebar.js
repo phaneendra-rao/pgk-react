@@ -16,7 +16,7 @@ const DashboardSidebar = () => {
                     </NavLink>
                 </li>
                 <li className="sidebar-item">
-                    <NavLink to="/dashboard/profile" exact activeClassName="active" className="sidebar-link">
+                    <NavLink to="/dashboard/profile/" exact activeClassName="active" className="sidebar-link">
                         <i className="fas fa-building"></i>
                         Profile
                     </NavLink>
@@ -34,7 +34,7 @@ const DashboardSidebar = () => {
                     <div id="job" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <ul className="sidebar-list">
                             <li className="sidebar-item">
-                                <NavLink to="/dashboard/" exact activeClassName="active" className="sidebar-link">
+                                <NavLink to="/dashboard/createjob/hiring" exact activeClassName="active" className="sidebar-link">
                                     <i className="fas fa-file-alt"></i>
                                     Hiring Criteria
                                 </NavLink>

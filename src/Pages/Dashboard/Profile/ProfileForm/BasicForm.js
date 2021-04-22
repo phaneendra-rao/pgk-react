@@ -1,7 +1,68 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { actionGetDependencyLookUpsSagaAction } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
 
 const BasicForm = (props) => {
-  console.log('props?.profileData?.dateOfJoining ', props?.profileData?.dateOfJoining);
+  const dispatch = useDispatch();
+  const [corporateTypes, setCorporateTypes] = useState([]);
+  const [corporateCategories, setCorporateCategories] = useState([]);
+  const [corporateIndustries, setCorporateIndustries] = useState([]);
+
+  const onGetDependencyLookUpsResponse = (response) => {
+    setCorporateTypes(
+      response?.corporateTypes?.length
+        ? response.corporateTypes.map((item) => {
+            if (item?.codeDescription) {
+              return {
+                value: item.codeDescription,
+                label: item.codeDescription,
+              };
+            }
+          })
+        : []
+    );
+
+    setCorporateCategories(
+      response?.corporateCategory?.length
+        ? response.corporateCategory.map((item) => {
+            if (item?.codeDescription) {
+              return {
+                value: item.codeDescription,
+                label: item.codeDescription,
+              };
+            }
+          })
+        : []
+    );
+
+    setCorporateIndustries(
+      response?.corporateIndustry?.length
+        ? response.corporateIndustry.map((item) => {
+            if (item?.codeDescription) {
+              return {
+                value: item.codeDescription,
+                label: item.codeDescription,
+              };
+            }
+          })
+        : []
+    );
+  };
+
+  useEffect(() => {
+    dispatch(
+      actionGetDependencyLookUpsSagaAction({
+        apiPayloadRequest: [
+          "corporateType",
+          "corporateCategory",
+          "corporateIndustry",
+        ],
+        callback: onGetDependencyLookUpsResponse,
+      })
+    );
+  }, []);
+
   return (
     <div className="profile-box">
       <aside className="profile-side">
@@ -14,7 +75,12 @@ const BasicForm = (props) => {
               <input
                 type="text"
                 name="stakeholderID"
-                defaultValue={props?.profileData?.stakeholderID}
+                value={
+                  props?.profileData?.stakeholderID
+                    ? props?.profileData?.stakeholderID
+                    : ""
+                }
+                disabled
                 onChange={props?.onChange}
                 className="d-inp"
                 placeholder="Stakeholder ID"
@@ -27,10 +93,11 @@ const BasicForm = (props) => {
               <input
                 type="text"
                 name="CIN"
-                defaultValue={props?.profileData?.CIN}
+                value={props?.profileData?.CIN ? props?.profileData?.CIN : ""}
                 onChange={props?.onChange}
                 className="d-inp"
                 placeholder="Organization Registration ID / CIN *"
+                disabled
                 required
               />
             </div>
@@ -38,29 +105,38 @@ const BasicForm = (props) => {
           <div className="w-100"></div>
           <div className="col-md">
             <div className="d-grp">
-              <select name="" className="d-inp" required>
-                <option value="">Corporate Sector *</option>
-                <option value="">Program</option>
-                <option value="">Program</option>
+              <select name="corporateType" className="d-inp" required>
+                <option value="">Select Corporate Sector</option>
+                {corporateTypes?.length && (
+                  corporateTypes.map((item) => {
+                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateType === item.value ? true : false}>{item.label}</option>;
+                  })
+                )}
               </select>
             </div>
           </div>
           <div className="col-md">
             <div className="d-grp">
-              <select name="" className="d-inp" required>
-                <option value="">Corporate Category *</option>
-                <option value="">Program</option>
-                <option value="">Program</option>
+              <select name="corporateCategory" className="d-inp" required>
+                <option value="">Select Corporate Category</option>
+                {corporateCategories?.length && (
+                  corporateCategories.map((item) => {
+                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateCategory === item.value ? true : false}>{item.label}</option>;
+                  })
+                )}
               </select>
             </div>
           </div>
           <div className="w-100"></div>
           <div className="col-md">
             <div className="d-grp">
-              <select name="" className="d-inp" required>
-                <option value="">Industry Vertical *</option>
-                <option value="">Program</option>
-                <option value="">Program</option>
+              <select name="corporateIndustry" className="d-inp" required>
+                <option value="">Select Industry Vertical</option>
+                {corporateIndustries?.length && (
+                  corporateIndustries.map((item) => {
+                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateIndustry === item.value ? true : false}>{item.label}</option>;
+                  })
+                )}
               </select>
             </div>
           </div>
@@ -69,7 +145,13 @@ const BasicForm = (props) => {
               <input
                 type="date"
                 name="dateOfJoining"
-                value={props?.profileData?.dateOfJoining ? new Date(props?.profileData?.dateOfJoining).toISOString().substring(0, 10) : undefined}
+                value={
+                  props?.profileData?.dateOfJoining
+                    ? new Date(props?.profileData?.dateOfJoining)
+                        .toISOString()
+                        .substring(0, 10)
+                    : undefined
+                }
                 onChange={props?.onChange}
                 className="d-inp"
                 title="Date of Commencement"

@@ -26,8 +26,6 @@ function* getDependencyLookupsRequestSaga(action) {
     yield put(actionUpdateGlobalLoaderSagaAction(true));
 
     const lookupQueryString  = getStringifyLookupKeys(action.payload.apiPayloadRequest);
-
-    console.log(('lookupQueryString ', lookupQueryString));
     
     try {
         const response = yield call(getDependencyLookupsRequest, lookupQueryString);
@@ -36,7 +34,6 @@ function* getDependencyLookupsRequestSaga(action) {
     } catch (err) {
         if (err.response) {
             toast.error(err.response.data.errors[0].message);
-            // console.log("errors.response", err.response.data);
         } else {
             toast.error("Something Wrong!", err.message);
         }

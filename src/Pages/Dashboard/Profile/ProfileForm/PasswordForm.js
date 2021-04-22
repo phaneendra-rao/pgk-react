@@ -11,7 +11,7 @@ const PasswordForm = () => {
                                 <div className="col-md-4">
                                     <div className="d-grp">
                                         <input type="password" name="addr" className="d-inp"
-                                            placeholder="Choose your login password (Min 8 digits)" autofocus
+                                            placeholder="Choose your login password (Min 8 digits)" 
                                             required />
                                     </div>
                                 </div>

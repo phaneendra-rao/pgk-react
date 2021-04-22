@@ -34,7 +34,6 @@ const ContactPersonnel = (props) => {
         if (storeData) {
             Object.keys(initialState).map(keyName => {
                 for (const key in storeData) {
-                    // console.log(keyName === key);
                     if (keyName === key) {
                         setContactPersonnel(prevState => ({
                             ...prevState,
@@ -47,7 +46,6 @@ const ContactPersonnel = (props) => {
     }, []);
 
     // useEffect(() => {
-    //     console.log(apiStatus);
     //     if (apiStatus) {
     //         props.history.push('/register/authentication');
     //     }
@@ -267,7 +265,6 @@ const ContactPersonnel = (props) => {
                     attachment: finalData.attachment,
                     password: finalData.password
                 }
-                // console.log("-------------", data);
                 await dispatch(SaveCoprorateData(data, 3));
                 await dispatch(SignupAction(data, props.history, selectedName));
             }

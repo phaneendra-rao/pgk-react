@@ -14,28 +14,33 @@ const Index = () => {
     const [isDetailsModal, setIsDetailsModal] = useState(false);
     const [lookUpData, setLookUpData] = useState([]);
     const [modelData, setModelData] = useState({});
+    const [hiringCriteria, setHiringCriteria] = useState([]);
 
     const dispatch = useDispatch();
-    const hiringCriteria = useSelector(state => state.DashboardReducer.hiringCriteria);
+    // const hiringCriteria = useSelector(state => state.DashboardReducer.hiringCriteria);
 
+    const getHiring = () => {
+        dispatch(HiringSagaAction({ callback: getAllHirings }));
+    }
 
     useEffect(() => {
         getHiring();
         dispatch(actionGetDependencyLookUpsSagaAction({
             apiPayloadRequest: ['programs', 'branches'],
             callback: dropdowns
-        }))
+        }));
     }, []);
+
+    const getAllHirings = (data) => {
+        setHiringCriteria(data);
+    }
 
     const dropdowns = (data) => {
         setLookUpData(data);
     }
 
-    const getHiring = () => {
-        dispatch(HiringSagaAction({ callback: closeModel }));
-    }
-
     const closeModel = () => {
+        getHiring();
         $('#hiringCriteria').modal('hide');
         setIsOpen(false);
     }
@@ -51,8 +56,8 @@ const Index = () => {
 
     const addHiringCriteria = (body) => {
         dispatch(AddHiringSagaAction({
-            body: body,
-            callback: getHiring
+            apiPayloadRequest: body,
+            callback: closeModel
         }))
     }
 

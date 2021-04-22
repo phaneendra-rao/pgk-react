@@ -31,7 +31,7 @@ const addJobs = (payload) => {
 
 function* addJobsSaga(action){
     try {
-        const model = action.payload.body;
+        const model = action.payload.apiPayloadRequest;
         let formData = new FormData();
         for (const key in model) {
             formData.append(key, model[key]);

@@ -30,6 +30,31 @@ function* getDependencyLookupsRequestSaga(action) {
     try {
         const response = yield call(getDependencyLookupsRequest, lookupQueryString);
         action.payload.callback(response);
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
+const getCountryCodes = (action) => {
+    const URL = "http://restcountries.eu/rest/v2/all?fields=name;flag;callingCodes;";
+    return Axios.get(URL)
+        .then((res) => {
+            return res.data;
+        });
+}
+
+function* getCountryCodesRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const response = yield call(getCountryCodes);
+        action.payload.callback(response);
 
     } catch (err) {
         if (err?.response) {
@@ -40,6 +65,34 @@ function* getDependencyLookupsRequestSaga(action) {
     } finally {
         yield put(actionUpdateGlobalLoaderSagaAction(false));
     }
+
+}
+
+const getCountryCodes = (action) => {
+    const URL = "http://restcountries.eu/rest/v2/all?fields=name;flag;callingCodes;";
+    return Axios.get(URL)
+        .then((res) => {
+            return res.data;
+        });
+}
+
+function* getCountryCodesRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const response = yield call(getCountryCodes);
+        action.payload.callback(response);
+
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+
 }
 
 const getCountryCodes = (action) => {

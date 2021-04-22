@@ -34,7 +34,6 @@ const StudentPersonnel = (props) => {
         if (storeData) {
             Object.keys(initialState).map(keyName => {
                 for (const key in storeData) {
-                    // console.log(keyName === key);
                     if (keyName === key) {
                         setContactPersonnel(prevState => ({
                             ...prevState,
@@ -47,7 +46,6 @@ const StudentPersonnel = (props) => {
     }, []);
 
     // useEffect(() => {
-    //     console.log(apiStatus);
     //     if (apiStatus) {
     //         props.history.push('/register/authentication');
     //     }

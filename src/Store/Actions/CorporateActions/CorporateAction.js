@@ -84,7 +84,6 @@ export const SignupAction = (model, history, type) => {
             .catch((err) => {
                 if (err.response) {
                     toast.error(err.response.data.errors[0].message);
-                    // console.log("errors.response", err.response.data);
                 } else {
                     toast.error("Something Wrong!", err.message);
                 }
@@ -97,7 +96,6 @@ export const SignupAction = (model, history, type) => {
 export const StudentSignupAction = (model, history, type) => {
     return (dispatch) => {
         const URL = "/o/signUp/Student";
-        console.log(model);
         let formData = new FormData();
         for (const key in model) {
             formData.append(key, model[key]);
@@ -118,7 +116,6 @@ export const StudentSignupAction = (model, history, type) => {
             .catch((err) => {
                 if (err.response) {
                     toast.error(err.response.data.errors[0].message);
-                    // console.log("errors.response", err.response.data);
                 } else {
                     toast.error("Something Wrong!", err.message);
                 }

@@ -155,7 +155,6 @@ const Register = (props) => {
 
     const saveData = (event) => {
         const isCheked = event.target.checked;
-        // console.log(event.target.checked);
         if (isCheked) {
             setCorporatePrimaryData(preState => ({
                 ...preState,
@@ -191,7 +190,6 @@ const Register = (props) => {
         event.preventDefault();
         const { emailErr, mobileErr } = errors;
         const { corporateName, CIN, corporateHQAddressPhone, corporateLocalBranchAddressPhone } = corporatePrimaryData;
-        // console.log(corporatePrimaryData, code, code2);
         if (corporateName && CIN && corporateHQAddressPhone && !emailErr && !mobileErr) {
             corporatePrimaryData.corporateHQAddressPhone = code + corporateHQAddressPhone;
             corporatePrimaryData.corporateLocalBranchAddressPhone = code2 + corporateLocalBranchAddressPhone;

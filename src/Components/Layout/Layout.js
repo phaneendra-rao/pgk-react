@@ -11,7 +11,6 @@ const Layout = (props) => {
     //     if (apiStatus) {
     //         setStatus(true);
     //         // props.history.push('/register/authentication');
-    //         console.log("==============");
     //     }
     //     // return () => {
     //     //     dispatch(ResetRdrAction());

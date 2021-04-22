@@ -47,7 +47,6 @@ const StudentSecondary = (props) => {
                 ...preState,
                 attachment: event.target.files[0]
             }))
-            // console.log(event.target.files[0]);
             // if (event.target.files[0].type === "application/pdf")
             const val = event.target.files.length;
             for (let i = 0; i < val; i++) {

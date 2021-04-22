@@ -219,7 +219,6 @@ const StudentRegister = (props) => {
 
     const saveData = (event) => {
         const isCheked = event.target.checked;
-        // console.log(event.target.checked);
         if (isCheked) {
             setStudentPrimaryData(preState => ({
                 ...preState,

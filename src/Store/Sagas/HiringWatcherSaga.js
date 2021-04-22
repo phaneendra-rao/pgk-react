@@ -16,7 +16,7 @@ const getHiringCriteria = () => {
 function* getHiringCriteriaSaga(action) {
     try {
         const resp = yield call(getHiringCriteria);
-        yield put({ type: ACTION_GET_CORPORATE_HIRING_RESPONSE, payload: resp });
+        // yield put({ type: ACTION_GET_CORPORATE_HIRING_RESPONSE, payload: resp });
         action.payload.callback(resp);
     } catch (err) {
         if (err?.response) {
@@ -35,13 +35,12 @@ const addHiringCriteria = (payload) => {
 
 function* addHiringCriteriaSaga(action) {
     try {
-        const model = action.payload.body;
+        const model = action.payload.apiPayloadRequest;
         let formData = new FormData();
         formData.append('hiringCriterias', JSON.stringify(model));
         const resp = yield call(addHiringCriteria, formData);
         action.payload.callback(resp);
     } catch (err) {
-        console.log(err);
         if (err?.response) {
             toast.error(err?.response?.data?.errors[0]?.message);
         } else {

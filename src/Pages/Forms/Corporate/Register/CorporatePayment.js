@@ -66,7 +66,6 @@ const CorporatePayment = (props) => {
             description: "PGK TECHNOLOGIES PRIVATE LIMITED",
             image: "https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png",
             handler: function (response) {
-                console.log(response);
                 dispatch(ValidatePaymentAction(paymentOrder.orderID))
                 // alert(response.razorpay_payment_id);
                 $('#paymentSuccess').modal({ backdrop: 'static', keyboard: false });
@@ -178,7 +177,6 @@ const CorporatePayment = (props) => {
         const { name, email, contact } = paymentData;
         const { nameErr, mobileErr, emailErr, amtErr } = errors;
         if (name && email && contact && !nameErr && !mobileErr && !amtErr) {
-            // console.log(paymentData);
             openPayModal();
         } else {
             toast.error("Please enter required input fields");

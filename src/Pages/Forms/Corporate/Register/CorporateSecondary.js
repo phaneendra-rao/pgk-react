@@ -31,7 +31,6 @@ const CorporateSecondary = (props) => {
         if (storeData) {
             Object.keys(initialState).map(keyName => {
                 for (const key in storeData) {
-                    // console.log(keyName === key);
                     if (keyName === key) {
                         setCorporateSecondary(prevState => ({
                             ...prevState,
@@ -41,7 +40,6 @@ const CorporateSecondary = (props) => {
                 }
             })
         }
-        // console.log(corporateSecondary);
 
     }, []);
 
@@ -52,7 +50,6 @@ const CorporateSecondary = (props) => {
                 ...preState,
                 attachment: event.target.files[0]
             }))
-            // console.log(event.target.files[0]);
             // if (event.target.files[0].type === "application/pdf")
             const val = event.target.files.length;
             for (let i = 0; i < val; i++) {

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const JobsCmp = ({ allJobs }) => {
+const JobsCmp = (props) => {
     return (
         <div className="row published-jobs-section">
             <div className="d-flex flex-column justify-content-start align-items-center w-full">
                 <p className="heading">Jobs Created</p>
-                {allJobs && allJobs?.length >= 0
+                {!props.allJobs && !props.allJobs?.length >= 0
                     ? <div className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full">
                         <div className="item d-flex flex-row justify-content-between align-items-center w-full">
                             <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
@@ -22,10 +22,10 @@ const JobsCmp = ({ allJobs }) => {
                         </div>
                         <div className="vertical-divider" />
                         <div className="job-list-item-details-container d-flex flex-row justify-content-center align-items-center">
-                            <div className="job-details-btn d-flex flex-row justify-content-around align-items-center" data-toggle="modal" data-target="#exampleModalCenter">
+                            <button className="job-details-btn d-flex flex-row justify-content-around align-items-center" onClick={() => props.detailsModal({})} data-toggle="modal" data-target="#jobDetails">
                                 <p>Details</p>
                                 <i className="fas fa-chevron-right" />
-                            </div>
+                            </button>
                         </div>
                     </div> : "No data"}
                 {/* <div className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full">
@@ -50,9 +50,7 @@ const JobsCmp = ({ allJobs }) => {
                         </div>
                     </div>
                 </div> */}
-                <a href="add-job.html">
-                    <div className="add-job-btn"> Add New Job</div>
-                </a>
+                <button type="button" onClick={props.handleClick} className="add-job-btn"> Add New Job</button>
             </div>
         </div>
 

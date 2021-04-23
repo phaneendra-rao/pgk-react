@@ -103,11 +103,11 @@ const AddJobs = (props) => {
         setAddSkills(newItems);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!addJobs.jobName && !addJobs.hiringCriteriaID && !addJobs.hiringCriteriaName && addskills.length === 0 ) {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (!addJobs.jobName && !addJobs.hiringCriteriaID && !addJobs.hiringCriteriaName && addskills.length === 0) {
             toast.error("Please enter all required fields");
-         return;   
+            return;
         }
         const model = {
             ...addJobs,
@@ -121,14 +121,15 @@ const AddJobs = (props) => {
     return (
         <>
             <AddJobsCmp
-                hiringCriteria={props.hiringCriteria}
-                lookUpData={props.lookUpData}
                 handleChange={handleChange}
                 handleChangeSkills={handleChangeSkills}
                 addNewItem={addNewItem}
                 removeItem={removeItem}
                 handleSubmit={handleSubmit}
                 addskills={addskills}
+                hiringCriteria={props.hiringCriteria}
+                lookUpData={props.lookUpData}
+                handleClick={props.handleClick}
             />
         </>
     )

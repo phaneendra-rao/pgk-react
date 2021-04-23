@@ -100,7 +100,7 @@ const AddJobsCmp = (props) => {
             </div>
             <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
                 <button type="submit" className="job-btn">Save Job</button>
-                <button type="reset" className="job-btn">Cancel</button>
+                <button type="reset" onClick={props.handleClick} className="job-btn">Cancel</button>
             </div>
         </form>
     )

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 import AddJobsCmp from '../../../../Components/Dashboard/JobsCmp/AddJobsCmp'
 
 const AddJobs = (props) => {
@@ -104,6 +105,10 @@ const AddJobs = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!addJobs.jobName && !addJobs.hiringCriteriaID && !addJobs.hiringCriteriaName && addskills.length === 0 ) {
+            toast.error("Please enter all required fields");
+         return;   
+        }
         const model = {
             ...addJobs,
             skills: JSON.stringify(addskills),

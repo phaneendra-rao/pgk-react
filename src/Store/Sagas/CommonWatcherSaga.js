@@ -68,60 +68,6 @@ function* getCountryCodesRequestSaga(action) {
 
 }
 
-const getCountryCodes = (action) => {
-    const URL = "http://restcountries.eu/rest/v2/all?fields=name;flag;callingCodes;";
-    return Axios.get(URL)
-        .then((res) => {
-            return res.data;
-        });
-}
-
-function* getCountryCodesRequestSaga(action) {
-    yield put(actionUpdateGlobalLoaderSagaAction(true));
-
-    try {
-        const response = yield call(getCountryCodes);
-        action.payload.callback(response);
-
-    } catch (err) {
-        if (err?.response) {
-            toast.error(err?.response?.data?.errors[0]?.message);
-        } else {
-            toast.error("Something Wrong!", err?.message);
-        }
-    } finally {
-        yield put(actionUpdateGlobalLoaderSagaAction(false));
-    }
-
-}
-
-const getCountryCodes = (action) => {
-    const URL = "http://restcountries.eu/rest/v2/all?fields=name;flag;callingCodes;";
-    return Axios.get(URL)
-        .then((res) => {
-            return res.data;
-        });
-}
-
-function* getCountryCodesRequestSaga(action) {
-    yield put(actionUpdateGlobalLoaderSagaAction(true));
-
-    try {
-        const response = yield call(getCountryCodes);
-        action.payload.callback(response);
-
-    } catch (err) {
-        if (err?.response) {
-            toast.error(err?.response?.data?.errors[0]?.message);
-        } else {
-            toast.error("Something Wrong!", err?.message);
-        }
-    } finally {
-        yield put(actionUpdateGlobalLoaderSagaAction(false));
-    }
-
-}
-
 export default function* CommonWatcherSaga() {
   yield takeLatest(ACTION_GET_DEPENDENCY_LOOKUPS_REQUEST, getDependencyLookupsRequestSaga);
   yield takeLatest(ACTION_GET_COUNTRY_CODES_REQUEST, getCountryCodesRequestSaga);

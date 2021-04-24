@@ -1,4 +1,4 @@
-import { ACTION_GET_CORPORATE_JOBS_BYID_REQUEST, ACTION_GET_CORPORATE_JOBS_REQUEST, ACTION_POST_CORPORATE_JOBS_REQUEST } from "./SagaActionTypes"
+import { ACTION_GET_CORPORATE_JOBS_BYID_REQUEST, ACTION_GET_CORPORATE_JOBS_REQUEST, ACTION_POST_CORPORATE_JOBS_REQUEST, ACTION_POST_PUBLISH_CORPORATE_JOBS_REQUEST } from "./SagaActionTypes"
 
 export const GetJobsSagaAction = (payload) => {
     return {
@@ -20,3 +20,10 @@ export const AddJobsSagaAction = (payload) => {
         payload: payload
     }
 };
+
+export const actionPostPublishCorporateJobsRequest = (payload) => {
+    return {
+        type: ACTION_POST_PUBLISH_CORPORATE_JOBS_REQUEST,
+        payload: payload
+    }
+}

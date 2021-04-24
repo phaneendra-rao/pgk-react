@@ -20,6 +20,14 @@ const Jobs = () => {
 
     const dispatch = useDispatch();
 
+    const getHiring = () => {
+        dispatch(HiringSagaAction({ callback: getAllHirings }));
+    }
+
+    const getJobs = () => {
+        dispatch(GetJobsSagaAction({ callback: getAllJobs }));
+    }
+
     useEffect(() => {
         getHiring();
         getJobs();

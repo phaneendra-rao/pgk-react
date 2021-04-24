@@ -13,3 +13,10 @@ export const actionPatchCorporateProfileSagaAction = (payload) => {
         payload: payload
     }
 }
+
+export const actionPostPublishCorporateProfileSagaAction = (payload) => {
+    return {
+        type: ACTION_POST_PUBLISH_CORPORATE_PROFILE_REQUEST,
+        payload: payload
+    }
+}

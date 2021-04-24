@@ -58,7 +58,7 @@ const DashboardSidebar = () => {
                     <div id="Publish" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <ul className="sidebar-list">
                             <li className="sidebar-item">
-                                <NavLink to="/dashboard/batch/createbatch" exact activeClassName="active" className="sidebar-link">
+                                <NavLink to="/dashboard/publish/profile" exact activeClassName="active" className="sidebar-link">
                                     <i className="fas fa-building"></i>
                                     Profile
                                     </NavLink>
@@ -76,7 +76,7 @@ const DashboardSidebar = () => {
                                     </NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to="/dashboard/batch/createbatchtregister" exact activeClassName="active" className="sidebar-link">
+                                <NavLink to="/dashboard/publish/otherinformation" exact activeClassName="active" className="sidebar-link">
                                     <i className="fas fa-file"></i>Other Information
                                     </NavLink>
                             </li>
@@ -99,12 +99,12 @@ const DashboardSidebar = () => {
                     <div id="Subscribe" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <ul className="sidebar-list">
                             <li className="sidebar-item">
-                                <NavLink to="/dashboard/Subscribe/1" exact activeClassName="active" className="sidebar-link">
+                                <NavLink to="/dashboard/subscribe/newuniversity" exact activeClassName="active" className="sidebar-link">
                                     <i className="fas fa-university"></i>New Univ.
                                     </NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to="/dashboard/Subscribe/2" exact activeClassName="active" className="sidebar-link">
+                                <NavLink to="/dashboard/subscribe/subscriptionhistory" exact activeClassName="active" className="sidebar-link">
                                     <i className="fas fa-university"></i>Subscribed Univ.
                                     </NavLink>
                             </li>

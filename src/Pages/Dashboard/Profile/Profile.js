@@ -6,6 +6,8 @@ import AddressAndContactForm from "./ProfileForm/AddressAndContactForm";
 import ProfileForm from "./ProfileForm/ProfileForm";
 import AccountSettingsForm from "./ProfileForm/AccountSettingsForm";
 import PasswordForm from "./ProfileForm/PasswordForm";
+import { toast } from 'react-toastify';
+import moment from 'moment';
 
 import {
   actionGetCorporateProfileSagaAction,
@@ -153,6 +155,7 @@ const Profile = () => {
             name="profilePicture"
             onChange={handleChangeImg}
             id="profile"
+            accept="image/*"
             className="upload-pic-inp"
           />
         </div>

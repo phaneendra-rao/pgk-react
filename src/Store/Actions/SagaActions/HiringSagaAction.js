@@ -1,4 +1,4 @@
-import { ACTION_GET_CORPORATE_HIRING_REQUEST, ACTION_POST_CORPORATE_HIRING_REQUEST } from "./SagaActionTypes"
+import { ACTION_GET_CORPORATE_HIRING_REQUEST, ACTION_POST_CORPORATE_HIRING_REQUEST, ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST } from "./SagaActionTypes"
 
 export const HiringSagaAction = (payload) => {
     return {
@@ -13,3 +13,10 @@ export const AddHiringSagaAction = (payload) => {
         payload: payload
     }
 };
+
+export const actionPostPublishCorporateHiringRequest = (payload) => {
+    return {
+        type: ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST,
+        payload: payload
+    }
+}

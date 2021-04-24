@@ -78,7 +78,7 @@ const AddJobs = (props) => {
     const handleChangeSkills = (event, i) => {
         const { name, value } = event.target;
         let list = [...addskills];
-        if (name === 'skillI') {
+        if (name === "skillID") {
             const skillVal = value.split(",");
             list[i]['skillID'] = skillVal[0];
             list[i]['skill'] = skillVal[1];
@@ -130,6 +130,8 @@ const AddJobs = (props) => {
     return (
         <>
             <AddJobsCmp
+                hiringCriteria={props.hiringCriteria}
+                lookUpData={props.lookUpData}
                 handleChange={handleChange}
                 handleChangeSkills={handleChangeSkills}
                 addNewItem={addNewItem}

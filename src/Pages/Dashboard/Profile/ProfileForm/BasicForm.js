@@ -90,6 +90,20 @@ const BasicForm = (props) => {
           </div>
           <div className="col-md">
             <div className="d-grp">
+                {props?.check && <div className="custom-control custom-checkbox publish-inp">
+                <input
+                  type="checkbox"
+                  name="CIN"
+                  id="check-CIN"
+                  className="custom-control-input"
+                  onChange={(e)=>{ props?.handleCheckData(e.target.name, !props?.checkData?.CIN)}}
+                  checked={props?.checkData?.CIN ? true : false}
+                />
+                <label
+                  className="custom-control-label"
+                  htmlFor={"check-CIN"}
+                ></label>
+              </div>}
               <input
                 type="text"
                 name="CIN"
@@ -142,6 +156,20 @@ const BasicForm = (props) => {
           </div>
           <div className="col-md">
             <div className="d-grp">
+            {props?.check && <div className="custom-control custom-checkbox publish-inp">
+                <input
+                  type="checkbox"
+                  name="dateOfJoining"
+                  id="check-dateOfJoining"
+                  className="custom-control-input"
+                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.dateOfJoining)}}
+                  checked={props?.checkData?.dateOfJoining ? true : false}
+                />
+                <label
+                  className="custom-control-label"
+                  htmlFor={"check-dateOfJoining"}
+                ></label>
+              </div>}
               <input
                 type="date"
                 name="dateOfJoining"

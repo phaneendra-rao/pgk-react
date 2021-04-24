@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import AddJobsCmp from '../../../../Components/Dashboard/JobsCmp/AddJobsCmp'
 
@@ -21,6 +21,22 @@ const AddJobs = (props) => {
 
     const [addJobs, setAddJobs] = useState(initialData);
     const [addskills, setAddSkills] = useState([skillItems]);
+
+    useEffect(() => {
+        console.log(props);
+        if (props.isAddJobEnable) {
+            setAddJobs(initialData);
+            setAddSkills([skillItems]);
+            if (props.isEdit && props.modelData) {
+                setAddSkills(props.modelData?.skills);
+                setAddJobs({
+                    jobName: props.modelData?.jobName,
+                    hiringCriteriaID: props.modelData?.hiringCriteriaID,
+                    hiringCriteriaName: props.modelData?.hiringCriteriaName,
+                });
+            }
+        }
+    }, [])
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -62,33 +78,20 @@ const AddJobs = (props) => {
     const handleChangeSkills = (event, i) => {
         const { name, value } = event.target;
         let list = [...addskills];
-        if (name === "skillID") {
+        if (name === 'skillI') {
             const skillVal = value.split(",");
             list[i]['skillID'] = skillVal[0];
             list[i]['skill'] = skillVal[1];
         } else {
-            list[i][name] = value
+            if (name === 'noOfPositions') {
+                list[i][name] = parseInt(value);
+            } else if (name === 'dateOfHiring') {
+                list[i][name] = new Date(value).toISOString();
+            } else {
+                list[i][name] = value;
+            }
         }
         setAddSkills(list);
-        // switch (name) {
-        //     case 'skillID':
-        //     case 'skill':
-        //     case 'location':
-        //     case 'noOfPositions':
-        //     case 'salaryRange':
-        //     case 'dateOfHiring':
-        // case 'remarks':
-        // setAddSkills(preState => ({
-        //     ...preState,
-        //     addskills: {
-        //         [i]: { [name]: value }
-        //     }
-        // }));
-        //         break;
-
-        //     default:
-        //         break;
-        // }
     }
 
     const addNewItem = () => {
@@ -111,12 +114,18 @@ const AddJobs = (props) => {
         }
         const model = {
             ...addJobs,
-            skills: JSON.stringify(addskills),
+            // skills: JSON.stringify(addskills),
+            skills: addskills,
         }
-        // console.log(model);
         props.addJobsForm(model);
     }
 
+    const dateFormat = (date) => {
+        let d = new Date(date);
+        const dt = d.toLocaleDateString().split("/");
+        console.log(dt[2]+"-"+dt[1]+"-"+dt[0]);
+        return dt[2]+"-"+dt[1]+"-"+dt[0];
+    }
 
     return (
         <>
@@ -126,7 +135,10 @@ const AddJobs = (props) => {
                 addNewItem={addNewItem}
                 removeItem={removeItem}
                 handleSubmit={handleSubmit}
+                dateFormat={dateFormat}
                 addskills={addskills}
+                addJobs={addJobs}
+                isEdit={props.isEdit}
                 hiringCriteria={props.hiringCriteria}
                 lookUpData={props.lookUpData}
                 handleClick={props.handleClick}

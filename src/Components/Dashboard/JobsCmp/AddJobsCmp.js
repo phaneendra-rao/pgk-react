@@ -10,12 +10,14 @@ const AddJobsCmp = (props) => {
                 <input type="text"
                     name="jobName"
                     onChange={props.handleChange}
+                    defaultValue={props.addJobs.jobName}
                     className="form-control"
                     placeholder="Name of the job"
                     required />
                 <select
                     name="hiringCriteriaID"
                     onChange={props.handleChange}
+                    defaultValue={props.addJobs.hiringCriteriaID + "," + props.addJobs.hiringCriteriaName}
                     className="form-control"
                     required>
                     <option value={'DEFAULT'} disabled>Select Hiring Criteria</option>
@@ -35,11 +37,12 @@ const AddJobsCmp = (props) => {
             </div>
             <div className="add-new-jobs-section-list  w-full">
                 {props.addskills?.map((item, i) => (
-                    <div className="add-new-jobs-section-item d-flex flex-row justify-content-between align-items-center">
+                    <div className="add-new-jobs-section-item d-flex flex-row justify-content-between align-items-center" key={i}>
                         <p className="sno">{i + 1}</p>
                         <select
                             name="skillID"
                             onChange={(e) => props.handleChangeSkills(e, i)}
+                            defaultValue={item.skillID + ',' + item.skill}
                             className="form-control"
                             required>
                             {/* <option value>Select the skill set</option> */}
@@ -52,6 +55,7 @@ const AddJobsCmp = (props) => {
                             type="number"
                             name="noOfPositions"
                             onChange={(e) => props.handleChangeSkills(e, i)}
+                            defaultValue={item.noOfPositions}
                             className="form-control"
                             min="1"
                             placeholder="No of positions"
@@ -59,6 +63,7 @@ const AddJobsCmp = (props) => {
                         <select
                             name="location"
                             onChange={(e) => props.handleChangeSkills(e, i)}
+                            defaultValue={item.location}
                             className="form-control"
                             required>
                             <option>Select the location</option>
@@ -70,6 +75,7 @@ const AddJobsCmp = (props) => {
                             type="text"
                             name="salaryRange"
                             onChange={(e) => props.handleChangeSkills(e, i)}
+                            defaultValue={item.salaryRange}
                             className="form-control"
                             placeholder="Salary Range"
                             required />
@@ -77,6 +83,7 @@ const AddJobsCmp = (props) => {
                             type="date"
                             name="dateOfHiring"
                             onChange={(e) => props.handleChangeSkills(e, i)}
+                            defaultValue={props.dateFormat(item?.dateOfHiring)}
                             className="form-control"
                             placeholder="Date of hiring"
                             required />
@@ -99,7 +106,7 @@ const AddJobsCmp = (props) => {
                 ))}
             </div>
             <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
-                <button type="submit" className="job-btn">Save Job</button>
+                <button type="submit" className="job-btn">{props.isEdit ? 'Update' : 'Save'} Job</button>
                 <button type="reset" onClick={props.handleClick} className="job-btn">Cancel</button>
             </div>
         </form>

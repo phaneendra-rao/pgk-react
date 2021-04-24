@@ -17,16 +17,13 @@ const Profile = React.lazy(() => import('./Pages/Dashboard/Profile/Profile'));
 // const Profile = React.lazy(() => import('./Pages/Profile/Profile'));
 const HiringCriteria = React.lazy(() => import('./Pages/Dashboard/CreateJob/HiringCriteria/index'));
 const Jobs = React.lazy(() => import('./Pages/Dashboard/CreateJob/Jobs/Jobs'));
-<<<<<<< HEAD
 const PublishProfile = React.lazy(() => import('./Pages/Dashboard/Publish/PublishProfile'));
 const PublishOtherInformation = React.lazy(() => import('./Pages/Dashboard/Publish/OtherInformation/PublishOtherInformation'));
-=======
 const SubscriptionHistory = React.lazy(() => import('./Pages/Dashboard/Subscribe/SubscriptionHistory/SubscriptionHistory'));
 const NewUniversity = React.lazy(() => import('./Pages/Dashboard/Subscribe/NewUniversity/NewUniversity'));
 const Notifications = React.lazy(() => import('./Pages/Dashboard/Notifications/Notifications'));
 const Support = React.lazy(() => import('./Pages/Dashboard/Support/Support'));
 
->>>>>>> 0662e29e037f1d6b31a95ef0f693e15f9bd7cd29
 
 const routes = [
     { path: "/", strict: true, exact: true, role: "corporate", name: 'Login', component: Login },

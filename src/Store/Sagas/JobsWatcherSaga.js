@@ -1,7 +1,7 @@
 import { call, takeLatest, put } from 'redux-saga/effects';
 import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
-import { ACTION_GET_CORPORATE_JOBS_BYID_REQUEST, ACTION_GET_CORPORATE_JOBS_REQUEST, ACTION_POST_CORPORATE_JOBS_REQUEST, ACTION_POST_PUBLISH_CORPORATE_JOBS_REQUEST } from '../Actions/SagaActions/SagaActionTypes';
+import { ACTION_GET_CORPORATE_JOBS_BYID_REQUEST, ACTION_GET_CORPORATE_JOBS_REQUEST, ACTION_POST_CORPORATE_JOBS_REQUEST, ACTION_POST_CORPORATE_UPDATEJOBS_REQUEST, ACTION_POST_PUBLISH_CORPORATE_JOBS_REQUEST } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
 const getJobs = () => {
@@ -74,6 +74,37 @@ function* addJobsSaga(action) {
 
 }
 
+const editJobs = (payload, id) => {
+    const URL = '/p/crp/createJob/job/' + id;
+    const header = {
+        headers: {
+            // 'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    }
+    return Axios.patch(URL, payload, header).then(res => res.data);
+}
+
+function* editJobsSaga(action) {
+    try {
+        const { id, req  } = action.payload.apiPayloadRequest;
+        // let formData = new FormData();
+        // for (const key in model) {
+        //     formData.append(key, model[key]);
+        // }
+        const resp = yield call(editJobs, req, id);
+        toast.success(resp.message);
+        action.payload.callback(resp);
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    }
+
+}
+
 const postPublishCorporateJobs = (formData) => {
     const URL = '/p/crp/publishJob';
     return Axios.post(URL, formData).then(resp => resp.data);
@@ -107,6 +138,7 @@ export default function* JobsWatcherSaga() {
     yield takeLatest(ACTION_GET_CORPORATE_JOBS_REQUEST, getJobsSaga);
     yield takeLatest(ACTION_GET_CORPORATE_JOBS_BYID_REQUEST, getJobByIdSaga);
     yield takeLatest(ACTION_POST_CORPORATE_JOBS_REQUEST, addJobsSaga);
+    yield takeLatest(ACTION_POST_CORPORATE_UPDATEJOBS_REQUEST, editJobsSaga);
     yield takeLatest(ACTION_POST_PUBLISH_CORPORATE_JOBS_REQUEST, postPublishCorporateJobsRequest);
 }
 

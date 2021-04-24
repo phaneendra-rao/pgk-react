@@ -1,4 +1,4 @@
-import { ACTION_GET_CORPORATE_PROFILE_REQUEST, ACTION_PATCH_CORPORATE_PROFILE_REQUEST } from './SagaActionTypes';
+import { ACTION_GET_CORPORATE_PROFILE_REQUEST, ACTION_PATCH_CORPORATE_PROFILE_REQUEST, ACTION_POST_PUBLISH_CORPORATE_PROFILE_REQUEST } from './SagaActionTypes';
 
 export const actionGetCorporateProfileSagaAction = (payload) => {
     return {

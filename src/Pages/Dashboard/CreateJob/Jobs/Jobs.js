@@ -4,7 +4,7 @@ import JobsCmp from '../../../../Components/Dashboard/JobsCmp/JobsCmp'
 import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
-import { AddJobsSagaAction, GetJobByIdSagaAction, GetJobsSagaAction } from '../../../../Store/Actions/SagaActions/JobsSagaAction';
+import { AddJobsSagaAction, EditJobsSagaAction, GetJobByIdSagaAction, GetJobsSagaAction } from '../../../../Store/Actions/SagaActions/JobsSagaAction';
 import AddJobs from './AddJobs';
 import JobDetailsModal from './JobDetailsModal';
 
@@ -19,14 +19,6 @@ const Jobs = () => {
     const [isEdit, setIsEdit] = useState(false);
 
     const dispatch = useDispatch();
-
-    const getHiring = () => {
-        dispatch(HiringSagaAction({ callback: getAllHirings }));
-    }
-
-    const getJobs = () => {
-        dispatch(GetJobsSagaAction({ callback: getAllJobs }));
-    }
 
     useEffect(() => {
         getHiring();
@@ -46,7 +38,12 @@ const Jobs = () => {
     }
 
     const addJobsForm = (model) => {
-        dispatch(AddJobsSagaAction({ apiPayloadRequest: model, callback: addJobsResp }));
+        if (isEdit) {
+            const body = { id: modelData.jobID, req: model }
+            dispatch(EditJobsSagaAction({ apiPayloadRequest: body, callback: addJobsResp }));
+        } else {
+            dispatch(AddJobsSagaAction({ apiPayloadRequest: model, callback: addJobsResp }));
+        }
     }
 
     const getJobById = (id) => {

@@ -2,8 +2,7 @@ import React from 'react'
 
 const SubscriptionHistoryCmp = (props) => {
     return (
-
-        <div className="page-body">
+        <>
             <div className="row single-university-section">
                 <div className="univ-subscription-history-stripe" style={{ backgroundColor: 'transparent', marginTop: '10px' }}>
                     <p className="label" style={{ color: 'grey', fontSize: '1.2rem', fontWeight: 500 }}>Subscription History</p>
@@ -65,8 +64,7 @@ const SubscriptionHistoryCmp = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
-
+        </>
     )
 }
 export default SubscriptionHistoryCmp;

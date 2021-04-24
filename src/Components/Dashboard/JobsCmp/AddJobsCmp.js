@@ -42,7 +42,7 @@ const AddJobsCmp = (props) => {
                         <select
                             name="skillID"
                             onChange={(e) => props.handleChangeSkills(e, i)}
-                            defaultValue={item.skillID + ',' + item.skill}
+                            value={item.skillID}
                             className="form-control"
                             required>
                             {/* <option value>Select the skill set</option> */}
@@ -63,13 +63,13 @@ const AddJobsCmp = (props) => {
                         <select
                             name="location"
                             onChange={(e) => props.handleChangeSkills(e, i)}
-                            defaultValue={item.location}
+                            value={item.location}
                             className="form-control"
                             required>
                             <option>Select the location</option>
-                            <option>Hyderabad</option>
-                            <option>Delhi</option>
-                            <option>Mumbai</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Mumbai">Mumbai</option>
                         </select>
                         <input
                             type="text"
@@ -83,7 +83,7 @@ const AddJobsCmp = (props) => {
                             type="date"
                             name="dateOfHiring"
                             onChange={(e) => props.handleChangeSkills(e, i)}
-                            defaultValue={props.dateFormat(item?.dateOfHiring)}
+                            value={props.dateFormat(item?.dateOfHiring)}
                             className="form-control"
                             placeholder="Date of hiring"
                             required />

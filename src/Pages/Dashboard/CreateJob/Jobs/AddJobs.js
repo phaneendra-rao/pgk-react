@@ -23,7 +23,6 @@ const AddJobs = (props) => {
     const [addskills, setAddSkills] = useState([skillItems]);
 
     useEffect(() => {
-        console.log(props);
         if (props.isAddJobEnable) {
             setAddJobs(initialData);
             setAddSkills([skillItems]);
@@ -123,7 +122,6 @@ const AddJobs = (props) => {
     const dateFormat = (date) => {
         let d = new Date(date);
         const dt = d.toLocaleDateString().split("/");
-        console.log(dt[2]+"-"+dt[1]+"-"+dt[0]);
         return dt[2]+"-"+dt[1]+"-"+dt[0];
     }
 

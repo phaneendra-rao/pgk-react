@@ -17,6 +17,8 @@ const Profile = React.lazy(() => import('./Pages/Dashboard/Profile/Profile'));
 // const Profile = React.lazy(() => import('./Pages/Profile/Profile'));
 const HiringCriteria = React.lazy(() => import('./Pages/Dashboard/CreateJob/HiringCriteria/index'));
 const Jobs = React.lazy(() => import('./Pages/Dashboard/CreateJob/Jobs/Jobs'));
+const SubscriptionHistory = React.lazy(() => import('./Pages/Dashboard/Subscribe/SubscriptionHistory/SubscriptionHistory'));
+const NewUniversity = React.lazy(() => import('./Pages/Dashboard/Subscribe/NewUniversity/NewUniversity'));
 
 
 const routes = [
@@ -38,6 +40,8 @@ const routes = [
     { path: "/dashboard/profile/", strict: true, exact: true, role: "dashboard", name: 'Profile', component: Profile },
     { path: "/dashboard/createjob/hiring", strict: true, exact: true, role: "dashboard", name: 'HiringCriteria', component: HiringCriteria },
     { path: "/dashboard/createjob/jobs", strict: true, exact: true, role: "dashboard", name: 'Jobs', component: Jobs },
+    { path: "/dashboard/subscribe/newuniversity", strict: true, exact: true, role: "dashboard", name: 'NewUniversity', component: NewUniversity },
+    { path: "/dashboard/subscribe/subscriptionhistory", strict: true, exact: true, role: "dashboard", name: 'SubscriptionHistory', component: SubscriptionHistory },
 
 ];
 

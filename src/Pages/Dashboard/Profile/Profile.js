@@ -6,6 +6,8 @@ import AddressAndContactForm from "./ProfileForm/AddressAndContactForm";
 import ProfileForm from "./ProfileForm/ProfileForm";
 import AccountSettingsForm from "./ProfileForm/AccountSettingsForm";
 import PasswordForm from "./ProfileForm/PasswordForm";
+import { toast } from 'react-toastify';
+import moment from 'moment';
 
 import {
   actionGetCorporateProfileSagaAction,
@@ -84,11 +86,50 @@ const Profile = () => {
 
   const toggleCorporateHeadQuarters = () => {
     setCheckStatus(!checkStatus);
+    let updatedProfile;
+
+    if(!checkStatus) {
+       updatedProfile = {
+        ...profile,
+        corporateLocalBranchAddressLine1: profile?.corporateHQAddressLine1,
+        corporateLocalBranchAddressLine2: profile?.corporateHQAddressLine2,
+        corporateLocalBranchAddressCountry: profile?.corporateHQAddressCountry,
+        corporateLocalBranchAddressState: profile?.corporateHQAddressState,
+        corporateLocalBranchAddressCity: profile?.corporateHQAddressCity,
+        corporateLocalBranchAddressDistrict: profile?.corporateHQAddressDistrict,
+        corporateLocalBranchAddressZipCode: profile?.corporateHQAddressZipCode,
+        corporateLocalBranchAddressPhone: profile?.corporateHQAddressPhone,
+        corporateLocalBranchAddressEmail: profile?.corporateHQAddressEmail
+      };
+    } else {
+      updatedProfile = {
+        ...profile,
+        corporateLocalBranchAddressLine1: '',
+        corporateLocalBranchAddressLine2: '',
+        corporateLocalBranchAddressCountry: '',
+        corporateLocalBranchAddressState: '',
+        corporateLocalBranchAddressCity: '',
+        corporateLocalBranchAddressDistrict: '',
+        corporateLocalBranchAddressZipCode: '',
+        corporateLocalBranchAddressPhone: '',
+        corporateLocalBranchAddressEmail: ''
+      };
+    }
+
+    setProfile(updatedProfile);
   };
 
+
+  const getResponse = () => {
+    toast.success("Profile updated!");
+    getProfile();
+  }
+
   const saveProfile = () => {
+    console.log('profile.dateOfJoining ', profile.dateOfJoining);
     const updatedProfile = {
       ...profile,
+      dateOfJoining: moment(profile.dateOfJoining)
     };
 
     if (updatedProfile?.attachment === undefined) {
@@ -102,14 +143,14 @@ const Profile = () => {
     dispatch(
       actionPatchCorporateProfileSagaAction({
         apiPayloadRequest: updatedProfile,
-        callback: getProfile,
+        callback: getResponse,
       })
     );
   };
 
   const isFormValid = () => {
     if (
-      profile?.stakeHolderID &&
+      profile?.stakeholderID &&
       profile?.CIN &&
       profile?.corporateType &&
       profile?.corporateCategory &&
@@ -153,6 +194,7 @@ const Profile = () => {
             name="profilePicture"
             onChange={handleChangeImg}
             id="profile"
+            accept="image/*"
             className="upload-pic-inp"
           />
         </div>

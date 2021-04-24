@@ -17,7 +17,8 @@ const Profile = React.lazy(() => import('./Pages/Dashboard/Profile/Profile'));
 // const Profile = React.lazy(() => import('./Pages/Profile/Profile'));
 const HiringCriteria = React.lazy(() => import('./Pages/Dashboard/CreateJob/HiringCriteria/index'));
 const Jobs = React.lazy(() => import('./Pages/Dashboard/CreateJob/Jobs/Jobs'));
-
+const PublishProfile = React.lazy(() => import('./Pages/Dashboard/Publish/PublishProfile'));
+const PublishOtherInformation = React.lazy(() => import('./Pages/Dashboard/Publish/OtherInformation/PublishOtherInformation'));
 
 const routes = [
     { path: "/", strict: true, exact: true, role: "corporate", name: 'Login', component: Login },
@@ -38,7 +39,8 @@ const routes = [
     { path: "/dashboard/profile/", strict: true, exact: true, role: "dashboard", name: 'Profile', component: Profile },
     { path: "/dashboard/createjob/hiring", strict: true, exact: true, role: "dashboard", name: 'HiringCriteria', component: HiringCriteria },
     { path: "/dashboard/createjob/jobs", strict: true, exact: true, role: "dashboard", name: 'Jobs', component: Jobs },
-
+    { path: "/dashboard/publish/profile", strict: true, exact: true, role: "dashboard", name: 'Publish Profile', component: PublishProfile },
+    { path: "/dashboard/publish/otherinformation", strict: true, exact: true, role: "dashboard", name: 'Publish Other Information', component: PublishOtherInformation },
 ];
 
 export default routes;

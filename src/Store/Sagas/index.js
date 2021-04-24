@@ -5,6 +5,7 @@ import CorporateProfileWatcherSaga from './CorporateProfileWatcherSaga';
 import CommonWatcherSaga from './CommonWatcherSaga';
 import HiringWatcherSaga from './HiringWatcherSaga';
 import JobsWatcherSaga from './JobsWatcherSaga';
+import OtherInformationWatcherSaga from './OtherInformationWatcherSaga';
 
 export function* webportalAppRootSaga() {
 	yield all([
@@ -13,5 +14,6 @@ export function* webportalAppRootSaga() {
 		CommonWatcherSaga(),
 		HiringWatcherSaga(),
 		JobsWatcherSaga(),
+		OtherInformationWatcherSaga()
 	]);
 }

@@ -1629,4 +1629,22 @@ body .main-body .page-body .welcome-widget {
     margin: 10px;
     font-size: .850rem;
 }
+
 /* Single University ---- End */
+.attachmentStripeContainer {
+    padding: 10px;
+}
+
+.attachmentStripeContainer .label {
+    font-size: .750rem;
+    color: #686868;
+    margin-right: 6px;
+}
+
+.attachmentStripeContainer .attachmentStripe {
+    flex: 1;
+    background-color: #cacaca;
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+}

@@ -119,7 +119,21 @@ const BasicForm = (props) => {
           <div className="w-100"></div>
           <div className="col-md">
             <div className="d-grp">
-              <select name="corporateType" className="d-inp" required>
+            {props?.check && <div className="custom-control custom-checkbox publish-inp">
+                <input
+                  type="checkbox"
+                  name="corporateType"
+                  id="check-corporateType"
+                  className="custom-control-input"
+                  onChange={(e)=>{ props?.handleCheckData(e.target.name, !props?.checkData?.corporateType)}}
+                  checked={props?.checkData?.corporateType ? true : false}
+                />
+                <label
+                  className="custom-control-label"
+                  htmlFor={"check-corporateType"}
+                ></label>
+              </div>}
+              <select name="corporateType" className="d-inp" disabled={props?.disable ? true : false} required>
                 <option value="">Select Corporate Sector</option>
                 {corporateTypes?.length && (
                   corporateTypes.map((item) => {
@@ -131,7 +145,21 @@ const BasicForm = (props) => {
           </div>
           <div className="col-md">
             <div className="d-grp">
-              <select name="corporateCategory" className="d-inp" required>
+            {props?.check && <div className="custom-control custom-checkbox publish-inp">
+                <input
+                  type="checkbox"
+                  name="corporateCategory"
+                  id="check-corporateCategory"
+                  className="custom-control-input"
+                  onChange={(e)=>{ props?.handleCheckData(e.target.name, !props?.checkData?.corporateCategory)}}
+                  checked={props?.checkData?.corporateCategory ? true : false}
+                />
+                <label
+                  className="custom-control-label"
+                  htmlFor={"check-corporateCategory"}
+                ></label>
+              </div>}
+              <select name="corporateCategory" className="d-inp" disabled={props?.disable ? true : false} required>
                 <option value="">Select Corporate Category</option>
                 {corporateCategories?.length && (
                   corporateCategories.map((item) => {
@@ -144,7 +172,21 @@ const BasicForm = (props) => {
           <div className="w-100"></div>
           <div className="col-md">
             <div className="d-grp">
-              <select name="corporateIndustry" className="d-inp" required>
+            {props?.check && <div className="custom-control custom-checkbox publish-inp">
+                <input
+                  type="checkbox"
+                  name="corporateIndustry"
+                  id="check-corporateIndustry"
+                  className="custom-control-input"
+                  onChange={(e)=>{ props?.handleCheckData(e.target.name, !props?.checkData?.corporateIndustry)}}
+                  checked={props?.checkData?.corporateIndustry ? true : false}
+                />
+                <label
+                  className="custom-control-label"
+                  htmlFor={"check-corporateIndustry"}
+                ></label>
+              </div>}
+              <select name="corporateIndustry" className="d-inp" disabled={props?.disable ? true : false} required>
                 <option value="">Select Industry Vertical</option>
                 {corporateIndustries?.length && (
                   corporateIndustries.map((item) => {
@@ -182,6 +224,7 @@ const BasicForm = (props) => {
                 }
                 onChange={props?.onChange}
                 className="d-inp"
+                disabled={props?.disable ? true : false}
                 title="Date of Commencement"
                 placeholder="Date of Commencement"
                 required

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useHistory } from 'react-router-dom';
 import BasicForm from "../Profile/ProfileForm/BasicForm";
 import AddressAndContactForm from "../Profile/ProfileForm/AddressAndContactForm";
 import ProfileForm from "../Profile/ProfileForm/ProfileForm";
@@ -9,9 +9,12 @@ import {
   actionGetCorporateProfileSagaAction,
   actionPostPublishCorporateProfileSagaAction,
 } from "../../../Store/Actions/SagaActions/CorporateProfileSagaActions";
+import CustomToastModal from "../../../Components/CustomToastModal";
 
 const PublishProfile = () => {
+  const history = useHistory();
   const [profile, setProfile] = useState();
+  const [showModal, setShowModal] = useState(false);
   const [attachment, setAttachment] = useState();
 
   const [checkData, setCheckData] = useState({
@@ -54,10 +57,6 @@ const PublishProfile = () => {
   useEffect(() => {
     getProfile();
   }, []);
-
-  const onPublish = (response) => {
-    console.log('response ', response);
-  }
 
   const publishProfile = () => {
     let updatedPublishProfile = {};
@@ -115,7 +114,9 @@ const PublishProfile = () => {
     dispatch(
       actionPostPublishCorporateProfileSagaAction({
         apiPayloadRequest: updatedPublishProfile,
-        callback: onPublish,
+        callback: (response)=>{
+          setShowModal(true);
+        },
       })
     );
   };
@@ -139,7 +140,9 @@ const PublishProfile = () => {
     }
   };
 
-  const cancelPublishProfile = () => {};
+  const cancelPublishProfile = () => {
+    history.goBack();
+  };
 
   const handleCheckData = (name, value) => {
     setCheckData((prevCheckData) => ({
@@ -208,6 +211,14 @@ const PublishProfile = () => {
           Publish
         </button>
       </div>
+      <CustomToastModal
+        onClose={() => {
+          setShowModal(false);
+        }}
+        show={showModal}
+        iconNameClass={"fa-building"}
+        message={"Your profile (selected information) has been published successfully"}
+      />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {actionPostAddOtherInformationRequest} from '../../../../Store/Actions/SagaActions/OtherInformationSagaActions';
+import OtherInformationList from './OtherInformationList';
+import {actionPostAddOtherInformationRequest, actionPostPublishOtherInformationRequest, actionGetPublishOtherInformationListRequest} from '../../../../Store/Actions/SagaActions/OtherInformationSagaActions';
+import CustomToastModal from "../../../../Components/CustomToastModal";
 
 const PublishProfile = () => {
   const [otherInfo, setOtherInfo] = useState({
@@ -9,7 +11,28 @@ const PublishProfile = () => {
     attachment: undefined,
   });
 
+  const [showModal, setShowModal] = useState(false);
+  const [otherInformationList, setOtherInformationList] = useState([]);
+
   const dispatch = useDispatch();
+
+  const onOtherInformationListResponse = (response) => {
+    if (response?.length) {
+      setOtherInformationList(response);
+    }
+  };
+
+  const getPublishedOtherInformation = () => {
+    dispatch(
+      actionGetPublishOtherInformationListRequest({
+        callback: onOtherInformationListResponse,
+      })
+    );
+  }
+
+  useEffect(()=>{
+    getPublishedOtherInformation();
+  }, [])
 
   const onChangeHandler = (event) => {
     event.preventDefault();
@@ -38,8 +61,6 @@ const PublishProfile = () => {
       });
   }
 
-  const cancelPublishProfile = () => {};
-
   const isFormValid = () => {
     if(otherInfo?.title && otherInfo?.information) {
         return true;
@@ -47,15 +68,27 @@ const PublishProfile = () => {
         return false;
     }
   }
+  
 
-  const onPublish = (response) => {
-    console.log('response ', response);
+  const onPublish = () => {
+    resetPublishOtherInformation();
+    getPublishedOtherInformation();
+    setShowModal(true);
   }
 
-  const publishOtherInformation = () => {
+  const onAddOtherInformation = (response) => {
+    if(response?.id) {
+      dispatch(actionPostPublishOtherInformationRequest({
+        apiPayloadRequest: [response.id],
+        callback: onPublish
+      }))
+    }
+  }
+
+  const addOtherInformation = () => {
       dispatch(actionPostAddOtherInformationRequest({
         apiPayloadRequest: otherInfo,
-        callback: onPublish
+        callback: onAddOtherInformation
       }));
   }
 
@@ -98,7 +131,7 @@ const PublishProfile = () => {
                   accept=".pdf"
                   onChange={onChangeHandler}
                 />
-                <label for="attachment" className="d-label">
+                <label htmlFor="attachment" className="d-label">
                   Attachment
                 </label>
               </div>
@@ -113,7 +146,7 @@ const PublishProfile = () => {
               type="button"
               className="btn ml-1"
               disabled={!isFormValid()}
-              onClick={publishOtherInformation}
+              onClick={addOtherInformation}
             >
               Publish
             </button>
@@ -125,38 +158,15 @@ const PublishProfile = () => {
           <p className="heading w-full">Information Publish History</p>
         </div>
       </div>
-      <div className="row jobs-saved-section-list">
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p className="no-list-message w-full">
-            No other information publish history to display here
-          </p>
-        </div>
-      </div>
-
-      <div className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full">
-        <div className="item d-flex flex-row justify-content-between align-items-center w-full">
-          <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
-            <i className="fas fa-cube"></i>
-          </div>
-          <p className="job-label">INFH001</p>
-          <button className="btn2">B.Tech</button>
-          <p className="job-published-date">
-            Change in Hiring Criteria for Job-2
-          </p>
-          <p className="job-published-date">Published on 09/02/2021</p>
-        </div>
-        <div className="vertical-divider"></div>
-        <div className="job-list-item-details-container d-flex flex-row justify-content-center align-items-center">
-          <div
-            className="job-details-btn d-flex flex-row justify-content-around align-items-center"
-            data-toggle="modal"
-            data-target="#information"
-          >
-            <p>Details</p>
-            <i className="fas fa-chevron-right"></i>
-          </div>
-        </div>
-      </div>
+      <OtherInformationList otherInformationList={otherInformationList} />
+      <CustomToastModal
+        onClose={() => {
+          setShowModal(false);
+        }}
+        show={showModal}
+        iconNameClass={"fa-file"}
+        message={"Selected Information has been Published Successfully"}
+      />
     </div>
   );
 };

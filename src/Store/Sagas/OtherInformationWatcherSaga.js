@@ -3,7 +3,7 @@ import { take, put, call, takeLatest } from "redux-saga/effects";
 import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
 import history from '../../@history';
-import { ACTION_POST_ADD_OTHER_INFORMATION_REQUEST, ACTION_POST_PUBLISH_OTHER_INFORMATION_REQUEST } from '../Actions/SagaActions/SagaActionTypes';
+import { ACTION_POST_ADD_OTHER_INFORMATION_REQUEST, ACTION_POST_PUBLISH_OTHER_INFORMATION_REQUEST, ACTION_GET_PUBLISH_OTHER_INFORMATION_LIST_REQUEST } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
 function postAddOtherInformationRequest(formData) {
@@ -25,7 +25,7 @@ function* postAddOtherInformationRequestSaga(action) {
     action.payload.callback(response);
   } catch (err) {
       if (err.response) {
-          toast.error(err.response.data.errors[0].message);
+          toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
       } else {
           toast.error("Something Wrong!", err.message);
       }
@@ -50,7 +50,7 @@ function* postPublishOtherInformationRequestSaga(action) {
       
     } catch (err) {
         if (err.response) {
-            toast.error(err.response.data.errors[0].message);
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
         } else {
             toast.error("Something Wrong!", err.message);
         }
@@ -59,7 +59,30 @@ function* postPublishOtherInformationRequestSaga(action) {
     }
 }
 
+const getPublishOtherInformationListRequest = () => {
+  const URL = '/p/crp/oi/published';
+  return Axios.get(URL).then(resp => resp.data);
+}
+
+function* getPublishOtherInformationListRequestSaga(action) {
+  yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+  try {
+    const response = yield call(getPublishOtherInformationListRequest);
+    action.payload.callback(response);
+  } catch (err) {
+      if (err.response) {
+          toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+      } else {
+          toast.error("Something Wrong!", err.message);
+      }
+  } finally {
+      yield put(actionUpdateGlobalLoaderSagaAction(false));
+  }
+}
+
 export default function* OtherInformationWatcherSaga() {
   yield takeLatest(ACTION_POST_ADD_OTHER_INFORMATION_REQUEST, postAddOtherInformationRequestSaga);
   yield takeLatest(ACTION_POST_PUBLISH_OTHER_INFORMATION_REQUEST, postPublishOtherInformationRequestSaga);
+  yield takeLatest(ACTION_GET_PUBLISH_OTHER_INFORMATION_LIST_REQUEST, getPublishOtherInformationListRequestSaga);
 }

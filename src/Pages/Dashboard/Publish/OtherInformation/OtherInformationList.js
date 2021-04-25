@@ -17,8 +17,7 @@ const OtherInformationList = (props) => {
             <i className="fas fa-cube"></i>
           </div>
           <p className="job-label">{info?.publishId ? info?.publishId : "-"}</p>
-          <button className="btn2">{info?.title}</button>
-          <p className="job-published-date" style={{textOverflow:'ellipsis'}}>{info?.information}</p>
+          <p className="job-published-date" style={{textOverflow:'ellipsis', fontWeight: 'bold'}}>{info?.title}</p>
           <p className="job-published-date">
             {info?.creationDate &&
               `Published on ${moment(info.creationDate).format("DD/MM/YYYY")}`}

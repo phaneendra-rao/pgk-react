@@ -19,6 +19,7 @@ const CustomModal = (props) => {
           <div
             className={`modal-dialog modal-lg modal-dialog-centered`}
             role="document"
+            style={{...props?.modalStyles}}
           >
             <div className="modal-content">{props?.children}</div>
           </div>

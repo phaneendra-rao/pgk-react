@@ -5,7 +5,8 @@ import Axios from '../../utils/axios';
 import {
     ACTION_GET_CORPORATE_HIRING_REQUEST,
     ACTION_POST_CORPORATE_HIRING_REQUEST,
-    ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST
+    ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST,
+    ACTION_GET_CORPORATE_HIRING_BYID_REQUEST
 } from '../Actions/SagaActions/SagaActionTypes';
 import {actionUpdateGlobalLoaderSagaAction} from '../Actions/SagaActions/CommonSagaActions';
 
@@ -75,8 +76,32 @@ function* postPublishCorporateHiringRequest(action) {
     }
 }
 
+const getCorporateHiringByIdRequest = (id) => {
+    const URL = '/p/crp/hiringCriteria/getByID/'+id;
+    return Axios.get(URL).then(resp => resp.data);
+}
+
+function* getCorporateHiringByIdRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+    const response = yield call(getCorporateHiringByIdRequest, action.payload.apiPayloadRequest);
+      action.payload.callback(response);
+      
+    } catch (err) {
+        if (err.response) {
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
 export default function* HiringWatcherSaga() {
     yield takeLatest(ACTION_GET_CORPORATE_HIRING_REQUEST, getHiringCriteriaSaga);
     yield takeLatest(ACTION_POST_CORPORATE_HIRING_REQUEST, addHiringCriteriaSaga);
     yield takeLatest(ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST, postPublishCorporateHiringRequest);
+    yield takeLatest(ACTION_GET_CORPORATE_HIRING_BYID_REQUEST, getCorporateHiringByIdRequestSaga);
 }

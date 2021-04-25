@@ -7,8 +7,8 @@ import { ACTION_POST_ADD_OTHER_INFORMATION_REQUEST, ACTION_POST_PUBLISH_OTHER_IN
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
 function postAddOtherInformationRequest(formData) {
-  const URL = "/p/crp/oi";
-  return Axios.patch(URL, formData).then((res) => {
+  const URL = "/p/crp/oi/";
+  return Axios.post(URL, formData).then((res) => {
     return res.data;
   });
 }

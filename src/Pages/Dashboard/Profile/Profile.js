@@ -5,10 +5,9 @@ import BasicForm from "./ProfileForm/BasicForm";
 import AddressAndContactForm from "./ProfileForm/AddressAndContactForm";
 import ProfileForm from "./ProfileForm/ProfileForm";
 import AccountSettingsForm from "./ProfileForm/AccountSettingsForm";
-import PasswordForm from "./ProfileForm/PasswordForm";
-import { toast } from 'react-toastify';
-import moment from 'moment';
-
+import { toast } from "react-toastify";
+import moment from "moment";
+import CustomToastModal from "../../../Components/CustomToastModal";
 import {
   actionGetCorporateProfileSagaAction,
   actionPatchCorporateProfileSagaAction,
@@ -17,6 +16,7 @@ import {
 const Profile = () => {
   const [profile, setProfile] = useState();
   const [checkStatus, setCheckStatus] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [profilePicture, setProfilePicture] = useState();
   const [attachment, setAttachment] = useState();
   const [
@@ -91,6 +91,7 @@ const Profile = () => {
   const saveProfile = () => {
     const updatedProfile = {
       ...profile,
+      dateOfJoining: moment(profile.dateOfJoining),
     };
 
     if (updatedProfile?.attachment === undefined) {
@@ -104,14 +105,17 @@ const Profile = () => {
     dispatch(
       actionPatchCorporateProfileSagaAction({
         apiPayloadRequest: updatedProfile,
-        callback: getProfile,
+        callback: () => {
+          setShowModal(true);
+          getProfile();
+        },
       })
     );
   };
 
   const isFormValid = () => {
     if (
-      profile?.stakeHolderID &&
+      profile?.stakeholderID &&
       profile?.CIN &&
       profile?.corporateType &&
       profile?.corporateCategory &&
@@ -160,7 +164,7 @@ const Profile = () => {
           />
         </div>
       </div>
-      <BasicForm profileData={profile} onChange={updateProfileData} />
+      <BasicForm profileData={profile} onChange={updateProfileData} disable />
       <AddressAndContactForm
         profileData={profile}
         onChange={updateProfileData}
@@ -174,8 +178,6 @@ const Profile = () => {
         imageHandler={handleChangeImg}
       />
       <AccountSettingsForm profileData={profile} onChange={updateProfileData} />
-      {/* <PasswordForm /> */}
-
       <div className="d-grp">
         <div className="custom-control custom-checkbox">
           <input
@@ -204,6 +206,14 @@ const Profile = () => {
           Save
         </button>
       </div>
+      <CustomToastModal
+        onClose={() => {
+          setShowModal(false);
+        }}
+        show={showModal}
+        iconNameClass={"fa-building"}
+        message={"Your profile has been updated successfully"}
+      />
     </div>
   );
 };

@@ -125,7 +125,7 @@ function* postPublishCorporateJobsRequest(action) {
 
     } catch (err) {
         if (err.response) {
-            toast.error(err.response.data.errors[0].message);
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
         } else {
             toast.error("Something Wrong!", err.message);
         }

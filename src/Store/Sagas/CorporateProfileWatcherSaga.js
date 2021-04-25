@@ -22,7 +22,7 @@ function* getCorporateProfileRequestSaga(action) {
         action.payload.callback(response);
     } catch (err) {
         if (err.response) {
-            toast.error(err.response.data.errors[0].message);
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
         } else {
             toast.error("Something Wrong!", err.message);
         }
@@ -54,7 +54,7 @@ function* patchCorporateProfileRequestSaga(action) {
     action.payload.callback(response);
   } catch (err) {
       if (err.response) {
-          toast.error(err.response.data.errors[0].message);
+          toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
       } else {
           toast.error("Something Wrong!", err.message);
       }
@@ -82,7 +82,7 @@ function* postPublishCorporateProfileRequestSaga(action) {
     action.payload.callback(response);
   } catch (err) {
       if (err.response) {
-          toast.error(err.response.data.errors[0].message);
+          toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
       } else {
           toast.error("Something Wrong!", err.message);
       }

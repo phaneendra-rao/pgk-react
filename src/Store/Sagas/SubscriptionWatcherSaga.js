@@ -1,7 +1,11 @@
 import { call, takeLatest, put } from 'redux-saga/effects';
 import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
-import { ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST } from "../Actions/SagaActions/SagaActionTypes";
+import {
+    ACTION_GET_CORPORATE_HISTORY_UNIVERSITY_REQUEST,
+    ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST,
+    ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST
+} from "../Actions/SagaActions/SagaActionTypes";
 
 const getSearchData = (params) => {
     const URL = '/u/unv/search?' + params;
@@ -36,6 +40,70 @@ function* getSearchDataSaga(action) {
     }
 }
 
+const getUniversityInfo = (id) => {
+    const URL = '/u/unv/search/' + id;
+    return Axios.get(URL).then(res => res.data);
+}
+
+function* getUniversityInfoSaga(action) {
+    try {
+        const payload = action.payload.apiPayloadRequest;
+        const resp = yield call(getUniversityInfo, payload);
+        if (resp) {
+            for (const key in resp) {
+                if (key === 'accredations' || key === 'ranking') {
+                    resp[key] = JSON.parse(resp[key])
+                }
+                resp[key] = resp[key]
+            }
+        } else {
+            resp = {};
+        }
+        action.payload.callback(resp);
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    }
+}
+
+const getUniversityHistoryInfo = (id) => {
+    const URL = '/p/subData/publishedData/' + id;
+    return Axios.get(URL).then(res => res.data);
+}
+
+function* getUniversityHistoryInfoSaga(action) {
+    try {
+        const payload = action.payload.apiPayloadRequest;
+        const resp = yield call(getUniversityHistoryInfo, payload);
+        // if (resp) {
+        //     for (const key in resp) {
+        //         if (key === 'accredations' || key === 'ranking') {
+        //             resp[key] = JSON.parse(resp[key])
+        //         }
+        //         resp[key] = resp[key]
+        //     }
+        // } else {
+        //     resp = {};
+        // }
+        console.log(resp);
+        if (resp) {
+            const parseResp = JSON.parse(resp);
+            action.payload.callback(JSON.parse(resp));
+        }
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    }
+}
+
 export default function* SubscriptionWatcherSaga() {
     yield takeLatest(ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST, getSearchDataSaga);
+    yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST, getUniversityInfoSaga);
+    yield takeLatest(ACTION_GET_CORPORATE_HISTORY_UNIVERSITY_REQUEST, getUniversityHistoryInfoSaga);
 }

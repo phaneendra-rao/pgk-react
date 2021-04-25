@@ -385,4 +385,518 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
+
+.close-icon {
+  font-size: 24px;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  opacity: 0.55;
+  top: 10px;
+}
+
+.close-icon:hover {
+  opacity: 1;
+}
+
+.subscription-modal .modal-header {
+  display: block;
+  background: #253aa3;
+  border-radius: 5px 5px 0px 0px;
+  text-align: center;
+}
+
+.subscription-modal .modal-header .modal-title {
+  font-family: Poppins-Medium;
+  letter-spacing: -0.25px;
+  color: #ffffff;
+}
+
+.subscription-modal .modal-header .modal-title i {
+  font-size: 32px;
+  color: #ffffff;
+  width: 46px;
+}
+
+.subscription-modal .modal-header .modal-title span {
+  font-size: 28px;
+  color: #ffffff;
+  letter-spacing: -0.25px;
+}
+
+.subscription-modal .modal-header .close-icon {
+  float: right;
+  cursor: pointer;
+  padding-top: 10px;
+  padding-right: 15px;
+  color: #ffffff;
+  font-size: 26px;
+  opacity: 0.5;
+}
+
+.subscription-modal .modal-header .close-icon:hover {
+  opacity: 1;
+}
+
+.subscription-modal .modal-body {
+  padding: 1.5rem;
+}
+
+.subscription-modal .modal-body .card {
+  border: none;
+  padding: 15px 20px;
+}
+
+.subscription-modal .modal-body .card:first-child {
+  background-color: #878ba655;
+}
+
+.subscription-modal .modal-body .card:nth-child(2) {
+  background-color: #878ba622;
+}
+
+.subscription-modal .modal-body .card:nth-child(3) {
+  background-color: #2a3050;
+  color: #ffffff;
+}
+
+.subscription-modal .modal-body .card span {
+  font-size: 20px;
+  font-family: Poppins-Medium;
+}
+
+.subscription-modal .modal-body .card .inner-list {
+  padding-left: 15px;
+}
+
+.subscription-modal .modal-body .card .inner-list span {
+  font-size: 18px;
+  margin-left: -12px;
+  font-family: Poppins-Medium;
+}
+
+.subscription-modal .modal-body .card .tokens {
+  font-family: Poppins-Medium;
+  position: absolute;
+  font-size: 24px;
+  right: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: 0;
+  height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.subscription-modal .modal-body .btn3 {
+  padding: 6px 12px;
+}
+
+.subscription-modal .modal-body .btn3:nth-child(2) {
+  color: #000000;
+}
+
+.subscribe-success-modal .modal-footer {
+  background: #253aa3;
+  display: block;
+  background: #253aa3;
+  text-align: center;
+  color: #ffffff;
+  font-family: Poppins-Medium;
+}
+
+.subscribe-success-modal .modal-body {
+  padding: 2rem 5rem;
+}
+
+.subscribe-success-modal .modal-body .folder-blc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.subscribe-success-modal .modal-body .folder-blc .circle {
+  height: 83px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: rgba(37, 58, 163, 0.25);
+  width: 83px;
+  border-radius: 50%;
+}
+
+.subscribe-success-modal .modal-body .folder-blc .circle .fa-folder-open {
+  font-size: 35px;
+  color: #253aa3;
+}
+
+.subscribe-success-modal .modal-body .square {
+  height: 63px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #ffffff;
+  width: 63px;
+  border: 1px solid #878ba6;
+  border-radius: 10px;
+}
+
+.subscribe-success-modal .modal-body .university {
+  display: block;
+  padding: 10px 0 0 10px;
+  font-family: Poppins-Medium;
+  font-size: 16px;
+  letter-spacing: -0.14;
+}
+
+.subscribe-success-modal .modal-body .university .name {
+  color: #2a3050;
+}
+
+.subscribe-success-modal .modal-body .university .location {
+  color: #878ba6;
+  font-size: 15px !important;
+}
+
+.subscribe-success-modal .modal-body .sub-lbl {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: Poppins-Medium;
+  font-size: 30px;
+  letter-spacing: -0.6px;
+  font-weight: bolder;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #253aa3;
+}
+
+.subscribe-success-modal .modal-body .sub-msg {
+  font-size: 18px;
+  font-family: Poppins-Medium;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.subscribe-success-modal .modal-body .card {
+  padding: 1rem 2rem;
+  border: none;
+  background-color: #878ba628;
+  border-radius: 5px;
+}
+
+.subscribe-success-modal .modal-body .card .fa-university {
+  font-size: 42px;
+  color: rgba(135, 139, 166, 0.17);
+}
+
+.mail-modal .modal-header {
+  background: #253aa3;
+}
+
+.mail-modal .modal-title {
+  color: #ffffff;
+  font-family: Poppins-Medium;
+  font-size: 24px;
+  display: block;
+  text-align: center;
+  letter-spacing: -0.25px;
+}
+
+.mail-modal .modal-body {
+  padding: 0;
+}
+
+.mail-modal .modal-body .card {
+  padding: 5px 150px 5px 25px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-top: none;
+}
+
+.mail-modal .modal-body .card .control-label {
+  color: #9499b7;
+  font-family: Poppins-Medium;
+  font-size: 24px;
+  letter-spacing: -0.22px;
+}
+
+.mail-modal .modal-body .card input, .mail-modal .modal-body .card textarea {
+  border: none;
+  font-family: Poppins-Medium;
+  color: #212123;
+  padding: 2px 2px 2px 20px;
+  font-size: 24px;
+  letter-spacing: -0.22px;
+  outline: none;
+  width: 100%;
+}
+
+.mail-modal .modal-body .card textarea {
+  padding-left: 0;
+  font-size: 20px;
+  height: 190px;
+  color: #6c6d72;
+  resize: none;
+}
+
+.mail-modal .modal-body .b-none {
+  border-bottom: none !important;
+}
+
+.mail-modal .modal-body .attachment {
+  background-color: #dddfe660;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  border-radius: 5px;
+  padding: 8px 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.mail-modal .modal-body .attachment .fa-paperclip {
+  color: #878ba6;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.mail-modal .modal-body .attachment span {
+  font-size: 16px;
+  color: #2a3050;
+  line-height: 1.8;
+  padding-left: 20px;
+  font-family: Poppins-Medium;
+  letter-spacing: -0.14px;
+}
+
+.mail-modal .close-icon {
+  color: #ffffff;
+  padding-top: 12px;
+}
+
+.mail-modal .modal-footer {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  padding-left: 25px;
+  background-color: #878ba626;
+}
+
+.viewInsight-modal .modal-grp {
+  display: block;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.viewInsight-modal .modal-grp .inp-caption {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-color: #fff;
+  color: #878ba6;
+  font-family: Poppins-Medium;
+  font-size: 10px;
+  padding: 2px;
+}
+
+.viewInsight-modal .modal-grp .inp-textarea {
+  height: 162px !important;
+  padding: 10px !important;
+}
+
+.viewInsight-modal .modal-grp .inp-textarea ul {
+  padding: 0 10px;
+}
+
+.viewInsight-modal .modal-grp .inp-textarea ul li {
+  list-style: none;
+}
+
+.viewInsight-modal .modal-grp .modal-inp {
+  width: 100%;
+  height: 42px;
+  border-radius: 4px;
+  color: #2a3050;
+  font-weight: 600;
+  padding: 0px 10px;
+  border: 1px solid #878ba6;
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  background-color: #ffffff;
+}
+
+.viewInsight-modal .modal-grp .modal-inp:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline-color: #253aa3;
+}
+
+.viewInsight-modal .modal-grp .modal-inp.modal-textarea {
+  height: auto !important;
+  padding: 10px 10px;
+}
+
+.viewInsight-modal .modal-grp span {
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  margin-right: 8px;
+  color: #878ba6;
+}
+
+.viewInsight-modal .modal-grp .custom-control-inline {
+  font-family: Poppins-Regular;
+  margin-right: 0.6rem;
+  font-size: 14px;
+  color: #878ba6;
+}
+
+.viewInsight-modal .modal-grp .custom-control-inline .custom-control-label {
+  vertical-align: middle;
+}
+
+.viewInsight-modal .modal-grp .custom-control-inline .custom-control-label::before, .viewInsight-modal .modal-grp .custom-control-inline .custom-control-label::after {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.viewInsight-modal .modal-header {
+  background-color: #253aa3;
+  display: block;
+}
+
+.viewInsight-modal .modal-header .modal-title {
+  display: block;
+  text-align: center;
+  color: #ffffff;
+  font-size: 28px;
+  letter-spacing: -0.25px;
+}
+
+.viewInsight-modal .modal-body {
+  padding: 2rem 3rem;
+}
+
+.viewInsight-modal .close-icon {
+  color: #ffffff;
+  top: 22px;
+}
+
+.mail-sent-success .circle-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.mail-sent-success .circle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #20bdc925;
+  height: 122px;
+  width: 122px;
+  border-radius: 50%;
+}
+
+.mail-sent-success .circle .fa-check {
+  color: #20bdc9;
+  font-size: 54px;
+}
+
+.mail-sent-success .mail-sent {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: Poppins-Regular;
+  color: #2a3050;
+  font-size: 24px;
+  letter-spacing: -0.22px;
+}
+
+.mail-sent-success .card {
+  background-color: #878ba628;
+  width: 249px;
+  border: none;
+  display: inline-block;
+  padding: 5px 10px;
+  height: 52px;
+}
+
+.mail-sent-success .card .square {
+  height: 42px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  float: left;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #ffffff;
+  width: 42px;
+  border: 1px solid #878ba6;
+  border-radius: 10px;
+}
+
+.mail-sent-success .card .fa-university {
+  color: rgba(135, 139, 166, 0.17);
+  font-size: 30px;
+}
+
+.mail-sent-success .card .univ-name {
+  font-size: 16px;
+  letter-spacing: -0.14px;
+  color: #2a3050;
+  position: absolute;
+  left: 62px;
+  font-weight: 500;
+  bottom: 13px;
+  display: block;
+}
+
+.mail-sent-success .modal-body {
+  padding: 2rem 0;
+}
 /*# sourceMappingURL=modal.css.map */

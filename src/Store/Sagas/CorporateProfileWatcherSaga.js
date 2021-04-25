@@ -43,6 +43,9 @@ function* patchCorporateProfileRequestSaga(action) {
   yield put(actionUpdateGlobalLoaderSagaAction(true));
 
   try {
+
+    console.log('action ', action);
+
     let formData = new FormData();
     for (const key in action.payload.apiPayloadRequest) {
         formData.append(key, action.payload.apiPayloadRequest[key]);

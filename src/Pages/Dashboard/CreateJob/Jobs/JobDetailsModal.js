@@ -7,7 +7,7 @@ const JobDetailsModal = (props) => {
                 <div className="modal-content job-publish-modal">
                     <div className="modal-header job-publish-modal-header">
                         <p className="heading w-full">Job Details</p>
-                        <button type="button" onClick={props.detailsModal} className="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" onClick={() => props.closeDetailsModal()} className="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -15,7 +15,7 @@ const JobDetailsModal = (props) => {
                         <div className="heading-section d-flex justify-content-start align-items-start w-full">
                             <div className="body-section">
                                 <div className="header d-flex flex-row justify-content-between align-items-center w-full">
-                                    <p className="job-label">Job - 1</p>
+                                    <p className="job-label">{props.modelData?.jobName}</p>
                                     <div className="job-heading-btn">Open</div>
                                     <select name="hiringCriteriaID" className="form-control">
                                         {/* <option value>Hiring Criteria</option> */}
@@ -44,32 +44,21 @@ const JobDetailsModal = (props) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Programming</td>
-                                                <td>547</td>
-                                                <td>Hyderabad</td>
-                                                <td>5L - 7L</td>
-                                                <td>22 - Feb - 2021</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Oracle</td>
-                                                <td>258</td>
-                                                <td>Bangalore</td>
-                                                <td>6L - 8L</td>
-                                                <td>01 - Mar - 2021</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Java</td>
-                                                <td>389</td>
-                                                <td>Pune</td>
-                                                <td>5L - 7L</td>
-                                                <td>07 - Mar - 2021</td>
-                                            </tr>
+                                            {props.modelData?.skills && props.modelData?.skills?.length >= 0
+                                                ? props.modelData?.skills?.map((item, i) => <tr key={i}>
+                                                    <td>{item.skillID}</td>
+                                                    <td>{item.noOfPositions}</td>
+                                                    <td>{item.location}</td>
+                                                    <td>{item.salaryRange}</td>
+                                                    <td>{item.dateOfHiring}</td>
+                                                </tr>)
+                                                : <tr><td colSpan="5" className="text-center">Programming</td></tr>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
                                 <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
-                                    <div className="job-btn">Edit Job</div>
+                                    <button type="button" data-dismiss="modal" onClick={props.editJobsBtn} className="job-btn">Edit Job</button>
                                 </div>
                             </div>
                         </div>

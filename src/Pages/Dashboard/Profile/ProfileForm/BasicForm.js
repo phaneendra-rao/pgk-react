@@ -119,109 +119,38 @@ const BasicForm = (props) => {
           <div className="w-100"></div>
           <div className="col-md">
             <div className="d-grp">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateType"
-                  id="check-corporateType"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateType)}}
-                  checked={props?.checkData?.corporateType ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateType"}
-                ></label>
-              </div>}
-              <select
-                name="corporateType"
-                className="d-inp"
-                onChange={props?.onChange}
-                disabled={props?.disable ? true : false}
-                value={props?.profileData?.corporateType}
-                required
-              >
+              <select name="corporateType" className="d-inp" required>
                 <option value="">Select Corporate Sector</option>
-                {corporateTypes?.length &&
+                {corporateTypes?.length && (
                   corporateTypes.map((item) => {
-                    return (
-                      <option value={item.value} key={item.value}>
-                        {item.label}
-                      </option>
-                    );
-                  })}
+                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateType === item.value ? true : false}>{item.label}</option>;
+                  })
+                )}
               </select>
             </div>
           </div>
           <div className="col-md">
             <div className="d-grp">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateCategory"
-                  id="check-corporateCategory"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateCategory)}}
-                  checked={props?.checkData?.corporateCategory ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateCategory"}
-                ></label>
-              </div>}
-              <select
-                name="corporateCategory"
-                className="d-inp"
-                onChange={props?.onChange}
-                disabled={props?.disable ? true : false}
-                value={props?.profileData?.corporateCategory}
-                required
-              >
+              <select name="corporateCategory" className="d-inp" required>
                 <option value="">Select Corporate Category</option>
-                {corporateCategories?.length &&
+                {corporateCategories?.length && (
                   corporateCategories.map((item) => {
-                    return (
-                      <option value={item.value} key={item.value}>
-                        {item.label}
-                      </option>
-                    );
-                  })}
+                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateCategory === item.value ? true : false}>{item.label}</option>;
+                  })
+                )}
               </select>
             </div>
           </div>
           <div className="w-100"></div>
           <div className="col-md">
             <div className="d-grp">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateIndustry"
-                  id="check-corporateIndustry"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateIndustry)}}
-                  checked={props?.checkData?.corporateIndustry ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateIndustry"}
-                ></label>
-              </div>}
-              <select
-                name="corporateIndustry"
-                onChange={props?.onChange}
-                disabled={props?.disable ? true : false}
-                className="d-inp"
-                required
-              >
+              <select name="corporateIndustry" className="d-inp" required>
                 <option value="">Select Industry Vertical</option>
-                {corporateIndustries?.length &&
+                {corporateIndustries?.length && (
                   corporateIndustries.map((item) => {
-                    return (
-                      <option value={item.value} key={item.value}>
-                        {item.label}
-                      </option>
-                    );
-                  })}
+                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateIndustry === item.value ? true : false}>{item.label}</option>;
+                  })
+                )}
               </select>
             </div>
           </div>
@@ -251,7 +180,6 @@ const BasicForm = (props) => {
                         .substring(0, 10)
                     : undefined
                 }
-                disabled={props?.disable ? true : false}
                 onChange={props?.onChange}
                 className="d-inp"
                 title="Date of Commencement"

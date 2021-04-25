@@ -21,6 +21,7 @@ const PublishProfile = React.lazy(() => import('./Pages/Dashboard/Publish/Publis
 const PublishOtherInformation = React.lazy(() => import('./Pages/Dashboard/Publish/OtherInformation/PublishOtherInformation'));
 const SubscriptionHistory = React.lazy(() => import('./Pages/Dashboard/Subscribe/SubscriptionHistory/SubscriptionHistory'));
 const NewUniversity = React.lazy(() => import('./Pages/Dashboard/Subscribe/NewUniversity/NewUniversity'));
+const University = React.lazy(() => import('./Pages/Dashboard/Subscribe/University/University'));
 const Notifications = React.lazy(() => import('./Pages/Dashboard/Notifications/Notifications'));
 const Support = React.lazy(() => import('./Pages/Dashboard/Support/Support'));
 
@@ -47,6 +48,7 @@ const routes = [
     { path: "/dashboard/publish/profile", strict: true, exact: true, role: "dashboard", name: 'Publish Profile', component: PublishProfile },
     { path: "/dashboard/publish/otherinformation", strict: true, exact: true, role: "dashboard", name: 'Publish Other Information', component: PublishOtherInformation },
     { path: "/dashboard/subscribe/newuniversity", strict: true, exact: true, role: "dashboard", name: 'NewUniversity', component: NewUniversity },
+    { path: "/dashboard/subscribe/newuniversity/:id", strict: true, exact: true, role: "dashboard", name: 'University', component: University },
     { path: "/dashboard/subscribe/subscriptionhistory", strict: true, exact: true, role: "dashboard", name: 'SubscriptionHistory', component: SubscriptionHistory },
     { path: "/dashboard/notifications", strict: true, exact: true, role: "dashboard", name: 'Notifications', component: Notifications },
     { path: "/dashboard/support", strict: true, exact: true, role: "dashboard", name: 'Support', component: Support },

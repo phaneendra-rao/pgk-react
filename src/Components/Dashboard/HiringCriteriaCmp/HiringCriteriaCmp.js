@@ -16,7 +16,7 @@ const HiringCriteriaCmp = ({ openCloseModal, detailsModal, hiringCriteria }) => 
                                     </div>
                                     <p className="job-label">{item.hiringCriteriaName}</p>
                                     <button className="btn2">{item.programID}</button>
-                                    <p className="job-published-date">{item.departmentID}</p>
+                                    <p className="job-published-date">{item.course}</p>
                                     <p className="job-published-date">Created on {item.creationDate}</p>
                                 </div>
                                 <div className="vertical-divider" />

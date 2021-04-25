@@ -4,7 +4,7 @@ import JobsCmp from '../../../../Components/Dashboard/JobsCmp/JobsCmp'
 import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
-import { AddJobsSagaAction, GetJobsSagaAction } from '../../../../Store/Actions/SagaActions/JobsSagaAction';
+import { AddJobsSagaAction, EditJobsSagaAction, GetJobByIdSagaAction, GetJobsSagaAction } from '../../../../Store/Actions/SagaActions/JobsSagaAction';
 import AddJobs from './AddJobs';
 import JobDetailsModal from './JobDetailsModal';
 
@@ -15,17 +15,10 @@ const Jobs = () => {
     const [lookUpData, setLookUpData] = useState([]);
     const [isDetailsModal, setIsDetailsModal] = useState(false);
     const [modelData, setModelData] = useState({});
-    const [isAddJobEnable, setIsAddJobEnable] = useState(false)
+    const [isAddJobEnable, setIsAddJobEnable] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
 
     const dispatch = useDispatch();
-
-    const getHiring = () => {
-        dispatch(HiringSagaAction({ callback: getAllHirings }));
-    }
-
-    const getJobs = () => {
-        dispatch(GetJobsSagaAction({ callback: getAllJobs }));
-    }
 
     useEffect(() => {
         getHiring();
@@ -35,6 +28,27 @@ const Jobs = () => {
             callback: dropdowns
         }));
     }, []);
+
+    const getHiring = () => {
+        dispatch(HiringSagaAction({ callback: getAllHirings }));
+    }
+
+    const getJobs = () => {
+        dispatch(GetJobsSagaAction({ callback: getAllJobs }));
+    }
+
+    const addJobsForm = (model) => {
+        if (isEdit) {
+            const body = { id: modelData.jobID, req: model }
+            dispatch(EditJobsSagaAction({ apiPayloadRequest: body, callback: addJobsResp }));
+        } else {
+            dispatch(AddJobsSagaAction({ apiPayloadRequest: model, callback: addJobsResp }));
+        }
+    }
+
+    const getJobById = (id) => {
+        dispatch(GetJobByIdSagaAction({ apiPayloadRequest: id, callback: getJobByIdResp }))
+    }
 
 
     const getAllHirings = (data) => {
@@ -51,20 +65,33 @@ const Jobs = () => {
 
     const handleClick = () => {
         setIsAddJobEnable(!isAddJobEnable);
-    }
-
-    const addJobsForm = (model) => {
-        dispatch(AddJobsSagaAction({ apiPayloadRequest: model, callback: addJobsResp }));
+        setIsEdit(false);
     }
 
     const addJobsResp = (data) => {
-        console.log(data);
         handleClick();
+        getJobs();
+        setIsEdit(false);
     }
 
     const detailsModal = (val) => {
         setIsDetailsModal(!isDetailsModal);
-        setModelData(val);
+        getJobById(val);
+    }
+
+    const closeDetailsModal = () => {
+        setIsDetailsModal(false);
+        setModelData({});
+    }
+
+    const getJobByIdResp = (data) => {
+        setModelData(data);
+    }
+
+    const editJobsBtn = () => {
+        setIsDetailsModal(false);
+        setIsAddJobEnable(true);
+        setIsEdit(true);
     }
 
     return (
@@ -73,6 +100,9 @@ const Jobs = () => {
                 <AddJobs
                     lookUpData={lookUpData}
                     hiringCriteria={hiringCriteria}
+                    isAddJobEnable={isAddJobEnable}
+                    modelData={modelData}
+                    isEdit={isEdit}
                     addJobsForm={addJobsForm}
                     handleClick={handleClick}
                 />
@@ -88,8 +118,9 @@ const Jobs = () => {
                 ? <PortalHiringModal>
                     <JobDetailsModal
                         hiringCriteria={hiringCriteria}
-                        detailsModal={detailsModal}
                         modelData={modelData}
+                        closeDetailsModal={closeDetailsModal}
+                        editJobsBtn={editJobsBtn}
                     />
                 </PortalHiringModal>
                 : (null)

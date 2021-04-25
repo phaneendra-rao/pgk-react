@@ -32,23 +32,7 @@ const AddressAndContactForm = (props) => {
       <div className="profile-data">
         <div className="row">
           <div className="col-md-6">
-            <div className="row p-0 m-0">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateHeadQuarters"
-                  id="check-corporateHeadQuarters"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateHeadQuarters)}}
-                  checked={props?.checkData?.corporateHeadQuarters ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateHeadQuarters"}
-                ></label>
-              </div>}
-              <h6 className="reg-label">Corporate Headquarters</h6>
-            </div>
+            <h6 className="reg-label">Corporate Headquarters</h6>
             <div className="d-grp">
               <input
                 type="text"
@@ -61,7 +45,6 @@ const AddressAndContactForm = (props) => {
                 }
                 className="d-inp"
                 placeholder="Address (Line 1)"
-                disabled={props?.disable ? true : false}
               />
             </div>
             <div className="d-grp">
@@ -76,22 +59,31 @@ const AddressAndContactForm = (props) => {
                 }
                 className="d-inp"
                 placeholder="Address (Line 2)"
-                disabled={props?.disable ? true : false}
               />
             </div>
-            <div className="row w-full">
-              <div className="col-md-6 p-0 pr-1">
+            <div className="row">
+              <div className="col-md-6 pr-1">
                 <div className="d-grp">
                   <select
                     name="corporateHQAddressCountry"
-                    onChange={props?.onChange}
-                    className="d-inp w-full"
-                    value={props?.profileData?.corporateHQAddressCountry}
-                    disabled={props?.disable ? true : false}
+                    id=""
+                    className="d-inp"
                   >
                     <option value="">Select Country</option>
                     {countries?.map((item) => {
-                      return <option value={item.value}>{item.label}</option>;
+                      return (
+                        <option
+                          value={item.value}
+                          selected={
+                            props?.profileData?.corporateHQAddressCountry ===
+                            item.value
+                              ? true
+                              : false
+                          }
+                        >
+                          {item.label}
+                        </option>
+                      );
                     })}
                   </select>
                 </div>
@@ -100,13 +92,20 @@ const AddressAndContactForm = (props) => {
                 <div className="d-grp">
                   <select
                     name="corporateHQAddressState"
-                    onChange={props?.onChange}
+                    id=""
                     className="d-inp"
-                    value={props?.profileData?.corporateHQAddressState}
-                    disabled={props?.disable ? true : false}
                   >
                     <option value="">Select State</option>
-                    <option value="TS">TS</option>
+                    <option
+                      value="TS"
+                      selected={
+                        props?.profileData?.corporateHQAddressState === "TS"
+                          ? true
+                          : false
+                      }
+                    >
+                      TS
+                    </option>
                     <option
                       value="AP"
                       selected={
@@ -121,7 +120,7 @@ const AddressAndContactForm = (props) => {
                 </div>
               </div>
             </div>
-            <div className="row w-full">
+            <div className="row">
               <div className="col-md-4 pr-1">
                 <div className="d-grp">
                   <input
@@ -135,7 +134,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="City"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
@@ -152,7 +150,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="District"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
@@ -169,12 +166,11 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Zipcode"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
             </div>
-            <div className="row w-full">
+            <div className="row">
               <div className="col-md-6 pr-1">
                 <div className="d-grp">
                   <input
@@ -188,7 +184,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Phone Number"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
@@ -205,7 +200,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Office mail"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
@@ -213,24 +207,8 @@ const AddressAndContactForm = (props) => {
           </div>
           <div className="col-md-6">
             <div className="d-flex">
-            <div className="row p-0 m-0">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateLocalAddress"
-                  id="check-corporateLocalAddress"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateLocalAddress)}}
-                  checked={props?.checkData?.corporateLocalAddress ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateLocalAddress"}
-                ></label>
-              </div>}
-                <h6 className="reg-label">Corporate Local Branch</h6>
-            </div>
-              {props?.toggleCorporateHeadQuarters && <div className="custom-control custom-checkbox">
+              <h6 className="reg-label">Corporate Headquarters</h6>
+              <div className="custom-control custom-checkbox">
                 <input
                   type="checkbox"
                   onChange={props?.toggleCorporateHeadQuarters}
@@ -242,7 +220,7 @@ const AddressAndContactForm = (props) => {
                 <label className="custom-control-label" htmlFor="customCheck1">
                   Same as Corporate Head Quarters
                 </label>
-              </div>}
+              </div>
             </div>
             <div className="d-grp">
               <input
@@ -256,7 +234,6 @@ const AddressAndContactForm = (props) => {
                 }
                 className="d-inp"
                 placeholder="Address (Line 1)"
-                disabled={props?.disable ? true : false}
               />
             </div>
             <div className="d-grp">
@@ -271,24 +248,32 @@ const AddressAndContactForm = (props) => {
                 }
                 className="d-inp"
                 placeholder="Address (Line 2)"
-                disabled={props?.disable ? true : false}
               />
             </div>
-            <div className="row w-full">
+            <div className="row">
               <div className="col-md-6 pr-1">
                 <div className="d-grp">
                   <select
                     name="corporateLocalBranchAddressCountry"
-                    onChange={props?.onChange}
+                    id=""
                     className="d-inp"
-                    value={
-                      props?.profileData?.corporateLocalBranchAddressCountry
-                    }
-                    disabled={props?.disable ? true : false}
                   >
                     <option value="">Select Country</option>
                     {countries?.map((item) => {
-                      return <option value={item.value}>{item.label}</option>;
+                      return (
+                        <option
+                          value={item.value}
+                          selected={
+                            props?.profileData
+                              ?.corporateLocalBranchAddressCountry ===
+                            item.value
+                              ? true
+                              : false
+                          }
+                        >
+                          {item.label}
+                        </option>
+                      );
                     })}
                   </select>
                 </div>
@@ -297,13 +282,21 @@ const AddressAndContactForm = (props) => {
                 <div className="d-grp">
                   <select
                     name="corporateLocalBranchAddressState"
-                    onChange={props?.onChange}
+                    id=""
                     className="d-inp"
-                    value={props?.profileData?.corporateLocalBranchAddressState}
-                    disabled={props?.disable ? true : false}
                   >
-                    <option value="">Select State</option>
-                    <option value="TS">TS</option>
+                      <option value="">Select State</option>
+                    <option
+                      value="TS"
+                      selected={
+                        props?.profileData?.corporateLocalBranchAddressState ===
+                        "TS"
+                          ? true
+                          : false
+                      }
+                    >
+                      TS
+                    </option>
                     <option
                       value="AP"
                       selected={
@@ -319,7 +312,7 @@ const AddressAndContactForm = (props) => {
                 </div>
               </div>
             </div>
-            <div className="row w-full">
+            <div className="row">
               <div className="col-md-4 pr-1">
                 <div className="d-grp">
                   <input
@@ -333,7 +326,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="City"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
@@ -351,7 +343,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="District"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
@@ -368,12 +359,11 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Zipcode"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
             </div>
-            <div className="row w-full">
+            <div className="row">
               <div className="col-md-6 pr-1">
                 <div className="d-grp">
                   <input
@@ -389,7 +379,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Phone Number"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>
@@ -406,7 +395,6 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Office mail"
-                    disabled={props?.disable ? true : false}
                   />
                 </div>
               </div>

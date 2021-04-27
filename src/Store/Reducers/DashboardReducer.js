@@ -11,8 +11,11 @@ const INITIAL = {
 
 const DashboardReducer = (state = INITIAL, action) => {
     switch (action.type) {
-        case actionTypes.BALANCE:
-            return { ...state, balance: action.payload }
+        // case actionTypes.BALANCE:
+        //     return { ...state, balance: action.payload }
+
+        case SagaActionTypes.ACTION_GET_CORPORATE_TOKENS_RESPONSE:
+            return { ...state, balance: action.payload };
 
         case SagaActionTypes.ACTION_GET_CORPORATE_HIRING_RESPONSE:
             return { ...state, hiringCriteria: action.payload };

@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetTokensAction } from '../../Store/Actions/DashboardActions/DashboardAction';
-const $ = window.$;
+// import { GetTokensAction } from '../../Store/Actions/DashboardActions/DashboardAction';
+import { getTokensSagaAction } from '../../Store/Actions/SagaActions/DashboardSagaAction';
+// const $ = window.$;
 
 const DashboardHeader = () => {
+  
   const balance = useSelector(state => state.DashboardReducer.balance);
   const dispatch = useDispatch();
 
   useEffect(() => {
-      dispatch(GetTokensAction());
+    // dispatch(GetTokensAction());
+    dispatch(getTokensSagaAction());
   }, [])
 
   return (

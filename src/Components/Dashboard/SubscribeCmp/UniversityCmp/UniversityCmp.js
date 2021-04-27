@@ -69,17 +69,24 @@ const UniversityCmp = (props) => {
                     <div className="univ-quick-widget d-flex flex-column align-items-center">
                         <i className="fas far fa-file-alt"></i>
                         <p className="title">University Information</p>
-                        <div className="quick-widget-btn">Subscribe to view</div>
+                        <button
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#subscribe"
+                            onClick={() => props.subscribeModal()}
+                            className="quick-widget-btn">
+                            Subscribe to view
+                        </button>
                     </div>
                     <div className="univ-quick-widget d-flex flex-column align-items-center">
                         <i className="fas fa-user-circle" />
                         <p className="title">Generate Student List</p>
-                        <div className="quick-widget-btn">Subscribe to Access</div>
+                        <button className="quick-widget-btn">Subscribe to Access</button>
                     </div>
                     <div className="univ-quick-widget d-flex flex-column align-items-center">
                         <i className="fas fa-university" />
                         <p className="title">Request To Attend Campus Drive</p>
-                        <div className="quick-widget-btn">Subscribe to Place the request</div>
+                        <button className="quick-widget-btn">Subscribe to Place the request</button>
                     </div>
                 </div>
                 <div className="univ-subscription-history-stripe">
@@ -104,7 +111,7 @@ const UniversityCmp = (props) => {
                                     <p className="sub-title">{props.universityId}</p>
                                 </div>
                                 <div className="vertical-border" />
-                                <button type="button" data-toggle="modal" data-target="#viewInsight" onClick={() =>props.viewInfo(item?.publishId)} className="view-info-btn">View Information</button>
+                                <button type="button" data-toggle="modal" data-target="#viewInsight" onClick={() => props.viewInfo(item?.publishId)} className="view-info-btn">View Information</button>
                             </div>)
                         : (null)
                     }

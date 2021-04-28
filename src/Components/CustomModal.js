@@ -6,6 +6,7 @@ const CustomModal = (props) => {
   useEffect(() => {
     if (props?.show) {
       $("#customModal").modal("show");
+      $(".modal-backdrop").show();
     } else {
       $("#customModal").modal("hide");
       $(".modal-backdrop").hide();

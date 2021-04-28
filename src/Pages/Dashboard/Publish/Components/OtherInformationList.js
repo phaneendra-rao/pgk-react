@@ -16,7 +16,7 @@ const OtherInformationList = (props) => {
           <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
             <i className="fas fa-cube"></i>
           </div>
-          <p className="job-label">{info?.publishId ? info?.publishId : "-"}</p>
+          <p className="job-label">{info?.publishID ? info?.publishID : "-"}</p>
           <p className="job-published-date" style={{textOverflow:'ellipsis', fontWeight: 'bold'}}>{info?.title}</p>
           <p className="job-published-date">
             {info?.creationDate &&

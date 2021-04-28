@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import OtherInformationList from './OtherInformationList';
+import OtherInformationList from '../Components/OtherInformationList';
 import {actionPostAddOtherInformationRequest, actionPostPublishOtherInformationRequest, actionGetPublishOtherInformationListRequest} from '../../../../Store/Actions/SagaActions/OtherInformationSagaActions';
 import CustomToastModal from "../../../../Components/CustomToastModal";
 

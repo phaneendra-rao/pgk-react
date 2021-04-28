@@ -6,6 +6,7 @@ const CustomToastModal = (props) => {
   useEffect(() => {
     if (props?.show) {
       $("#customToastModal").modal("show");
+      $(".modal-backdrop").show();
     } else {
       $("#customToastModal").modal("hide");
       $(".modal-backdrop").hide();
@@ -13,8 +14,8 @@ const CustomToastModal = (props) => {
   });
 
   return (
-    <PortalModal>
-      {props?.show && <div className="modal" id={"customToastModal"} tabIndex={-1}>
+    props?.show && <PortalModal>
+      <div className="modal" id={"customToastModal"} tabIndex={-1}>
         <div
           className={`modal-dialog modal-dialog-centered modal-sm`}
           role="document"
@@ -37,7 +38,7 @@ const CustomToastModal = (props) => {
             </div>
           </div>
         </div>
-      </div>}
+      </div>
     </PortalModal>
   );
 };

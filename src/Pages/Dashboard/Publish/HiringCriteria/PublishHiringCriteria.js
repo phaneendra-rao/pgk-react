@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import HiringCriteriaListItem from "./HiringCriteriaListItem";
+import HiringCriteriaListItem from "../Components/HiringCriteriaListItem";
 
 import { HiringSagaAction, actionPostPublishCorporateHiringRequest } from "../../../../Store/Actions/SagaActions/HiringSagaAction";
 import CustomToastModal from "../../../../Components/CustomToastModal";
@@ -18,7 +18,6 @@ const PublishHiringCriteria = (props) => {
   ] = useState([]);
 
   const onHiringCriteriaResponse = (response) => {
-    console.log("response ", response);
     if (response?.length) {
       let updatedHiringCriteriaList = [];
       let updatedPublishedHiringCriteriaList = [];
@@ -118,7 +117,7 @@ const PublishHiringCriteria = (props) => {
             <p className="heading" style={{ fontWeight: "bold" }}>
               Publish Hiring Criteria
             </p>
-            <div className="align-self-start d-flex justify-content-center align-items-center mb-3">
+            {hiringCriteriaList?.length && <div className="align-self-start d-flex justify-content-center align-items-center mb-3">
               <input
                 type="checkbox"
                 onChange={() => {
@@ -135,7 +134,7 @@ const PublishHiringCriteria = (props) => {
               >
                 Publish Selected
               </button>
-            </div>
+            </div>}
             {hiringCriteriaList?.length &&
               hiringCriteriaList.map((item, index) => {
                 return (
@@ -152,6 +151,13 @@ const PublishHiringCriteria = (props) => {
                   />
                 );
               })}
+              {hiringCriteriaList?.length === 0 && <div className="row jobs-saved-section-list">
+        <div className="d-flex flex-column justify-content-start align-items-center w-full">
+          <p className="no-list-message w-full">
+            Nothing to display here
+          </p>
+        </div>
+      </div>}
           </div>
         </div>
       </div>

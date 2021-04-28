@@ -106,7 +106,7 @@ function* editJobsSaga(action) {
 }
 
 const postPublishCorporateJobs = (formData) => {
-    const URL = '/p/crp/publishJob';
+    const URL = '/p/crp/publishJob/';
     return Axios.post(URL, formData).then(resp => resp.data);
 }
 
@@ -114,13 +114,18 @@ function* postPublishCorporateJobsRequest(action) {
     yield put(actionUpdateGlobalLoaderSagaAction(true));
 
     try {
+        let formData = new FormData();
+
+        let updatedJobs = [];
+        
         for (let index = 0; index < action.payload.apiPayloadRequest.length; index++) {
-            let formData = new FormData();
-            for (const key in action.payload.apiPayloadRequest[index]) {
-                formData.append(key, action.payload.apiPayloadRequest[index][key]);
-            }
-            yield call(postPublishCorporateJobs, formData);
+            updatedJobs.push(action.payload.apiPayloadRequest[index]);
         }
+
+        formData.append('publishJobs', JSON.stringify(updatedJobs));
+
+        yield call(postPublishCorporateJobs, formData);
+
         action.payload.callback();
 
     } catch (err) {

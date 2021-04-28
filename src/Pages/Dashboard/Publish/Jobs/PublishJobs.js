@@ -89,12 +89,13 @@ const PublishJobs = () => {
   };
 
   const publishSelectedItems = (items) => {
-    dispatch(
-      actionPostPublishCorporateJobsRequest({
-        apiPayloadRequest: items,
-        callback: onPublishSuccess,
-      })
-    );
+    onPublishSuccess();
+    // dispatch(
+    //   actionPostPublishCorporateJobsRequest({
+    //     apiPayloadRequest: items,
+    //     callback: onPublishSuccess,
+    //   })
+    // );
   };
 
   const publishSelected = () => {

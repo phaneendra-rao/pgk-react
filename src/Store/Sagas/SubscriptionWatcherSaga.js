@@ -5,6 +5,7 @@ import {
     ACTION_GET_CORPORATE_HISTORY_UNIVERSITY_REQUEST,
     ACTION_GET_CORPORATE_SUBSCRIBE_TOKENS_REQUEST,
     ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST,
+    ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST,
     ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST
 } from "../Actions/SagaActions/SagaActionTypes";
 
@@ -111,9 +112,39 @@ function* getSubscribeTokensSaga(action) {
     }
 }
 
+const subscribeUnvInfo = (payload) => {
+    const URL = '/s/subscribe';
+    return Axios.post(URL, payload).then(res => res.data);
+}
+
+function* subscribeUnvInfoSaga(action) {
+    try {
+        const model = action.payload.apiPayloadRequest;
+        let formData = new FormData();
+        for (const key in model) {
+            formData.append(key, model[key]);
+        }
+        const resp = yield call(subscribeUnvInfo, formData);
+        if (resp?.message === "Successfully subscribed") {
+            toast.success(resp?.message)
+        } else {
+            toast.error("Not subscribed!");
+        }
+        // console.log(resp);
+        action.payload.callback(resp);
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    }
+}
+
 export default function* SubscriptionWatcherSaga() {
     yield takeLatest(ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST, getSearchDataSaga);
     yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST, getUniversityInfoSaga);
     yield takeLatest(ACTION_GET_CORPORATE_HISTORY_UNIVERSITY_REQUEST, getUniversityHistoryInfoSaga);
     yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_TOKENS_REQUEST, getSubscribeTokensSaga);
+    yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST, subscribeUnvInfoSaga);
 }

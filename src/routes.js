@@ -63,6 +63,7 @@ const Notifications = React.lazy(() =>
   import("./Pages/Dashboard/Notifications/Notifications")
 );
 const Support = React.lazy(() => import("./Pages/Dashboard/Support/Support"));
+const UniversityStudents = React.lazy(() => import("./Pages/Dashboard/Subscribe/University/UniversityStudents/UniversityStudents"));
 
 const routes = [
   {
@@ -241,6 +242,14 @@ const routes = [
     role: "dashboard",
     name: "University",
     component: University,
+  },
+  {
+    path: "/dashboard/subscribe/students/:id",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "University",
+    component: UniversityStudents,
   },
   {
     path: "/dashboard/subscribe/subscriptionhistory",

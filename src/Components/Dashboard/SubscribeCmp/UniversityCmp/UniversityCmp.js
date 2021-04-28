@@ -69,19 +69,43 @@ const UniversityCmp = (props) => {
                     <div className="univ-quick-widget d-flex flex-column align-items-center">
                         <i className="fas far fa-file-alt"></i>
                         <p className="title">University Information</p>
-                        <button
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#subscribe"
-                            onClick={() => props.subscribeModal()}
-                            className="quick-widget-btn">
-                            Subscribe to view
+                        {props.universityInfoList?.universityInsight
+                            ? <button
+                                type="button"
+                                className="quick-widget-btn">
+                                view
+                                </button>
+                            : <button
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#subscribe"
+                                onClick={() => props.subscribeModal()}
+                                className="quick-widget-btn">
+                                Subscribe to view
                         </button>
+                        }
                     </div>
                     <div className="univ-quick-widget d-flex flex-column align-items-center">
                         <i className="fas fa-user-circle" />
                         <p className="title">Generate Student List</p>
-                        <button className="quick-widget-btn">Subscribe to Access</button>
+                        {/* <button className="quick-widget-btn">Subscribe to Access</button> */}
+
+                        {props.universityInfoList?.studentDbAvailable
+                            ? <button
+                                type="button"
+                                onClick={props.navigateToStudent}
+                                className="quick-widget-btn">
+                                view
+                                </button>
+                            : <button
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#subscribe"
+                                onClick={() => props.subscribeModal()}
+                                className="quick-widget-btn">
+                                Subscribe to view
+                        </button>
+                        }
                     </div>
                     <div className="univ-quick-widget d-flex flex-column align-items-center">
                         <i className="fas fa-university" />

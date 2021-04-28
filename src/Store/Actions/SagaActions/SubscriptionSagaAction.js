@@ -2,6 +2,7 @@ import {
     ACTION_GET_CORPORATE_HISTORY_UNIVERSITY_REQUEST,
     ACTION_GET_CORPORATE_SUBSCRIBE_TOKENS_REQUEST,
     ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST,
+    ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST,
     ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST
 } from "./SagaActionTypes";
 
@@ -30,6 +31,13 @@ export const GetUniversityHistoryInfoSagaAction = (payload) => {
 export const GetSubscribeTokensSagaAction = (payload) => {
     return {
         type: ACTION_GET_CORPORATE_SUBSCRIBE_TOKENS_REQUEST,
+        payload: payload
+    }
+}
+
+export const SubscribeUnvInfoSagaAction = (payload) => {
+    return {
+        type: ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST,
         payload: payload
     }
 }

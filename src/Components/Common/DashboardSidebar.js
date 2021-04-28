@@ -131,7 +131,7 @@ const DashboardSidebar = () => {
               </li>
               <li className="sidebar-item">
                 <NavLink
-                  to="/dashboard/master/createtopic"
+                  to="/dashboard/publish/jobs"
                   exact
                   activeClassName="active"
                   className="sidebar-link"

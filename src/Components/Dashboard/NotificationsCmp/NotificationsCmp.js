@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-function NotificationsCmp() {
+const NotificationsCmp = (props) => {
     return (
         <>
             <div className="main mt-0">
@@ -13,8 +13,8 @@ function NotificationsCmp() {
                                     <tr>
                                         <th scope="col">
                                             <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="all" />
-                                                <label className="custom-control-label mt-1" htmlFor="all">
+                                                <input type="checkbox" onChange={props.selectAll} checked={props?.isSelectAll ? true : false} className="custom-control-input" id="selectALl" />
+                                                <label className="custom-control-label mt-1" htmlFor="selectALl">
                                                 </label>
                                             </div>
                                         </th>
@@ -43,32 +43,41 @@ function NotificationsCmp() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                                <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="basic-info">
-                                                <div className="basic-img">
-                                                    <p className="basic-name"><i className="fas fa-building" /></p>
+                                    {props?.notificationsList && props?.notificationsList?.length > 0
+                                        ? props?.notificationsList?.map((item, i) => <tr key={i}>
+                                            <td>
+                                                <div className="custom-control custom-checkbox">
+                                                    <input type="checkbox"
+                                                        name={item.isChecked}
+                                                        onChange={props.handleChange}
+                                                        className="custom-control-input"
+                                                        checked={item?.isChecked ? true : false}
+                                                        value={item?.notificationID}
+                                                        id={item?.notificationID} />
+                                                    <label className="custom-control-label mt-1" htmlFor={item?.notificationID}>
+                                                    </label>
                                                 </div>
-                                                <div className="basic-content">
-                                                    <h5 className="basic-title">Osmania University</h5>
-                                                    <p className="basic-subtitle">has requested for Campus Hiring</p>
+                                            </td>
+                                            <td>
+                                                <div className="basic-info">
+                                                    <div className="basic-img">
+                                                        <p className="basic-name"><i className="fas fa-building" /></p>
+                                                    </div>
+                                                    <div className="basic-content">
+                                                        <h5 className="basic-title">{item?.senderName}</h5>
+                                                        <p className="basic-subtitle">{item?.content}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button className="btn action tb-btn-red">University</button>
-                                            <button className="btn action tb-btn-yellow">Action required</button>
-                                        </td>
-                                        <td className="time">2 hrs ago</td>
-                                    </tr>
-                                    <tr>
+                                            </td>
+                                            <td>
+                                                <button className="btn action tb-btn-red">{item?.senderUserRole}</button>
+                                                <button className="btn action tb-btn-yellow">Action required</button>
+                                            </td>
+                                            <td className="time">{new Date(item?.dateofNotification)?.toLocaleString()}</td>
+                                        </tr>)
+                                        : (<td colSpan="3">No data</td>)
+                                    }
+                                    {/* <tr>
                                         <td>
                                             <div className="custom-control custom-checkbox">
                                                 <input type="checkbox" className="custom-control-input" id="customCheck1" />
@@ -117,7 +126,7 @@ function NotificationsCmp() {
                                             <button className="btn action tb-btn-pink">Action required</button>
                                         </td>
                                         <td className="time">2 hrs ago</td>
-                                    </tr>
+                                    </tr> */}
                                 </tbody>
                             </table>
                         </div>

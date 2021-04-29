@@ -17,6 +17,7 @@ const University = (props) => {
     const [isSubscribe, setIsSubscribe] = useState(false);
     const [tokens, setTokens] = useState(null);
     const [isSubUnvInfoSuccess, setIsSubUnvInfoSuccess] = useState(false);
+    const [bonusTokensUsed, setBonusTokensUsed] = useState(0);
 
 
     const balance = useSelector(state => state.DashboardReducer.balance);
@@ -62,11 +63,19 @@ const University = (props) => {
         getSubscribeTokens();
     }
 
+    // BONUS CALCULATION
+    const bonusCalc = (event) => {
+        const checked = event.target.checked;
+        const percentageOfTokens = Math.round(tokens?.tokensrequired * (tokens?.bonusTokenUsagePercentage / 100));
+        const tokensToPay = checked ? percentageOfTokens : 0;
+        setBonusTokensUsed(tokensToPay);
+    }
+
     const subscribeUnv = () => {
         const model = {
             publishId: universityInfoList?.studentDbPublishID,
-            paidTokensUsed: 0,
-            bonusTokensUsed: tokens?.tokensrequired
+            paidTokensUsed: tokens?.tokensrequired - bonusTokensUsed,
+            bonusTokensUsed: bonusTokensUsed
         }
         dispatch(SubscribeUnvInfoSagaAction({ apiPayloadRequest: model, callback: subscribeUnvInfoRes }))
     }
@@ -81,10 +90,8 @@ const University = (props) => {
     }
 
     const navigateToStudent = () => {
-        props.history.push('/dashboard/subscribe/students/'+ universityId);
+        props.history.push('/dashboard/subscribe/students/' + universityId);
     }
-
-    console.log(universityHistoryInfoList);
 
     return (
         <>
@@ -105,9 +112,12 @@ const University = (props) => {
             }
             {isSubscribe && <PortalHiringModal>
                 <UniversitySubscribeModal
+                    universityName={universityInfoList?.universityName}
                     tokens={tokens}
                     balance={balance}
+                    bonusTokensUsed={bonusTokensUsed}
                     subscribeUnv={subscribeUnv}
+                    bonusCalc={bonusCalc}
                 />
             </PortalHiringModal>}
             {isSubUnvInfoSuccess && <PortalHiringModal>

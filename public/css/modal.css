@@ -454,8 +454,11 @@
 .subscription-modal .modal-body .card:nth-child(2) {
   background-color: #878ba622;
 }
-
 .subscription-modal .modal-body .card:nth-child(3) {
+  background-color: #878ba655;
+}
+
+.subscription-modal .modal-body .card:nth-child(4) {
   background-color: #2a3050;
   color: #ffffff;
 }
@@ -464,7 +467,12 @@
   font-size: 20px;
   font-family: Poppins-Medium;
 }
-
+.subscription-modal .modal-body .card .custom-control-label::before{
+  background-color: #ffffff;
+}
+.subscription-modal .modal-body .card .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color: #007bff;
+}
 .subscription-modal .modal-body .card .inner-list {
   padding-left: 15px;
 }

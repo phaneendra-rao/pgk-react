@@ -8,6 +8,7 @@ import {
     ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST,
     ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST
 } from "../Actions/SagaActions/SagaActionTypes";
+import { getTokensSagaAction } from '../Actions/SagaActions/DashboardSagaAction';
 
 const getSearchData = (params) => {
     const URL = '/u/unv/search?' + params;
@@ -131,6 +132,7 @@ function* subscribeUnvInfoSaga(action) {
             toast.error("Not subscribed!");
         }
         // console.log(resp);
+        yield put(getTokensSagaAction());
         action.payload.callback(resp);
     } catch (err) {
         if (err?.response) {

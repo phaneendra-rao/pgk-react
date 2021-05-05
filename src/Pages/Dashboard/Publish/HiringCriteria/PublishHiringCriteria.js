@@ -117,7 +117,7 @@ const PublishHiringCriteria = (props) => {
             <p className="heading" style={{ fontWeight: "bold" }}>
               Publish Hiring Criteria
             </p>
-            {hiringCriteriaList?.length && <div className="align-self-start d-flex justify-content-center align-items-center mb-3">
+            {hiringCriteriaList?.length ? <div className="align-self-start d-flex justify-content-center align-items-center mb-3">
               <input
                 type="checkbox"
                 onChange={() => {
@@ -134,8 +134,8 @@ const PublishHiringCriteria = (props) => {
               >
                 Publish Selected
               </button>
-            </div>}
-            {hiringCriteriaList?.length &&
+            </div> : ''}
+            {hiringCriteriaList?.length ?
               hiringCriteriaList.map((item, index) => {
                 return (
                   <HiringCriteriaListItem
@@ -150,7 +150,7 @@ const PublishHiringCriteria = (props) => {
                     }
                   />
                 );
-              })}
+              }) : ''}
               {hiringCriteriaList?.length === 0 && <div className="row jobs-saved-section-list">
         <div className="d-flex flex-column justify-content-start align-items-center w-full">
           <p className="no-list-message w-full">
@@ -161,7 +161,7 @@ const PublishHiringCriteria = (props) => {
           </div>
         </div>
       </div>
-      <div className="row jobs-saved-section">
+      <div className="row jobs-saved-section" style={{margin:0}}>
         <div className="d-flex flex-column justify-content-start align-items-center w-full">
           <p className="heading w-full">Published Hiring Criteria History</p>
         </div>

@@ -89,20 +89,19 @@ const PublishJobs = () => {
   };
 
   const publishSelectedItems = (items) => {
-    onPublishSuccess();
-    // dispatch(
-    //   actionPostPublishCorporateJobsRequest({
-    //     apiPayloadRequest: items,
-    //     callback: onPublishSuccess,
-    //   })
-    // );
+    dispatch(
+      actionPostPublishCorporateJobsRequest({
+        apiPayloadRequest: items,
+        callback: onPublishSuccess,
+      })
+    );
   };
 
   const publishSelected = () => {
     if (selectedItems.length) {
       const updatedSelectedItems = jobsList.map((item) => {
         if (selectedItems.includes(item.jobID)) {
-          return { jobID: item.jobID, jobName: item.jobName };
+          return { jobID: item.jobID };
         }
       });
 
@@ -116,7 +115,7 @@ const PublishJobs = () => {
     let updatedSelectedItems = [];
     jobsList.forEach((item) => {
       if (item.jobID === id) {
-        updatedSelectedItems.push({ jobID: item.jobID, jobName: item.jobName });
+        updatedSelectedItems.push({ jobID: item.jobID });
       } 
     });
 
@@ -144,6 +143,7 @@ const PublishJobs = () => {
   };
 
   return (
+    <>
     <div className="row published-jobs-section">
       <div className="d-flex flex-column justify-content-start align-items-center w-full">
         <p className="heading">Publish Jobs</p>
@@ -169,18 +169,20 @@ const PublishJobs = () => {
         )}
         {jobsList?.length &&
           jobsList.map((item, index) => {
-            return (
-              <JobsListItem
-                key={index}
-                item={item}
-                hiringCriteriaList={hiringCriteriaList}
-                checkHandler={onCheckHandler}
-                onPublish={() => {
-                  getJobById(item.jobID);
-                }}
-                isCheck={selectedItems.includes(item?.jobID) ? true : false}
-              />
-            );
+            if(!item.publishedFlag) {
+              return (
+                <JobsListItem
+                  key={index}
+                  item={item}
+                  hiringCriteriaList={hiringCriteriaList}
+                  checkHandler={onCheckHandler}
+                  onPublish={() => {
+                    getJobById(item.jobID);
+                  }}
+                  isCheck={selectedItems.includes(item?.jobID) ? true : false}
+                />
+              );
+            }
           })}
         {jobsList?.length === 0 && (
           <div className="row jobs-saved-section-list">
@@ -192,6 +194,30 @@ const PublishJobs = () => {
           </div>
         )}
       </div>
+    </div>
+
+      <div className="row jobs-saved-section" style={{margin:0}}>
+        <div className="d-flex flex-column justify-content-start align-items-center w-full">
+          <p className="heading w-full">Published Jobs History</p>
+        </div>
+      </div>
+     <div style={{padding: '12px'}}>
+     {jobsList?.length &&
+          jobsList.map((item, index) => {
+            if(item.publishedFlag) {
+              return (
+                <JobsListItem
+                  key={index}
+                  item={item}
+                  hiringCriteriaList={hiringCriteriaList}
+                  onJobView={() => {
+                    getJobById(item.jobID);
+                  }}
+                />
+              );
+            }
+          })}
+     </div>
      {<CustomModal show={showModal} modalStyles={{ minWidth: "65%" }}>
         <div className="job-publish-modal">
           <div className="modal-header job-publish-modal-header">
@@ -208,15 +234,15 @@ const PublishJobs = () => {
           </div>
           <div className="modal-body job-publish-modal-body d-flex flex-column justify-content-center align-items-center">
             <div className="heading-section d-flex justify-content-start align-items-start w-full">
-              <input
+              {!singleJob?.publishedFlag && <input
                 type="checkbox"
                 name=""
                 className="job-checkbox align-self-start"
-              />
+              />}
               <div className="d-flex flex-column justify-content-start align-items-center w-full body-section">
                 <div className="header d-flex flex-row justify-content-between align-items-center w-full">
                   <p className="job-label">
-                    {singleJob?.jobName ? singleJob?.jobName : "-"}
+                    {singleJob?.jobID ? singleJob?.jobID : "-"}
                   </p>
                   <div className="job-heading-btn">Open</div>
                   <select
@@ -268,11 +294,11 @@ const PublishJobs = () => {
                           return (
                             <tr>
                               <td>
-                                <input
+                                {!singleJob?.publishedFlag && <input
                                   type="checkbox"
                                   name=""
                                   className="table-item-checkbox"
-                                />{" "}
+                                />} {" "}
                                 {item?.skill ? item.skill : "-"}
                               </td>
                               <td>
@@ -295,15 +321,16 @@ const PublishJobs = () => {
                     </tbody>
                   </table>
                 )}
-                <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
+                {!singleJob?.publishedFlag && <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
                   <button
                     type="button"
                     className="btn d-flex justify-content-around align-items-center"
                     style={{
-                      height: "30px",
+                      height: "40px",
                       width: "100px",
-                      fontSize: ".600rem",
+                      fontSize: ".700rem",
                       borderRadius: "4px",
+                      marginRight: '10px'
                     }}
                     onClick={() => {
                       setShowModal(false);
@@ -315,16 +342,16 @@ const PublishJobs = () => {
                     type="button"
                     className="btn d-flex justify-content-around align-items-center"
                     style={{
-                      height: "30px",
+                      height: "40px",
                       width: "100px",
-                      fontSize: ".600rem",
+                      fontSize: ".700rem",
                       borderRadius: "4px",
                     }}
                     onClick={() => {finalSubmit(singleJob?.jobID)}}
                   >
                     <p>Publish</p>
                   </button>
-                </div>
+                </div>}
               </div>
             </div>
           </div>
@@ -338,7 +365,7 @@ const PublishJobs = () => {
         iconNameClass={"fa-briefcase"}
         message={"Selected Job/Jobs Have been Published Successfully"}
       />}
-    </div>
+    </>
   );
 };
 

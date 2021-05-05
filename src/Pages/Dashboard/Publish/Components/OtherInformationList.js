@@ -78,7 +78,7 @@ const OtherInformationList = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={otherInformation?.publishId ? otherInformation?.publishId : ''}
+                    value={otherInformation?.publishID ? otherInformation?.publishID : ''}
                     disabled
                     required
                   />

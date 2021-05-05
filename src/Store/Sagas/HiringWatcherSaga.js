@@ -51,18 +51,17 @@ function* addHiringCriteriaSaga(action) {
     }
 }
 
-const postPublishCorporateHiring = (hiringRequestId) => {
-    const URL = '/p/crp/hiringCriteria/publish/'+hiringRequestId;
-    return Axios.post(URL).then(resp => resp.data);
+const postPublishCorporateHiring = (listOfHiringCriteria) => {
+    const URL = '/p/crp/hiringCriteria/publish/';
+    return Axios.post(URL, listOfHiringCriteria).then(resp => resp.data);
 }
 
 function* postPublishCorporateHiringRequest(action) {
     yield put(actionUpdateGlobalLoaderSagaAction(true));
 
     try {
-        for (let index = 0; index < action.payload.apiPayloadRequest.length; index++) {
-          yield call(postPublishCorporateHiring, action.payload.apiPayloadRequest[index]);
-        }
+
+    yield call(postPublishCorporateHiring, {hiringCriteriaIDS: action.payload.apiPayloadRequest});
       action.payload.callback();
       
     } catch (err) {

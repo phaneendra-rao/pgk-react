@@ -114,20 +114,8 @@ function* postPublishCorporateJobsRequest(action) {
     yield put(actionUpdateGlobalLoaderSagaAction(true));
 
     try {
-        let formData = new FormData();
-
-        let updatedJobs = [];
-        
-        for (let index = 0; index < action.payload.apiPayloadRequest.length; index++) {
-            updatedJobs.push(action.payload.apiPayloadRequest[index]);
-        }
-
-        formData.append('publishJobs', JSON.stringify(updatedJobs));
-
-        yield call(postPublishCorporateJobs, formData);
-
+        yield call(postPublishCorporateJobs, {publishJobs: action.payload.apiPayloadRequest});
         action.payload.callback();
-
     } catch (err) {
         if (err.response) {
             toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);

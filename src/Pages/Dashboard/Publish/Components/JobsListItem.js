@@ -20,7 +20,7 @@ const JobsListItem = (props) => {
           <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
             <i className="fas fa-cube"></i>
           </div>
-          <p className="job-label">{props?.item?.jobName ? props?.item?.jobName : '-'}</p>
+          <p className="job-label">{props?.item?.jobID ? props?.item?.jobID : '-'}</p>
           <select name="" onChange={()=>{}} className="form-control job-dropdown" value={props?.item?.hiringCriteriaID}>
             <option value="">Select Hiring Criteria</option>
             {props?.hiringCriteriaList?.map((item, index)=>{
@@ -57,6 +57,24 @@ const JobsListItem = (props) => {
               }}
             >
               <p>Publish</p>
+            </button>
+          )}
+
+        {props?.item?.publishedFlag && (
+            <button
+              type="button"
+              className="btn d-flex justify-content-around align-items-center"
+              style={{
+                height: "30px",
+                width: "100px",
+                fontSize: ".600rem",
+                borderRadius: "4px",
+              }}
+              onClick={() => {
+                props?.onJobView(props?.item?.jobID);
+              }}
+            >
+              <p>Details</p>
             </button>
           )}
         </div>

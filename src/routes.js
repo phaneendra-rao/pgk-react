@@ -53,6 +53,9 @@ const PublishHiringCriteria = React.lazy(() =>
 const PublishJobs = React.lazy(() =>
   import("./Pages/Dashboard/Publish/Jobs/PublishJobs")
 );
+const PublishHistory = React.lazy(() =>
+  import("./Pages/Dashboard/Publish/PublishHistory")
+);
 const SubscriptionHistory = React.lazy(() =>
   import("./Pages/Dashboard/Subscribe/SubscriptionHistory/SubscriptionHistory")
 );
@@ -237,6 +240,14 @@ const routes = [
     role: "dashboard",
     name: "Publish Jobs",
     component: PublishJobs,
+  },
+  {
+    path: "/dashboard/publish-history",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "Publish History",
+    component: PublishHistory,
   },
   {
     path: "/dashboard/subscribe/newuniversity",

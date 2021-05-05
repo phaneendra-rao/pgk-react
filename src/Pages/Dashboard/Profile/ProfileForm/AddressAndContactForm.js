@@ -246,7 +246,7 @@ const AddressAndContactForm = (props) => {
                   htmlFor={"check-corporateLocalAddress"}
                 ></label>
               </div>}
-              <h6 className="reg-label">Corporate Headquarters</h6>
+              <h6 className="reg-label">Corporate Local Branch</h6>
               {props?.checkData === undefined && <div className="custom-control custom-checkbox">
                 <input
                   type="checkbox"

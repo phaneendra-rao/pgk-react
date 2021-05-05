@@ -152,7 +152,7 @@ const DashboardSidebar = () => {
               </li>
               <li className="sidebar-item">
                 <NavLink
-                  to="/dashboard/batch/createbatchtregister"
+                  to="/dashboard/publish-history"
                   exact
                   activeClassName="active"
                   className="sidebar-link"

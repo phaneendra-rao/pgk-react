@@ -30,7 +30,7 @@ const SubscribeSearchCmp = (props) => {
                                 className="form-control select-filter"
                                 disabled={props.hcID}
                                 required>
-                                <option>By Location</option>
+                                <option value="">By Location</option>
                                 <option value="Hyderabad">Hyderabad</option>
                                 <option value="Delhi">Delhi</option>
                                 <option value="Mumbai">Mumbai</option>
@@ -55,7 +55,7 @@ const SubscribeSearchCmp = (props) => {
                         </div>
                     </div>
                     <div className="filter-search-btn-container d-flex justify-content-center align-items-center">
-                        <button type="submit" className="univ-search-btn d-flex justify-content-between align-items-center">
+                        <button type="submit" style={{cursor:'pointer'}} className="univ-search-btn d-flex justify-content-between align-items-center">
                             Search <i className="fas fa-search ml-2" />
                         </button>
                     </div>

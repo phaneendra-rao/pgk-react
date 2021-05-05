@@ -11,7 +11,6 @@ const HiringCriteriaListItem = (props) => {
   const [hiringCriteriaData, setHiringCriteriaData] = useState();
 
   const onResponse = (response) => {
-    console.log("response ", response);
     setHiringCriteriaData(response);
     setShowModal(true);
   };

@@ -17,7 +17,7 @@ const HeaderModalForm = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!amount || !props?.additionalTokens) return;
+        if (!amount) return;
         localStorage.setItem('tokensPurchase', amount);
         $('#balance').modal('hide');
         history.push('/payment');

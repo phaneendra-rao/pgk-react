@@ -31,6 +31,16 @@
     }
 }
 
+.btn-logout{
+    @extend .btn;
+    margin-top: 12%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    color: #253AA3 !important;
+    width: 120px;
+    font-family: Poppins-Medium;
+}
+
 .mb-10{
     margin-bottom: 10px;
 }

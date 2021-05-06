@@ -79,7 +79,7 @@ const UniversityCmp = (props) => {
                                 type="button"
                                 data-toggle="modal"
                                 data-target="#subscribe"
-                                onClick={() => props.subscribeModal()}
+                                onClick={() => props.subscribeModal('unvInsight')}
                                 className="quick-widget-btn">
                                 Subscribe to view
                         </button>
@@ -101,7 +101,7 @@ const UniversityCmp = (props) => {
                                 type="button"
                                 data-toggle="modal"
                                 data-target="#subscribe"
-                                onClick={() => props.subscribeModal()}
+                                onClick={() => props.subscribeModal('unvStuData')}
                                 className="quick-widget-btn">
                                 Subscribe to view
                         </button>

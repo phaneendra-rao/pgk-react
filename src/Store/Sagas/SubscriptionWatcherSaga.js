@@ -115,19 +115,20 @@ function* getSubscribeTokensSaga(action) {
     }
 }
 
-const subscribeUnvInfo = (payload) => {
-    const URL = '/s/subscribe';
+const subscribeUnvInfo = (payload, type) => {
+    const URL = '/s/subscribe/'+ type;
     return Axios.post(URL, payload).then(res => res.data);
 }
 
 function* subscribeUnvInfoSaga(action) {
     try {
         const model = action.payload.apiPayloadRequest;
+        const type = action.payload.type;
         let formData = new FormData();
         for (const key in model) {
             formData.append(key, model[key]);
         }
-        const resp = yield call(subscribeUnvInfo, formData);
+        const resp = yield call(subscribeUnvInfo, formData, type);
         if (resp?.message === "Successfully subscribed") {
             toast.success(resp?.message)
         } else {

@@ -1648,3 +1648,17 @@ body .main-body .page-body .welcome-widget {
     padding: 6px;
     border-radius: 4px;
 }
+
+.modal-backdrop {
+    display: none;
+}
+
+.portalModalChildren {
+    top:0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    z-index: 1000000;
+}

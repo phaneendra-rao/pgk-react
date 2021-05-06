@@ -40,7 +40,6 @@ const PublishJobs = () => {
   };
 
   const getJobByIdResp = (response) => {
-    console.log("response ", response);
     setSingleJob(response);
     setShowModal(true);
   };
@@ -147,7 +146,7 @@ const PublishJobs = () => {
     <div className="row published-jobs-section">
       <div className="d-flex flex-column justify-content-start align-items-center w-full">
         <p className="heading">Publish Jobs</p>
-        {jobsList?.length && (
+        {(jobsList?.length && jobsList.some((item)=>!item.publishedFlag)) ? (
           <div className="w-full d-flex justify-content-start align-content-center publish-selected-btn-container">
             <input
               type="checkbox"
@@ -166,7 +165,14 @@ const PublishJobs = () => {
               Publish Selected
             </button>
           </div>
-        )}
+        ) : (<div className="row jobs-saved-section-list">
+        <div className="d-flex flex-column justify-content-start align-items-center w-full">
+          <p className="no-list-message w-full">
+            Create a new job to publish
+          </p>
+        </div>
+      </div>)
+      }
         {jobsList?.length &&
           jobsList.map((item, index) => {
             if(!item.publishedFlag) {
@@ -184,15 +190,6 @@ const PublishJobs = () => {
               );
             }
           })}
-        {jobsList?.length === 0 && (
-          <div className="row jobs-saved-section-list">
-            <div className="d-flex flex-column justify-content-start align-items-center w-full">
-              <p className="no-list-message w-full">
-                Create a new job to publish
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
 

@@ -6,16 +6,17 @@ const CustomToastModal = (props) => {
   useEffect(() => {
     if (props?.show) {
       $("#customToastModal").modal("show");
-      $(".modal-backdrop").show();
     } else {
       $("#customToastModal").modal("hide");
-      $(".modal-backdrop").hide();
     }
+
+    $(".modal-backdrop").remove();
+
   });
 
   return (
     props?.show && <PortalModal>
-      <div className="modal" id={"customToastModal"} tabIndex={-1}>
+      <div className="modal portalModalChildren" data-backdrop="static" data-keyboard="false" id={"customToastModal"} tabIndex={-1}>
         <div
           className={`modal-dialog modal-dialog-centered modal-sm`}
           role="document"

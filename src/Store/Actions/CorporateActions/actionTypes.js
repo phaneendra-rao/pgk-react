@@ -10,3 +10,4 @@ export const CORPORATE = "CORPORATE";
 export const STEPS = "STEPS";
 export const COUNTRYCODES = "COUNTRYCODES";
 export const PAYMENTORDER = "PAYMENTORDER";
+export const REFERENCEOBJ = "REFERENCEOBJ";

@@ -5,6 +5,7 @@ const UniversitySubscribeModal = (props) => {
     const total = props.balance?.bonusTokenBalance + props.balance?.paidTokenBalance;
     const bonusTokenBalance = props.balance?.bonusTokenBalance;
     const isAdditionalTokensRequired = props.balance?.paidTokenBalance < (tokensrequired - props.bonusTokensUsed);
+    const additionalTOkens = props.balance?.paidTokenBalance - (tokensrequired - props.bonusTokensUsed);
 
     return (
         <>
@@ -42,7 +43,7 @@ const UniversitySubscribeModal = (props) => {
                             <div className="card">
                                 <span>Additional Tokens required</span>
                                 <div className="tokens">
-                                    {isAdditionalTokensRequired ? props.balance?.paidTokenBalance - (tokensrequired - props.bonusTokensUsed) : 0} Tokens
+                                    {isAdditionalTokensRequired ? additionalTOkens : 0} Tokens
                                 </div>
                             </div>
                             <div className="buttons text-center mt-5">
@@ -58,7 +59,7 @@ const UniversitySubscribeModal = (props) => {
                                     data-dismiss="modal"
                                     data-toggle="modal"
                                     data-target="#balance"
-                                    onClick={props.closeSubModAL}
+                                    onClick={() => props.closeSubModal(additionalTOkens)}
                                     disabled={!isAdditionalTokensRequired}
                                     className={!isAdditionalTokensRequired ? 'tb-btn-grey btn3' : 'btn3 text-white'}
                                     style={{ cursor: isAdditionalTokensRequired ? 'pointer' : 'not-allowed' }}>

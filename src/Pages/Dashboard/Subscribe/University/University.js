@@ -18,6 +18,7 @@ const University = (props) => {
     const [tokens, setTokens] = useState(null);
     const [isSubUnvInfoSuccess, setIsSubUnvInfoSuccess] = useState(false);
     const [bonusTokensUsed, setBonusTokensUsed] = useState(0);
+    const [additionalTokens, setAdditionalTokens] = useState(null);
 
 
     const balance = useSelector(state => state.DashboardReducer.balance);
@@ -93,6 +94,12 @@ const University = (props) => {
         props.history.push('/dashboard/subscribe/students/' + universityId);
     }
 
+    const closeSubModal = (val) => {
+        const newVal = Math.abs(val);
+        setAdditionalTokens(newVal);
+        localStorage.setItem('pathname', props.history.location.pathname);
+    }
+
     return (
         <>
             <UniversityCmp
@@ -118,6 +125,7 @@ const University = (props) => {
                     bonusTokensUsed={bonusTokensUsed}
                     subscribeUnv={subscribeUnv}
                     bonusCalc={bonusCalc}
+                    closeSubModal={closeSubModal}
                 />
             </PortalHiringModal>}
             {isSubUnvInfoSuccess && <PortalHiringModal>
@@ -134,18 +142,7 @@ const University = (props) => {
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        {/* <form>
-                            <div className="modal-body purchase-modal-body d-flex flex-column justify-content-center align-items-center">
-                                <p className="heading">How many credits would you like to purchase ?</p>
-                                <input type="number" name="credit_points" className="form-control credits-input" required />
-                            </div>
-                            <div className="text-center">
-                                <button type="submit" className="modal-footer-full-btn w-100 border-0">
-                                    Purchase
-                            </button>
-                            </div>
-                        </form> */}
-                        <HeaderModalForm />
+                        <HeaderModalForm additionalTokens={additionalTokens} />
                     </div>
                 </div>
             </div>

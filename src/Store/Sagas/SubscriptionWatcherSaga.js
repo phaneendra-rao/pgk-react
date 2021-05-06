@@ -55,7 +55,9 @@ function* getUniversityInfoSaga(action) {
         if (resp) {
             for (const key in resp) {
                 if (key === 'accredations' || key === 'ranking') {
-                    resp[key] = JSON.parse(resp[key])
+                    if (resp[key]) {
+                        resp[key] = JSON.parse(resp[key])
+                    }
                 }
                 resp[key] = resp[key]
             }

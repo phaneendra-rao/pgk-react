@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 const $ = window.$;
 
-const HeaderModalForm = () => {
-    const [amount, setAmount] = useState(0);
-    let history = useHistory()
+const HeaderModalForm = (props) => {
+    const [amount, setAmount] = useState(null);
+    let history = useHistory();
+
+    useEffect(() => {
+        setAmount(props?.additionalTokens);
+    }, [props?.additionalTokens]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -13,7 +17,7 @@ const HeaderModalForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!amount) return;
+        if (!amount || !props?.additionalTokens) return;
         localStorage.setItem('tokensPurchase', amount);
         $('#balance').modal('hide');
         history.push('/payment');
@@ -25,12 +29,12 @@ const HeaderModalForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="modal-body purchase-modal-body d-flex flex-column justify-content-center align-items-center">
                     <p className="heading">How many credits would you like to purchase ?</p>
-                    <input type="number" name="amount" onChange={handleChange} className="form-control credits-input" required />
+                    <input type="number" name="amount" defaultValue={amount} onChange={handleChange} className="form-control credits-input" required />
                 </div>
                 <div className="text-center">
                     <button type="submit" className="modal-footer-full-btn w-100 border-0">
                         Purchase
-                </button>
+                    </button>
                 </div>
             </form>
         </>

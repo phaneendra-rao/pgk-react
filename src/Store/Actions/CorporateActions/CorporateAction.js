@@ -140,9 +140,9 @@ export const LoginUserAction = (model, history) => {
                 dispatch(APIStatus(false));
                 toast.success("Login successful");
                 if (resp.redirectURL === '/dashboard') {
-                    history.push('/dashboard');                    
+                    history.push('/dashboard');
                 } else {
-                    history.push('/register/payment');                    
+                    history.push('/register/payment');
                 }
             })
             .catch((err) => {
@@ -300,10 +300,11 @@ export const ValidatePaymentAction = (model) => {
         Axios.post(URL, formData, header)
             .then((res) => {
                 let resp = res.data;
+                resp?.messages?.forEach(key => {
+                    toast.success(key);
+                });
                 dispatch(APIStatus(false));
-                toast.success(resp[0]);
-                toast.success(resp[1]);
-                toast.success(resp[2]);
+                dispatch({ type: actionTypes.REFERENCEOBJ, payload: JSON.parse(resp?.referenceObject) });
                 // history.push('/register/completed');
             })
             .catch((err) => {

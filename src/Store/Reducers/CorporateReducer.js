@@ -9,6 +9,7 @@ const INITIAL = {
     steps: 0,
     countryCodes: [],
     paymentOrder: {},
+    referenceObject: undefined,
 }
 
 const CorporateReducer = (state = INITIAL, action) => {
@@ -29,6 +30,7 @@ const CorporateReducer = (state = INITIAL, action) => {
             return {
                 apiSuccess: false,
                 apiError: false,
+                referenceObject: undefined,
             }
 
         case actionTypes.CORPORATE:
@@ -42,6 +44,9 @@ const CorporateReducer = (state = INITIAL, action) => {
 
         case actionTypes.PAYMENTORDER:
             return { ...state, paymentOrder: action.payload }
+
+        case actionTypes.REFERENCEOBJ:
+            return { ...state, referenceObject: action.payload }
 
         default:
             return state;

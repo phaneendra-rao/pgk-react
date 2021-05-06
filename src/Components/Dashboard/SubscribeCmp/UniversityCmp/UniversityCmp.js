@@ -95,7 +95,7 @@ const UniversityCmp = (props) => {
                                 type="button"
                                 onClick={props.navigateToStudent}
                                 className="quick-widget-btn">
-                                view
+                                Access
                                 </button>
                             : <button
                                 type="button"

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
 import CorporatePaymentCmp from '../../../../Components/Forms/CorporateCmp/RegisterCmp/CorporatePaymentCmp';
-import { CreatePaymentAction, ValidatePaymentAction } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import { CreatePaymentAction, ResetRdrAction, ValidatePaymentAction } from '../../../../Store/Actions/CorporateActions/CorporateAction';
 const $ = window.$;
 
 const CorporatePayment = (props) => {
@@ -18,16 +18,19 @@ const CorporatePayment = (props) => {
     const [gstCalc, setGstCalc] = useState({ total: 0, gst: 0, amount: 0 });
 
     const paymentOrder = useSelector(state => state.CorporateReducer.paymentOrder);
+    const referenceObject = useSelector(state => state.CorporateReducer.referenceObject);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         let tokensPurchase = localStorage.getItem('tokensPurchase');
+        let pathname = localStorage.getItem('pathname');
         let model;
         if (tokensPurchase) {
             model = {
                 payType: 'ADD_TKN',
-                tokensToAdd: tokensPurchase
+                tokensToAdd: tokensPurchase,
+                referenceObject: JSON.stringify(pathname)
             }
         } else {
             model = {
@@ -42,6 +45,8 @@ const CorporatePayment = (props) => {
         document.body.appendChild(script);
         return () => {
             localStorage.removeItem('tokensPurchase');
+            localStorage.removeItem('pathname');
+            dispatch(ResetRdrAction())
         }
     }, []);
 
@@ -185,7 +190,12 @@ const CorporatePayment = (props) => {
 
     const closeModal = () => {
         $('#paymentSuccess').modal('hide');
-        history.replace('/dashboard')
+        // history.replace('/dashboard');
+        if (referenceObject) {
+            history.push(referenceObject);
+        } else {
+            history.push('/payment');
+        }
     }
 
     return (

@@ -28,8 +28,7 @@ const SubscribeSearchCmp = (props) => {
                                 name="locations"
                                 onChange={props.handleChange}
                                 className="form-control select-filter"
-                                disabled={props.hcID}
-                                required>
+                                disabled={props.hcID}>
                                 <option value="">By Location</option>
                                 <option value="Hyderabad">Hyderabad</option>
                                 <option value="Delhi">Delhi</option>

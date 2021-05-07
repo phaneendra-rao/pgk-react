@@ -130,11 +130,11 @@ function* subscribeUnvInfoSaga(action) {
             formData.append(key, model[key]);
         }
         const resp = yield call(subscribeUnvInfo, formData, type);
-        if (resp?.message === "Successfully subscribed") {
-            toast.success(resp?.message)
-        } else {
-            toast.error("Not subscribed!");
-        }
+        toast.success(resp?.message)
+        // if (resp?.message === "Successfully subscribed") {
+        // } else {
+        //     toast.error("Not subscribed!");
+        // }
         // console.log(resp);
         yield put(getTokensSagaAction());
         action.payload.callback(resp);

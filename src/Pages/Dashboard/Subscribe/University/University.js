@@ -27,8 +27,12 @@ const University = (props) => {
     const universityId = props.match?.params?.id;
 
     useEffect(() => {
-        dispatch(GetUniversityInfoSagaAction({ apiPayloadRequest: universityId, callback: getUniversityList }));
+        getUniversityById();
     }, []);
+
+    const getUniversityById = () => {
+        dispatch(GetUniversityInfoSagaAction({ apiPayloadRequest: universityId, callback: getUniversityList }));
+    }
 
     const getUniversityList = (data) => {
         setUniversityInfoList(data);
@@ -86,6 +90,7 @@ const University = (props) => {
     const subscribeUnvInfoRes = (data) => {
         $("#subscribe").modal("hide");
         setIsSubscribe(false);
+        getUniversityById();
         if (subscribeType === 'unvStuData') {
             navigateToStudent();
         } else {

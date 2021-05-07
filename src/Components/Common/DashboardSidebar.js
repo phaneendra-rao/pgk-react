@@ -1,7 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 const DashboardSidebar = () => {
+
+  const history = useHistory();
+
+  const logout = () => {
+    localStorage.clear();
+    history.replace('/');
+  }
+  
   return (
     <aside className="sidebar" id="side-bar">
       <div className="logo-section">
@@ -251,9 +259,12 @@ const DashboardSidebar = () => {
           </NavLink>
         </li>
       </ul>
-      <a href="#" className="logout">
-        <p className="label">Logout</p>
-      </a>
+      {/* <a href="#" className="logout">
+        <button className="label">Logout</button>
+      </a> */}
+      <div className="w-100 text-center">
+        <button type="button" onClick={logout} className="btn-logout">Logout</button>
+      </div>
     </aside>
   );
 };

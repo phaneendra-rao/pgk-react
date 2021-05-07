@@ -19,6 +19,7 @@ const University = (props) => {
     const [isSubUnvInfoSuccess, setIsSubUnvInfoSuccess] = useState(false);
     const [bonusTokensUsed, setBonusTokensUsed] = useState(0);
     const [additionalTokens, setAdditionalTokens] = useState(null);
+    const [subscribeType, setSubscribeType] = useState('');
 
 
     const balance = useSelector(state => state.DashboardReducer.balance);
@@ -61,6 +62,7 @@ const University = (props) => {
     }
 
     const subscribeModal = (data) => {
+        setSubscribeType(data);
         getSubscribeTokens();
     }
 
@@ -74,18 +76,22 @@ const University = (props) => {
 
     const subscribeUnv = () => {
         const model = {
-            publishId: universityInfoList?.studentDbPublishID,
+            universityID: universityId,
             paidTokensUsed: tokens?.tokensrequired - bonusTokensUsed,
             bonusTokensUsed: bonusTokensUsed
         }
-        dispatch(SubscribeUnvInfoSagaAction({ apiPayloadRequest: model, callback: subscribeUnvInfoRes }))
+        dispatch(SubscribeUnvInfoSagaAction({ apiPayloadRequest: model, type: subscribeType, callback: subscribeUnvInfoRes }))
     }
 
     const subscribeUnvInfoRes = (data) => {
         $("#subscribe").modal("hide");
         setIsSubscribe(false);
-        setIsSubUnvInfoSuccess(true);
-        $("#subSuccess").modal("show");
+        if (subscribeType === 'unvStuData') {
+            navigateToStudent();
+        } else {
+            setIsSubUnvInfoSuccess(true);
+            $("#subSuccess").modal("show");
+        }
         // if (data?.message === "Successfully subscribed") {
         // }
     }

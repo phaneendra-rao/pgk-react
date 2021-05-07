@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CorporatePaymentCmp = ({paymentData, errors, handlerChange, handleSubmit }) => {
+const CorporatePaymentCmp = ({paymentData, errors, handlerChange, handleSubmit, cancelPayment }) => {
     const { emailErr, nameErr, mobileErr, amtErr } = errors;
     return (
         <form className="login-form reg-form" onSubmit={handleSubmit}>
@@ -75,7 +75,7 @@ const CorporatePaymentCmp = ({paymentData, errors, handlerChange, handleSubmit }
                 </div>
             </div>
             <div className="reg-payment-btns reg-payment-btns2">
-                <button type="reset" className="reg-payment-btn"><i className="fas fa-times-circle" /> Cancel Payment</button>
+                <button type="reset" onClick={cancelPayment} className="reg-payment-btn"><i className="fas fa-times-circle" /> Cancel Payment</button>
                 <button type="submit" className="reg-payment-btn"><i className="fas fa-check-circle" /> Make Payment</button>
             </div>
         </form>

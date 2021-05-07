@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import routes from '../../routes';
 import DashboardHeader from '../Common/DashboardHeader';
 import DashboardSidebar from '../Common/DashboardSidebar';
@@ -8,6 +8,10 @@ import HeaderModalForm from '../Common/HeaderModalForm';
 const DashboardLayout = () => {
 
     const getRoutes = (routes) => {
+        const token = localStorage.getItem('token');
+        const type = localStorage.getItem('type');
+        if (!token && type !== 'Corporate')
+            return <Redirect to="/"/>
         return routes.map((route, i) => {
             if (route.role === 'dashboard') {
                 return route.component ? (<Route path={route.path}

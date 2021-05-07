@@ -21,10 +21,10 @@ const CorporatePayment = (props) => {
     const referenceObject = useSelector(state => state.CorporateReducer.referenceObject);
 
     const dispatch = useDispatch();
+    let tokensPurchase = localStorage.getItem('tokensPurchase');
+    let pathname = localStorage.getItem('pathname');
 
     useEffect(() => {
-        let tokensPurchase = localStorage.getItem('tokensPurchase');
-        let pathname = localStorage.getItem('pathname');
         let model;
         if (tokensPurchase) {
             model = {
@@ -35,7 +35,7 @@ const CorporatePayment = (props) => {
         } else {
             model = {
                 payType: 'REG_FEE',
-            }            
+            }
         }
         dispatch(CreatePaymentAction(model));
         // $('#role').modal('show');
@@ -51,7 +51,7 @@ const CorporatePayment = (props) => {
     }, []);
 
     useEffect(() => {
-        const val = paymentOrder.amount;
+        const val = paymentOrder?.amount;
         const total = val + (val * 0.18);
         setpaymentData({
             amount: val
@@ -192,9 +192,17 @@ const CorporatePayment = (props) => {
         $('#paymentSuccess').modal('hide');
         // history.replace('/dashboard');
         if (referenceObject) {
-            history.push(referenceObject);
+            history.replace(referenceObject);
         } else {
-            history.push('/payment');
+            history.replace('/dashboard');
+        }
+    }
+
+    const cancelPayment = () => {
+        if (pathname) {
+            history.replace(pathname);            
+        } else {
+            history.replace('/dashboard');
         }
     }
 
@@ -222,6 +230,7 @@ const CorporatePayment = (props) => {
                                     errors={errors}
                                     handlerChange={handlerChange}
                                     handleSubmit={handleSubmit}
+                                    cancelPayment={cancelPayment}
                                 />
                             </div>
                             {/* <div className="tab-pane fade" id="Net" role="tabpanel" aria-labelledby="Net-tab">

@@ -54,7 +54,7 @@ const PublishJobs = React.lazy(() =>
   import("./Pages/Dashboard/Publish/Jobs/PublishJobs")
 );
 const PublishHistory = React.lazy(() =>
-  import("./Pages/Dashboard/Publish/PublishHistory")
+  import("./Pages/Dashboard/Publish/PublishHistory/PublishHistory")
 );
 const SubscriptionHistory = React.lazy(() =>
   import("./Pages/Dashboard/Subscribe/SubscriptionHistory/SubscriptionHistory")

@@ -11,6 +11,7 @@ import DashboardWatcherSaga from './DashboardWatcherSaga';
 import NotificationsWatcherSaga from './NotificationsWatcherSaga';
 import PublishHistoryWatcherSaga from './PublishHistoryWatcherSaga';
 import SupportWatcherSaga from './SupportWatcherSaga';
+import AnalyticsWatcherSaga from './AnalyticsWatcherSaga';
 
 export function* webportalAppRootSaga() {
 	yield all([
@@ -24,6 +25,7 @@ export function* webportalAppRootSaga() {
 		DashboardWatcherSaga(),
 		NotificationsWatcherSaga(),
 		PublishHistoryWatcherSaga(),
-		SupportWatcherSaga()
+		SupportWatcherSaga(),
+		AnalyticsWatcherSaga()
 	]);
 }

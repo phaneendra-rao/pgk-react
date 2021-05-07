@@ -12,7 +12,7 @@ import {
 import { getTokensSagaAction } from '../Actions/SagaActions/DashboardSagaAction';
 
 const getNotifications = () => {
-    const URL = '/nft/10/1';
+    const URL = '/nft/all/10/1';
     return Axios.get(URL).then(res => res.data);
 }
 

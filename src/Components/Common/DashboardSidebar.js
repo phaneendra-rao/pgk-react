@@ -212,7 +212,7 @@ const DashboardSidebar = () => {
                   activeClassName="active"
                   className="sidebar-link"
                 >
-                  <i className="fas fa-university"></i>Subscribed Univ.
+                  <i className="fas fa-university"></i>Subscription History.
                 </NavLink>
               </li>
             </ul>

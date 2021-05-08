@@ -6,7 +6,7 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
     const initialData = {
         hiringCriteriaName: '',
         programID: '',
-        departmentID: '',
+        courseID: '',
         cutOffCategory: 'CGPA',
         cutOff: '',
         eduGapsSchoolAllowed: false,
@@ -15,7 +15,7 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
         eduGapsPGAllowed: false,
         allowActiveBacklogs: false,
         numberOfAllowedBacklogs: 0,
-        yearOfPassing: '',
+        yearOfPassing: 0,
         remarks: ''
     };
 
@@ -28,7 +28,7 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
         switch (name) {
             case 'hiringCriteriaName':
             case 'programID':
-            case 'departmentID':
+            case 'courseID':
             case 'cutOffCategory':
             case 'remarks':
                 setHiringData(preState => ({

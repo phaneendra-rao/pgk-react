@@ -6,7 +6,7 @@ const UniversitySubscribeSuccessModal = (props) => {
             <div className="modal-dialog modal-dialog-centered subscribe-success-modal" style={{ maxWidth: '600px' }}>
                 <div className="modal-content">
                     <div className="modal-body">
-                        <i className="far fa-times-circle close-icon" onClick={props.closeModal} data-dismiss="modal" />
+                        {/* <i className="far fa-times-circle close-icon" onClick={props.closeModal} data-dismiss="modal" /> */}
                         <div className="folder-blc">
                             <span className="circle">
                                 <i className="far fa-folder-open" />
@@ -15,20 +15,16 @@ const UniversitySubscribeSuccessModal = (props) => {
                         <label className="sub-lbl">Subscription</label>
                         <span className="sub-msg my-3 px-4 text-success">
                             Your have successfully subscribed to access the University Insights of
-        </span>
+                        </span>
                         <div className="card">
                             <div className="d-flex">
                                 <span className="square">
                                     <i className="fas fa-university" />
                                 </span>
                                 <div className="university">
-                                    <span className="name d-block">
-                                        Osmania University
-              </span>
+                                    <span className="name d-block">{props?.universityName}</span>
                                     <span className="location">
-                                        <i className="fas fa-map-marker-alt" />
-                Amberpet, Hyderabad
-              </span>
+                                        <i className="fas fa-map-marker-alt" />{props?.universityHQAddressCity}</span>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +32,10 @@ const UniversitySubscribeSuccessModal = (props) => {
                     <button
                         className="modal-footer mt-5"
                         data-dismiss="modal"
-                        onClick={props.closeModal}>
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#viewInsight"
+                        onClick={props.openViewInfoModal}>
                         Access the Information
                     </button>
                 </div>

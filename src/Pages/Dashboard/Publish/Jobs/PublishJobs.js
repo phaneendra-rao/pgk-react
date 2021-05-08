@@ -296,7 +296,7 @@ const PublishJobs = () => {
                                   name=""
                                   className="table-item-checkbox"
                                 />} {" "}
-                                {item?.skill ? item.skill : "-"}
+                                {item?.skillID + item?.skill}
                               </td>
                               <td>
                                 {item?.noOfPositions ? item.noOfPositions : "-"}

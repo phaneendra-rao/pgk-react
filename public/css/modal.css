@@ -236,25 +236,6 @@
   position: relative;
 }
 
-.hiring-modal .hiring-modal-form .gaps.gaps-disable {
-  cursor: not-allowed;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.hiring-modal .hiring-modal-form .gaps.gaps-disable::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #f8f9fe73;
-  z-index: 99;
-}
-
 .hiring-modal .hiring-modal-form .gaps .gaps-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -309,6 +290,25 @@
   height: 30px;
   padding: 5px;
   font-size: 12px;
+}
+
+.gaps-disable {
+  cursor: not-allowed;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.gaps-disable::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f9fe73;
+  z-index: 99;
 }
 
 .modal-icon {

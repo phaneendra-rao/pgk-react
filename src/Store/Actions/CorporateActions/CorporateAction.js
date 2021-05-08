@@ -159,13 +159,13 @@ export const LoginUserAction = (model, history) => {
 // VERIFY OTP
 export const VerifyOtpAction = (model, type, history) => {
     return (dispatch) => {
-        let URL;
         // const URL = "/verifyMobile";
-        if (type === 1) {
-            URL = "/o/verifyMobile"
-        } else {
-            URL = "/o/verifyEmail"
-        }
+        const URL = "/o/verifyOTP";
+        // if (type === 1) {
+        //     URL = "/o/verifyMobile"
+        // } else {
+        //     URL = "/o/verifyEmail"
+        // }
         let formData = new FormData();
         for (const key in model) {
             formData.append(key, model[key]);
@@ -175,8 +175,12 @@ export const VerifyOtpAction = (model, type, history) => {
             .then((res) => {
                 let resp = res.data;
                 dispatch(APIStatus(false));
-                toast.success(resp.message);
-                history.push('/register/completed');
+                if (resp?.MobileVerified && resp?.emailVerified) {
+                    toast.success('OTP verification successful');
+                    history.push('/register/completed');
+                } else {
+                    toast.error('OTP verification failed');
+                }
             })
             .catch((err) => {
                 if (err.response) {

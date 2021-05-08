@@ -44,8 +44,8 @@ const HiringCriteriaListItem = (props) => {
             <i className="fas fa-cube"></i>
           </div>
           <p className="job-label">
-            {props?.item?.hiringCriteriaID
-              ? props?.item?.hiringCriteriaID
+            {props?.item?.hiringCriteriaName
+              ? props?.item?.hiringCriteriaName
               : "-"}
           </p>
           <button className="btn2">{props?.item?.programID}</button>

@@ -60,144 +60,104 @@ const UniversityStudentsCmp = (props) => {
                 <div className="filter-heading w-full">
                     <p className="label">Specify your search criteria to display the students list</p>
                 </div>
-                <div className="search-filter-container d-flex justify-content-between align-items-center w-full">
-                    <select className="form-control item">
-                        <option value>By Hiring Criteria</option>
+                <form onSubmit={props.searchSubmit} className="search-filter-container d-flex justify-content-between align-items-center w-full">
+                    <select className="form-control item" multiple name="hiringCriteriaID" onChange={props.handleChange}>
+                        <option value={''}>By Hiring Criteria</option>
+                        {props.hiringCriteria && props.hiringCriteria?.length >= 0
+                            ? props.hiringCriteria?.map((item, i) => <option key={i} value={item.hiringCriteriaID}>{item.hiringCriteriaName}</option>)
+                            : (null)
+                        }
                     </select>
                     <p className="dividerWord">Or</p>
                     <div className="item four-filters d-flex flex-column justify-content-between align-content-center w-full">
                         <div className="d-flex justify-content-between align-content-center">
-                            <select className="form-control">
-                                <option value>By Program</option>
+                            <select className="form-control" multiple name="programID" onChange={props.handleChange}>
+                                <option value={''}>Program</option>
+                                {props.lookUpData && props.lookUpData?.departments?.length >= 0
+                                    ? props.lookUpData?.departments.map((item, i) => <option key={i} value={item.departmentID}>{item.ProgramID}</option>) : (null)
+                                }
                             </select>
-                            <select className="form-control">
-                                <option value>By Tentative Passing month</option>
+                            <select className="form-control" multiple name="monthOfHiring" onChange={props.handleChange}>
+                                <option value=''>By Tentative Passing month</option>
+                                <option value='Jan'>Jan</option>
+                                <option value='Feb'>Feb</option>
+                                <option value='Mar'>Mar</option>
+                                <option value='Apr'>Apr</option>
+                                <option value='May'>May</option>
+                                <option value='Jun'>Jun</option>
+                                <option value='Jul'>Jul</option>
+                                <option value='Aug'>Aug</option>
+                                <option value='Sep'>Sep</option>
+                                <option value='Oct'>Oct</option>
+                                <option value='Nov'>Nov</option>
+                                <option value='Dec'>Dec</option>
                             </select>
                         </div>
                         <div className="d-flex justify-content-between align-content-center">
-                            <select className="form-control">
-                                <option value>By Program</option>
+                            <select className="form-control" multiple name="branchID" onChange={props.handleChange}>
+                                <option value={''}>By Branch</option>
+                                {props.lookUpData && props.lookUpData?.programs?.length >= 0
+                                    ? props.lookUpData?.programs.map((item, i) => <option key={i} value={item.ProgramID}>{item.program}</option>) : (null)
+                                }
                             </select>
-                            <select className="form-control">
-                                <option value>By Tentative Passing month</option>
+                            <select className="form-control" name="skills" multiple onChange={props.handleChange}>
+                                <option value=''>By Skills</option>
+                                {props.lookUpData && props.lookUpData?.skills?.length >= 0
+                                    ? props.lookUpData?.skills.map((item, i) => <option key={i} value={item.SkillID}>{item.skill}</option>) : (null)
+                                }
                             </select>
                         </div>
                     </div>
-                    <div className="item students-list-btn">Get the Students List</div>
-                </div>
-                <div className="table-responsive mb-4 mt-4">
-                    <table className="table table-data mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col" colSpan="2">
-                                    <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="all" />
-                                        <label className="custom-control-label mt-1" htmlFor="all"> Select all
+                    <button type="submit" className="item students-list-btn">Get the Students List</button>
+                </form>
+                {props.studentSearchList &&
+                    <div className="table-responsive mb-4 mt-4">
+                        <table className="table table-data mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colSpan="2">
+                                        <div className="custom-control custom-checkbox">
+                                            <input type="checkbox" className="custom-control-input" id="all" />
+                                            <label className="custom-control-label mt-1" htmlFor="all"> Select all
                                         </label>
-                                    </div>
-                                </th>
-                                <th scope="col" colSpan="4">
-                                    <button className="btn3 btn-lightgreen" data-toggle="modal" data-target="#mailModal">Mark as Read</button>
-                                    {/* <button className="btn3 btn-lightgreen" data-toggle="modal" data-target="#accept">Delete</button> */}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th className="bg-white" scope="col"></th>
-                                <th className="bg-white" scope="col">Roll No.</th>
-                                <th className="bg-white" scope="col">Name of the student</th>
-                                <th className="bg-white" scope="col">Program</th>
-                                <th className="bg-white" scope="col">Branch</th>
-                                <th className="bg-white" scope="col">Aggregate CGPA</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                        <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                        <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                        <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                        <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                        <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                        <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                                <td>2 hrs ago</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" colSpan="4">
+                                        <button className="btn3 btn-lightgreen" data-toggle="modal" data-target="#mailModal">Request for campus drive</button>
+                                        {/* <button className="btn3 btn-lightgreen" data-toggle="modal" data-target="#accept">Delete</button> */}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th className="bg-white" scope="col"></th>
+                                    <th className="bg-white" scope="col">Roll No.</th>
+                                    <th className="bg-white" scope="col">Name of the student</th>
+                                    <th className="bg-white" scope="col">Program</th>
+                                    <th className="bg-white" scope="col">Branch</th>
+                                    <th className="bg-white" scope="col">Aggregate CGPA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {props.studentSearchList?.studentsData?.length >= 0
+                                    ? props.studentSearchList?.studentsData?.map((item, i) => <tr key={i}>
+                                        <td>
+                                            <div className="custom-control custom-checkbox">
+                                                <input type="checkbox" className="custom-control-input" id={item.studentID+i} />
+                                                <label className="custom-control-label mt-1" htmlFor={item.studentID+i}>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>{item.studentID}</td>
+                                        <td>{item.studentName}</td>
+                                        <td>{item.programID}</td>
+                                        <td>{item.branchName}</td>
+                                        <td>{item.avgPercentage}</td>
+                                    </tr>)
+                                    : <tr><td colSpan="6" className="text-center">No data</td></tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </>
     )

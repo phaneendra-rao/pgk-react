@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UniversityCmp from '../../../../Components/Dashboard/SubscribeCmp/UniversityCmp/UniversityCmp';
 import PortalHiringModal from '../../../../Portals/PortalHiringModal';
-import { GetSubscribeTokensSagaAction, GetUniversityHistoryInfoSagaAction, GetUniversityInfoSagaAction, SubscribeUnvInfoSagaAction } from '../../../../Store/Actions/SagaActions/SubscriptionSagaAction';
+import {
+    GetSubscribeTokensSagaAction,
+    GetUniversityHistoryInfoSagaAction,
+    GetUniversityInfoSagaAction,
+    SendMailSagaAction,
+    SubscribeUnvInfoSagaAction
+} from '../../../../Store/Actions/SagaActions/SubscriptionSagaAction';
 import UniversitySubscribeModal from './UniversitySubscribeModal';
 import UniversitySubscribeSuccessModal from './UniversitySubscribeSuccessModal';
 import ViewInfoModal from './ViewInfoModal';
 import HeaderModalForm from '../../../../Components/Common/HeaderModalForm';
+import UniversitySendMail from './UniversitySendMail';
+import { toast } from 'react-toastify';
+import UniversitySendMailSuccessModal from './UniversitySendMailSuccessModal';
 const $ = window.$;
 
 const University = (props) => {
@@ -21,14 +30,24 @@ const University = (props) => {
     const [bonusTokensUsed, setBonusTokensUsed] = useState(0);
     const [additionalTokens, setAdditionalTokens] = useState(null);
     const [subscribeType, setSubscribeType] = useState('');
+    const [campusDriveID, setCampusDriveID] = useState('');
+    const [isSendOpen, setIsSendOpen] = useState(false);
+    const [sendMailObj, setSendMailObj] = useState({
+        emailTo: '',
+        emailSubject: '',
+        emailBody: ''
+    });
 
 
     const balance = useSelector(state => state.DashboardReducer.balance);
     const dispatch = useDispatch();
     const universityId = props.match?.params?.id;
+    const email = localStorage.getItem('email');
 
     useEffect(() => {
         getUniversityById();
+        setIsSendOpen(true);
+        $("#mailModal").modal("show");
     }, []);
 
     const getUniversityById = () => {
@@ -72,8 +91,8 @@ const University = (props) => {
         $("#viewInsight").modal("show");
     }
 
-    const subscribeModal = (data) => {
-        setSubscribeType(data);
+    const subscribeModal = (type) => {
+        setSubscribeType(type);
         getSubscribeTokens();
     }
 
@@ -86,10 +105,19 @@ const University = (props) => {
     }
 
     const subscribeUnv = () => {
-        const model = {
-            universityID: universityId,
-            paidTokensUsed: tokens?.tokensrequired - bonusTokensUsed,
-            bonusTokensUsed: bonusTokensUsed
+        let model;
+        if (subscribeType === 'campusDrive') {
+            model = {
+                receiverID: universityId,
+                paidTokensUsed: tokens?.tokensrequired - bonusTokensUsed,
+                bonusTokensUsed: bonusTokensUsed
+            };
+        } else {
+            model = {
+                universityID: universityId,
+                paidTokensUsed: tokens?.tokensrequired - bonusTokensUsed,
+                bonusTokensUsed: bonusTokensUsed
+            };
         }
         dispatch(SubscribeUnvInfoSagaAction({ apiPayloadRequest: model, type: subscribeType, callback: subscribeUnvInfoRes }))
     }
@@ -98,14 +126,19 @@ const University = (props) => {
         $("#subscribe").modal("hide");
         setIsSubscribe(false);
         if (subscribeType === 'unvStuData') {
+            localStorage.setItem('subscriptionID', data?.subscriptionID);
             navigateToStudent();
-        } else {
+        } else if (subscribeType === 'unvInsight') {
             setSubscribedUnvData(data)
             setIsSubUnvInfoSuccess(true);
             $("#subSuccess").modal("show");
             getUniversityById();
+        } else {
+            console.log(data);
+            setCampusDriveID(data?.campusDriveID);
+            setIsSendOpen(true);
+            $("#mailModal").modal("show");
         }
-        console.log(data);
     }
 
     const navigateToStudent = () => {
@@ -118,6 +151,42 @@ const University = (props) => {
         localStorage.setItem('pathname', props.history.location.pathname);
     }
 
+    const closeSendModal = () => {
+        setIsSendOpen(false);
+    }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setSendMailObj(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    }
+
+    const sendMail = (event) => {
+        event.preventDefault();
+        const { emailTo, emailSubject, emailBody } = sendMailObj;
+        if (!emailTo && !emailSubject && !emailBody) {
+            toast.warning('Please enter all inout fields')
+            return;
+        }
+        const model = {
+            campusDriveID: campusDriveID,
+            emailFrom: email,
+            emailTo: 'jaswanth@gmail.com',
+            emailSubject: emailSubject ? emailSubject : 'Campus Hiring Request',
+            emailBody: emailBody
+        };
+        console.log(model);
+        dispatch(SendMailSagaAction({ apiPayloadRequest: model, callback: sendMailResp }));
+    }
+
+    const sendMailResp = (data) => {
+        toast.success(data?.message);
+        setIsSendOpen(false);
+        $("#mailSentSuccess").modal("show");
+    }
+
     return (
         <>
             <UniversityCmp
@@ -128,6 +197,8 @@ const University = (props) => {
                 navigateToStudent={navigateToStudent}
                 subscribeModal={subscribeModal}
             />
+
+            {/* UNIVERSITY INSIGHT MODAL */}
             {isInfoModal &&
                 <PortalHiringModal>
                     <ViewInfoModal
@@ -137,6 +208,8 @@ const University = (props) => {
                     />
                 </PortalHiringModal>
             }
+
+            {/* AVAILABLE AND BONUS TOKENS & SUBSCRIBE*/}
             {isSubscribe && <PortalHiringModal>
                 <UniversitySubscribeModal
                     universityName={universityInfoList?.universityName}
@@ -148,14 +221,37 @@ const University = (props) => {
                     closeSubModal={closeSubModal}
                 />
             </PortalHiringModal>}
+
+            {/* SUCCESS MODAL */}
             {isSubUnvInfoSuccess && <PortalHiringModal>
                 <UniversitySubscribeSuccessModal
+                    subscribeType={subscribeType}
                     universityName={universityInfoList?.universityName}
                     universityHQAddressCity={universityInfoList?.universityHQAddressCity}
                     openViewInfoModal={openViewInfoModal}
                 />
             </PortalHiringModal>}
 
+            {/* SEND MAIL TO UNVIERSITY */}
+            {isSendOpen && <PortalHiringModal>
+                <UniversitySendMail
+                    email={email}
+                    emailTo={'jaswanth@gmail.com'}
+                    emailSubject={'Campus Hiring Request'}
+                    emailBody={''}
+                    universityName={universityInfoList?.universityName}
+                    handleChange={handleChange}
+                    closeSendModal={closeSendModal}
+                    sendMail={sendMail}
+                />
+            </PortalHiringModal>}
+
+            {/* SEND MAIL SUCCESS MAIL */}
+            <UniversitySendMailSuccessModal
+                universityName={universityInfoList?.universityName}
+            />
+
+            {/* REQUIRED TOKEN TO SUBSCRIBE UNIVERSITY */}
             <div className="modal fade" id="balance" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content purchase-modal">

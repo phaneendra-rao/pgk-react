@@ -29,7 +29,7 @@ const StudentAuthentication = (props) => {
             case 'otp':
                 const num = /^[0-9\b]+$/;
                 setOtp(value);
-                setEmailOtp('');
+                // setEmailOtp('');
                 if (num.test(value)) {
                     // if (val.match(phoneno)) {
                     if (value.length === 6) {
@@ -52,7 +52,7 @@ const StudentAuthentication = (props) => {
                 return;
             case 'emailOtp':
                 const num2 = /^[0-9\b]+$/;
-                setOtp('');
+                // setOtp('');
                 setEmailOtp(value);
                 if (num2.test(value)) {
                     // if (val.match(phoneno)) {
@@ -81,34 +81,56 @@ const StudentAuthentication = (props) => {
     }
 
 
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const { otpErr, otp2Err } = errors;
+    //     let data = JSON.parse(localStorage.getItem('regStatus'));
+    //     if (otp) {
+    //         if (!otpErr) {
+    //             const mobileModel = {
+    //                 stakeholder: data.stakeholder,
+    //                 platformUID: data.platformUID,
+    //                 otp: otp,
+    //                 phone: data.phoneNumber,
+    //             }
+    //             dispatch(VerifyOtpAction(mobileModel, 1, props.history));
+    //             // props.history.push('/register/CorporateSecondary');
+    //         } else {
+    //             toast.error("Please enter Mobile OTP")
+    //         }
+    //     } else {
+    //         if (!otp2Err) {
+    //             const emailModel = {
+    //                 stakeholder: data.stakeholder,
+    //                 platformUID: data.platformUID,
+    //                 otp: emailOtp,
+    //                 email: data.email,
+    //             }
+    //             dispatch(VerifyOtpAction(emailModel, 2, props.history));
+    //         } else {
+    //             toast.error("Please enter Email OTP")
+    //         }
+    //     }
+    // }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const { otpErr, otp2Err } = errors;
         let data = JSON.parse(localStorage.getItem('regStatus'));
-        if (otp) {
-            if (!otpErr) {
+        if (otp && emailOtp) {
+            if (!otpErr && !otp2Err) {
                 const mobileModel = {
-                    stakeholder: data.stakeholder,
-                    platformUID: data.platformUID,
-                    otp: otp,
-                    phone: data.phoneNumber,
+                    stakeholder: data?.stakeholder,
+                    platformUID: data?.platformUID,
+                    email: data?.email,
+                    phone: data?.phoneNumber,
+                    phoneOtp: otp,
+                    emailOtp: emailOtp,
                 }
-                dispatch(VerifyOtpAction(mobileModel, 1, props.history));
+                dispatch(VerifyOtpAction(mobileModel, props.history));
                 // props.history.push('/register/CorporateSecondary');
             } else {
-                toast.error("Please enter Mobile OTP")
-            }
-        } else {
-            if (!otp2Err) {
-                const emailModel = {
-                    stakeholder: data.stakeholder,
-                    platformUID: data.platformUID,
-                    otp: emailOtp,
-                    email: data.email,
-                }
-                dispatch(VerifyOtpAction(emailModel, 2, props.history));
-            } else {
-                toast.error("Please enter Email OTP")
+                toast.error("Please enter Mobile & Email OTP")
             }
         }
     }

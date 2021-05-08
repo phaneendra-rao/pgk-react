@@ -1,6 +1,14 @@
 import React from 'react'
 
 const UniversitySubscribeSuccessModal = (props) => {
+    let subscribeType;
+    if (props.subscribeType === 'unvInsight')
+        subscribeType = 'University Insights'
+    else if (props.subscribeType === 'unvStuData')
+        subscribeType = 'Students data'
+    else
+        subscribeType = 'CAMPUS HIRING REQUEST'
+
     return (
         <div className="modal fade" id="subSuccess">
             <div className="modal-dialog modal-dialog-centered subscribe-success-modal" style={{ maxWidth: '600px' }}>
@@ -14,7 +22,7 @@ const UniversitySubscribeSuccessModal = (props) => {
                         </div>
                         <label className="sub-lbl">Subscription</label>
                         <span className="sub-msg my-3 px-4 text-success">
-                            Your have successfully subscribed to access the University Insights of
+                            Your have successfully subscribed to access the {subscribeType} of
                         </span>
                         <div className="card">
                             <div className="d-flex">

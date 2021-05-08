@@ -20,7 +20,7 @@ const JobsListItem = (props) => {
           <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
             <i className="fas fa-cube"></i>
           </div>
-          <p className="job-label">{props?.item?.jobID ? props?.item?.jobID : '-'}</p>
+          <p className="job-label">{props?.item?.jobName ? props?.item?.jobName : '-'}</p>
           <select name="" onChange={()=>{}} className="form-control job-dropdown" value={props?.item?.hiringCriteriaID}>
             <option value="">Select Hiring Criteria</option>
             {props?.hiringCriteriaList?.map((item, index)=>{

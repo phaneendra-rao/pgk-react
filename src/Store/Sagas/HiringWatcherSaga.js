@@ -8,7 +8,7 @@ import {
     ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST,
     ACTION_GET_CORPORATE_HIRING_BYID_REQUEST
 } from '../Actions/SagaActions/SagaActionTypes';
-import {actionUpdateGlobalLoaderSagaAction} from '../Actions/SagaActions/CommonSagaActions';
+import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
 const getHiringCriteria = () => {
     const URL = '/p/crp/hiringCriteria/all';
@@ -38,9 +38,12 @@ const addHiringCriteria = (payload) => {
 function* addHiringCriteriaSaga(action) {
     try {
         const model = action.payload.apiPayloadRequest;
-        let formData = new FormData();
-        formData.append('hiringCriterias', JSON.stringify(model));
-        const resp = yield call(addHiringCriteria, formData);
+        let body = {
+            hiringCriterias: [model]
+        }
+        // let formData = new FormData();
+        // formData.append('hiringCriterias', JSON.stringify(model));
+        const resp = yield call(addHiringCriteria, body);
         action.payload.callback(resp);
     } catch (err) {
         if (err?.response) {
@@ -52,7 +55,7 @@ function* addHiringCriteriaSaga(action) {
 }
 
 const postPublishCorporateHiring = (listOfHiringCriteria) => {
-    const URL = '/p/crp/hiringCriteria/publish/';
+    const URL = '/p/crp/hiringCriteria/publish';
     return Axios.post(URL, listOfHiringCriteria).then(resp => resp.data);
 }
 
@@ -61,9 +64,9 @@ function* postPublishCorporateHiringRequest(action) {
 
     try {
 
-    yield call(postPublishCorporateHiring, {hiringCriteriaIDS: action.payload.apiPayloadRequest});
-      action.payload.callback();
-      
+        yield call(postPublishCorporateHiring, { hiringCriteriaIDS: action.payload.apiPayloadRequest });
+        action.payload.callback();
+
     } catch (err) {
         if (err.response) {
             toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
@@ -76,7 +79,7 @@ function* postPublishCorporateHiringRequest(action) {
 }
 
 const getCorporateHiringByIdRequest = (id) => {
-    const URL = '/p/crp/hiringCriteria/getByID/'+id;
+    const URL = '/p/crp/hiringCriteria/getByID/' + id;
     return Axios.get(URL).then(resp => resp.data);
 }
 
@@ -84,9 +87,9 @@ function* getCorporateHiringByIdRequestSaga(action) {
     yield put(actionUpdateGlobalLoaderSagaAction(true));
 
     try {
-    const response = yield call(getCorporateHiringByIdRequest, action.payload.apiPayloadRequest);
-      action.payload.callback(response);
-      
+        const response = yield call(getCorporateHiringByIdRequest, action.payload.apiPayloadRequest);
+        action.payload.callback(response);
+
     } catch (err) {
         if (err.response) {
             toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);

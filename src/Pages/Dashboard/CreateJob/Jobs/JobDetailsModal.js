@@ -17,9 +17,9 @@ const JobDetailsModal = (props) => {
                                 <div className="header d-flex flex-row justify-content-between align-items-center w-full">
                                     <p className="job-label">{props.modelData?.jobName}</p>
                                     <div className="job-heading-btn">Open</div>
-                                    <select name="hiringCriteriaID" className="form-control">
+                                    <select name="hiringCriteriaID" className="form-control" defaultValue={props.modelData?.hiringCriteriaID + ',' + props.modelData?.hiringCriteriaName}>
                                         {/* <option value>Hiring Criteria</option> */}
-                                        <option value={'DEFAULT'} disabled>Select Hiring Criteria</option>
+                                        {/* <option value={'DEFAULT'} disabled>Select Hiring Criteria</option> */}
                                         {props.hiringCriteria && props.hiringCriteria?.length >= 0
                                             ? props.hiringCriteria?.map((item, i) => <option key={i} value={item.hiringCriteriaID + ',' + item.hiringCriteriaName}>{item.hiringCriteriaName}</option>)
                                             : (null)
@@ -46,7 +46,7 @@ const JobDetailsModal = (props) => {
                                         <tbody>
                                             {props.modelData?.skills && props.modelData?.skills?.length >= 0
                                                 ? props.modelData?.skills?.map((item, i) => <tr key={i}>
-                                                    <td>{item.skillID}</td>
+                                                    <td>{item.skillID +','+item.skill}</td>
                                                     <td>{item.noOfPositions}</td>
                                                     <td>{item.location}</td>
                                                     <td>{item.salaryRange}</td>

@@ -17,6 +17,7 @@ const University = (props) => {
     const [isSubscribe, setIsSubscribe] = useState(false);
     const [tokens, setTokens] = useState(null);
     const [isSubUnvInfoSuccess, setIsSubUnvInfoSuccess] = useState(false);
+    const [subscribedUnvData, setSubscribedUnvData] = useState(null);
     const [bonusTokensUsed, setBonusTokensUsed] = useState(0);
     const [additionalTokens, setAdditionalTokens] = useState(null);
     const [subscribeType, setSubscribeType] = useState('');
@@ -65,6 +66,12 @@ const University = (props) => {
         setIsSubUnvInfoSuccess(false);
     }
 
+    const openViewInfoModal = () => {
+        setIsSubUnvInfoSuccess(false);
+        setisInfoModal(true);
+        $("#viewInsight").modal("show");
+    }
+
     const subscribeModal = (data) => {
         setSubscribeType(data);
         getSubscribeTokens();
@@ -90,15 +97,15 @@ const University = (props) => {
     const subscribeUnvInfoRes = (data) => {
         $("#subscribe").modal("hide");
         setIsSubscribe(false);
-        getUniversityById();
         if (subscribeType === 'unvStuData') {
             navigateToStudent();
         } else {
+            setSubscribedUnvData(data)
             setIsSubUnvInfoSuccess(true);
             $("#subSuccess").modal("show");
+            getUniversityById();
         }
-        // if (data?.message === "Successfully subscribed") {
-        // }
+        console.log(data);
     }
 
     const navigateToStudent = () => {
@@ -124,6 +131,8 @@ const University = (props) => {
             {isInfoModal &&
                 <PortalHiringModal>
                     <ViewInfoModal
+                        universityName={universityInfoList?.universityName}
+                        subscribedUnvData={subscribedUnvData}
                         closeModal={closeModal}
                     />
                 </PortalHiringModal>
@@ -141,7 +150,9 @@ const University = (props) => {
             </PortalHiringModal>}
             {isSubUnvInfoSuccess && <PortalHiringModal>
                 <UniversitySubscribeSuccessModal
-                    closeModal={closeModal}
+                    universityName={universityInfoList?.universityName}
+                    universityHQAddressCity={universityInfoList?.universityHQAddressCity}
+                    openViewInfoModal={openViewInfoModal}
                 />
             </PortalHiringModal>}
 

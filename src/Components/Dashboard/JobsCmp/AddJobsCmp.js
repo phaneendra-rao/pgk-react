@@ -17,7 +17,7 @@ const AddJobsCmp = (props) => {
                 <select
                     name="hiringCriteriaID"
                     onChange={props.handleChange}
-                    defaultValue={props.addJobs.hiringCriteriaID + "," + props.addJobs.hiringCriteriaName}
+                    value={props.addJobs.hiringCriteriaID + "," + props.addJobs.hiringCriteriaName}
                     className="form-control"
                     required>
                     <option value={'DEFAULT'} disabled>Select Hiring Criteria</option>
@@ -42,7 +42,7 @@ const AddJobsCmp = (props) => {
                         <select
                             name="skillID"
                             onChange={(e) => props.handleChangeSkills(e, i)}
-                            value={item.skillID}
+                            value={item.skillID + ',' + item.skill}
                             className="form-control"
                             required>
                             {/* <option value>Select the skill set</option> */}
@@ -55,7 +55,7 @@ const AddJobsCmp = (props) => {
                             type="number"
                             name="noOfPositions"
                             onChange={(e) => props.handleChangeSkills(e, i)}
-                            defaultValue={item.noOfPositions}
+                            value={item.noOfPositions}
                             className="form-control"
                             min="1"
                             placeholder="No of positions"

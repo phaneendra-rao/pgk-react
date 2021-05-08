@@ -135,7 +135,8 @@ const UniversityCmp = (props) => {
                                     <p className="sub-title">{props.universityId}</p>
                                 </div>
                                 <div className="vertical-border" />
-                                <button type="button" data-toggle="modal" data-target="#viewInsight" onClick={() => props.viewInfo(item?.publishId)} className="view-info-btn">View Information</button>
+                                <button type="button" className="view-info-btn">View Information</button>
+                                {/* <button type="button" data-toggle="modal" data-target="#viewInsight" onClick={() => props.viewInfo(item?.publishId)} className="view-info-btn">View Information</button> */}
                             </div>)
                         : (null)
                     }

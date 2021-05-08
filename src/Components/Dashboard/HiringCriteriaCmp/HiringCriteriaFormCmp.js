@@ -29,7 +29,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                 <div className="col-md">
                     <div className="modal-grp">
                         <select
-                            name="departmentID"
+                            name="courseID"
                             onChange={handleChange}
                             defaultValue={'DEFAULT'}
                             className="modal-inp" required>
@@ -58,6 +58,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                             name="yearOfPassing"
                             onChange={handleChange}
                             className="modal-inp" required>
+                            <option value={''} disabled>Year</option>
                             <option>2018</option>
                             <option>2017</option>
                             <option>2019</option>

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import moment from "moment";
 import CustomModal from "../../../../Components/CustomModal";
 
-const StudentListItem = (props) => {
+const CampusHiringItem = (props) => {
   const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <div
@@ -12,8 +13,8 @@ const StudentListItem = (props) => {
         style={{padding:15}}
       >
         <div className="sub-type-container d-flex">
-          <i className="far fa-user-circle icon" />
-          <p className="sub-label" style={{fontWeight:'bold'}}>Student List</p>
+          <i className="far fa-file-alt icon" />
+          <p className="sub-label" style={{fontWeight:'bold'}}>Campus Drive Request</p>
         </div>
         <div className="vertical-border" />
         <div className="name-address d-flex flex-column align-items-start">
@@ -23,9 +24,9 @@ const StudentListItem = (props) => {
           </p>}
         </div>
         <div className="vertical-border" />
-        <div className="sub-item-container d-flex flex-column align-items-center">
-          <p className="title">Search Filters</p>
-          <p className="sub-title">{props?.item?.searchFilters}</p>
+        <div className="sub-item-container d-flex justify-content-around align-items-center">
+          <p className="sub-title">Status</p>
+          {props?.item?.campusDriveStatus==='Accepted' ? <span className="badge badge-md" style={{backgroundColor: '#20BDC9', color:'white', padding: '6px 15px', fontWeight: '500', marginLeft: 10, borderRadius: '20px'}}>Accepted</span> : props?.item?.campusDriveStatus==='Pending' ? <span className="badge badge-md" style={{backgroundColor: '#FEAD43', color:'white', padding: '6px 15px', fontWeight: '500', marginLeft: 10, borderRadius: '20px'}}>Sent</span> : props?.item?.campusDriveStatus==='Rejected' ? <span className="badge badge-md" style={{backgroundColor: '#F70D0D', color:'white', padding: '6px 15px', fontWeight: '500', marginLeft: 10, borderRadius: '20px'}}>Rejected</span> : undefined}
         </div>
         <div className="vertical-border" />
         <button
@@ -41,7 +42,7 @@ const StudentListItem = (props) => {
             setShowModal(true);
           }}
         >
-          View List
+          View More
         </button>
       </div>
 
@@ -147,4 +148,4 @@ const StudentListItem = (props) => {
   );
 };
 
-export default StudentListItem;
+export default CampusHiringItem;

@@ -5,6 +5,7 @@ import { actionSagaGetCorporateUniversitySubscriptionRequest } from "../../../..
 import OtherInformationItem from '../Components/OtherInformationItem';
 import UniversityItem from '../Components/UniversityItem';
 import StudentListItem from '../Components/StudentListItem';
+import CampusHiringItem from '../Components/CampusHiringItem';
 
 const SubscriptionHistory = () => {
   const dispatch = useDispatch();
@@ -52,8 +53,9 @@ const SubscriptionHistory = () => {
                 case "University Information":
                   return <UniversityItem item={item} index={index} />;
                 case "Student Database":
-                  console.log('student ', item);
                   return <StudentListItem item={item} index={index} />;
+                case "Campus Hiring":
+                    return <CampusHiringItem item={item} index={index} />;
                 default:
                   return undefined;
               }

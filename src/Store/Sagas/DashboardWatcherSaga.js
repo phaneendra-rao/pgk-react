@@ -7,6 +7,8 @@ import {
     ACTION_GET_CORPORATE_TOKENS_RESPONSE
 } from "../Actions/SagaActions/SagaActionTypes";
 
+import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
+
 
 const getTokens = () => {
     const URL = '/t/balance';
@@ -15,6 +17,8 @@ const getTokens = () => {
 
 function* getTokensSaga() {
     try {
+        yield put(actionUpdateGlobalLoaderSagaAction(true));
+
         const resp = yield call(getTokens);
         yield put({ type: ACTION_GET_CORPORATE_TOKENS_RESPONSE, payload: resp })
         // action.payload.callback(resp);
@@ -24,6 +28,8 @@ function* getTokensSaga() {
         } else {
             toast.error("Something Wrong!", err?.message);
         }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
     }
 }
 

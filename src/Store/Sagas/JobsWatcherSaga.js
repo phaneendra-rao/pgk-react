@@ -10,6 +10,8 @@ const getJobs = () => {
 }
 
 function* getJobsSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
     try {
         const resp = yield call(getJobs);
         action.payload.callback(resp);
@@ -19,8 +21,9 @@ function* getJobsSaga(action) {
         } else {
             toast.error("Something Wrong!", err?.message);
         }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
     }
-
 }
 
 const getJobById = (id) => {
@@ -29,6 +32,8 @@ const getJobById = (id) => {
 }
 
 function* getJobByIdSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
     try {
         const resp = yield call(getJobById, action.payload.apiPayloadRequest);
         action.payload.callback(resp);
@@ -38,8 +43,9 @@ function* getJobByIdSaga(action) {
         } else {
             toast.error("Something Wrong!", err?.message);
         }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
     }
-
 }
 
 
@@ -56,6 +62,8 @@ const addJobs = (payload) => {
 }
 
 function* addJobsSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
     try {
         const model = action.payload.apiPayloadRequest;
         // let formData = new FormData();
@@ -70,8 +78,9 @@ function* addJobsSaga(action) {
         } else {
             toast.error("Something Wrong!", err?.message);
         }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
     }
-
 }
 
 const editJobs = (payload, id) => {

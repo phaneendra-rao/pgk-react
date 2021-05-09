@@ -16,6 +16,8 @@ const getHiringCriteria = () => {
 }
 
 function* getHiringCriteriaSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
     try {
         const resp = yield call(getHiringCriteria);
         // yield put({ type: ACTION_GET_CORPORATE_HIRING_RESPONSE, payload: resp });
@@ -26,6 +28,8 @@ function* getHiringCriteriaSaga(action) {
         } else {
             toast.error("Something Wrong!", err?.message);
         }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
     }
 }
 
@@ -36,6 +40,8 @@ const addHiringCriteria = (payload) => {
 };
 
 function* addHiringCriteriaSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
     try {
         const model = action.payload.apiPayloadRequest;
         let body = {
@@ -51,6 +57,8 @@ function* addHiringCriteriaSaga(action) {
         } else {
             toast.error("Something Wrong!", err?.message);
         }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
     }
 }
 

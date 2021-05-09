@@ -2,7 +2,7 @@ import * as actionTypes from '../Actions/DashboardActions/actionTypes';
 import * as SagaActionTypes from '../Actions/SagaActions/SagaActionTypes';
 
 const INITIAL = {
-    apiStatus: false,
+    apiStatus: 0,
     apiSuccess: false,
     apiError: false,
     balance: {},
@@ -21,7 +21,11 @@ const DashboardReducer = (state = INITIAL, action) => {
             return { ...state, hiringCriteria: action.payload };
 
         case actionTypes.APISTATUS:
-            return { ...state, apiStatus: action.payload }
+            if(action.payload) {
+                return { ...state, apiStatus: state.apiStatus++ }
+            } else {
+                return { ...state, apiStatus: state.apiStatus-- }
+            }
 
         case actionTypes.SUCCESS:
             return { ...state, apiSuccess: action.payload }

@@ -1,7 +1,7 @@
 import * as actionTypes from '../Actions/CorporateActions/actionTypes';
 
 const INITIAL = {
-    apiStatus: false,
+    apiStatus: 0,
     apiSuccess: false,
     apiError: false,
     corporatePrimaryState: {},
@@ -18,7 +18,11 @@ const CorporateReducer = (state = INITIAL, action) => {
             return { ...state, countryCodes: action.payload }
 
         case actionTypes.APISTATUS:
-            return { ...state, apiStatus: action.payload }
+            if(action.payload) {
+                return { ...state, apiStatus: state.apiStatus++ }
+            } else {
+                return { ...state, apiStatus: state.apiStatus-- }
+            }
 
         case actionTypes.SUCCESS:
             return { ...state, apiSuccess: action.payload }

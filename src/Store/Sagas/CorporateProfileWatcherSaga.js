@@ -1,8 +1,7 @@
 // import packages
-import { take, put, call, takeLatest } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
-import history from '../../@history';
 import { ACTION_GET_CORPORATE_PROFILE_REQUEST, ACTION_PATCH_CORPORATE_PROFILE_REQUEST, ACTION_POST_PUBLISH_CORPORATE_PROFILE_REQUEST } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 

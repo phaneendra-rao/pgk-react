@@ -6,6 +6,7 @@ import PortalHiringModal from '../../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { HiringSagaAction } from '../../../../../Store/Actions/SagaActions/HiringSagaAction';
 import {
+    actionSagaGetCorporateSingleSubscriptionRequest,
     GetUniversityInfoSagaAction,
     SearchStundentSagaAction,
     SendMailSagaAction
@@ -44,16 +45,25 @@ const UniversityStudents = (props) => {
     const email = localStorage.getItem('email');
 
     useEffect(() => {
+        const queryParam = props.location.search;
         $(document).on('click', '.dropdown-menu', function (e) {
             e.stopPropagation();
         });
         dispatch(GetUniversityInfoSagaAction({ apiPayloadRequest: universityId, callback: getUniversityList }));
         getHiring();
         getLookupData();
+        if (queryParam) {
+            const subscriptionID = queryParam?.split('=');
+            getSubscriptionDetails(subscriptionID[1]);
+        }
         return () => {
             // localStorage.removeItem('subscriptionID');
         }
     }, []);
+
+    const getSubscriptionDetails = (subscriptionID) => {
+        dispatch(actionSagaGetCorporateSingleSubscriptionRequest({ apiPayloadRequest: { type: 'STUDENTS_LIST', id: subscriptionID }, callback: getStudentSearchList }))
+    }
 
     const getHiring = () => {
         dispatch(HiringSagaAction({ callback: getAllHirings }));
@@ -87,7 +97,6 @@ const UniversityStudents = (props) => {
 
     const handleChange = (event) => {
         const { name, value, checked } = event.target;
-        console.log(name, value, checked);
         let copyObj = [...searchObj[name]]
         if (checked) {
             setSearchObj(prevState => ({
@@ -115,7 +124,6 @@ const UniversityStudents = (props) => {
             monthOfHiring: monthOfHiring,
             skills: skills
         };
-        console.log(model);
         dispatch(SearchStundentSagaAction({ apiPayloadRequest: model, callback: getStudentSearchList }));
     }
 

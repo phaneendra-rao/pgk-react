@@ -4,7 +4,9 @@ import {
     ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST,
     ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST,
     ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST,
-    ACTION_GET_CORPORATE_UNIVERSITY_SUBSCRIPTION_HISTORY_REQUEST
+    ACTION_GET_CORPORATE_UNIVERSITY_SUBSCRIPTION_HISTORY_REQUEST,
+    ACTION_POST_CORPORATE_SENDMAIL_TO_UNIVERSITY_REQUEST,
+    ACTION_POST_CORPORATE_STUDENT_SEARCH_REQUEST
 } from "./SagaActionTypes";
 
 
@@ -46,6 +48,20 @@ export const SubscribeUnvInfoSagaAction = (payload) => {
 export const actionSagaGetCorporateUniversitySubscriptionRequest = (payload) => {
     return {
         type: ACTION_GET_CORPORATE_UNIVERSITY_SUBSCRIPTION_HISTORY_REQUEST,
+        payload: payload
+    }
+}
+
+export const SendMailSagaAction = (payload) => {
+    return {
+        type: ACTION_POST_CORPORATE_SENDMAIL_TO_UNIVERSITY_REQUEST,
+        payload: payload
+    }
+}
+
+export const SearchStundentSagaAction = (payload) => {
+    return {
+        type: ACTION_POST_CORPORATE_STUDENT_SEARCH_REQUEST,
         payload: payload
     }
 }

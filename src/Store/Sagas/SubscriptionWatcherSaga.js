@@ -7,7 +7,9 @@ import {
     ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST,
     ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST,
     ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST,
-    ACTION_GET_CORPORATE_UNIVERSITY_SUBSCRIPTION_HISTORY_REQUEST
+    ACTION_GET_CORPORATE_UNIVERSITY_SUBSCRIPTION_HISTORY_REQUEST,
+    ACTION_POST_CORPORATE_SENDMAIL_TO_UNIVERSITY_REQUEST,
+    ACTION_POST_CORPORATE_STUDENT_SEARCH_REQUEST
 } from "../Actions/SagaActions/SagaActionTypes";
 import { getTokensSagaAction } from '../Actions/SagaActions/DashboardSagaAction';
 
@@ -117,7 +119,7 @@ function* getSubscribeTokensSaga(action) {
 }
 
 const subscribeUnvInfo = (payload, type) => {
-    const URL = '/s/subscribe/'+ type;
+    const URL = '/s/subscribe/' + type;
     return Axios.post(URL, payload).then(res => res.data);
 }
 
@@ -142,7 +144,7 @@ function* subscribeUnvInfoSaga(action) {
         if (err?.response) {
             toast.error(err?.response?.data?.errors[0]?.message);
         } else {
-            toast.error("Something Wrong!", err?.message);
+            toast.error("Something Wrong!", err?.Message);
         }
     }
 }
@@ -165,6 +167,49 @@ function* getCorporateUniversitySubscriptionHistoryRequest(action) {
     }
 }
 
+const sendMail = (payload) => {
+    const URL = '/s/subscribe/campusDrive/invite';
+    return Axios.post(URL, payload).then(res => res.data);
+}
+
+function* sendMailSaga(action) {
+    try {
+        const model = action.payload.apiPayloadRequest;
+        let formData = new FormData();
+        for (const key in model) {
+            formData.append(key, model[key]);
+        }
+        const resp = yield call(sendMail, formData);
+        action.payload.callback(resp);
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    }
+}
+
+const searchStudent = (payload) => {
+    debugger
+    const URL = '/s/subscribe/unvStuData/queryStuData';
+    return Axios.post(URL, payload).then(res => res.data);
+}
+
+function* searchStudentSaga(action) {
+    try {
+        const model = action.payload.apiPayloadRequest;
+        const resp = yield call(searchStudent, model);
+        action.payload.callback(resp);
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    }
+}
+
 export default function* SubscriptionWatcherSaga() {
     yield takeLatest(ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST, getSearchDataSaga);
     yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST, getUniversityInfoSaga);
@@ -172,4 +217,6 @@ export default function* SubscriptionWatcherSaga() {
     yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_TOKENS_REQUEST, getSubscribeTokensSaga);
     yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_UNV_INFO_REQUEST, subscribeUnvInfoSaga);
     yield takeLatest(ACTION_GET_CORPORATE_UNIVERSITY_SUBSCRIPTION_HISTORY_REQUEST, getCorporateUniversitySubscriptionHistoryRequest);
+    yield takeLatest(ACTION_POST_CORPORATE_SENDMAIL_TO_UNIVERSITY_REQUEST, sendMailSaga);
+    yield takeLatest(ACTION_POST_CORPORATE_STUDENT_SEARCH_REQUEST, searchStudentSaga);
 }

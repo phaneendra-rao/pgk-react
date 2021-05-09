@@ -51,7 +51,7 @@ const NewUniCmp = (props) => {
                             <div className="vertical-divider-2" />
                             <button type="button" onClick={() => props.viewMore(item.universityID)} className="univ-view-more-btn">View more</button>
                         </div>)
-                    : "No data"
+                    : (null)
                 }
             </div>
         </>

@@ -136,7 +136,7 @@ const JobItem = (props) => {
                           return (
                             <tr>
                               <td>
-                                {item?.skill ? item.skill : "-"}
+                                {item?.skillID + item?.skill}
                               </td>
                               <td>
                                 {item?.noOfPositions ? item.noOfPositions : "-"}

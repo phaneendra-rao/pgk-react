@@ -1477,7 +1477,8 @@ body .main-body .page-body .welcome-widget {
     background-color: white;
     border: 1px solid grey;
     border-radius: 6px;
-    overflow: hidden;
+    /* overflow: hidden; */
+    position: relative;
 }
 
 .single-university-section .univ-quick-widgets-container .univ-quick-widget:nth-child(2) {

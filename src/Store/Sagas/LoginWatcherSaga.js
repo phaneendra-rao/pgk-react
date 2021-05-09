@@ -11,6 +11,7 @@ const loginRequest = (model) => {
   formData.append("stakeholder", model.stakeholder);
   formData.append("userID", model.userID);
   formData.append("password", model.password);
+  localStorage.setItem('email', model.userID);
   return Axios.post(URL, formData).then((res) => {
     return res.data;
   });

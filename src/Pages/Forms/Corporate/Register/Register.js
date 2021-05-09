@@ -36,13 +36,14 @@ const Register = (props) => {
     const dispatch = useDispatch();
     const storeData = useSelector(state => state.CorporateReducer.corporatePrimaryState);
     const countryCodes = useSelector(state => state.CorporateReducer.countryCodes);
+    console.log(storeData);
 
     useEffect(() => {
         dispatch(GetCountryCodeAction());
         if (storeData) {
             for (const key in storeData) {
                 setCorporatePrimaryData(prevState => ({
-                    ...prevState,
+                    // ...prevState,
                     [key]: storeData[key]
                 }))
             }
@@ -189,8 +190,8 @@ const Register = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const { emailErr, mobileErr } = errors;
-        const { corporateName, CIN, corporateHQAddressPhone, corporateLocalBranchAddressPhone } = corporatePrimaryData;
-        if (corporateName && CIN && corporateHQAddressPhone && !emailErr && !mobileErr) {
+        const { corporateName, CIN, corporateHQAddressPhone, corporateLocalBranchAddressPhone, corporateHQAddressZipCode } = corporatePrimaryData;
+        if (corporateName && CIN && corporateHQAddressPhone && corporateHQAddressZipCode && !emailErr && !mobileErr) {
             corporatePrimaryData.corporateHQAddressPhone = code + corporateHQAddressPhone;
             corporatePrimaryData.corporateLocalBranchAddressPhone = code2 + corporateLocalBranchAddressPhone;
             dispatch(SaveCoprorateData(corporatePrimaryData, 1));

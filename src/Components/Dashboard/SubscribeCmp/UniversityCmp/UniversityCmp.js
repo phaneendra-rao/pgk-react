@@ -66,26 +66,26 @@ const UniversityCmp = (props) => {
                 </div>
 
                 <div className="univ-quick-widgets-container d-flex justify-content-between align-items-center w-full">
-                    <div className="univ-quick-widget d-flex flex-column align-items-center">
+                    <div className={`univ-quick-widget d-flex flex-column align-items-center ${props.universityInfoList?.universityInsight ? '' : 'gaps-disable'}`}>
                         <i className="fas far fa-file-alt"></i>
                         <p className="title">University Information</p>
                         {props.universityInfoList?.universityInsight
                             ? <button
-                                type="button"
-                                className="quick-widget-btn">
-                                view
-                                </button>
-                            : <button
                                 type="button"
                                 data-toggle="modal"
                                 data-target="#subscribe"
                                 onClick={() => props.subscribeModal('unvInsight')}
                                 className="quick-widget-btn">
                                 Subscribe to view
-                        </button>
+                            </button>
+                            : <button
+                                type="button"
+                                className="quick-widget-btn">
+                                Subscribe to view
+                            </button>
                         }
                     </div>
-                    <div className="univ-quick-widget d-flex flex-column align-items-center">
+                    <div className={`univ-quick-widget d-flex flex-column align-items-center ${props.universityInfoList?.studentDbAvailable ? '' : 'gaps-disable'}`}>
                         <i className="fas fa-user-circle" />
                         <p className="title">Generate Student List</p>
                         {/* <button className="quick-widget-btn">Subscribe to Access</button> */}
@@ -93,24 +93,32 @@ const UniversityCmp = (props) => {
                         {props.universityInfoList?.studentDbAvailable
                             ? <button
                                 type="button"
-                                onClick={props.navigateToStudent}
-                                className="quick-widget-btn">
-                                Access
-                                </button>
-                            : <button
-                                type="button"
                                 data-toggle="modal"
                                 data-target="#subscribe"
                                 onClick={() => props.subscribeModal('unvStuData')}
                                 className="quick-widget-btn">
-                                Subscribe to view
-                        </button>
+                                Subscribe to Access
+                            </button>
+                            : <button
+                                type="button"
+                                onClick={props.navigateToStudent}
+                                className="quick-widget-btn">
+                                Subscribe to Access
+                            </button>
                         }
                     </div>
-                    <div className="univ-quick-widget d-flex flex-column align-items-center">
+                    <div className={`univ-quick-widget d-flex flex-column align-items-center`}>
                         <i className="fas fa-university" />
                         <p className="title">Request To Attend Campus Drive</p>
-                        <button className="quick-widget-btn">Subscribe to Place the request</button>
+                        {/* <button className="quick-widget-btn">Subscribe to Place the request</button> */}
+                        <button
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#subscribe"
+                            onClick={() => props.subscribeModal('campusDrive')}
+                            className="quick-widget-btn">
+                            Subscribe to Place the request
+                            </button>
                     </div>
                 </div>
                 <div className="univ-subscription-history-stripe">

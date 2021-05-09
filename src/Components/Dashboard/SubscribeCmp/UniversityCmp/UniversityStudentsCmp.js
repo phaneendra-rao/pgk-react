@@ -61,23 +61,44 @@ const UniversityStudentsCmp = (props) => {
                     <p className="label">Specify your search criteria to display the students list</p>
                 </div>
                 <form onSubmit={props.searchSubmit} className="search-filter-container d-flex justify-content-between align-items-center w-full">
-                    <select className="form-control item" multiple name="hiringCriteriaID" onChange={props.handleChange}>
+                    <div className="dropdown dropdown-col">
+                        <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            By Hiring Criteria
+                        </button>
+                        <ul className="dropdown-menu dropdown-menu-form">
+                            {props.hiringCriteria && props.hiringCriteria?.length >= 0
+                                ? props.hiringCriteria?.map((item, i) =>
+                                    <div className="custom-control custom-checkbox" key={i}>
+                                        <input
+                                            type="checkbox"
+                                            className="custom-control-input"
+                                            name="hiringCriteriaID"
+                                            onChange={props.handleChange}
+                                            value={item.hiringCriteriaID}
+                                            id={item.hiringCriteriaID} />
+                                        <label className="custom-control-label" htmlFor={item.hiringCriteriaID}>{item.hiringCriteriaName}</label>
+                                    </div>)
+                                : (null)
+                            }
+                        </ul>
+                    </div>
+                    {/* <select className="form-control item" multiple name="hiringCriteriaID" onChange={props.handleChange}>
                         <option value={''}>By Hiring Criteria</option>
                         {props.hiringCriteria && props.hiringCriteria?.length >= 0
                             ? props.hiringCriteria?.map((item, i) => <option key={i} value={item.hiringCriteriaID}>{item.hiringCriteriaName}</option>)
                             : (null)
                         }
-                    </select>
+                    </select> */}
                     <p className="dividerWord">Or</p>
                     <div className="item four-filters d-flex flex-column justify-content-between align-content-center w-full">
-                        <div className="d-flex justify-content-between align-content-center">
-                            <select className="form-control" multiple name="programID" onChange={props.handleChange}>
+                        <div className="d-flex justify-content-between align-content-center search-filter-grid">
+                            {/* <select className="form-control" multiple name="programID" onChange={props.handleChange}>
                                 <option value={''}>Program</option>
                                 {props.lookUpData && props.lookUpData?.departments?.length >= 0
                                     ? props.lookUpData?.departments.map((item, i) => <option key={i} value={item.departmentID}>{item.ProgramID}</option>) : (null)
                                 }
-                            </select>
-                            <select className="form-control" multiple name="monthOfHiring" onChange={props.handleChange}>
+                            </select> */}
+                            {/* <select className="form-control" multiple name="monthOfHiring" onChange={props.handleChange}>
                                 <option value=''>By Tentative Passing month</option>
                                 <option value='Jan'>Jan</option>
                                 <option value='Feb'>Feb</option>
@@ -91,10 +112,97 @@ const UniversityStudentsCmp = (props) => {
                                 <option value='Oct'>Oct</option>
                                 <option value='Nov'>Nov</option>
                                 <option value='Dec'>Dec</option>
-                            </select>
+                            </select> */}
+                            <div className="dropdown dropdown-col">
+                                <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Program
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-form">
+                                    {props.lookUpData && props.lookUpData?.departments?.length >= 0
+                                        ? props.lookUpData?.departments.map((item, i) =>
+                                            <div className="custom-control custom-checkbox" key={i}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    name="programID"
+                                                    onChange={props.handleChange}
+                                                    value={item.departmentID}
+                                                    id={item.departmentID} />
+                                                <label className="custom-control-label" htmlFor={item.departmentID}>{item.ProgramID}</label>
+                                            </div>)
+                                        : (null)
+                                    }
+                                </ul>
+                            </div>
+                            <div className="dropdown dropdown-col">
+                                <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    By Tentative Passing month
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-form">
+                                    {props.months && props.months?.length >= 0
+                                        ? props.months?.map((item, i) =>
+                                            <div className="custom-control custom-checkbox" key={i}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    name="monthOfHiring"
+                                                    onChange={props.handleChange}
+                                                    value={item}
+                                                    id={item} />
+                                                <label className="custom-control-label" htmlFor={item}>{item}</label>
+                                            </div>)
+                                        : (null)
+                                    }
+                                </ul>
+                            </div>
+
                         </div>
-                        <div className="d-flex justify-content-between align-content-center">
-                            <select className="form-control" multiple name="branchID" onChange={props.handleChange}>
+                        <div className="d-flex justify-content-between align-content-center search-filter-grid">
+
+                            <div className="dropdown dropdown-col">
+                                <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    By Branch
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-form">
+                                    {props.lookUpData && props.lookUpData?.programs?.length >= 0
+                                        ? props.lookUpData?.programs?.map((item, i) =>
+                                            <div className="custom-control custom-checkbox" key={i}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    name="branchID"
+                                                    onChange={props.handleChange}
+                                                    value={item.ProgramID}
+                                                    id={item.ProgramID} />
+                                                <label className="custom-control-label" htmlFor={item.ProgramID}>{item.program}</label>
+                                            </div>)
+                                        : (null)
+                                    }
+                                </ul>
+                            </div>
+                            <div className="dropdown dropdown-col">
+                                <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    By Skills
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-form">
+                                    {props.lookUpData && props.lookUpData?.skills?.length >= 0
+                                        ? props.lookUpData?.skills?.map((item, i) =>
+                                            <div className="custom-control custom-checkbox" key={i}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    name="skills"
+                                                    onChange={props.handleChange}
+                                                    value={item.SkillID}
+                                                    id={item.SkillID} />
+                                                <label className="custom-control-label" htmlFor={item.SkillID}>{item.skill}</label>
+                                            </div>)
+                                        : (null)
+                                    }
+                                </ul>
+                            </div>
+
+                            {/* <select className="form-control" multiple name="branchID" onChange={props.handleChange}>
                                 <option value={''}>By Branch</option>
                                 {props.lookUpData && props.lookUpData?.programs?.length >= 0
                                     ? props.lookUpData?.programs.map((item, i) => <option key={i} value={item.ProgramID}>{item.program}</option>) : (null)
@@ -105,7 +213,7 @@ const UniversityStudentsCmp = (props) => {
                                 {props.lookUpData && props.lookUpData?.skills?.length >= 0
                                     ? props.lookUpData?.skills.map((item, i) => <option key={i} value={item.SkillID}>{item.skill}</option>) : (null)
                                 }
-                            </select>
+                            </select> */}
                         </div>
                     </div>
                     <button type="submit" className="item students-list-btn">Get the Students List</button>
@@ -141,8 +249,8 @@ const UniversityStudentsCmp = (props) => {
                                     ? props.studentSearchList?.studentsData?.map((item, i) => <tr key={i}>
                                         <td>
                                             <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id={item.studentID+i} />
-                                                <label className="custom-control-label mt-1" htmlFor={item.studentID+i}>
+                                                <input type="checkbox" className="custom-control-input" id={item.studentID + i} />
+                                                <label className="custom-control-label mt-1" htmlFor={item.studentID + i}>
                                                 </label>
                                             </div>
                                         </td>

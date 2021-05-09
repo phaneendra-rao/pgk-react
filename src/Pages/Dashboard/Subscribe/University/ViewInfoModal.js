@@ -2,10 +2,8 @@ import React from 'react';
 
 const ViewInfoModal = (props) => {
     return (
-        <>
-            <div className="modal fade viewInsight-modal" id="viewInsight">
-                <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: '900px' }}>
-                    <div className="modal-content">
+
+            <div className="viewInsight-modal" id="viewInsight">
                         {/* Modal Header */}
                         <div className="modal-header">
                             <h4 className="modal-title">View Insights of '{props.universityName}'</h4>
@@ -92,11 +90,7 @@ const ViewInfoModal = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
-
-        </>
     )
 }
 

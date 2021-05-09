@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UniversityCmp from '../../../../Components/Dashboard/SubscribeCmp/UniversityCmp/UniversityCmp';
 import PortalHiringModal from '../../../../Portals/PortalHiringModal';
+import CustomModal from '../../../../Components/CustomModal';
 import {
     GetSubscribeTokensSagaAction,
     GetUniversityHistoryInfoSagaAction,
@@ -32,6 +33,7 @@ const University = (props) => {
     const [subscribeType, setSubscribeType] = useState('');
     const [campusDriveID, setCampusDriveID] = useState('');
     const [isSendOpen, setIsSendOpen] = useState(false);
+    const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
     const [sendMailObj, setSendMailObj] = useState({
         emailTo: '',
         emailSubject: '',
@@ -46,8 +48,6 @@ const University = (props) => {
 
     useEffect(() => {
         getUniversityById();
-        setIsSendOpen(true);
-        $("#mailModal").modal("show");
     }, []);
 
     const getUniversityById = () => {
@@ -88,7 +88,6 @@ const University = (props) => {
     const openViewInfoModal = () => {
         setIsSubUnvInfoSuccess(false);
         setisInfoModal(true);
-        $("#viewInsight").modal("show");
     }
 
     const subscribeModal = (type) => {
@@ -148,6 +147,8 @@ const University = (props) => {
     const closeSubModal = (val) => {
         const newVal = Math.abs(val);
         setAdditionalTokens(newVal);
+        setIsSubscribe(false);
+        setIsTokenModalOpen(true);
         localStorage.setItem('pathname', props.history.location.pathname);
     }
 
@@ -187,6 +188,7 @@ const University = (props) => {
         $("#mailSentSuccess").modal("show");
     }
 
+    // campusDrive
     return (
         <>
             <UniversityCmp
@@ -200,19 +202,19 @@ const University = (props) => {
 
             {/* UNIVERSITY INSIGHT MODAL */}
             {isInfoModal &&
-                <PortalHiringModal>
+                <CustomModal show={isInfoModal} modalStyles={{ minWidth: "80%" }}>
                     <ViewInfoModal
                         universityName={universityInfoList?.universityName}
                         subscribedUnvData={subscribedUnvData}
                         closeModal={closeModal}
                     />
-                </PortalHiringModal>
+                </CustomModal>
             }
 
             {/* AVAILABLE AND BONUS TOKENS & SUBSCRIBE*/}
-            {isSubscribe && <PortalHiringModal>
+            {isSubscribe && <CustomModal show={isSubscribe} modalStyles={{ minWidth: "70%" }}>
                 <UniversitySubscribeModal
-                    universityName={universityInfoList?.universityName}
+                    label={ subscribeType==='unvInsight' ? universityInfoList?.universityName + ' University Insights' : subscribeType==='unvStuData' ? 'Students Data' : 'Campus Hiring Request to '+universityInfoList?.universityName+' University'}
                     tokens={tokens}
                     balance={balance}
                     bonusTokensUsed={bonusTokensUsed}
@@ -220,20 +222,20 @@ const University = (props) => {
                     bonusCalc={bonusCalc}
                     closeSubModal={closeSubModal}
                 />
-            </PortalHiringModal>}
+            </CustomModal>}
 
             {/* SUCCESS MODAL */}
-            {isSubUnvInfoSuccess && <PortalHiringModal>
+            {isSubUnvInfoSuccess && <CustomModal show={isSubUnvInfoSuccess} modalStyles={{ maxWidth: "60%" }}>
                 <UniversitySubscribeSuccessModal
                     subscribeType={subscribeType}
                     universityName={universityInfoList?.universityName}
                     universityHQAddressCity={universityInfoList?.universityHQAddressCity}
                     openViewInfoModal={openViewInfoModal}
                 />
-            </PortalHiringModal>}
+            </CustomModal>}
 
             {/* SEND MAIL TO UNVIERSITY */}
-            {isSendOpen && <PortalHiringModal>
+            {isSendOpen && <CustomModal show={isSendOpen} modalStyles={{ minWidth: "80%" }}>
                 <UniversitySendMail
                     email={email}
                     emailTo={'jaswanth@gmail.com'}
@@ -244,26 +246,25 @@ const University = (props) => {
                     closeSendModal={closeSendModal}
                     sendMail={sendMail}
                 />
-            </PortalHiringModal>}
+            </CustomModal>}
 
             {/* SEND MAIL SUCCESS MAIL */}
             <UniversitySendMailSuccessModal
                 universityName={universityInfoList?.universityName}
             />
 
-            {/* REQUIRED TOKEN TO SUBSCRIBE UNIVERSITY */}
-            <div className="modal fade" id="balance" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
-                    <div className="modal-content purchase-modal">
-                        <div className="modal-header purchase-modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <HeaderModalForm additionalTokens={additionalTokens} />
+             {/* ADD TOKENS MODAL */}
+             {isTokenModalOpen && <CustomModal show={isTokenModalOpen} modalStyles={{ maxWidth: "60%" }}>
+                 <div className="purchase-modal">
+                    <div className="modal-header purchase-modal-header">
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
-                </div>
-            </div>
+                    <HeaderModalForm additionalTokens={additionalTokens} />
+                 </div>
+            </CustomModal>}
+
         </>
     )
 }

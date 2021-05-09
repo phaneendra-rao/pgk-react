@@ -8,11 +8,9 @@ const UniversitySubscribeModal = (props) => {
     const additionalTOkens = props.balance?.paidTokenBalance - (tokensrequired - props.bonusTokensUsed);
 
     return (
-        <>
-            <div className="modal fade" id="subscribe">
-                <div className="modal-dialog modal-dialog-centered subscription-modal" style={{ maxWidth: '700px' }}>
-                    <div className="modal-content">
-                        <div className="modal-header">
+
+        <div className="subscription-modal">
+<div className="modal-header">
                             <label className="modal-title">
                                 <i className="far fa-folder-open" />
                                 <span>Subscription</span>
@@ -22,7 +20,7 @@ const UniversitySubscribeModal = (props) => {
                         <div className="modal-body">
                             <div className="card ">
                                 <span>Subscription Cost to access</span>
-                                <li className="inner-list"><span>{props.universityName} University Insights</span> </li>
+                                <li className="inner-list"><span>{props.label}</span> </li>
                                 <div className="tokens float-right">{tokensrequired} Tokens</div>
                             </div>
                             <div className="card ">
@@ -67,11 +65,7 @@ const UniversitySubscribeModal = (props) => {
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-        </>
+        </div>
     )
 }
 

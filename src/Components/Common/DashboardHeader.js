@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { GetTokensAction } from '../../Store/Actions/DashboardActions/DashboardAction';
 import { getTokensSagaAction } from '../../Store/Actions/SagaActions/DashboardSagaAction';
 // const $ = window.$;
+import moment from 'moment';
 
 const DashboardHeader = () => {
   
@@ -17,7 +18,7 @@ const DashboardHeader = () => {
   return (
     <div className="topbar">
       <i className="fas fa-bars hamburger" id="menu-bar"></i>
-      <p className="date">Wednesday, 10th Febraury 2021</p>
+      <p className="date">{moment().format("dddd, MMMM Do YYYY")}</p>
       <div className="input-group search">
         <input type="text" className="form-control" placeholder="Search" />
         <div className="input-group-append">

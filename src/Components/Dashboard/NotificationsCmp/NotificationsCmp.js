@@ -1,4 +1,5 @@
 import React from "react";
+import moment from 'moment';
 
 const NotificationsCmp = (props) => {
   const notificationHeader = (item) => {
@@ -31,7 +32,7 @@ const NotificationsCmp = (props) => {
         return item?.senderName + " University";
         break;
       case "CampusHiring Response":
-        return "OtherInformation";
+        return item?.senderName + " University";
         break;
       default:
         break;
@@ -68,7 +69,7 @@ const NotificationsCmp = (props) => {
           return "has requested for Campus hiring";
           break;
         case "CampusHiring Response":
-          return "OtherInformation";
+          return "";
           break;
         default:
           break;
@@ -135,55 +136,60 @@ const NotificationsCmp = (props) => {
                 <tbody>
                   {props?.notificationsList &&
                   props?.notificationsList?.length > 0 ? (
-                    props?.notificationsList?.map((item, i) => (
-                      <tr key={i}>
-                        <td>
-                          <div className="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              name={item.isChecked}
-                              onChange={props.handleChange}
-                              className="custom-control-input"
-                              checked={item?.isChecked ? true : false}
-                              value={item?.notificationID}
-                              id={item?.notificationID}
-                            />
-                            <label
-                              className="custom-control-label mt-1"
-                              htmlFor={item?.notificationID}
-                            ></label>
-                          </div>
-                        </td>
-                        <td>
-                          <div className="basic-info">
-                            <div className="basic-img">
-                              <p className="basic-name">
-                                <i className="fas fa-building" />
-                              </p>
-                            </div>
-                            <div className="basic-content">
-                              <h5 className="basic-title">
-                                {notificationHeader(item)}
-                              </h5>
-                              <p className="basic-subtitle">
-                                {notificationContent(item)}
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <button className="btn action tb-btn-red">
-                            {item?.senderUserRole}
-                          </button>
-                          <button className="btn action tb-btn-yellow">
-                            Action required
-                          </button>
-                        </td>
-                        <td className="time">
-                          {new Date(item?.dateofNotification)?.toLocaleString()}
-                        </td>
-                      </tr>
-                    ))
+                    props?.notificationsList?.map((item, i) => {
+                      if (item.notificationType!=='OtherInformation') {
+                        return(
+                          <tr key={i}>
+                            <td>
+                              <div className="custom-control custom-checkbox">
+                                <input
+                                  type="checkbox"
+                                  name={item.isChecked}
+                                  onChange={props.handleChange}
+                                  className="custom-control-input"
+                                  checked={item?.isChecked ? true : false}
+                                  value={item?.notificationID}
+                                  id={item?.notificationID}
+                                />
+                                <label
+                                  className="custom-control-label mt-1"
+                                  htmlFor={item?.notificationID}
+                                ></label>
+                              </div>
+                            </td>
+                            <td>
+                              <div className="basic-info">
+                                <div className="basic-img">
+                                  <p className="basic-name">
+                                    <i className="fas fa-building" />
+                                  </p>
+                                </div>
+                                <div className="basic-content">
+                                  <h5 className="basic-title">
+                                    {notificationHeader(item)}
+                                  </h5>
+                                  <p className="basic-subtitle">
+                                    {notificationContent(item)}
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <button className="btn action" style={{backgroundColor:'#5473E8', fontWeight:'700', fontSize: '.600rem'}}>
+                                {item?.senderUserRole}
+                              </button>
+                              <button className="btn action" style={{backgroundColor:'#FE4394', fontWeight:'700', fontSize: '.600rem'}}>
+                                Action required
+                              </button>
+                            </td>
+                            <td className="time" style={{fontSize:'.600rem'}}>
+                              {moment(item?.dateofNotification).fromNow()}
+                            </td>
+                          </tr>
+                        )
+                      }
+                    }
+                    )
                   ) : (
                     <td colSpan="3">No data</td>
                   )}
@@ -241,7 +247,7 @@ const NotificationsCmp = (props) => {
               </table>
             </div>
           </div>
-          <div className="col-md-5 p-0">
+          <div className="col-md-5 p-0 d-none">
             <div className="info">
               <h6 className="info-title">
                 Notification from <br /> Osmania University

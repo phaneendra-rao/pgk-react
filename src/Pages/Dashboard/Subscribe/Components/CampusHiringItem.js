@@ -1,9 +1,27 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import moment from "moment";
 import CustomModal from "../../../../Components/CustomModal";
 
+import { actionGetCorporateSingleNotificationRequest } from '../../../../Store/Actions/SagaActions/NotificationsSagaAction';
+
 const CampusHiringItem = (props) => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [hiringItem, setHiringItem] = useState();
+
+  const getHiringItemById = (id) => {
+    dispatch(actionGetCorporateSingleNotificationRequest({
+      apiPayloadRequest: {
+        type: 'NOTIFICATION',
+        notificationId: id
+      },
+      callback: (response) => {
+        setHiringItem(JSON.parse(response?.content));
+        setShowModal(true);
+      }
+    }));
+  }
 
   return (
     <>
@@ -39,110 +57,71 @@ const CampusHiringItem = (props) => {
             borderRadius: "4px",
           }}
           onClick={() => {
-            setShowModal(true);
+            getHiringItemById(props?.item?.nftID);
           }}
         >
           View More
         </button>
       </div>
 
-      <CustomModal show={showModal}>
-        <div className="hiring-modal">
-          <div className="modal-header hiring-modal-header">
-            <h5
-              className="modal-title"
-              style={{ fontSize: "1rem" }}
-              id="exampleModalLabel"
-            >
-              Published Information Details
-            </h5>
-            <button
-              type="button"
-              className="close"
-              style={{ fontSize: "1rem" }}
-              onClick={() => {
-                setShowModal(false);
-              }}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form className="hiring-modal-form">
-            <div className="row">
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Publish ID</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={props?.item?.publishID ? props?.item?.publishID : ""}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Published Date & Time</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      props?.item?.creationDate
-                        ? `Published on ${moment(
-                            props?.item?.creationDate
-                          ).format("DD/MM/YYYY")}`
-                        : ""
-                    }
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="w-100"></div>
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Title</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={props?.item?.title ? props?.item?.title : ""}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="w-100"></div>
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Content</label>
-                  <textarea
-                    name=""
-                    rows="6"
-                    className="modal-inp modal-textarea"
-                    placeholder="Write in brief about the company"
-                    value={
-                      props?.item?.information ? props?.item?.information : ""
-                    }
-                    disabled
-                    required
-                  ></textarea>
-                </div>
-              </div>
-              <div className="w-100"></div>
-              <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
-                <p className="label">Attachment Present (if any)</p>
-                <div className="attachmentStripe d-flex justify-content-between align-items-center">
-                  <p>New Hiring Criteria for Job-2.pdf</p>
-                  <i className="fas fa-paperclip"></i>
-                </div>
-              </div>
-            </div>
-          </form>
+      <CustomModal show={showModal} modalStyles={{minWidth: '70%'}}>
+      <div className={'mail-modal'}>
+
+      <div className="modal-header d-block">
+        <span className="modal-title" style={{fontSize: '1.1rem', padding: 6}}>
+          New mail to {props?.item?.publisherName} University requesting Campus
+          Placement Drive
+        </span>
+        <i
+          className="far fa-times-circle close-icon"
+          onClick={() => {
+            setShowModal(false);
+          }}
+          data-dismiss="modal"
+        />
+      </div>
+      <div className="modal-body">
+        <div className="card">
+          <span className="control-label" style={{fontSize: '1rem'}}>From&nbsp;:</span>
+          <input
+            type="email"
+            name="emailFrom"
+            style={{fontSize: '1rem'}}
+            defaultValue={hiringItem?.emailFrom}
+            readOnly
+          />
         </div>
+        <div className="card">
+          <span className="control-label" style={{fontSize: '1rem'}}>To&nbsp;:</span>
+          <input
+            type="email"
+            name="emailTo"
+            style={{fontSize: '1rem'}}
+            defaultValue={hiringItem?.emailTo}
+            readOnly
+          />
+        </div>
+        <div className="card">
+          <span className="control-label" style={{fontSize: '1rem'}}>Subject&nbsp;:</span>
+          <input
+            type="text"
+            name="emailSubject"
+            style={{fontSize: '1rem'}}
+            defaultValue={hiringItem?.emailSubject}
+            readOnly
+          />
+        </div>
+        <div className="card b-none">
+          <textarea
+            name="emailBody"
+            style={{fontSize: '.850rem'}}
+            defaultValue={hiringItem?.emailBody}
+            rows={5}
+            readOnly
+          />
+        </div>
+      </div>
+      </div>
       </CustomModal>
     </>
   );

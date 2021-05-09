@@ -2,10 +2,8 @@ import React from 'react';
 
 const JobDetailsModal = (props) => {
     return (
-        <div className="modal fade" id="jobDetails" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div className="modal-content job-publish-modal">
-                    <div className="modal-header job-publish-modal-header">
+<div className={'job-publish-modal'}>
+<div className="modal-header job-publish-modal-header">
                         <p className="heading w-full">Job Details</p>
                         <button type="button" onClick={() => props.closeDetailsModal()} className="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
@@ -63,10 +61,7 @@ const JobDetailsModal = (props) => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
-
     )
 }
 

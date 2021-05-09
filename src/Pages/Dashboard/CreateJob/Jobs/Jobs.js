@@ -7,6 +7,7 @@ import { HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSa
 import { AddJobsSagaAction, EditJobsSagaAction, GetJobByIdSagaAction, GetJobsSagaAction } from '../../../../Store/Actions/SagaActions/JobsSagaAction';
 import AddJobs from './AddJobs';
 import JobDetailsModal from './JobDetailsModal';
+import CustomModal from '../../../../Components/CustomModal';
 
 const Jobs = () => {
 
@@ -115,14 +116,14 @@ const Jobs = () => {
             }
 
             {isDetailsModal
-                ? <PortalHiringModal>
+                ? <CustomModal show={isDetailsModal}>
                     <JobDetailsModal
                         hiringCriteria={hiringCriteria}
                         modelData={modelData}
                         closeDetailsModal={closeDetailsModal}
                         editJobsBtn={editJobsBtn}
                     />
-                </PortalHiringModal>
+                </CustomModal>
                 : (null)
             }
         </>

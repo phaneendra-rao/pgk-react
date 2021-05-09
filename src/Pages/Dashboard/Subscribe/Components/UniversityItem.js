@@ -1,9 +1,27 @@
 import React, { useState } from "react";
-import moment from "moment";
+import { useDispatch } from 'react-redux';
 import CustomModal from "../../../../Components/CustomModal";
 
+import { actionSagaGetCorporateSingleSubscriptionRequest } from '../../../../Store/Actions/SagaActions/SubscriptionSagaAction';
+
 const UniversityItem = (props) => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [subscribedUnvData, setSubscribedUnvData] = useState();
+
+  const getInsightsById = (id) => {
+    dispatch(actionSagaGetCorporateSingleSubscriptionRequest({
+      apiPayloadRequest:{
+        type: 'UNIVERSITY_INFO',
+        id:id
+      },
+      callback: (response)=>{
+        setSubscribedUnvData(response);
+        setShowModal(true);
+      }
+    }));
+  }
+
   return (
     <>
       <div
@@ -38,110 +56,92 @@ const UniversityItem = (props) => {
             borderRadius: "4px",
           }}
           onClick={() => {
-            setShowModal(true);
+            getInsightsById(props?.item?.subscriptionID)
           }}
         >
           View Information
         </button>
       </div>
 
-      <CustomModal show={showModal}>
-        <div className="hiring-modal">
-          <div className="modal-header hiring-modal-header">
-            <h5
-              className="modal-title"
-              style={{ fontSize: "1rem" }}
-              id="exampleModalLabel"
-            >
-              Published Information Details
-            </h5>
-            <button
-              type="button"
-              className="close"
-              style={{ fontSize: "1rem" }}
-              onClick={() => {
-                setShowModal(false);
-              }}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form className="hiring-modal-form">
-            <div className="row">
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Publish ID</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={props?.item?.publishID ? props?.item?.publishID : ""}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Published Date & Time</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      props?.item?.creationDate
-                        ? `Published on ${moment(
-                            props?.item?.creationDate
-                          ).format("DD/MM/YYYY")}`
-                        : ""
-                    }
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="w-100"></div>
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Title</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={props?.item?.title ? props?.item?.title : ""}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="w-100"></div>
-              <div className="col-md">
-                <div className="modal-grp">
-                  <label className="inp-caption">Content</label>
-                  <textarea
-                    name=""
-                    rows="6"
-                    className="modal-inp modal-textarea"
-                    placeholder="Write in brief about the company"
-                    value={
-                      props?.item?.information ? props?.item?.information : ""
-                    }
-                    disabled
-                    required
-                  ></textarea>
-                </div>
-              </div>
-              <div className="w-100"></div>
-              <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
-                <p className="label">Attachment Present (if any)</p>
-                <div className="attachmentStripe d-flex justify-content-between align-items-center">
-                  <p>New Hiring Criteria for Job-2.pdf</p>
-                  <i className="fas fa-paperclip"></i>
-                </div>
-              </div>
+      <CustomModal show={showModal} modalStyles={{minWidth: '75%'}}>
+      <div className="viewInsight-modal" id="viewInsight">
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h4 className="modal-title">View Insights of '{props?.item?.publisherName}'</h4>
+                            <i className="far fa-times-circle close-icon" onClick={()=>{
+                              setShowModal(false)
+                            }} data-dismiss="modal" />
+                        </div>
+                        {/* Modal body */}
+                        <div className="modal-body">
+                            <div className="row">
+                                <div className="col-4">
+                                    <div className="modal-grp">
+                                        <label className="inp-caption">Average CGPA recorded last year</label>
+                                        <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.averageCGPA} placeholder="Average CGPA recorded last year *" required readOnly />
+                                    </div>
+                                </div>
+                                <div className="col-4 p-0">
+                                    <div className="modal-grp">
+                                        <label className="inp-caption">Highest CGPA recorded last year</label>
+                                        <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.highestCGPA} placeholder="Highest CGPA recorded last year *" required readOnly />
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="modal-grp">
+                                        <label className="inp-caption">Highest Package received during last CH</label>
+                                        <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.highestPackage} placeholder="Highest Package received during last CH *" required readOnly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-8">
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <div className="modal-grp">
+                                                <label className="inp-caption">Top Skills offered by this University</label>
+                                                <div className="modal-inp inp-textarea" value="7.5">
+                                                    <ul>
+                                                    {subscribedUnvData?.top5Skills?.map((item, i) => <li>{item}</li>)}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-6 p-0">
+                                            <div className="modal-grp">
+                                                <label className="inp-caption">Top Recruiting Corporates Last year</label>
+                                                <div className="modal-inp inp-textarea">
+                                                    <ul>
+                                                    {subscribedUnvData?.top5Recruiters?.map((item, i) => <li>{item}</li>)}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="col-12 p-0">
+                                        <div className="modal-grp">
+                                            <label className="inp-caption">Average Package received during last CH</label>
+                                            <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.averagePackage} placeholder="Average Package received during last CH *" required />
+                                        </div>
+                                    </div>
+                                    <div className="col-12 p-0">
+                                        <div className="modal-grp">
+                                            <label className="inp-caption">University Conversion Rate Last year</label>
+                                            <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.universityConvertionRatio} placeholder="Average CGPA recorded last year *" required />
+                                        </div>
+                                    </div>
+                                    <div className="col-12 p-0">
+                                        <div className="modal-grp">
+                                            <label className="inp-caption">Tentative Passing Month</label>
+                                            <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.tentativeMonthOfPassing} placeholder="Average CGPA recorded last year *" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             </div>
-          </form>
-        </div>
       </CustomModal>
     </>
   );

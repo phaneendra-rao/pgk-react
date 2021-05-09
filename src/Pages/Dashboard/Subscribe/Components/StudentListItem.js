@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import moment from "moment";
 import CustomModal from "../../../../Components/CustomModal";
+import { useHistory } from "react-router";
 
 const StudentListItem = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
+
+  const navigate = (publisher, subscriptionID) => {
+    history.push('/dashboard/subscribe/students/' + publisher + '?sub=' + subscriptionID)
+  }
+
   return (
     <>
       <div
         className="univ-sub-item d-flex justify-content-between align-items-center"
         key={props?.index}
-        style={{padding:15}}
+        style={{ padding: 15 }}
       >
         <div className="sub-type-container d-flex">
           <i className="far fa-user-circle icon" />
-          <p className="sub-label" style={{fontWeight:'bold'}}>Student List</p>
+          <p className="sub-label" style={{ fontWeight: 'bold' }}>Student List</p>
         </div>
         <div className="vertical-border" />
         <div className="name-address d-flex flex-column align-items-start">
           <p className="title">{props?.item?.publisherName}</p>
-          {props?.item?.location?.trim()!=='' && <p className="sub-title">
+          {props?.item?.location?.trim() !== '' && <p className="sub-title">
             <i className="fas fa-map-marker-alt" /> {props?.item?.location}
           </p>}
         </div>
@@ -37,10 +44,7 @@ const StudentListItem = (props) => {
             fontSize: ".600rem",
             borderRadius: "4px",
           }}
-          onClick={() => {
-            setShowModal(true);
-          }}
-        >
+          onClick={() => navigate(props?.item?.publisher, props?.item?.subscriptionID)}>
           View List
         </button>
       </div>
@@ -91,8 +95,8 @@ const StudentListItem = (props) => {
                     value={
                       props?.item?.creationDate
                         ? `Published on ${moment(
-                            props?.item?.creationDate
-                          ).format("DD/MM/YYYY")}`
+                          props?.item?.creationDate
+                        ).format("DD/MM/YYYY")}`
                         : ""
                     }
                     disabled

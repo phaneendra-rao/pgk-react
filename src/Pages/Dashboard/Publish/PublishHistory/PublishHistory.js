@@ -4,7 +4,7 @@ import { actionGetPublishHistoryRequest } from "../../../../Store/Actions/SagaAc
 import { HiringSagaAction } from "../../../../Store/Actions/SagaActions/HiringSagaAction";
 
 import HiringCriteriaItem from './HiringCriteriaItem';
-import ProfileItem from './ProfileItem';
+import ProfileItem from './ProfileItem/ProfileItem';
 import OtherInformation from './OtherInformationItem';
 import JobItem from './JobItem';
 
@@ -44,6 +44,7 @@ const PublishHistory = (props) => {
     } else if (listItem?.otherPublished) {
       return <OtherInformation parentItem={listItem} item={JSON.parse(listItem?.publishData)} index={index} />
     } else if (listItem?.profilePublished) {
+        console.log('JSON.parse(listItem?.publishData) ', JSON.parse(listItem?.publishData));
         return <ProfileItem parentItem={listItem} item={JSON.parse(listItem?.publishData)} index={index} />
     } else {
       return undefined;

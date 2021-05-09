@@ -17,7 +17,7 @@ const HiringCriteriaItem = (props) => {
               <i className="fas fa-file-alt" style={{ color: "#004FD0" }}></i>
             </div>
             <p className="job-label">
-              {props?.item?.hiringCriteriaID ? props.item.hiringCriteriaID : "-"}
+              {props?.item?.hiringCriteriaName ? props.item.hiringCriteriaName : "-"}
             </p>
             <button className="btn2">
               {props?.item?.programID ? props.item.programID : "-"}

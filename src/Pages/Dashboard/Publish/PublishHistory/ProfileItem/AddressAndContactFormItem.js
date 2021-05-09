@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { actionGetCountryCodesSagaAction } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
+import { actionGetCountryCodesSagaAction } from "../../../../../Store/Actions/SagaActions/CommonSagaActions";
 
-const AddressAndContactForm = (props) => {
+const AddressAndContactFormItem = (props) => {
   const [countries, setCountries] = useState([]);
   const dispatch = useDispatch();
 
@@ -25,36 +25,20 @@ const AddressAndContactForm = (props) => {
   }, []);
 
   return (
-    <div className="profile-box">
-      <aside className="profile-side">
+    <div className="profile-box" style={{marginBottom:0}}>
+      <aside className="profile-side" style={{borderRadius:0}}>
         <h3 className="profile-side-title">Address & Contact</h3>
       </aside>
       <div className="profile-data">
         <div className="row">
           <div className="col-md-6">
             <div className="d-flex">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateHeadQuarters"
-                  id="check-corporateHeadQuarters"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateHeadQuarters)}}
-                  checked={props?.checkData?.corporateHeadQuarters ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateHeadQuarters"}
-                ></label>
-              </div>}
             <h6 className="reg-label">Corporate Headquarters</h6>
             </div>
             <div className="d-grp">
               <input
                 type="text"
                 name="corporateHQAddressLine1"
-                disabled={props?.disable ? true : false}
-                onChange={props?.onChange}
                 value={
                   props?.profileData?.corporateHQAddressLine1
                     ? props?.profileData?.corporateHQAddressLine1
@@ -62,14 +46,13 @@ const AddressAndContactForm = (props) => {
                 }
                 className="d-inp"
                 placeholder="Address (Line 1)"
+                readOnly
               />
             </div>
             <div className="d-grp">
               <input
                 type="text"
                 name="corporateHQAddressLine2"
-                disabled={props?.disable ? true : false}
-                onChange={props?.onChange}
                 value={
                   props?.profileData?.corporateHQAddressLine2
                     ? props?.profileData?.corporateHQAddressLine2
@@ -77,6 +60,7 @@ const AddressAndContactForm = (props) => {
                 }
                 className="d-inp"
                 placeholder="Address (Line 2)"
+                readOnly
               />
             </div>
             <div className="row" style={{margin:0, padding:0}}>
@@ -85,10 +69,9 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateHQAddressCountry"
                     id=""
-                    disabled={props?.disable ? true : false}
                     className="d-inp"
                     value={props?.profileData?.corporateHQAddressCountry}
-                    onChange={props?.onChange}
+                    readOnly
                   >
                     <option value="">Select Country</option>
                     {countries?.map((item) => {
@@ -108,10 +91,9 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateHQAddressState"
                     id=""
-                    disabled={props?.disable ? true : false}
                     className="d-inp"
                     value={props?.profileData?.corporateHQAddressState}
-                    onChange={props?.onChange}
+                    readOnly
                   >
                     <option value="">Select State</option>
                     <option
@@ -134,8 +116,6 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="text"
                     name="corporateHQAddressCity"
-                    disabled={props?.disable ? true : false}
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressCity
                         ? props?.profileData?.corporateHQAddressCity
@@ -143,6 +123,7 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="City"
+                    readOnly
                   />
                 </div>
               </div>
@@ -151,8 +132,6 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="text"
                     name="corporateHQAddressDistrict"
-                    disabled={props?.disable ? true : false}
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressDistrict
                         ? props?.profileData?.corporateHQAddressDistrict
@@ -160,6 +139,7 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="District"
+                    readOnly
                   />
                 </div>
               </div>
@@ -168,8 +148,6 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="number"
                     name="corporateHQAddressZipCode"
-                    disabled={props?.disable ? true : false}
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressZipCode
                         ? props?.profileData?.corporateHQAddressZipCode
@@ -177,6 +155,7 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Zipcode"
+                    readOnly
                   />
                 </div>
               </div>
@@ -187,8 +166,6 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="number"
                     name="corporateHQAddressPhone"
-                    disabled={props?.disable ? true : false}
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressPhone
                         ? parseInt(props?.profileData?.corporateHQAddressPhone)
@@ -196,6 +173,7 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Phone Number"
+                    readOnly
                   />
                 </div>
               </div>
@@ -204,8 +182,6 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="email"
                     name="corporateHQAddressEmail"
-                    disabled={props?.disable ? true : false}
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressEmail
                         ? props?.profileData?.corporateHQAddressEmail
@@ -213,6 +189,7 @@ const AddressAndContactForm = (props) => {
                     }
                     className="d-inp"
                     placeholder="Office mail"
+                    readOnly
                   />
                 </div>
               </div>
@@ -220,63 +197,34 @@ const AddressAndContactForm = (props) => {
           </div>
           <div className="col-md-6">
             <div className="d-flex">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateLocalAddress"
-                  id="check-corporateLocalAddress"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateLocalAddress)}}
-                  checked={props?.checkData?.corporateLocalAddress ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateLocalAddress"}
-                ></label>
-              </div>}
               <h6 className="reg-label">Corporate Local Branch</h6>
-              {props?.checkData === undefined && <div className="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  onChange={props?.toggleCorporateHeadQuarters}
-                  checked={props?.checkStatus}
-                  name={"sameAsCorporateHeadquarters"}
-                  className="custom-control-input"
-                  id="customCheck1"
-                />
-                <label className="custom-control-label" htmlFor="customCheck1">
-                  Same as Corporate Head Quarters
-                </label>
-              </div>}
             </div>
             <div className="d-grp">
               <input
                 type="text"
                 name="corporateLocalBranchAddressLine1"
-                onChange={props?.onChange}
                 value={
                   props?.profileData?.corporateLocalBranchAddressLine1
                     ? props?.profileData?.corporateLocalBranchAddressLine1
                     : ""
                 }
                 className="d-inp"
-                disabled={props?.disable ? true : false}
                 placeholder="Address (Line 1)"
+                readOnly
               />
             </div>
             <div className="d-grp">
               <input
                 type="text"
                 name="corporateLocalBranchAddressLine2"
-                onChange={props?.onChange}
                 value={
                   props?.profileData?.corporateLocalBranchAddressLine2
                     ? props?.profileData?.corporateLocalBranchAddressLine2
                     : ""
                 }
                 className="d-inp"
-                disabled={props?.disable ? true : false}
                 placeholder="Address (Line 2)"
+                readOnly
               />
             </div>
             <div className="row" style={{margin:0, padding:0}}>
@@ -285,10 +233,9 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateLocalBranchAddressCountry"
                     id=""
-                    disabled={props?.disable ? true : false}
                     className="d-inp"
                     value={props?.profileData?.corporateLocalBranchAddressCountry}
-                    onChange={props?.onChange}
+                    readOnly
                   >
                     <option value="">Select Country</option>
                     {countries?.map((item) => {
@@ -308,10 +255,9 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateLocalBranchAddressState"
                     id=""
-                    disabled={props?.disable ? true : false}
                     className="d-inp"
                     value={props?.profileData?.corporateLocalBranchAddressState}
-                    onChange={props?.onChange}
+                    readOnly
                   >
                       <option value="">Select State</option>
                     <option
@@ -334,15 +280,14 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="text"
                     name="corporateLocalBranchAddressCity"
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateLocalBranchAddressCity
                         ? props?.profileData?.corporateLocalBranchAddressCity
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
                     placeholder="City"
+                    readOnly
                   />
                 </div>
               </div>
@@ -351,7 +296,6 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="text"
                     name="corporateLocalBranchAddressDistrict"
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateLocalBranchAddressDistrict
                         ? props?.profileData
@@ -359,8 +303,8 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
                     placeholder="District"
+                    readOnly
                   />
                 </div>
               </div>
@@ -369,15 +313,14 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="number"
                     name="corporateLocalBranchAddressZipCode"
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateLocalBranchAddressZipCode
                         ? props?.profileData?.corporateLocalBranchAddressZipCode
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
                     placeholder="Zipcode"
+                    readOnly
                   />
                 </div>
               </div>
@@ -388,7 +331,6 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="number"
                     name="corporateLocalBranchAddressPhone"
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateLocalBranchAddressPhone
                         ? parseInt(
@@ -397,8 +339,8 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
                     placeholder="Phone Number"
+                    readOnly
                   />
                 </div>
               </div>
@@ -407,15 +349,14 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="email"
                     name="corporateLocalBranchAddressEmail"
-                    onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateLocalBranchAddressEmail
                         ? props?.profileData?.corporateLocalBranchAddressEmail
                         : ""
                     }
-                    disabled={props?.disable ? true : false}
                     className="d-inp"
                     placeholder="Office mail"
+                    readOnly
                   />
                 </div>
               </div>
@@ -427,4 +368,4 @@ const AddressAndContactForm = (props) => {
   );
 };
 
-export default AddressAndContactForm;
+export default AddressAndContactFormItem;

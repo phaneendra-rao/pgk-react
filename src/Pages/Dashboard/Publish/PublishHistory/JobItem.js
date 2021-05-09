@@ -18,7 +18,7 @@ const JobItem = (props) => {
             <div className="job-icon d-flex justify-content-center align-items-center">
               <i className="fas fa-briefcase" style={{ color: "#004FD0" }}></i>
             </div>
-            <p className="job-label">{props?.item?.jobID ? props?.item.jobID : "-"}</p>
+            <p className="job-label">{props?.item?.jobName ? props?.item.jobName : "-"}</p>
             <select
               name=""
               onChange={() => {}}

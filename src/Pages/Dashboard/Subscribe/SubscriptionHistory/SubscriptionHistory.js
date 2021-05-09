@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actionSagaGetCorporateUniversitySubscriptionRequest } from "../../../../Store/Actions/SagaActions/SubscriptionSagaAction";
 
+import OtherInformationItem from '../Components/OtherInformationItem';
+import UniversityItem from '../Components/UniversityItem';
+import StudentListItem from '../Components/StudentListItem';
+
 const SubscriptionHistory = () => {
   const dispatch = useDispatch();
   const [subscriptionList, setSubscriptionList] = useState([]);
@@ -21,31 +25,6 @@ const SubscriptionHistory = () => {
     );
   }, []);
 
-  const getUniversityItem = (item) => {
-    return (
-      <div className="univ-sub-item d-flex justify-content-between align-items-center">
-        <div className="sub-type-container d-flex">
-          <i className="fas fa-file-certificate icon" />
-          <p className="sub-label">University Information</p>
-        </div>
-        <div className="vertical-border" />
-        <div className="name-address d-flex flex-column align-items-start">
-          <p className="title">Osmania University</p>
-          <p className="sub-title">
-            <i className="fas fa-map-marker-alt" /> Amberpet, Hyderabad
-          </p>
-        </div>
-        <div className="vertical-border" />
-        <div className="sub-item-container d-flex flex-column align-items-center">
-          <p className="title">University ID</p>
-          <p className="sub-title">XXXX2002</p>
-        </div>
-        <div className="vertical-border" />
-        <div className="view-info-btn">View Information</div>
-      </div>
-    );
-  };
-
   return (
     <>
       <div className="row single-university-section">
@@ -64,16 +43,17 @@ const SubscriptionHistory = () => {
           {!subscriptionList.length && "No subscriptions subscribed yet"}
 
           {subscriptionList.length &&
-            subscriptionList.map((item) => {
+            subscriptionList.map((item, index) => {
               switch (item?.generalNote) {
                 case "Other Information":
-                  return "haha";
+                  return <OtherInformationItem item={item} index={index} />;
                 case "Profile":
-                  return "haha";
+                  return "";
                 case "University Information":
-                  return "haha";
+                  return <UniversityItem item={item} index={index} />;
                 case "Student Database":
-                  return "haha";
+                  console.log('student ', item);
+                  return <StudentListItem item={item} index={index} />;
                 default:
                   return undefined;
               }

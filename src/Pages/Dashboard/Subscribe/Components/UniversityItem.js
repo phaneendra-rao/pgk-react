@@ -1,61 +1,65 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import moment from "moment";
 import CustomModal from "../../../../Components/CustomModal";
 
-const OtherInformationItem = (props) => {
-    const [showModal, setShowModal] = useState(false);
-
-    return (<>
-    <div
-        className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full"
+const UniversityItem = (props) => {
+  const [showModal, setShowModal] = useState(false);
+  return (
+    <>
+      <div
+        className="univ-sub-item d-flex justify-content-between align-items-center"
         key={props?.index}
+        style={{padding:15}}
       >
-        <div className="item d-flex flex-row justify-content-between align-items-center w-full">
-          <div className="job-icon d-flex justify-content-center align-items-center">
-            <i className="fas fa-file" style={{ color: "#004FD0" }}></i>
-          </div>
-          <p className="job-label">{"Other Information"}</p>
-          <p className="job-published-date" style={{textOverflow:'ellipsis', fontWeight: 'bold'}}>{props?.item?.title}</p>
-          <p className="job-published-date">
-          {props?.parentItem?.dateOfPublish
-                ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
-                    "DD/MM/YYYY"
-                  )}`
-                : "-"}
-          </p>
+        <div className="sub-type-container d-flex">
+          <i className="far fa-file icon" />
+          <p className="sub-label" style={{fontWeight:'bold'}}>{props?.item?.generalNote}</p>
         </div>
-        <div className="vertical-divider"></div>
-        <div className="job-list-item-details-container d-flex flex-row justify-content-center align-items-center">
+        <div className="vertical-border" />
+        <div className="name-address d-flex flex-column align-items-start">
+          <p className="title">{props?.item?.publisherName}</p>
+          {props?.item?.location?.trim()!=='' && <p className="sub-title">
+            <i className="fas fa-map-marker-alt" /> {props?.item?.location}
+          </p>}
+        </div>
+        <div className="vertical-border" />
+        <div className="sub-item-container d-flex flex-column align-items-center">
+          <p className="title">University ID</p>
+          <p className="sub-title">{props?.item?.publisher}</p>
+        </div>
+        <div className="vertical-border" />
         <button
-              type="button"
-              className="btn d-flex justify-content-around align-items-center"
-              style={{
-                height: "30px",
-                maxWidth: "100px",
-                fontSize: ".600rem",
-                borderRadius: "4px",
-              }}
-              onClick={() => {
-                  setShowModal(true);
-              }}
-            >
-              <p>Details</p>
-            </button>
-        </div>
+          type="button"
+          className="view-info-btn btn d-flex justify-content-around align-items-center"
+          style={{
+            height: "20px",
+            maxWidth: "100px",
+            fontSize: ".600rem",
+            borderRadius: "4px",
+          }}
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          View Information
+        </button>
       </div>
-      <CustomModal
-        show={showModal}
-      >
+
+      <CustomModal show={showModal}>
         <div className="hiring-modal">
           <div className="modal-header hiring-modal-header">
-            <h5 className="modal-title" style={{fontSize: '1rem'}} id="exampleModalLabel">
+            <h5
+              className="modal-title"
+              style={{ fontSize: "1rem" }}
+              id="exampleModalLabel"
+            >
               Published Information Details
             </h5>
             <button
               type="button"
               className="close"
-              style={{fontSize: '1rem'}}
-              onClick={()=>{
+              style={{ fontSize: "1rem" }}
+              onClick={() => {
                 setShowModal(false);
               }}
             >
@@ -71,7 +75,7 @@ const OtherInformationItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={props?.item?.publishID ? props?.item?.publishID : ''}
+                    value={props?.item?.publishID ? props?.item?.publishID : ""}
                     disabled
                     required
                   />
@@ -84,7 +88,13 @@ const OtherInformationItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={props?.item?.creationDate ? `Published on ${moment(props?.item?.creationDate).format("DD/MM/YYYY")}`: ''}
+                    value={
+                      props?.item?.creationDate
+                        ? `Published on ${moment(
+                            props?.item?.creationDate
+                          ).format("DD/MM/YYYY")}`
+                        : ""
+                    }
                     disabled
                     required
                   />
@@ -98,7 +108,7 @@ const OtherInformationItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={props?.item?.title ? props?.item?.title : ''}
+                    value={props?.item?.title ? props?.item?.title : ""}
                     disabled
                     required
                   />
@@ -113,7 +123,9 @@ const OtherInformationItem = (props) => {
                     rows="6"
                     className="modal-inp modal-textarea"
                     placeholder="Write in brief about the company"
-                    value={props?.item?.information ? props?.item?.information : ''}
+                    value={
+                      props?.item?.information ? props?.item?.information : ""
+                    }
                     disabled
                     required
                   ></textarea>
@@ -123,15 +135,16 @@ const OtherInformationItem = (props) => {
               <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
                 <p className="label">Attachment Present (if any)</p>
                 <div className="attachmentStripe d-flex justify-content-between align-items-center">
-                    <p>New Hiring Criteria for Job-2.pdf</p>
-                    <i className="fas fa-paperclip"></i>
+                  <p>New Hiring Criteria for Job-2.pdf</p>
+                  <i className="fas fa-paperclip"></i>
                 </div>
               </div>
             </div>
           </form>
         </div>
-      </CustomModal>  
-    </>);
-}
+      </CustomModal>
+    </>
+  );
+};
 
-export default OtherInformationItem;
+export default UniversityItem;

@@ -80,7 +80,7 @@ const BasicForm = (props) => {
                     ? props?.profileData?.stakeholderID
                     : ""
                 }
-                disabled
+                readonly
                 onChange={props?.onChange}
                 className="d-inp"
                 placeholder="Stakeholder ID"
@@ -133,11 +133,11 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateType"}
                 ></label>
               </div>}
-              <select name="corporateType" className="d-inp" disabled={props?.disable ? true : false} required>
+              <select name="corporateType" className="d-inp" disabled={props?.disable ? true : false} value={props?.profileData?.corporateType} required>
                 <option value="">Select Corporate Sector</option>
                 {corporateTypes?.length && (
                   corporateTypes.map((item) => {
-                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateType === item.value ? true : false}>{item.label}</option>;
+                    return <option value={item.value} key={item.value}>{item.label}</option>;
                   })
                 )}
               </select>
@@ -159,11 +159,11 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateCategory"}
                 ></label>
               </div>}
-              <select name="corporateCategory" className="d-inp" disabled={props?.disable ? true : false} required>
+              <select name="corporateCategory" className="d-inp" disabled={props?.disable ? true : false} value={props?.profileData?.corporateCategory} required>
                 <option value="">Select Corporate Category</option>
                 {corporateCategories?.length && (
                   corporateCategories.map((item) => {
-                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateCategory === item.value ? true : false}>{item.label}</option>;
+                    return <option value={item.value} key={item.value}>{item.label}</option>;
                   })
                 )}
               </select>
@@ -186,11 +186,11 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateIndustry"}
                 ></label>
               </div>}
-              <select name="corporateIndustry" className="d-inp" disabled={props?.disable ? true : false} required>
+              <select name="corporateIndustry" className="d-inp" disabled={props?.disable ? true : false} value={props?.profileData?.corporateIndustry} required>
                 <option value="">Select Industry Vertical</option>
                 {corporateIndustries?.length && (
                   corporateIndustries.map((item) => {
-                    return <option value={item.value} key={item.value} selected={props?.profileData?.corporateIndustry === item.value ? true : false}>{item.label}</option>;
+                    return <option value={item.value} key={item.value}>{item.label}</option>;
                   })
                 )}
               </select>

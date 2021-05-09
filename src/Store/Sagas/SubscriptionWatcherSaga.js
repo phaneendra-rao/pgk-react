@@ -191,7 +191,6 @@ function* sendMailSaga(action) {
 }
 
 const searchStudent = (payload) => {
-    debugger
     const URL = '/s/subscribe/unvStuData/queryStuData';
     return Axios.post(URL, payload).then(res => res.data);
 }

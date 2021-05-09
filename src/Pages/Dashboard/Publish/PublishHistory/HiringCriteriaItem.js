@@ -119,8 +119,8 @@ const HiringCriteriaItem = (props) => {
                     name=""
                     className="modal-inp"
                     value={
-                        props?.item?.course
-                        ? props?.item?.course
+                        props?.item?.courseID
+                        ? props?.item?.courseID
                         : ""
                     }
                     disabled
@@ -188,7 +188,7 @@ const HiringCriteriaItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={""}
+                    defaultValue={props?.item?.eduGapsGradAllowed ? "Yes" : "No"}
                     disabled
                     required
                   />
@@ -201,7 +201,7 @@ const HiringCriteriaItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={""}
+                    defaultValue={props?.item?.eduGapsSchoolAllowed ? "Yes" : "No"}
                     disabled
                     required
                   />
@@ -227,7 +227,7 @@ const HiringCriteriaItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={""}
+                    defaultValue={props?.item?.eduGaps11N12Allowed ? "Yes" : "No"}
                     disabled
                     required
                   />
@@ -240,7 +240,7 @@ const HiringCriteriaItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={""}
+                    defaultValue={props?.item?.eduGapsGradAllowed ? "Yes" : "No"}
                     disabled
                     required
                   />

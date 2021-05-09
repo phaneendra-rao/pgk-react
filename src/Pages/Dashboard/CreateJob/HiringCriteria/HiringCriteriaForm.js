@@ -86,10 +86,7 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
 
 
     return (
-        <div className="modal fade" id="hiringCriteria" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered  modal-lg" role="document">
-                <div className="modal-content">
-                    <div className="hiring-modal">
+        <div className="hiring-modal">
                         <div className="modal-header hiring-modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">Create a new Hiring Criteria</h5>
                             <button type="button" className="close" onClick={openCloseModal} data-dismiss="modal" aria-label="Close">
@@ -105,9 +102,6 @@ const HiringCriteriaForm = ({ openCloseModal, addHiringCriteria, lookUpData }) =
                             lookUpData={lookUpData}
                         />
                     </div>
-                </div>
-            </div>
-        </div>
     )
 }
 

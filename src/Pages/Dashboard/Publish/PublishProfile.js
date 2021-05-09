@@ -199,7 +199,7 @@ const PublishProfile = () => {
       </div>
 
       <div className="w-100 text-center">
-        <button type="button" onClick={cancelPublishProfile} className="btn">
+        <button type="button" onClick={cancelPublishProfile} className="btn mr-4">
           Cancel
         </button>
         <button

@@ -6,6 +6,7 @@ import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/
 import { AddHiringSagaAction, HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import HiringCriteriaForm from './HiringCriteriaForm';
 import HiringModal from './HiringModal';
+import CustomModal from '../../../../Components/CustomModal';
 // import getHiringCriteriaSaga from '../../../../Store/Sagas/HiringWatcherSaga';
 const $ = window.$;
 
@@ -68,25 +69,19 @@ const Index = () => {
                 detailsModal={detailsModal}
                 hiringCriteria={hiringCriteria}
             />
-            {isOpen
-                ? <PortalHiringModal>
-                    <HiringCriteriaForm
-                        openCloseModal={formModal}
-                        addHiringCriteria={addHiringCriteria}
-                        lookUpData={lookUpData}
-                    />
-                </PortalHiringModal>
-                : (null)
-            }
-            {isDetailsModal
-                ? <PortalHiringModal>
-                    <HiringModal
-                        detailsModal={detailsModal}
-                        modelData={modelData}
-                    />
-                </PortalHiringModal>
-                : (null)
-            }
+           {isOpen && <CustomModal show={isOpen}>
+                <HiringCriteriaForm
+                    openCloseModal={formModal}
+                    addHiringCriteria={addHiringCriteria}
+                    lookUpData={lookUpData}
+                />
+            </CustomModal>} 
+           {isDetailsModal && <CustomModal show={isDetailsModal}>
+                <HiringModal
+                    detailsModal={detailsModal}
+                    modelData={modelData}
+                />
+            </CustomModal>} 
         </>
     )
 }

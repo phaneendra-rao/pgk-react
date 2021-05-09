@@ -420,7 +420,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                 </div>
             </div>
             <div className="text-center mt-4">
-                <button type="submit" className="btn">Save</button>
+                <button type="submit" className="btn mr-4">Save</button>
                 <button type="button" onClick={openCloseModal} data-dismiss="modal" className="btn">Cancel</button>
             </div>
         </form>

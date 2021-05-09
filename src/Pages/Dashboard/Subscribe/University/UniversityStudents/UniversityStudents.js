@@ -34,6 +34,7 @@ const UniversityStudents = (props) => {
         emailSubject: '',
         emailBody: ''
     });
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
 
@@ -43,6 +44,9 @@ const UniversityStudents = (props) => {
     const email = localStorage.getItem('email');
 
     useEffect(() => {
+        $(document).on('click', '.dropdown-menu', function (e) {
+            e.stopPropagation();
+        });
         dispatch(GetUniversityInfoSagaAction({ apiPayloadRequest: universityId, callback: getUniversityList }));
         getHiring();
         getLookupData();
@@ -82,13 +86,21 @@ const UniversityStudents = (props) => {
     }
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
-        console.log(name, value);
-        let updatedValue = searchObj[name];
-        setSearchObj(prevState => ({
-            ...prevState,
-            [name]: updatedValue?.concat(value)
-        }))
+        const { name, value, checked } = event.target;
+        console.log(name, value, checked);
+        let copyObj = [...searchObj[name]]
+        if (checked) {
+            setSearchObj(prevState => ({
+                ...prevState,
+                [name]: copyObj?.concat(value)
+            }))
+        } else {
+            let updatedValue = copyObj.filter(item => item !== value);
+            setSearchObj(prevState => ({
+                ...prevState,
+                [name]: updatedValue
+            }))
+        }
     }
 
     const searchSubmit = (event) => {
@@ -137,7 +149,6 @@ const UniversityStudents = (props) => {
             emailSubject: emailSubject ? emailSubject : 'Campus Hiring Request',
             emailBody: emailBody
         };
-        console.log(model);
         dispatch(SendMailSagaAction({ apiPayloadRequest: model, callback: sendMailResp }));
     }
     const sendMailResp = (data) => {
@@ -150,13 +161,14 @@ const UniversityStudents = (props) => {
     return (
         <>
             <UniversityStudentsCmp
+                months={months}
                 hiringCriteria={hiringCriteria}
                 lookUpData={lookUpData}
                 universityId={universityId}
                 universityInfoList={universityInfoList}
                 studentSearchList={studentSearchList}
                 goBack={goBack}
-                handleChange={handleChangeInput}
+                handleChange={handleChange}
                 searchSubmit={searchSubmit}
             />
             {/* {isInfoModal &&
@@ -174,7 +186,7 @@ const UniversityStudents = (props) => {
                     emailSubject={'Campus Hiring Request'}
                     emailBody={''}
                     universityName={universityInfoList?.universityName}
-                    handleChange={handleChange}
+                    handleChange={handleChangeInput}
                     closeSendModal={closeSendModal}
                     sendMail={sendMail}
                 />

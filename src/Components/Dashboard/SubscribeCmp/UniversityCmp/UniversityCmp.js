@@ -1,4 +1,8 @@
 import React from 'react'
+import OtherInformationItem from '../../../../Pages/Dashboard/Subscribe/Components/OtherInformationItem';
+import UniversityItem from '../../../../Pages/Dashboard/Subscribe/Components/UniversityItem';
+import StudentListItem from '../../../../Pages/Dashboard/Subscribe/Components/StudentListItem';
+import CampusHiringItem from '../../../../Pages/Dashboard/Subscribe/Components/CampusHiringItem';
 
 const UniversityCmp = (props) => {
     return (
@@ -125,29 +129,24 @@ const UniversityCmp = (props) => {
                     <p className="label">Subscription / Campus Drive History</p>
                 </div>
                 <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
-                    {props.universityInfoList?.subscriptions && props.universityInfoList?.subscriptions?.length >= 0 ?
-                        props.universityInfoList?.subscriptions?.map((item, i) =>
-                            <div className="univ-sub-item d-flex justify-content-between align-items-center" key={i}>
-                                <div className="sub-type-container d-flex">
-                                    <i className="far fa-file-alt icon" />
-                                    <p className="sub-label">{item?.generalNote}</p>
-                                </div>
-                                <div className="vertical-border" />
-                                <div className="name-address d-flex flex-column align-items-start">
-                                    <p className="title">{props.universityInfoList?.universityName}</p>
-                                    <p className="sub-title"><i className="fas fa-map-marker-alt" /> {props.universityInfoList?.universityHQAddressCity}</p>
-                                </div>
-                                <div className="vertical-border" />
-                                <div className="sub-item-container d-flex flex-column align-items-center">
-                                    <p className="title">University ID</p>
-                                    <p className="sub-title">{props.universityId}</p>
-                                </div>
-                                <div className="vertical-border" />
-                                <button type="button" className="view-info-btn">View Information</button>
-                                {/* <button type="button" data-toggle="modal" data-target="#viewInsight" onClick={() => props.viewInfo(item?.publishId)} className="view-info-btn">View Information</button> */}
-                            </div>)
-                        : (null)
-                    }
+                    {props.universityInfoList?.subscriptions?.length &&
+                        props.universityInfoList?.subscriptions.map((item, index) => {
+                        switch (item?.generalNote) {
+                            case "Other Information":
+                                return <OtherInformationItem item={{...item, publisherName: props.universityInfoList?.universityName}} index={index} />;
+                            case "Profile":
+                                return "";
+                            case "University Information":
+                                return <UniversityItem item={{...item, publisherName: props.universityInfoList?.universityName}} index={index} />;
+                            case "Student Database":
+                                return <StudentListItem item={{...item, publisherName: props.universityInfoList?.universityName}} index={index} />;
+                            case "Campus Hiring":
+                                return <CampusHiringItem item={{...item, publisherName: props.universityInfoList?.universityName}} index={index} />;
+                            default:
+                            return undefined;
+                        }
+                    })}
+                    
                     {/* <div className="univ-sub-item d-flex justify-content-between align-items-center">
                         <div className="sub-type-container d-flex">
                             <i className="fas fa-file-certificate icon" />

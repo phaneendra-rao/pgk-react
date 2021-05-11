@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import moment from 'moment';
 
 const NotificationsCmp = (props) => {
+  const [activeNotificationIndex, setActiveNotificationIndex] = useState();
+
   const notificationHeader = (item) => {
     switch (item?.notificationType) {
       case "HiringCriteria":
@@ -76,11 +78,20 @@ const NotificationsCmp = (props) => {
       }
   };
 
+  const getTypeOfRequest = (notification) => {
+    switch (notification?.notificationType) {
+      case "CampusHiring Request":
+        return "Campus Hiring From University"  
+      default:
+        break;
+    }
+  }
+
   return (
     <>
-      <div className="main mt-0">
-        <div className="row m-0">
-          <div className="col-md-7 p-0">
+      <div className="main mt-0 pr-0 pt-0">
+        <div className="row m-0 p-0">
+          <div className="col-md-7 p-0 pt-4 m-0">
             <h4 className="notification-title">Notifications</h4>
             <div className="table-responsive mb-4">
               <table className="table table-data mb-0">
@@ -137,9 +148,11 @@ const NotificationsCmp = (props) => {
                   {props?.notificationsList &&
                   props?.notificationsList?.length > 0 ? (
                     props?.notificationsList?.map((item, i) => {
-                      if (item.notificationType!=='OtherInformation') {
+                      if (item.notificationType!=='OtherInformation' && item.notificationType!=='CampusHiring Response'  && item.notificationType!=='UniversityOtherInformation') {
                         return(
-                          <tr key={i}>
+                          <tr key={i} onClick={()=>{
+                            setActiveNotificationIndex(i);
+                          }}>
                             <td>
                               <div className="custom-control custom-checkbox">
                                 <input
@@ -247,40 +260,41 @@ const NotificationsCmp = (props) => {
               </table>
             </div>
           </div>
-          <div className="col-md-5 p-0 d-none">
-            <div className="info">
+          {activeNotificationIndex!==undefined && <div className="col-md-5 p-0 m-0">
+            <div className="info" style={{minHeight: '100vh', padding: 15}}>
+              <div style={{border: '1px solid #cacaca', padding: '20px 40px', margin:0}}>
               <h6 className="info-title">
-                Notification from <br /> Osmania University
+                Notification from <br /> {JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName} University
               </h6>
               <hr />
-              <ul className="info-data">
+              <ul className="info-data" >
                 <li>
                   <span>University Name</span>
-                  <span>OSMANIA UNIVERSITY</span>
+                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName}</span>
                 </li>
                 <li>
                   <span>Location</span>
-                  <span>Hyderabad</span>
+                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.location}</span>
                 </li>
                 <li>
                   <span>Year of Establishment</span>
-                  <span>1917</span>
+                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.yearOfEstablishment}</span>
                 </li>
                 <li>
                   <span>University ID</span>
-                  <span>XXXXXXXXX</span>
+                  <span>{props?.notificationsList[activeNotificationIndex]?.senderID}</span>
                 </li>
                 <li>
                   <span>Accredition</span>
-                  <span>NAAC 'A'</span>
+                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.accredations}</span>
                 </li>
                 <li>
                   <span>Type of Request</span>
-                  <span>Campus Hiring from University</span>
+                  <span>{getTypeOfRequest(props?.notificationsList[activeNotificationIndex])}</span>
                 </li>
                 <li>
                   <span>Request made on</span>
-                  <span>10 - Feb - 2021</span>
+                  <span>{moment(props?.notificationsList[activeNotificationIndex]?.dateofNotification).format('DD - MMM - YYYY')}</span>
                 </li>
               </ul>
               <div className="d-flex justify-content-center info-space">
@@ -294,8 +308,13 @@ const NotificationsCmp = (props) => {
                 </button>
                 <button className="btn3 btn-yellow">Reject</button>
               </div>
+              </div>
             </div>
-            <div className="info">
+          </div>}
+        </div>
+      </div>
+
+                  {/* <div className="info">
               <h6 className="info-title">
                 Notification from <br /> Osmania University
               </h6>
@@ -425,12 +444,11 @@ const NotificationsCmp = (props) => {
                   <span>10 - Feb - 2021</span>
                 </li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+            </div> */}
     </>
   );
 };
+
+
 
 export default NotificationsCmp;

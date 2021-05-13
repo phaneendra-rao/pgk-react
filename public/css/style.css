@@ -1659,3 +1659,7 @@ body .main-body .page-body .welcome-widget {
     background-color: rgba(0,0,0,0.5);
     z-index: 1000000;
 }
+
+.analytics-reports-style {
+    height: 100vh
+}

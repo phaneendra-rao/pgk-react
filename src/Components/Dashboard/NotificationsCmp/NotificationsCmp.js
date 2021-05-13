@@ -1,41 +1,39 @@
 import React, {useState} from "react";
+import {useDispatch} from 'react-redux';
 import moment from 'moment';
+import CustomModal from '../../CustomModal';
 
 const NotificationsCmp = (props) => {
   const [activeNotificationIndex, setActiveNotificationIndex] = useState();
+
+  const acceptNotification = () => {
+    // if(activeNotificationIndex!==undefined) {
+    //   props?.notificationsList
+    // }
+  }
 
   const notificationHeader = (item) => {
     switch (item?.notificationType) {
       case "HiringCriteria":
         return "HiringCriteria";
-        break;
       case "OtherInformation":
         return "OtherInformation";
-        break;
       case "CorporateProfile":
         return "CorporateProfile";
-        break;
       case "JobPublish":
         return "JobPublish";
-        break;
       case "UniversityProfile":
         return "UniversityProfile";
-        break;
       case "UniversityOtherInformation":
         return item?.senderName + " University";
-        break;
       case "RequestVerification":
         return "RequestVerification";
-        break;
       case "ProcessVerification":
         return "ProcessVerification";
-        break;
       case "CampusHiring Request":
         return item?.senderName + " University";
-        break;
       case "CampusHiring Response":
         return item?.senderName + " University";
-        break;
       default:
         break;
     }
@@ -45,34 +43,24 @@ const NotificationsCmp = (props) => {
     switch (item?.notificationType) {
         case "HiringCriteria":
           return "HiringCriteria";
-          break;
         case "OtherInformation":
           return "OtherInformation";
-          break;
         case "CorporateProfile":
           return "CorporateProfile";
-          break;
         case "JobPublish":
           return "JobPublish";
-          break;
         case "UniversityProfile":
           return "UniversityProfile";
-          break;
         case "UniversityOtherInformation":
           return item?.senderName + " University";
-          break;
         case "RequestVerification":
           return "RequestVerification";
-          break;
         case "ProcessVerification":
           return "ProcessVerification";
-          break;
         case "CampusHiring Request":
           return "has requested for Campus hiring";
-          break;
         case "CampusHiring Response":
           return "";
-          break;
         default:
           break;
       }
@@ -301,8 +289,7 @@ const NotificationsCmp = (props) => {
                 <button className="btn3">View more Info</button>
                 <button
                   className="btn3 btn-lightgreen"
-                  data-toggle="modal"
-                  data-target="#accept"
+                  onClick={acceptNotification}
                 >
                   Accept
                 </button>

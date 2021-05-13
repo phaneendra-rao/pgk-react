@@ -53,7 +53,7 @@ const UniversitySendMail = (props) => {
         <div className="card b-none">
           <textarea
             name="emailBody"
-            defaultValue={""}
+            defaultValue={props.emailBody}
             style={{fontSize: '.850rem'}}
             onChange={props.handleChange}
             rows={5}

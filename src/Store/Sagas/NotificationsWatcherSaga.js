@@ -3,7 +3,8 @@ import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
 import {
     ACTION_GET_CORPORATE_NOTIFICATIONS_REQUEST,
-    ACTION_GET_CORPORATE_SINGLE_NOTIFICATION_REQUEST
+    ACTION_GET_CORPORATE_SINGLE_NOTIFICATION_REQUEST,
+    ACTION_POST_CORPORATE_RESPOND_TO_CAMPUS_DRIVE_REQUEST
 } from "../Actions/SagaActions/SagaActionTypes";
 
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
@@ -63,7 +64,37 @@ function* getCorporateSingleNotificationRequest(action) {
     }
 }
 
+const respondToCampusDriveRequest = (formData) => {
+    const URL = "s/subscribe/campusDrive/respond";
+    return Axios.post(URL, formData).then((res) => {
+      return res.data;
+    });
+}
+
+function* postCorporateRespondToCampusDriveRequest(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        let formData = new FormData();
+        for (const key in action.payload.apiPayloadRequest) {
+            formData.append(key, action.payload.apiPayloadRequest[key]);
+        }
+
+        const resp = yield call(respondToCampusDriveRequest, formData);
+        action.payload.callback(resp);
+    } catch (err) {
+        if (err?.response) {
+            toast.error(err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err?.message);
+        }
+    } finally {
+      yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
 export default function* NotificationsWatcherSaga() {
     yield takeLatest(ACTION_GET_CORPORATE_NOTIFICATIONS_REQUEST, getNotificationsSaga);
     yield takeLatest(ACTION_GET_CORPORATE_SINGLE_NOTIFICATION_REQUEST, getCorporateSingleNotificationRequest);
+    yield takeLatest(ACTION_POST_CORPORATE_RESPOND_TO_CAMPUS_DRIVE_REQUEST, postCorporateRespondToCampusDriveRequest);
 }

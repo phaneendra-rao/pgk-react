@@ -240,7 +240,7 @@ const University = (props) => {
                     email={email}
                     emailTo={'jaswanth@gmail.com'}
                     emailSubject={'Campus Hiring Request'}
-                    emailBody={''}
+                    emailBody={sendMailObj?.emailBody}
                     universityName={universityInfoList?.universityName}
                     handleChange={handleChange}
                     closeSendModal={closeSendModal}

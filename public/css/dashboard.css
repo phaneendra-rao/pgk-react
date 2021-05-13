@@ -322,16 +322,16 @@ header .navbar .custom-navbar-nav .nav-item .nav-link.header-link {
   background-color: rgba(255, 255, 255, 0.26);
 }
 
-.sidebar-list .sidebar-item a[data-toggle][aria-expanded="true"] span {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
+.sidebar-list .sidebar-item a[data-toggle][aria-expanded="true"] span i {
+  -webkit-transform: rotateZ(0deg);
+          transform: rotateZ(0deg);
 }
 
-.sidebar-list .sidebar-item a[data-toggle] span {
+.sidebar-list .sidebar-item a[data-toggle] span i {
   -webkit-transition: all 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transition: all 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  -webkit-transform: rotateZ(180deg);
+          transform: rotateZ(180deg);
 }
 
 .sidebar-list .sidebar-item div[data-parent] {

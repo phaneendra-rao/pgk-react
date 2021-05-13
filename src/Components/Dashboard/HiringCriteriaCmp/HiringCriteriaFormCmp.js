@@ -339,7 +339,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" className="modal-inp" placeholder="Name of the Hiring Criteria *" />
+                                        <input type="text" className="modal-inp" placeholder="Remarks *" />
                                     </div>
                                 </div>
                             </div>
@@ -357,7 +357,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" className="modal-inp" placeholder="Name of the Hiring Criteria *" />
+                                        <input type="text" className="modal-inp" placeholder="Remarks *" />
                                     </div>
                                 </div>
                             </div>
@@ -375,7 +375,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" className="modal-inp" placeholder="Name of the Hiring Criteria *" />
+                                        <input type="text" className="modal-inp" placeholder="Remarks *" />
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +393,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" name className="modal-inp" placeholder="Name of the Hiring Criteria *" />
+                                        <input type="text" name className="modal-inp" placeholder="Remarks *" />
                                     </div>
                                 </div>
                             </div>
@@ -411,7 +411,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" className="modal-inp" placeholder="Name of the Hiring Criteria *" required />
+                                        <input type="text" className="modal-inp" placeholder="Remarks *" required />
                                     </div>
                                 </div>
                             </div> */}

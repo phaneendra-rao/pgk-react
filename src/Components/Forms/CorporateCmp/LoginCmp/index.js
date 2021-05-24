@@ -7,7 +7,6 @@ const LoginCmp = ({ type, email, password, handlerChange, handleSubmit, errors }
     return (
         <form className="login-form" onSubmit={handleSubmit}>
             <div className="login-grp">
-                <label className="login-label">Corporate ID / Email</label>
                 <input
                     type="email"
                     name="email"
@@ -15,10 +14,10 @@ const LoginCmp = ({ type, email, password, handlerChange, handleSubmit, errors }
                     className={`login-inp${emailErr ? ' login-inp-error' : ''}`}
                     placeholder="test@test.com"
                     required />
+                    <label className="inp-caption">Corporate ID / Email</label>
                 {emailErr ? <p className="inp-errors">{emailErr}</p> : null}
             </div>
             <div className="login-grp">
-                <label className="login-label">Password</label>
                 <input
                     type="password"
                     name="password"
@@ -26,6 +25,7 @@ const LoginCmp = ({ type, email, password, handlerChange, handleSubmit, errors }
                     className={`login-inp${passwordErr ? ' login-inp-error' : ''}`}
                     placeholder="**********"
                     required />
+                    <label className="inp-caption">Password</label>
                 {passwordErr ? <p className="inp-errors">{passwordErr}</p> : null}
             </div>
             <div className="text-center">

@@ -15,8 +15,8 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                             defaultValue={corporatePrimaryData.corporateName}
                             className="login-inp"
                             placeholder={`${type} Name`}
-                            autoFocus
-                            required={true} />
+                            autoFocus/>
+                        <label className="inp-caption">{`${type} Name`}</label>
                     </div>
                     <h6 className="reg-label">{type} Headquarters</h6>
                     <div className="login-grp">
@@ -27,7 +27,8 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                             defaultValue={corporatePrimaryData.corporateHQAddressLine1}
                             className="login-inp"
                             placeholder="Address (Line 1)"
-                            required={false} />
+                            required={true} />
+                        <label className="inp-caption">Address (Line 1)</label>
                     </div>
                     <div className="login-grp">
                         <input
@@ -37,7 +38,8 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                             defaultValue={corporatePrimaryData.corporateHQAddressLine2}
                             className="login-inp"
                             placeholder="Address (Line 2)"
-                            required={false} />
+                            required={true} />
+                        <label className="inp-caption">Address (Line 2)</label>
                     </div>
                     <div className="row">
                         <div className="col-md-6 pr-1">
@@ -47,13 +49,13 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     onChange={handlerChange}
                                     defaultValue={corporatePrimaryData.corporateHQAddressCountry ? corporatePrimaryData.corporateHQAddressCountry : 'DEFAULT'}
                                     // defaultValue={'DEFAULT'}
-                                    className="login-inp"
-                                    required={false}>
+                                    className="login-inp">
                                     <option value={'DEFAULT'} disabled>Country</option>
                                     {countryCodes && countryCodes.length >= 0
                                         ? countryCodes.map((item, i) => <option key={i} value={item.name}>{item.name}</option>) : (null)
                                     }
                                 </select>
+                                <label className="inp-caption">Country</label>
                             </div>
                         </div>
                         <div className="col-md-6 pl-1">
@@ -81,7 +83,8 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     defaultValue={corporatePrimaryData.corporateHQAddressCity}
                                     className="login-inp"
                                     placeholder="City"
-                                    required={false} />
+                                    required={true} />
+                                <label className="inp-caption">City</label>
                             </div>
                         </div>
                         <div className="col-md-4 px-1">
@@ -94,6 +97,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     className="login-inp"
                                     placeholder="District"
                                     required={false} />
+                                <label className="inp-caption">District</label>
                             </div>
                         </div>
                         <div className="col-md-4 pl-1">
@@ -106,6 +110,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     className="login-inp"
                                     placeholder="Zipcode"
                                     required={false} />
+                                <label className="inp-caption">Zipcode</label>
                             </div>
                         </div>
                     </div>
@@ -124,14 +129,17 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                         readOnly
                                         disabled
                                         required={true} />
-                                    <input
-                                        type="tel"
-                                        name="corporateHQAddressPhone"
-                                        onChange={handlerChange}
-                                        defaultValue={corporatePrimaryData.corporateHQAddressPhone}
-                                        className={`login-inp${mobileErr ? ' login-inp-error' : ''}`}
-                                        placeholder="Phone Number"
-                                        required={true} />
+                                    <div className="position-relative">
+                                        <input
+                                            type="tel"
+                                            name="corporateHQAddressPhone"
+                                            onChange={handlerChange}
+                                            defaultValue={corporatePrimaryData.corporateHQAddressPhone}
+                                            className={`login-inp${mobileErr ? ' login-inp-error' : ''}`}
+                                            placeholder="Phone Number"
+                                            required={true} />
+                                        <label className="inp-caption">Phone Number</label>
+                                    </div>
                                 </div>
                                 {mobileErr ? <p className="inp-errors">{mobileErr}</p> : null}
                             </div>
@@ -146,6 +154,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     className={`login-inp${emailErr ? ' login-inp-error' : ''}`}
                                     placeholder="Office mail"
                                     required={false} />
+                                <label className="inp-caption">Office mail</label>
                                 {emailErr ? <p className="inp-errors">{emailErr}</p> : null}
                             </div>
                         </div>
@@ -161,6 +170,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                             className="login-inp"
                             placeholder={type === 'Corporate' ? 'CIN' : 'University/College ID'}
                             required={true} />
+                        <label className="inp-caption">{type === 'Corporate' ? 'CIN' : 'University/College ID'}</label>
                     </div>
                     <div className="d-lg-flex">
                         <h6 className="reg-label">{type} Local Branch</h6>
@@ -182,6 +192,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                             className="login-inp"
                             placeholder="Address (Line 1)"
                             required={false} />
+                        <label className="inp-caption">Address (Line 1)</label>
                     </div>
                     <div className="login-grp">
                         <input
@@ -192,6 +203,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                             className="login-inp"
                             placeholder="Address (Line 2)"
                             required={false} />
+                        <label className="inp-caption">Address (Line 2)</label>
                     </div>
                     <div className="row">
                         <div className="col-md-6 pr-1">
@@ -235,6 +247,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     className="login-inp"
                                     placeholder="City"
                                     required={false} />
+                                <label className="inp-caption">City</label>
                             </div>
                         </div>
                         <div className="col-md-4 px-1">
@@ -247,6 +260,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     className="login-inp"
                                     placeholder="District"
                                     required={false} />
+                                <label className="inp-caption">District</label>
                             </div>
                         </div>
                         <div className="col-md-4 pl-1">
@@ -259,6 +273,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     className="login-inp"
                                     placeholder="Zipcode"
                                     required={false} />
+                                <label className="inp-caption">Zipcode</label>
                             </div>
                         </div>
                     </div>
@@ -277,14 +292,17 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                         readOnly
                                         disabled
                                         required={true} />
-                                    <input
-                                        type="tel"
-                                        name="corporateLocalBranchAddressPhone"
-                                        onChange={handlerChange}
-                                        defaultValue={corporatePrimaryData.corporateLocalBranchAddressPhone}
-                                        className={`login-inp${mobile2Err ? ' login-inp-error' : ''}`}
-                                        placeholder="Phone Number"
-                                        required={false} />
+                                    <div className="position-relative">
+                                        <input
+                                            type="tel"
+                                            name="corporateLocalBranchAddressPhone"
+                                            onChange={handlerChange}
+                                            defaultValue={corporatePrimaryData.corporateLocalBranchAddressPhone}
+                                            className={`login-inp${mobile2Err ? ' login-inp-error' : ''}`}
+                                            placeholder="Phone Number"
+                                            required={false} />
+                                        <label className="inp-caption">Phone Number</label>
+                                    </div>
                                 </div>
                                 {mobile2Err ? <p className="inp-errors">{mobile2Err}</p> : null}
                             </div>
@@ -299,6 +317,7 @@ const CorporatePrimaryCmp = ({ history, corporatePrimaryData, errors, saveData, 
                                     className={`login-inp${email2Err ? ' login-inp-error' : ''}`}
                                     placeholder="Office mail"
                                     required={false} />
+                                <label className="inp-caption">Office mail</label>
                                 {email2Err ? <p className="inp-errors">{email2Err}</p> : null}
                             </div>
                         </div>

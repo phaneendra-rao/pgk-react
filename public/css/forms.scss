@@ -234,7 +234,7 @@
     }
     .login-grp{
         position: relative;
-        margin-bottom: 12px;
+        margin-bottom: 20px;
         width: 100%;
         .login-label{
             color: $txtBlackShade2;
@@ -247,7 +247,7 @@
         .login-inp{
             width: 100%;
             border-radius: 6px;
-            height: 48px;
+            height: 42px;
             padding: 0px 12px;
             border: 2px solid $borderBlue;
             outline: none;
@@ -547,7 +547,7 @@
     .login-grp{
         margin-bottom: 0 !important;
         .login-inp{
-            height: 38px !important;
+            height: 42px !important;
             width: 250px;
         }
         .reg-resend{
@@ -694,3 +694,57 @@
 }
 
 // =====================================
+
+.inp-caption {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: transparent;
+    color: #878ba6;
+    font-family: Poppins-Medium;
+    font-size: 14px;
+    padding: 2px;
+    pointer-events: none;
+    transition: all 300ms ease;
+}
+
+input{  
+    &:focus {
+        box-shadow: none;
+        outline-color: #253aa3;
+    }
+    &::-webkit-input-placeholder {
+        opacity: 0;
+        transition: inherit;
+    }
+    // &:focus::-webkit-input-placeholder {
+    //     opacity: 1;
+    // }
+    // &:not(:placeholder-shown),
+    // &:not(:empty):not(:focus):invalid,
+    // &:empty:not(:focus) + .inp-caption
+    // :not([value=""]):not(:focus):invalid 
+    // &:not(:focus):invalid:not(:required) + .inp-caption{
+    //     top: 10px;
+    //     background-color: rgb(192, 33, 33);
+    // }
+    // &:required:not(:focus):valid + .inp-caption,
+    &:focus + .inp-caption,
+    // &:not(:focus):valid ~ .inp-caption,
+    // &:invalid ~ .inp-caption,
+    // &:not(:placeholder-shown) + .inp-caption,
+    // &:valid + .inp-caption
+    &:not(:placeholder-shown) + .inp-caption
+    {
+        top: -10px;
+        background-color: #fff;
+        font-size: 12px;
+    }
+}
+
+select:focus ~ .inp-caption,
+select:not(:placeholder-shown) ~ .inp-caption {
+    top: -10px;
+    background-color: #fff;
+    font-size: 12px;
+}

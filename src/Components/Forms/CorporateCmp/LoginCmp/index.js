@@ -17,7 +17,7 @@ const LoginCmp = ({ type, email, password, handlerChange, handleSubmit, errors }
                     <label className="inp-caption">Corporate ID / Email</label>
                 {emailErr ? <p className="inp-errors">{emailErr}</p> : null}
             </div>
-            <div className="login-grp">
+            <div className="login-grp" style={{marginTop:'30px'}}>
                 <input
                     type="password"
                     name="password"

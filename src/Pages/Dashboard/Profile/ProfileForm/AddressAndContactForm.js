@@ -47,13 +47,13 @@ const AddressAndContactForm = (props) => {
                   htmlFor={"check-corporateHeadQuarters"}
                 ></label>
               </div>}
-            <h6 className="reg-label">Corporate Headquarters</h6>
+            <h6 className="reg-label" style={{marginBottom:'20px'}}>Corporate Headquarters <sup>*</sup></h6>
             </div>
             <div className="d-grp">
               <input
                 type="text"
                 name="corporateHQAddressLine1"
-                disabled={props?.disable ? true : false}
+                readOnly={props?.disable!==undefined ? props?.disable : false}
                 onChange={props?.onChange}
                 value={
                   props?.profileData?.corporateHQAddressLine1
@@ -61,14 +61,14 @@ const AddressAndContactForm = (props) => {
                     : ""
                 }
                 className="d-inp"
-                placeholder="Address (Line 1)"
               />
+              <label className="inp-caption">{`Address Line 1 `}<sup>*</sup></label>
             </div>
             <div className="d-grp">
               <input
                 type="text"
                 name="corporateHQAddressLine2"
-                disabled={props?.disable ? true : false}
+                readOnly={props?.disable!==undefined ? props?.disable : false}
                 onChange={props?.onChange}
                 value={
                   props?.profileData?.corporateHQAddressLine2
@@ -76,8 +76,8 @@ const AddressAndContactForm = (props) => {
                     : ""
                 }
                 className="d-inp"
-                placeholder="Address (Line 2)"
               />
+              <label className="inp-caption">{`Address Line 2`}</label>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
@@ -85,7 +85,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateHQAddressCountry"
                     id=""
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateHQAddressCountry}
                     onChange={props?.onChange}
@@ -101,6 +101,7 @@ const AddressAndContactForm = (props) => {
                       );
                     })}
                   </select>
+                  <label className="inp-caption">{`Country `}<sup>*</sup></label>
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
@@ -108,7 +109,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateHQAddressState"
                     id=""
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateHQAddressState}
                     onChange={props?.onChange}
@@ -125,6 +126,7 @@ const AddressAndContactForm = (props) => {
                       AP
                     </option>
                   </select>
+                  <label className="inp-caption">{`State `}<sup>*</sup></label>
                 </div>
               </div>
             </div>
@@ -134,7 +136,7 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="text"
                     name="corporateHQAddressCity"
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressCity
@@ -142,8 +144,8 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    placeholder="City"
                   />
+                <label className="inp-caption">{`City `}<sup>*</sup></label>
                 </div>
               </div>
               <div className="col-md-4 px-1" style={{margin:0, padding:0}}>
@@ -151,7 +153,7 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="text"
                     name="corporateHQAddressDistrict"
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressDistrict
@@ -159,8 +161,8 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    placeholder="District"
                   />
+                <label className="inp-caption">{`District `}<sup>*</sup></label>
                 </div>
               </div>
               <div className="col-md-4 pl-1" style={{margin:0, padding:0}}>
@@ -168,7 +170,7 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="number"
                     name="corporateHQAddressZipCode"
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressZipCode
@@ -176,8 +178,8 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    placeholder="Zipcode"
                   />
+                  <label className="inp-caption">{`Zipcode `}<sup>*</sup></label>
                 </div>
               </div>
             </div>
@@ -187,7 +189,7 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="number"
                     name="corporateHQAddressPhone"
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressPhone
@@ -195,8 +197,8 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    placeholder="Phone Number"
                   />
+                  <label className="inp-caption">{`Phone Number `}<sup>*</sup></label>
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
@@ -204,7 +206,7 @@ const AddressAndContactForm = (props) => {
                   <input
                     type="email"
                     name="corporateHQAddressEmail"
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
                     value={
                       props?.profileData?.corporateHQAddressEmail
@@ -212,8 +214,8 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    placeholder="Office mail"
                   />
+                  <label className="inp-caption">{`Office Email `}<sup>*</sup></label>
                 </div>
               </div>
             </div>
@@ -234,8 +236,8 @@ const AddressAndContactForm = (props) => {
                   htmlFor={"check-corporateLocalAddress"}
                 ></label>
               </div>}
-              <h6 className="reg-label">Corporate Local Branch</h6>
-              {props?.checkData === undefined && <div className="custom-control custom-checkbox">
+              <h6 className="reg-label"  style={{marginBottom:'20px'}}>Corporate Local Branch <sup>*</sup></h6>
+              {props?.checkData === undefined && <div className="custom-control custom-checkbox" style={{marginLeft: '15px', marginBottom:'20px'}}>
                 <input
                   type="checkbox"
                   onChange={props?.toggleCorporateHeadQuarters}
@@ -244,7 +246,7 @@ const AddressAndContactForm = (props) => {
                   className="custom-control-input"
                   id="customCheck1"
                 />
-                <label className="custom-control-label" htmlFor="customCheck1">
+                <label className="custom-control-label" style={{fontSize:'.750rem'}} htmlFor="customCheck1">
                   Same as Corporate Head Quarters
                 </label>
               </div>}
@@ -260,9 +262,9 @@ const AddressAndContactForm = (props) => {
                     : ""
                 }
                 className="d-inp"
-                disabled={props?.disable ? true : false}
-                placeholder="Address (Line 1)"
+                readOnly={props?.disable!==undefined ? props?.disable : false}
               />
+              <label className="inp-caption">{`Address Line 1`}</label>
             </div>
             <div className="d-grp">
               <input
@@ -275,9 +277,9 @@ const AddressAndContactForm = (props) => {
                     : ""
                 }
                 className="d-inp"
-                disabled={props?.disable ? true : false}
-                placeholder="Address (Line 2)"
+                readOnly={props?.disable!==undefined ? props?.disable : false}
               />
+              <label className="inp-caption">{`Address Line 2`}</label>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
@@ -285,7 +287,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateLocalBranchAddressCountry"
                     id=""
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateLocalBranchAddressCountry}
                     onChange={props?.onChange}
@@ -301,6 +303,7 @@ const AddressAndContactForm = (props) => {
                       );
                     })}
                   </select>
+                  <label className="inp-caption">{`Country`}</label>
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
@@ -308,7 +311,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateLocalBranchAddressState"
                     id=""
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateLocalBranchAddressState}
                     onChange={props?.onChange}
@@ -325,6 +328,7 @@ const AddressAndContactForm = (props) => {
                       AP
                     </option>
                   </select>
+                  <label className="inp-caption">{`State`}</label>
                 </div>
               </div>
             </div>
@@ -341,9 +345,9 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
-                    placeholder="City"
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                   />
+                  <label className="inp-caption">{`City`}</label>
                 </div>
               </div>
               <div className="col-md-4 px-1" style={{margin:0, padding:0}}>
@@ -359,9 +363,10 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     placeholder="District"
                   />
+                <label className="inp-caption">{`District`}</label>
                 </div>
               </div>
               <div className="col-md-4 pl-1" style={{margin:0, padding:0}}>
@@ -376,9 +381,9 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
-                    placeholder="Zipcode"
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                   />
+                  <label className="inp-caption">{`Zipcode`}</label>
                 </div>
               </div>
             </div>
@@ -397,9 +402,9 @@ const AddressAndContactForm = (props) => {
                         : ""
                     }
                     className="d-inp"
-                    disabled={props?.disable ? true : false}
-                    placeholder="Phone Number"
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                   />
+                  <label className="inp-caption">{`Phone Number`}</label>
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
@@ -413,10 +418,10 @@ const AddressAndContactForm = (props) => {
                         ? props?.profileData?.corporateLocalBranchAddressEmail
                         : ""
                     }
-                    disabled={props?.disable ? true : false}
+                    readOnly={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
-                    placeholder="Office mail"
                   />
+                  <label className="inp-caption">{`Office Email`}</label>
                 </div>
               </div>
             </div>

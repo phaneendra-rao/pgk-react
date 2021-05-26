@@ -4,6 +4,7 @@ import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
 import history from '../../@history';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
+import { actionGetCorporateProfileSagaAction } from '../Actions/SagaActions/CorporateProfileSagaActions';
 
 const loginRequest = (model) => {
   const URL = "/o/login";
@@ -23,6 +24,7 @@ function* loginRequestSaga(action) {
   try {
     const response = yield call(loginRequest, action.payload.apiPayloadRequest);
     localStorage.setItem('token', response.token);
+    yield put(actionGetCorporateProfileSagaAction());
     toast.success("Login successful");
 
     action.payload.callback(response.redirectURL);

@@ -7,6 +7,7 @@ const INITIAL = {
     apiError: false,
     balance: {},
     hiringCriteria: [],
+    profileInfo: {}
 }
 
 const DashboardReducer = (state = INITIAL, action) => {
@@ -20,6 +21,8 @@ const DashboardReducer = (state = INITIAL, action) => {
         case SagaActionTypes.ACTION_GET_CORPORATE_HIRING_RESPONSE:
             return { ...state, hiringCriteria: action.payload };
 
+        case SagaActionTypes.ACTION_GET_CORPORATE_PROFILE_RESPONSE:
+            return { ...state, profileInfo: action.payload };
         case actionTypes.APISTATUS:
             if(action.payload) {
                 return { ...state, apiStatus: state.apiStatus++ }

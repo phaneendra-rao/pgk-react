@@ -4,6 +4,7 @@ import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
 import { ACTION_GET_CORPORATE_PROFILE_REQUEST, ACTION_PATCH_CORPORATE_PROFILE_REQUEST, ACTION_POST_PUBLISH_CORPORATE_PROFILE_REQUEST } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
+import { actionGetCorporateProfileResponse, actionGetCorporateProfileSagaAction } from '../Actions/SagaActions/CorporateProfileSagaActions'
 
 
 const getCorporateProfileRequest = () => {
@@ -18,7 +19,12 @@ function* getCorporateProfileRequestSaga(action) {
 
     try {
         const response = yield call(getCorporateProfileRequest);
-        action.payload.callback(response);
+        yield put(actionGetCorporateProfileResponse(response));
+
+        if(action?.payload?.callback) {
+          action.payload.callback(response);
+        }
+
     } catch (err) {
         if (err.response) {
             toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
@@ -42,15 +48,15 @@ function* patchCorporateProfileRequestSaga(action) {
   yield put(actionUpdateGlobalLoaderSagaAction(true));
 
   try {
-
-    console.log('action ', action);
-
     let formData = new FormData();
     for (const key in action.payload.apiPayloadRequest) {
         formData.append(key, action.payload.apiPayloadRequest[key]);
     }
     const response = yield call(patchCorporateProfileRequest, formData);
-    action.payload.callback(response);
+    yield put(actionGetCorporateProfileSagaAction());
+
+    action?.payload?.callback && action.payload.callback(response);
+
   } catch (err) {
       if (err.response) {
           toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);

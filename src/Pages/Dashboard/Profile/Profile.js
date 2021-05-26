@@ -14,7 +14,7 @@ import {
 } from "../../../Store/Actions/SagaActions/CorporateProfileSagaActions";
 
 const Profile = () => {
-  const [profile, setProfile] = useState();
+  const [profile, setProfile] = useState({});
   const [checkStatus, setCheckStatus] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [profilePicture, setProfilePicture] = useState();
@@ -26,28 +26,17 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
-  const onGetCorporateProfileRequest = (response) => {
-    setProfilePicture(response?.profilePicture);
-    setAttachment(response?.attachment);
+  const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
 
+  useEffect(()=>{
+    setProfilePicture(profileInfo?.profilePicture);
+    setAttachment(profileInfo?.attachment);
     setProfile({
-      ...response,
+      ...profileInfo,
       profilePicture: undefined,
       attachment: undefined,
-    });
-  };
-
-  const getProfile = () => {
-    dispatch(
-      actionGetCorporateProfileSagaAction({
-        callback: onGetCorporateProfileRequest,
-      })
-    );
-  };
-
-  useEffect(() => {
-    getProfile();
-  }, []);
+    })
+  }, [profileInfo]);
 
   const updateProfileData = (event) => {
     const { name, value } = event.target;
@@ -86,6 +75,20 @@ const Profile = () => {
 
   const toggleCorporateHeadQuarters = () => {
     setCheckStatus(!checkStatus);
+    if(!checkStatus) {
+      setProfile((prevState)=>({
+        ...prevState,
+        corporateLocalBranchAddressLine1: prevState.corporateHQAddressLine1,
+        corporateLocalBranchAddressLine2: prevState.corporateHQAddressLine2,
+        corporateLocalBranchAddressCountry: prevState.corporateHQAddressCountry,
+        corporateLocalBranchAddressState: prevState.corporateHQAddressState,
+        corporateLocalBranchAddressCity: prevState.corporateHQAddressCity,
+        corporateLocalBranchAddressDistrict: prevState.corporateHQAddressDistrict,
+        corporateLocalBranchAddressZipCode: prevState.corporateHQAddressZipCode,
+        corporateLocalBranchAddressPhone: prevState.corporateHQAddressPhone,
+        corporateLocalBranchAddressEmail: prevState.corporateHQAddressEmail
+      }));
+    }
   };
 
   const saveProfile = () => {
@@ -107,7 +110,6 @@ const Profile = () => {
         apiPayloadRequest: updatedProfile,
         callback: () => {
           setShowModal(true);
-          getProfile();
         },
       })
     );
@@ -164,7 +166,7 @@ const Profile = () => {
           />
         </div>
       </div>
-      <BasicForm profileData={profile} onChange={updateProfileData} disable />
+      <BasicForm profileData={profile} onChange={updateProfileData} />
       <AddressAndContactForm
         profileData={profile}
         onChange={updateProfileData}

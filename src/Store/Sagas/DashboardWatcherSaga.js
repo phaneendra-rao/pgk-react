@@ -21,7 +21,6 @@ function* getTokensSaga() {
 
         const resp = yield call(getTokens);
         yield put({ type: ACTION_GET_CORPORATE_TOKENS_RESPONSE, payload: resp })
-        // action.payload.callback(resp);
     } catch (err) {
         if (err?.response) {
             toast.error(err?.response?.data?.errors[0]?.message);

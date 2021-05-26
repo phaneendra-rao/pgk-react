@@ -34,9 +34,9 @@ const ProfileForm = (props) => {
                 }
                 rows="6"
                 className="d-inp d-textarea"
-                disabled={props?.disable ? true : false}
-                placeholder="Write in brief about the company"
+                readOnly={props?.disable!==undefined ? props?.disable : false}
               ></textarea>
+              <label className="inp-caption">{`Write in brief about the company `}<sup>*</sup></label>
             </div>
             <div className="row d-flex justify-content-center align-items-center" style={{margin:0, padding:0}}>
               <div className="col-md-12" style={{margin:0, padding:0}}>

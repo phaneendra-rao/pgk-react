@@ -83,9 +83,9 @@ const BasicForm = (props) => {
                 readonly
                 onChange={props?.onChange}
                 className="d-inp"
-                placeholder="Stakeholder ID"
                 required
               />
+              <label className="inp-caption">{`Stakeholder ID`}</label>
             </div>
           </div>
           <div className="col-md">
@@ -110,10 +110,10 @@ const BasicForm = (props) => {
                 value={props?.profileData?.CIN ? props?.profileData?.CIN : ""}
                 onChange={props?.onChange}
                 className="d-inp"
-                placeholder="Organization Registration ID / CIN *"
-                disabled
+                readOnly={props?.disable!==undefined ? props?.disable : false}
                 required
               />
+              <label className="inp-caption">{`Organization Registration ID / CIN `}<sup>*</sup></label>
             </div>
           </div>
           <div className="w-100"></div>
@@ -133,7 +133,7 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateType"}
                 ></label>
               </div>}
-              <select name="corporateType" className="d-inp" disabled={props?.disable ? true : false} value={props?.profileData?.corporateType} required>
+              <select name="corporateType" className="d-inp" readOnly={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateType} required>
                 <option value="">Select Corporate Sector</option>
                 {corporateTypes?.length && (
                   corporateTypes.map((item) => {
@@ -141,6 +141,7 @@ const BasicForm = (props) => {
                   })
                 )}
               </select>
+              <label className="inp-caption">{`Corporate Sector `}<sup>*</sup></label>
             </div>
           </div>
           <div className="col-md">
@@ -159,7 +160,7 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateCategory"}
                 ></label>
               </div>}
-              <select name="corporateCategory" className="d-inp" disabled={props?.disable ? true : false} value={props?.profileData?.corporateCategory} required>
+              <select name="corporateCategory" className="d-inp" readOnly={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateCategory} required>
                 <option value="">Select Corporate Category</option>
                 {corporateCategories?.length && (
                   corporateCategories.map((item) => {
@@ -167,6 +168,7 @@ const BasicForm = (props) => {
                   })
                 )}
               </select>
+              <label className="inp-caption">{`Corporate Category `}<sup>*</sup></label>
             </div>
           </div>
           <div className="w-100"></div>
@@ -186,7 +188,7 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateIndustry"}
                 ></label>
               </div>}
-              <select name="corporateIndustry" className="d-inp" disabled={props?.disable ? true : false} value={props?.profileData?.corporateIndustry} required>
+              <select name="corporateIndustry" className="d-inp" readOnly={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateIndustry} required>
                 <option value="">Select Industry Vertical</option>
                 {corporateIndustries?.length && (
                   corporateIndustries.map((item) => {
@@ -194,6 +196,7 @@ const BasicForm = (props) => {
                   })
                 )}
               </select>
+              <label className="inp-caption">{`Industry Vertical `}<sup>*</sup></label>
             </div>
           </div>
           <div className="col-md">
@@ -213,22 +216,16 @@ const BasicForm = (props) => {
                 ></label>
               </div>}
               <input
-                type="date"
-                name="dateOfJoining"
+                type="text"
+                name="yearOfEstablishment"
                 value={
-                  props?.profileData?.dateOfJoining
-                    ? new Date(props?.profileData?.dateOfJoining)
-                        .toISOString()
-                        .substring(0, 10)
-                    : undefined
-                }
+                  props?.profileData?.yearOfEstablishment ? props?.profileData?.yearOfEstablishment : ''}
                 onChange={props?.onChange}
                 className="d-inp"
-                disabled={props?.disable ? true : false}
-                title="Date of Commencement"
-                placeholder="Date of Commencement"
+                readOnly={props?.disable!==undefined ? props?.disable : false}
                 required
               />
+              <label className="inp-caption">{`Year of Establishment `}<sup>*</sup></label>
             </div>
           </div>
         </div>

@@ -381,6 +381,7 @@ body .main-body .main-container .topbar .profile-avatar-container .profile-avata
     font-size: 1.4rem;
 }
 
+
 /* Main container and top bar ---- End */
 
 /* Main dashboard page ---- Start */
@@ -400,6 +401,25 @@ body .main-body .page-body .welcome-widget {
     background-color: white;
     border-radius: 5px;
     padding: 10px;
+}
+
+.welcome-widget .date-of-joining-widget {
+    background-color: #253AA3;
+    height: 80px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.welcome-widget .date-of-joining-widget .sub-label {
+    color: white;
+    font-size: .700rem;
+    text-align: center;
+}
+
+.welcome-widget .date-of-joining-widget .label {
+    color: white;
+    font-size: .900rem;
+    text-align: center;
 }
 
 .welcome-avatar {
@@ -1662,4 +1682,73 @@ body .main-body .page-body .welcome-widget {
 
 .analytics-reports-style {
     height: 100vh
+}
+
+/**
+* Transaction page css
+*/
+.transaction-container {
+    height: 250px; 
+    overflow: scroll;
+}
+
+.transaction-container .sub-transaction-item, .transaction-container .main-transaction-item {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background-color: white;
+}
+
+.transaction-container .sub-transaction-item div {
+    align-self: center;
+}
+
+.transaction-container .sub-transaction-item .label {
+    font-size: .900rem;
+}
+
+.transaction-container .sub-transaction-item .sub-label {
+    font-size: .700rem;
+    color: grey;
+}
+
+.transaction-container .sub-transaction-item .tokens {
+    border-radius: 5px;
+    background-color: #12B8D3;
+    color: white;
+    padding: 4px 6px;
+    font-size: .700rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 100px;
+}
+
+.transaction-container .sub-transaction-item .end-label {
+    font-size: .700rem;
+    color: black;
+}
+
+.transaction-container .main-transaction-item div {
+    align-self: center;
+}
+
+.transaction-container .main-transaction-item .label {
+    font-size: .900rem;
+}
+
+.transaction-container .main-transaction-item .tokens {
+    border-radius: 5px;
+    background-color: #12B8D3;
+    color: white;
+    padding: 20px 8px;
+    font-size: .700rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 160px;
+}
+
+.transaction-container .main-transaction-item .end-label {
+    font-size: .700rem;
+    color: black;
 }

@@ -153,8 +153,8 @@ const PublishProfile = () => {
 
   return (
     <div className="main" style={{ marginTop: 0 }}>
-      <h3 className="main-title">Corporate Profile</h3>
-      <h4 class="d-profile-name text-center">
+      <h3 style={{fontWeight: '500', textAlign:'center', fontSize: '1rem', marginBottom: '20px'}}>Corporate Profile</h3>
+      <h4 class="d-profile-name text-center" style={{fontSize: '1.2rem'}}>
         Select the profile information you want to publish
       </h4>
       <BasicForm

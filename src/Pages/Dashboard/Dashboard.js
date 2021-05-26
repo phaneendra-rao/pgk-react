@@ -1,20 +1,40 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import moment from "moment";
 
 const Dashboard = () => {
+  const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
+
+  let profileName = [];
+
+  const profileNameKeys = ['primaryContactFirstName', 'primaryContactMiddleName', 'primaryContactLastName'];
+  const profileDataKeys = Object.keys(profileInfo);
+
+  profileNameKeys.forEach((item)=>{
+    if (profileDataKeys.includes(item) && profileInfo[item]!==undefined && profileInfo[item].trim()!=='') {
+      profileName.push(profileInfo[item]);
+    }
+  })
+
     return (
         <>
             <div className="row">
                 <div className="col-lg-9" style={{ padding: '0px' }}>
-                    <div className="row welcome-widget d-flex flex-row justify-content-start align-items-center">
+                    <div className="row welcome-widget d-flex flex-row justify-content-between align-items-center">
                         <div className="row d-flex flex-row justify-content-start align-items-center">
-                            <div className="welcome-avatar d-flex flex-column justify-content-center align-items-center">
-                                <img src="../../../images/logo.png" alt="logo" className="welcome-avatar-logo" />
+                            <div className="welcome-avatar d-flex flex-column justify-content-center align-items-center" style={{backgroundColor:'white', border:'4px solid #253AA3', padding: '5px'}}>
+                                <img src={`${profileInfo?.profilePicture?.trim()!=='' ? "data:image/png;base64,"+profileInfo.profilePicture : '../../../images/logo.png'}`} alt="logo" className="welcome-avatar-logo" />
                             </div>
                             <div className="welcome-content d-flex flex-column justify-content-start align-items-start">
-                                <p className="title">Welcome, Shalmali!</p>
-                                <p className="sub-title">Human Resource Director</p>
-                                <p className="content">PGK Technologies Pvt Ltd.</p>
+                                <p className="title" style={{textTransform: 'capitalize'}}>Welcome, {profileName.join(' ')}!</p>
+                                <p className="sub-title">{profileInfo?.primaryContactDesignation}</p>
+                                <p className="content" style={{textTransform: 'capitalize'}}>{profileInfo?.corporateName}</p>
                             </div>
+                        </div>
+                        <div className={'date-of-joining-widget d-flex flex-column justify-content-center'}>
+                            <p className={'sub-label'}>Date of joining the Platform :</p>
+                            <p className={'label'}>{profileInfo?.dateOfJoining ? moment(profileInfo?.dateOfJoining).format('DD-MM-YYYY') : '-'}</p>
                         </div>
                     </div>
                     <div className="row d-flex justify-content-between">
@@ -121,7 +141,7 @@ const Dashboard = () => {
                         </div>
                         <div className="d-flex flex-column justify-content-start align-items-start account-info-content">
                             <p className="label">Your Account is active</p>
-                            <p className="label">Valid till <span>20-03-2021</span></p>
+                            <p className="label">Valid till <span>{profileInfo?.accountExpiryDate ? moment(profileInfo.accountExpiryDate).format('DD-MM-YYYY') : '-'}</span></p>
                         </div>
                     </div>
                     <div className="row d-flex flex-row justify-content-center align-items-center notifications-widget">

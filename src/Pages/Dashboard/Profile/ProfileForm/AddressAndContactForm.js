@@ -85,7 +85,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateHQAddressCountry"
                     id=""
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateHQAddressCountry}
                     onChange={props?.onChange}
@@ -109,7 +109,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateHQAddressState"
                     id=""
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateHQAddressState}
                     onChange={props?.onChange}
@@ -287,7 +287,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateLocalBranchAddressCountry"
                     id=""
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateLocalBranchAddressCountry}
                     onChange={props?.onChange}
@@ -311,7 +311,7 @@ const AddressAndContactForm = (props) => {
                   <select
                     name="corporateLocalBranchAddressState"
                     id=""
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
                     className="d-inp"
                     value={props?.profileData?.corporateLocalBranchAddressState}
                     onChange={props?.onChange}

@@ -86,9 +86,7 @@ const DashboardHeader = () => {
       </div>
       <div className="profile-avatar-container">
         <p className="profile-name" style={{textTransform:'capitalize'}}>{profileName.join(' ')}</p>
-        <div className="profile-avatar">
-          <i className="fas fa-user" />
-        </div>
+          {profileInfo?.profilePicture?.trim()!=='' ? <img src={"data:image/png;base64,"+profileInfo.profilePicture} className={'profile-avatar'} style={{backgroundColor:'transparent'}} /> : <div className="profile-avatar"> <i className="fas fa-user" /> </div>}
       </div>
     </div>
   );

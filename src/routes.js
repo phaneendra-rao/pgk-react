@@ -69,6 +69,7 @@ const Notifications = React.lazy(() =>
   import("./Pages/Dashboard/Notifications/Notifications")
 );
 const Analytics = React.lazy(()=> import("./Pages/Dashboard/Analytics/Analytics"));
+const TransactionHistory = React.lazy(()=> import("./Pages/Dashboard/TransactionHistory/TransactionHistory"));
 const Support = React.lazy(() => import("./Pages/Dashboard/Support/Support"));
 const UniversityStudents = React.lazy(() => import("./Pages/Dashboard/Subscribe/University/UniversityStudents/UniversityStudents"));
 
@@ -297,6 +298,14 @@ const routes = [
     role: "dashboard",
     name: "Analytics",
     component: Analytics,
+  },
+  {
+    path: "/dashboard/transactionhistory",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "Transaction History",
+    component: TransactionHistory,
   },
   {
     path: "/dashboard/support",

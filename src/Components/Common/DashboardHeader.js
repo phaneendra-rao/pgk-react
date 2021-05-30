@@ -32,7 +32,7 @@ const DashboardHeader = () => {
   return (
     <div className="topbar">
       <i className="fas fa-bars hamburger" id="menu-bar"></i>
-      <p className="date">{moment().format("dddd, MMMM Do YYYY")}</p>
+      <p className="date"><b>{moment().format("dddd, MMMM Do YYYY")}</b></p>
       <div className="input-group search">
         <input type="text" className="form-control" placeholder="Search" />
         <div className="input-group-append">

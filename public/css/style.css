@@ -89,10 +89,18 @@ body .main-body .sidebar .logo-section {
     align-items: center;
 }
 
-body .main-body .sidebar .logo-section .logo {
+body .main-body .sidebar .logo-section .logoHead {
     height: 100px;
     width: 100px;
     border-radius: 50%;
+    background-color: white;    
+}
+
+body .main-body .sidebar .logo-section .logo {
+    height: auto;
+    width: 98px;
+    padding: 5px;
+    margin-top: 33px;
 }
 
 body .main-body .sidebar .logo-section .label {
@@ -930,7 +938,7 @@ body .main-body .page-body .welcome-widget {
 .jobs-list-item .item .job-published-date {
     flex: 1;
     font-size: .800rem;
-    font-weight: 400;
+    font-weight: bolder;
     text-align: center;
 }
 
@@ -1751,4 +1759,23 @@ body .main-body .page-body .welcome-widget {
 .transaction-container .main-transaction-item .end-label {
     font-size: .700rem;
     color: black;
+}
+
+.blueHeaderStrip {
+    background-color: #253AA3;
+    padding: 10px 8px 0px 8px;
+    margin: 0;
+}
+
+.blueHeaderStrip label {
+    border-radius: 3px;
+}
+
+.blueHeaderStrip input.d-inp, .blueHeaderStrip select.d-inp {
+    background-color: white;
+    font-size: .800rem;
+    height: 40px;
+} 
+.blueHeaderStrip .item {
+    padding: 0px 4px;
 }

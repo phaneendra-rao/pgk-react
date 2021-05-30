@@ -1,23 +1,26 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
+import { actionLogoutRequestSaga } from '../../Store/Actions/SagaActions/DashboardSaga/LoginSagaActions';
 const DashboardSidebar = () => {
-
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const logout = () => {
-    localStorage.clear();
+    dispatch(actionLogoutRequestSaga());
     history.replace('/');
   }
   
   return (
     <aside className="sidebar" id="side-bar">
       <div className="logo-section">
-        <img
-          src="../../../images/logo.png"
-          alt="logo"
-          className="img img-fluid logo"
-        />
+        <div className={'logoHead'}>
+          <img
+            src="../../../images/c2hire.png"
+            alt="logo"
+            className="img img-fluid logo"
+          />
+        </div>
         <p className="label">Corporate</p>
       </div>
       <ul className="sidebar-list" id="accordion">
@@ -217,6 +220,16 @@ const DashboardSidebar = () => {
               </li>
             </ul>
           </div>
+        </li>
+        <li className="sidebar-item">
+          <NavLink
+            to="/dashboard/campus-drive"
+            exact
+            activeClassName="active"
+            className="sidebar-link"
+          >
+            <i className="fas fa-university"></i>Campus Drive
+          </NavLink>
         </li>
         <li className="sidebar-item">
           <NavLink

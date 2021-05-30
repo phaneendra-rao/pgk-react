@@ -9,8 +9,8 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                     name="hiringCriteriaName"
                     onChange={handleChange}
                     className="modal-inp"
-                    placeholder="Name of the Hiring Criteria *"
                     required />
+                <label className="inp-caption">{`Name of the Hiring Criteria`}<sup>*</sup></label>
             </div>
             <div className="row">
                 <div className="col-md">
@@ -19,11 +19,12 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                             name="programID"
                             onChange={handleChange}
                             className="modal-inp" required>
-                            <option value={'DEFAULT'} disabled>Program</option>
+                            <option value={'DEFAULT'} selected>Program</option>
                             {lookUpData && lookUpData?.programs?.length >= 0
                                 ? lookUpData?.programs.map((item, i) => <option key={i} value={item.ProgramID}>{item.program}</option>) : (null)
                             }
                         </select>
+                        <label className="inp-caption">{`Program`}</label>
                     </div>
                 </div>
                 <div className="col-md">
@@ -33,11 +34,12 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                             onChange={handleChange}
                             defaultValue={'DEFAULT'}
                             className="modal-inp" required>
-                            <option value={'DEFAULT'} disabled selected>Course</option>
+                            <option value={'DEFAULT'} selected>Branch</option>
                             {lookUpData && lookUpData?.departments?.length >= 0
                                 ? lookUpData?.departments.map((item, i) => <option key={i} value={item.departmentID}>{item.ProgramID}</option>) : (null)
                             }
                         </select>
+                        <label className="inp-caption">{`Branch`}</label>
                     </div>
                 </div>
                 <div className="col-md">
@@ -48,22 +50,20 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                             min="0"
                             onChange={handleChange}
                             className="modal-inp"
-                            placeholder="Cutoff Percentage *"
                             required />
+                        <label className="inp-caption">{`Cutoff Percentage`}<sup>*</sup></label>
                     </div>
                 </div>
                 <div className="col-md">
                     <div className="modal-grp">
-                        <select
+                        <input
+                            type="number"
                             name="yearOfPassing"
+                            min="0"
                             onChange={handleChange}
-                            className="modal-inp" required>
-                            <option value={''} disabled>Year</option>
-                            <option>2018</option>
-                            <option>2017</option>
-                            <option>2019</option>
-                            <option>2020</option>
-                        </select>
+                            className="modal-inp"
+                            required />
+                        <label className="inp-caption">{`Year of Passing`}</label>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                 </div>
                             </div>
                         </div>
-                        <div className="col" style={{ maxWidth: '100px' }}>
+                        <div className="col">
                             <div className="modal-grp">
                                 {hiringData?.allowActiveBacklogs
                                     ? <select
@@ -105,6 +105,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         onChange={handleChange}
                                         className="modal-inp"
                                         required>
+                                        <option>How many Backlogs</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -113,6 +114,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                     </select>
                                     : <select
                                         className="modal-inp" disabled>
+                                        <option>How many Backlogs</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -120,6 +122,7 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         <option>5</option>
                                     </select>
                                 }
+                                <label className="inp-caption">{`How many Backlogs ?`}</label>
                             </div>
                         </div>
                     </div>
@@ -339,7 +342,8 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" className="modal-inp" placeholder="Remarks *" />
+                                        <input type="text" className="modal-inp" />
+                                        <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
                             </div>
@@ -357,7 +361,8 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" className="modal-inp" placeholder="Remarks *" />
+                                        <input type="text" className="modal-inp" />
+                                        <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
                             </div>
@@ -375,7 +380,8 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" className="modal-inp" placeholder="Remarks *" />
+                                        <input type="text" className="modal-inp" />
+                                        <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +399,27 @@ const HiringCriteriaFormCmp = ({ hiringData, openCloseModal, handleChange, handl
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="text" name className="modal-inp" placeholder="Remarks *" />
+                                        <input type="text" name className="modal-inp" />
+                                        <label className="inp-caption">{`Mention in months`}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="gaps-item">
+                                <p className="gaps-name">Between Graduation - PG</p>
+                                <div className="gaps-content">
+                                    <div className="modal-grp m-0">
+                                        <div className="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="Graduation1" name="Graduation" className="custom-control-input" />
+                                            <label className="custom-control-label" htmlFor="Graduation1">Yes</label>
+                                        </div>
+                                        <div className="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="Graduation2" name="Graduation" className="custom-control-input" />
+                                            <label className="custom-control-label" htmlFor="Graduation2">No</label>
+                                        </div>
+                                    </div>
+                                    <div className="modal-grp">
+                                        <input type="text" name className="modal-inp" />
+                                        <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
                             </div>

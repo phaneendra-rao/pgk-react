@@ -25,9 +25,9 @@ const DashboardReducer = (state = INITIAL, action) => {
             return { ...state, profileInfo: action.payload };
         case actionTypes.APISTATUS:
             if(action.payload) {
-                return { ...state, apiStatus: state.apiStatus++ }
+                return { ...state, apiStatus: state.apiStatus + 1 }
             } else {
-                return { ...state, apiStatus: state.apiStatus-- }
+                return { ...state, apiStatus: state.apiStatus - 1 }
             }
 
         case actionTypes.SUCCESS:

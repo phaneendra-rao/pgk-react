@@ -4,3 +4,9 @@ export const actionLoginRequestSaga = (request) => {
 		payload: request
 	};
 };
+
+export const actionLogoutRequestSaga = () => {
+	return {
+		type: 'LOGOUT-REQUEST'
+	};
+};

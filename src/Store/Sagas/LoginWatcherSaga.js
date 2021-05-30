@@ -41,6 +41,34 @@ function* loginRequestSaga(action) {
   }
 }
 
+const logoutRequest = () => {
+  const URL = "/o/logout";
+  return Axios.post(URL).then((res) => {
+    return res.data;
+  });
+};
+
+function* logoutRequestSaga(action) {
+  yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+  try {
+    const response = yield call(logoutRequest);
+    localStorage.clear();
+    toast.success("Logout successful");
+
+  } catch (err) {
+    if (err?.response) {
+      toast.error(err?.response?.data?.errors[0]?.message);
+    } else {
+      toast.error("Something Wrong!", err?.message);
+    }
+
+  } finally {
+    yield put(actionUpdateGlobalLoaderSagaAction(false));
+  }
+}
+
 export default function* LoginWatcherSaga() {
   yield takeLatest("LOGIN-REQUEST", loginRequestSaga);
+  yield takeLatest('LOGOUT-REQUEST', logoutRequestSaga);
 }

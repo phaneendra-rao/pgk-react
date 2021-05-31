@@ -1779,3 +1779,91 @@ body .main-body .page-body .welcome-widget {
 .blueHeaderStrip .item {
     padding: 0px 4px;
 }
+
+.campus-drive-comp div {
+    padding: 0;
+}
+
+.campus-drive-comp .univ-comp {
+    max-width: 350px;
+}
+
+.campus-drive-comp .univ-icon {
+    background-color: #5473E8;
+    color: white;
+    min-height: 50px !important;
+    min-width: 50px !important;
+    max-height: 50px !important;
+    max-width: 50px !important;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.campus-drive-comp .univ-info {
+    padding-left: 6px;
+    width: 300px;
+}
+.campus-drive-comp .univ-info .univ-title, .campus-drive-comp .univ-info .univ-sub-title {
+    font-size: .700rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.campus-drive-comp .date {
+    padding: 2px;
+    background-color: #5473E8;
+    color: white;
+    text-align: center;
+    font-size: .650rem;
+    border-radius: 12px;
+    margin: 0px 5px;
+}
+
+.campus-drive-comp .btn-accept {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+}
+
+.campus-drive-comp .btn-reject {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+}
+
+.campus-drive-comp .btn-view-more {
+    background-color: #253AA3;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 100px;
+    max-height: 40px;
+    max-width: 140px;
+    padding: 0;
+}
+
+.campus-drive-comp .btn-history-accepted {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+}
+
+.campus-drive-comp .btn-history-rejected {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+}
+
+.campus-drive-comp .btn-history-accepted .subLabel, .campus-drive-comp .btn-history-rejected .subLabel {
+    font-size: .600rem;
+}

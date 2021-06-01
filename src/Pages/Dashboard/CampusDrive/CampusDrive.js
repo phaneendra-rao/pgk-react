@@ -4,6 +4,63 @@ const CampusDrive = () => {
 
   return ( 
     <>
+    <div className={'notification'}>
+      <div className={'close-notification'}>
+        <i className={'fas fa-times'}></i>
+      </div>
+      <div className={'notification-header d-flex justify-content-between align-items-center'}>
+        <div className={'d-flex flex-column justify-content-center align-items-center'}>
+          <p className={'heading'}>Notification from</p>
+          <p className={'heading'}>Osmania University</p>
+        </div>
+        <button type="button" className={"btn status-btn"}>Rejected</button>
+      </div>
+      <div className={'notification-body d-flex flex-column justify-content-center align-items-center'}>
+        <table className={'table table-responsive table-borderless w-full'}>
+          <tbody>
+            <tr>
+              <td className={'keyLabel'}>University Name</td>
+              <td className={'valueLabel'}>Osmania University</td>
+            </tr>
+            <tr>
+              <td className={'keyLabel'}>Location</td>
+              <td className={'valueLabel'}>Hyderabad</td>
+            </tr>
+            <tr>
+              <td className={'keyLabel'}>Year of Establishment</td>
+              <td className={'valueLabel'}>1917</td>
+            </tr>
+            <tr>
+              <td className={'keyLabel'}>University ID</td>
+              <td className={'valueLabel'}>XXXXXXXXX</td>
+            </tr>
+            <tr>
+              <td className={'keyLabel'}>Accredation</td>
+              <td className={'valueLabel'}>NAAC 'A'</td>
+            </tr>
+            <tr>
+              <td className={'keyLabel'}>Type of Request</td>
+              <td className={'valueLabel'}>Campus Hiring from University</td>
+            </tr>
+            <tr>
+              <td className={'keyLabel'}>Request made on</td>
+              <td className={'valueLabel'}>15-Apr-2020</td>
+            </tr>
+          </tbody>
+        </table>
+        <div className={'notification-body-footer inherit'}>
+          <div className={'heading'}>
+            <p className={'label'}>Reason for Rejection</p>
+          </div>
+          <p className={'body'}>We need CSE students with an introduction to Java which does not seem to be there in curriculam </p>
+        </div>
+      </div>
+      <div className={'notification-footer d-flex justify-content-around align-items-center'}>
+        <button type="button" className={"btn btn-view-more-info"}>View more info</button>
+        <button type="button" className={"btn btn-accept"}>Accept</button>
+        <button type="button" className={"btn btn-reject"}>Reject</button>
+      </div>
+    </div>
       <div className="main" style={{marginTop:'10px', marginBottom: '0px'}}>
         <h3 className="main-title" style={{color:'#878BA6'}}>CAMPUS DRIVE</h3>
       </div>

@@ -95,6 +95,8 @@ const Jobs = () => {
         setIsEdit(true);
     }
 
+    const jobSkills = modelData && modelData?.skillsInString ? JSON.parse(modelData?.skillsInString) : [];
+
     return (
         <>
             {isAddJobEnable ?
@@ -103,6 +105,7 @@ const Jobs = () => {
                     hiringCriteria={hiringCriteria}
                     isAddJobEnable={isAddJobEnable}
                     modelData={modelData}
+                    jobSkills={jobSkills}
                     isEdit={isEdit}
                     addJobsForm={addJobsForm}
                     handleClick={handleClick}
@@ -120,6 +123,7 @@ const Jobs = () => {
                     <JobDetailsModal
                         hiringCriteria={hiringCriteria}
                         modelData={modelData}
+                        skills={jobSkills}
                         closeDetailsModal={closeDetailsModal}
                         editJobsBtn={editJobsBtn}
                     />

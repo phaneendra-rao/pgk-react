@@ -8,7 +8,7 @@ import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/Commo
 
 
 const getDependencyLookupsRequest = (queryString) => {
-  const URL = `/u/lut/?${queryString}`;
+  const URL = `/lut/?${queryString}`;
   return Axios.get(URL).then((res) => {
     return res.data;
   });

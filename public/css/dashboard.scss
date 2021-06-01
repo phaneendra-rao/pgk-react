@@ -441,6 +441,46 @@ header{
     }
 }
 
+.d-job-details{
+    background-color: #253AA3;
+    padding: 15px;
+    border-radius: 2px;
+    // color: #ffffff;
+    .d-job-detials-title{
+        color: #ffffff;
+        font-family: Poppins-Light;
+    }
+    .d-job-box{
+        margin-bottom: 15px;
+        .d-job-box-status{
+            border-radius: 4px;
+            border: 1px solid #DAE0FB;
+            color: #ffffff;
+            margin: 0;
+            padding: 5px;
+            width: 70px;
+            text-align: center;
+        }
+        .d-job-label{
+            font-size: 12px;
+            color: #ffffff;
+            margin-right: 3px;
+            margin-bottom: 0;
+        }
+        .d-job-list{
+            list-style: none;
+            padding: 10px;
+            margin-left: 0;
+            border-radius: 6px;
+            background-color: #ffffff;
+            color: #737373;
+            font-family: Poppins-Regular;
+            font-size: 13px;
+            flex: 1;
+
+        }
+    }
+}
 
 // =======================================COURSES
 .d-header{

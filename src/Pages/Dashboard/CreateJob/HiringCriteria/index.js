@@ -27,7 +27,7 @@ const Index = () => {
     useEffect(() => {
         getHiring();
         dispatch(actionGetDependencyLookUpsSagaAction({
-            apiPayloadRequest: ['programs', 'branches'],
+            apiPayloadRequest: ['branchCatalog', 'programCatalog'],
             callback: dropdowns
         }));
     }, []);

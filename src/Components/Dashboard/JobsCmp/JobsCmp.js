@@ -15,9 +15,10 @@ const JobsCmp = (props) => {
                             <select name="" className="form-control job-dropdown">
                                 <option>{item.hiringCriteriaName}</option>
                             </select>
-                            <select name="" className="form-control job-dropdown">
-                                <option>Open</option>
-                                <option>Close</option>
+                            <select name="status" defaultValue={item.status} className="form-control job-dropdown">
+                                <option value={'DEFAULT'} disabled>Select Status</option>
+                                <option value="Open">Open</option>
+                                <option value="Close">Close</option>
                             </select>
                             <p className="job-published-date">Created on {item.creationDate}</p>
                         </div>

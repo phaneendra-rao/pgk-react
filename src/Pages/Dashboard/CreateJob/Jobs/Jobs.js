@@ -25,7 +25,7 @@ const Jobs = () => {
         getHiring();
         getJobs();
         dispatch(actionGetDependencyLookUpsSagaAction({
-            apiPayloadRequest: ['skills'],
+            apiPayloadRequest: ['skills', 'jobType'],
             callback: dropdowns
         }));
     }, []);

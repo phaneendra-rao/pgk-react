@@ -5,7 +5,7 @@ import AddJobsCmp from '../../../../Components/Dashboard/JobsCmp/AddJobsCmp'
 const AddJobs = (props) => {
     const initialData = {
         jobName: '',
-        jobType: 'FT',
+        jobType: '',
         hiringCriteriaID: 'CT',
         hiringCriteriaName: 'CT',
         salaryMinRange: '',

@@ -22,15 +22,18 @@ const AddJobsCmp = (props) => {
                         </div>
                         <div className="d-grp">
                             <select
-                                name="status"
+                                name="jobType"
                                 onChange={props.handleChange}
-                                value={props.addJobs.status}
+                                value={props.addJobs.jobType}
                                 className="d-inp bg-white"
                                 required>
                                 <option value={'DEFAULT'} disabled>Job Type</option>
-                                <option value="FT">Full Time</option>
+                                {props.lookUpData && props.lookUpData?.jobType?.length >= 0
+                                    ? props.lookUpData?.jobType.map((item, i) => <option key={i} value={item.jobTypeCode}>{item.jobType}</option>) : (null)
+                                }
+                                {/* <option value="FT">Full Time</option>
                                 <option value="PT">Part Time</option>
-                                <option value="PM">Permanent</option>
+                                <option value="PM">Permanent</option> */}
                             </select>
                             <label className="inp-caption">Job Type</label>
                         </div>

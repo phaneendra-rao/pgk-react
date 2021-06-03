@@ -10,7 +10,9 @@ body .main-body {
     display: flex;
     justify-content: flex-start;
 }
-
+.css-2b097c-container{
+    z-index: 120;
+}
 .w-full {
     width: 100%;
 }

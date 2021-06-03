@@ -21,7 +21,7 @@ const DashboardHeader = () => {
   let profileName = [];
 
   const profileNameKeys = ['primaryContactFirstName', 'primaryContactMiddleName', 'primaryContactLastName'];
-  const profileDataKeys = Object.keys(profileInfo);
+  const profileDataKeys = (profileInfo!==null && profileInfo) ? Object.keys(profileInfo) : [];
 
   profileNameKeys.forEach((item)=>{
     if (profileDataKeys.includes(item) && profileInfo[item]!==undefined && profileInfo[item].trim()!=='') {
@@ -86,7 +86,7 @@ const DashboardHeader = () => {
       </div>
       <div className="profile-avatar-container">
         <p className="profile-name" style={{textTransform:'capitalize'}}>{profileName.join(' ')}</p>
-          {profileInfo?.profilePicture?.trim()!=='' ? <img src={"data:image/png;base64,"+profileInfo.profilePicture} className={'profile-avatar'} style={{backgroundColor:'transparent'}} /> : <div className="profile-avatar"> <i className="fas fa-user" /> </div>}
+          {(profileInfo?.profilePicture!=null && profileInfo?.profilePicture?.trim()!=='') ? <img src={"data:image/png;base64,"+profileInfo.profilePicture} className={'profile-avatar'} style={{backgroundColor:'transparent'}} /> : <div className="profile-avatar"> <i className="fas fa-user" /> </div>}
       </div>
     </div>
   );

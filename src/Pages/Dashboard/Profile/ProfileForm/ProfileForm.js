@@ -39,12 +39,12 @@ const ProfileForm = (props) => {
               <label className="inp-caption">{`Write in brief about the company `}<sup>*</sup></label>
             </div>
             <div className="row d-flex justify-content-center align-items-center" style={{margin:0, padding:0}}>
-              <div className="col-md-12" style={{margin:0, padding:0}}>
+              <div className="col-md-11" style={{margin:0, padding:0}}>
                 <div className="d-attach">
-                  <p className="float-left"></p>
+                  <p className="float-left" style={{padding: '8px'}}>{props?.attachment?.attachmentName}</p>
                   <input
                     type="file"
-                    onChange={props?.imageHandler}
+                    onChange={props?.fileHandler}
                     className="d-inp"
                     name="attachment"
                     disabled={props?.disable ? true : false}
@@ -53,6 +53,14 @@ const ProfileForm = (props) => {
                   <label htmlFor="attachment" className="d-label">
                     {" "}
                     <i className="fas fa-paperclip mr-2"></i> Attachment
+                  </label>
+                  {/* <i className="fas fa-download mr-2"></i> Download */}
+                </div>
+              </div>
+              <div className="col-md-1" style={{margin:0, padding:0}}>
+                <div className="d-attach">
+                  <label style={{backgroundColor: '#878BA6', width: '100%', height: '100%', paddingTop: '10px', color: 'white', textAlign: 'center'}}>
+                    <i className="fas fa-download mr-2"></i>
                   </label>
                 </div>
               </div>

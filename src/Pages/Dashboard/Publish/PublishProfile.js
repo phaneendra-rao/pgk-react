@@ -15,7 +15,10 @@ const PublishProfile = () => {
   const history = useHistory();
   const [profile, setProfile] = useState();
   const [showModal, setShowModal] = useState(false);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState({
+    attachment: undefined,
+    attachmentName: undefined
+  });
 
   const [checkData, setCheckData] = useState({
     CIN: false,
@@ -37,7 +40,10 @@ const PublishProfile = () => {
   const dispatch = useDispatch();
 
   const onGetCorporateProfileRequest = (response) => {
-    setAttachment(response?.attachment);
+    setAttachment({
+      attachment: response?.attachment,
+      attachmentName: response?.attachmentName
+    });
 
     setProfile({
       ...response,

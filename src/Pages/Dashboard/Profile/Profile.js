@@ -18,7 +18,10 @@ const Profile = () => {
   const [checkStatus, setCheckStatus] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [profilePicture, setProfilePicture] = useState();
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState({
+    attachment: undefined,
+    attachmentName: undefined
+  });
   const [
     isTermsAndConditionsChecked,
     setIsTermsAndConditionsChecked,
@@ -30,7 +33,10 @@ const Profile = () => {
 
   useEffect(()=>{
     setProfilePicture(profileInfo?.profilePicture);
-    setAttachment(profileInfo?.attachment);
+    setAttachment({
+      attachment: profileInfo?.attachment,
+      attachmentName: profileInfo?.attachmentName
+    });
     setProfile({
       ...profileInfo,
       profilePicture: undefined,
@@ -39,17 +45,23 @@ const Profile = () => {
   }, [profileInfo]);
 
   const updateProfileData = (event) => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
 
+    if(['yearOfEstablishment', 'corporateHQAddressZipCode', 'corporateLocalBranchAddressZipCode'].includes(name)) {
+      value = value.replace(/[^0-9.]/g, "");
+    }
+    
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
     }));
   };
 
-  const handleChangeImg = (event) => {
+  const fileHandler = (event) => {
     event.preventDefault();
     const { name } = event.target;
+
+    console.log('event.target.files ', event.target.files);
 
     if (event.target.files) {
       setProfile((prevProfile) => ({
@@ -65,7 +77,10 @@ const Profile = () => {
         if (name === "profilePicture") {
           setProfilePicture(ev.target.result.split(",")[1]);
         } else if (name === "attachment") {
-          setAttachment(ev.target.result.split(",")[1]);
+          setAttachment({
+            attachment: ev.target.result.split(",")[1],
+            attachmentName: event?.target?.files[0]?.name ? event.target.files[0].name : '-'
+          });
         }
       };
 
@@ -159,7 +174,7 @@ const Profile = () => {
           <input
             type="file"
             name="profilePicture"
-            onChange={handleChangeImg}
+            onChange={fileHandler}
             id="profile"
             accept="image/*"
             className="upload-pic-inp"
@@ -183,7 +198,7 @@ const Profile = () => {
         profileData={profile}
         onChange={updateProfileData}
         attachment={attachment}
-        imageHandler={handleChangeImg}
+        fileHandler={fileHandler}
       />
       <AccountSettingsForm profileData={profile} onChange={updateProfileData} />
       <div className="d-grp">

@@ -21,15 +21,19 @@ const AddJobs = (props) => {
 
     const [addJobs, setAddJobs] = useState(initialData);
     const [addskills, setAddSkills] = useState([]);
+    const [defaultSkills, setDefaultSkills] = useState([])
 
     useEffect(() => {
         if (props.isAddJobEnable) {
             if (props.isEdit && props.modelData) {
-                const jobSkills = props?.jobSkills?.map(item => ({ value: item.skillID, label: item.skillName }))
-                setAddSkills(jobSkills);
+                // const jobSkills = props?.jobSkills?.map(item => ({ value: item.skillID, label: item.skillName }));
+                const jobObj = props.lookUpData?.jobType?.find(item => item.jobType === props.modelData.jobType);
+                const defaultSkillsObj = JSON.parse(props.modelData?.skillsInString)?.map(item => ({ value: item.skillID, label: item.skillName }))
+                setDefaultSkills(defaultSkillsObj)
+                // setAddSkills(jobSkills);
                 setAddJobs({
                     jobName: props.modelData?.jobName,
-                    jobType: props.modelData?.jobType,
+                    jobType: jobObj?.jobTypeCode,
                     hiringCriteriaID: props.modelData?.hiringCriteriaID,
                     hiringCriteriaName: props.modelData?.hiringCriteriaName,
                     salaryMinRange: props.modelData?.salaryMinRange,
@@ -147,6 +151,7 @@ const AddJobs = (props) => {
             <AddJobsCmp
                 hiringCriteria={props.hiringCriteria}
                 lookUpData={props.lookUpData}
+                defaultSkills={defaultSkills}
                 handleChange={handleChange}
                 handleChangeSkills={handleChangeSkills}
                 // addNewItem={addNewItem}

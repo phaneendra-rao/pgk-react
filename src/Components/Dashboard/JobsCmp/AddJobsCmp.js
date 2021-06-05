@@ -42,7 +42,7 @@ const AddJobsCmp = (props) => {
                                 name="hiringCriteriaID"
                                 onChange={props.handleChange}
                                 // value={props.addJobs.hiringCriteriaID + "," + props.addJobs.hiringCriteriaName}
-                                value={props.addJobs.hiringCriteriaID}
+                                value={props.addJobs.hiringCriteriaID +','+props.addJobs.hiringCriteriaName}
                                 className="d-inp bg-white"
                             >
                                 <option value={''}>Select Hiring Criteria</option>
@@ -121,11 +121,11 @@ const AddJobsCmp = (props) => {
                             </select> */}
                             <Select
                                 closeMenuOnSelect={false}
-                                defaultValue={props.addskills[1]}
                                 label="Select Skills"
                                 isMulti
-                                options={props.skillsList}
                                 onChange={props.handleChangeSkills}
+                                defaultValue={props.defaultSkills}
+                                options={props.skillsList}
                             />
                         </div>
                     </div>

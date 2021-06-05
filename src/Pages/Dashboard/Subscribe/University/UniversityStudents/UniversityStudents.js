@@ -95,21 +95,27 @@ const UniversityStudents = (props) => {
         setisInfoModal(false);
     }
 
-    const handleChange = (event) => {
-        const { name, value, checked } = event.target;
-        let copyObj = [...searchObj[name]]
-        if (checked) {
-            setSearchObj(prevState => ({
-                ...prevState,
-                [name]: copyObj?.concat(value)
-            }))
-        } else {
-            let updatedValue = copyObj.filter(item => item !== value);
-            setSearchObj(prevState => ({
-                ...prevState,
-                [name]: updatedValue
-            }))
-        }
+    const handleChange = (selectedVal, { name }) => {
+        console.log(selectedVal, name);
+        // const { name, value, checked } = event.target;
+        // let copyObj = [...searchObj[name]]
+        // if (checked) {
+        //     setSearchObj(prevState => ({
+        //         ...prevState,
+        //         [name]: copyObj?.concat(value)
+        //     }))
+        // } else {
+        //     let updatedValue = copyObj.filter(item => item !== value);
+        //     setSearchObj(prevState => ({
+        //         ...prevState,
+        //         [name]: updatedValue
+        //     }))
+        // }
+        setSearchObj(prevState => ({
+            ...prevState,
+            [name]: selectedVal
+        }));
+
     }
 
     const searchSubmit = (event) => {
@@ -118,11 +124,11 @@ const UniversityStudents = (props) => {
         const model = {
             universityID: universityId,
             subscriptionID: subscriptionID,
-            hiringCriteriaID: hiringCriteriaID,
-            programID: programID,
-            branchID: branchID,
-            monthOfHiring: monthOfHiring,
-            skills: skills
+            hiringCriteriaID: hiringCriteriaID?.map(item => item.value),
+            programID: programID?.map(item => item.value),
+            branchID: branchID?.map(item => item.value),
+            monthOfHiring: monthOfHiring?.map(item => item.value),
+            skills: skills?.map(item => item.value)
         };
         dispatch(SearchStundentSagaAction({ apiPayloadRequest: model, callback: getStudentSearchList }));
     }
@@ -165,14 +171,21 @@ const UniversityStudents = (props) => {
         $("#mailSentSuccess").modal("show");
     }
 
-    const hiringCriteriaOptions = hiringCriteria.map(item => ({ value: item.hiringCriteriaID, label: item.hiringCriteriaName }))
+    const hiringCriteriaOptions = hiringCriteria.map(item => ({ value: item.hiringCriteriaID, label: item.hiringCriteriaName }));
+    const programCatalog = lookUpData?.programCatalog?.map(item => ({ value: item.programCode, label: item.programName }));
+    const branchCatalog = lookUpData?.branchCatalog?.map(item => ({ value: item.branchID, label: item.branchName }));
+    const skillsList = lookUpData?.skills?.map(item => ({ value: item.skillCode, label: item.skillName }))
+    const monthsList = months?.map((item, i) => ({ value: item, label: item }));
 
     return (
         <>
             <UniversityStudentsCmp
-                months={months}
                 hiringCriteriaOptions={hiringCriteriaOptions}
-                lookUpData={lookUpData}
+                programCatalog={programCatalog}
+                branchCatalog={branchCatalog}
+                skillsList={skillsList}
+                // lookUpData={lookUpData}
+                months={monthsList}
                 universityId={universityId}
                 universityInfoList={universityInfoList}
                 studentSearchList={studentSearchList}

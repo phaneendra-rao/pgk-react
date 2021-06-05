@@ -63,14 +63,15 @@ const UniversityStudentsCmp = (props) => {
                 </div>
                 {!props.studentSearchList?.studentsData ?
                     <form onSubmit={props.searchSubmit} className="search-filter-container d-flex justify-content-between align-items-center w-full">
-                        <div className="modal-grp">
+                        <div className="modal-grp" style={{ flex: 1 }}>
+                            <label className="text-white small mb-0"> Hiring Criteria</label>
                             <Select
                                 closeMenuOnSelect={false}
+                                name="hiringCriteriaID"
                                 label="By Hiring Criteria"
                                 isMulti
-                                zIndex={100}
                                 options={props.hiringCriteriaOptions}
-                                onChange={props.handleChangeBranch}
+                                onChange={props.handleChange}
                             />
                         </div>
                         {/* <div className="dropdown dropdown-col">
@@ -94,38 +95,10 @@ const UniversityStudentsCmp = (props) => {
                                 }
                             </ul>
                         </div> */}
-                        {/* <select className="form-control item" multiple name="hiringCriteriaID" onChange={props.handleChange}>
-                        <option value={''}>By Hiring Criteria</option>
-                        {props.hiringCriteria && props.hiringCriteria?.length >= 0
-                            ? props.hiringCriteria?.map((item, i) => <option key={i} value={item.hiringCriteriaID}>{item.hiringCriteriaName}</option>)
-                            : (null)
-                        }
-                    </select> */}
                         <p className="dividerWord">Or</p>
                         <div className="item four-filters d-flex flex-column justify-content-between align-content-center w-full">
                             <div className="d-flex justify-content-between align-content-center search-filter-grid">
-                                {/* <select className="form-control" multiple name="programID" onChange={props.handleChange}>
-                                <option value={''}>Program</option>
-                                {props.lookUpData && props.lookUpData?.departments?.length >= 0
-                                    ? props.lookUpData?.departments.map((item, i) => <option key={i} value={item.departmentID}>{item.ProgramID}</option>) : (null)
-                                }
-                            </select> */}
-                                {/* <select className="form-control" multiple name="monthOfHiring" onChange={props.handleChange}>
-                                <option value=''>By Tentative Passing month</option>
-                                <option value='Jan'>Jan</option>
-                                <option value='Feb'>Feb</option>
-                                <option value='Mar'>Mar</option>
-                                <option value='Apr'>Apr</option>
-                                <option value='May'>May</option>
-                                <option value='Jun'>Jun</option>
-                                <option value='Jul'>Jul</option>
-                                <option value='Aug'>Aug</option>
-                                <option value='Sep'>Sep</option>
-                                <option value='Oct'>Oct</option>
-                                <option value='Nov'>Nov</option>
-                                <option value='Dec'>Dec</option>
-                            </select> */}
-                                <div className="dropdown dropdown-col">
+                                {/* <div className="dropdown dropdown-col">
                                     <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Program
                                 </button>
@@ -145,8 +118,8 @@ const UniversityStudentsCmp = (props) => {
                                             : (null)
                                         }
                                     </ul>
-                                </div>
-                                <div className="dropdown dropdown-col">
+                                </div> */}
+                                {/* <div className="dropdown dropdown-col">
                                     <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         By Tentative Passing month
                                 </button>
@@ -166,12 +139,34 @@ const UniversityStudentsCmp = (props) => {
                                             : (null)
                                         }
                                     </ul>
+                                </div> */}
+                                <div className="modal-grp mb-2 w-50" style={{ flex: 1, zIndex: 999 }}>
+                                    <label className="text-white small mb-0"> Program</label>
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        label="Program"
+                                        name="programID"
+                                        isMulti
+                                        options={props.programCatalog}
+                                        onChange={props.handleChange}
+                                    />
+                                </div>
+                                <div className="modal-grp mb-2 w-50" style={{ flex: 1, zIndex: 999 }}>
+                                    <label className="text-white small mb-0"> By Tentative Passing month</label>
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        label="By Tentative Passing month"
+                                        name="monthOfHiring"
+                                        isMulti
+                                        options={props.months}
+                                        onChange={props.handleChange}
+                                    />
                                 </div>
 
                             </div>
                             <div className="d-flex justify-content-between align-content-center search-filter-grid">
 
-                                <div className="dropdown dropdown-col">
+                                {/* <div className="dropdown dropdown-col">
                                     <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         By Branch
                                 </button>
@@ -191,8 +186,31 @@ const UniversityStudentsCmp = (props) => {
                                             : (null)
                                         }
                                     </ul>
+                                </div> */}
+
+                                <div className="modal-grp mb-2 w-50" style={{ flex: 1 }}>
+                                    <label className="text-white small mb-0">By Branch</label>
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        label="By Branch"
+                                        name="branchID"
+                                        isMulti
+                                        options={props.branchCatalog}
+                                        onChange={props.handleChange}
+                                    />
                                 </div>
-                                <div className="dropdown dropdown-col">
+                                <div className="modal-grp mb-2 w-50" style={{ flex: 1 }}>
+                                    <label className="text-white small mb-0">By Skills</label>
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        label="By Skills"
+                                        name="skills"
+                                        isMulti
+                                        onChange={props.handleChange}
+                                        options={props.skillsList}
+                                    />
+                                </div>
+                                {/* <div className="dropdown dropdown-col">
                                     <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         By Skills
                                 </button>
@@ -212,20 +230,7 @@ const UniversityStudentsCmp = (props) => {
                                             : (null)
                                         }
                                     </ul>
-                                </div>
-
-                                {/* <select className="form-control" multiple name="branchID" onChange={props.handleChange}>
-                                <option value={''}>By Branch</option>
-                                {props.lookUpData && props.lookUpData?.programs?.length >= 0
-                                    ? props.lookUpData?.programs.map((item, i) => <option key={i} value={item.ProgramID}>{item.program}</option>) : (null)
-                                }
-                            </select>
-                            <select className="form-control" name="skills" multiple onChange={props.handleChange}>
-                                <option value=''>By Skills</option>
-                                {props.lookUpData && props.lookUpData?.skills?.length >= 0
-                                    ? props.lookUpData?.skills.map((item, i) => <option key={i} value={item.SkillID}>{item.skill}</option>) : (null)
-                                }
-                            </select> */}
+                                </div> */}
                             </div>
                         </div>
                         <button type="submit" className="item students-list-btn">Get the Students List</button>

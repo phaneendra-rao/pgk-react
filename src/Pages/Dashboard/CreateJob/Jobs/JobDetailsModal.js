@@ -28,11 +28,22 @@ const JobDetailsModal = (props) => {
                                 <div className="col-md">
                                     <div className="d-job-box d-flex">
                                         <label className="d-job-label w-100">Hiring Criteria Mapped:</label>
-                                        <select name="status" defaultValue={props.modelData?.hiringCriteriaName} disabled className="form-control job-dropdown w-100">
+                                        {/* <select name="status"
+                                            defaultValue={props.modelData?.hiringCriteriaName}
+                                            disabled className="form-control job-dropdown w-100">
                                             <option value={'DEFAULT'} disabled>Select Status</option>
                                             <option value="Open">Open</option>
                                             <option value="Close">Close</option>
-                                        </select>
+                                        </select> */}
+
+                                        <input
+                                            type="text"
+                                            name=""
+                                            value={props.modelData?.hiringCriteriaName}
+                                            className="form-control d-inp bg-white"
+                                            readOnly
+                                            disabled
+                                            required />
                                     </div>
                                 </div>
                             </div>

@@ -39,9 +39,9 @@ const SubscribeSearchCmp = (props) => {
                                 onChange={props.handleChange}
                                 disabled={props.hcID}
                                 className="form-control select-filter">
-                                <option value={'DEFAULT'} disabled>By Skills</option>
+                                <option value={''}>By Skills</option>
                                 {props.lookUpData && props.lookUpData?.skills?.length >= 0
-                                    ? props.lookUpData?.skills.map((item, i) => <option key={i} value={item.SkillID}>{item.skill}</option>) : (null)
+                                    ? props.lookUpData?.skills.map((item, i) => <option key={i} value={item.skillCode}>{item.skillName}</option>) : (null)
                                 }
                             </select>
                             <select className="form-control select-filter"

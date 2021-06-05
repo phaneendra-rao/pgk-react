@@ -86,8 +86,8 @@ const AddJobsCmp = (props) => {
                                 onChange={props.handleChange}
                                 value={props.addJobs.noOfPositions}
                                 className="d-inp bg-white"
-                                min="1"
-                                placeholder="No of positions"
+                                min={1}
+                                placeholder="No of positions input-number"
                                 required />
                             <label className="inp-caption">No of positions</label>
                         </div>
@@ -123,6 +123,7 @@ const AddJobsCmp = (props) => {
                                 closeMenuOnSelect={false}
                                 defaultValue={props.addskills[1]}
                                 label="Select Skills"
+                                placeholder={'Select Skill(s)'}
                                 isMulti
                                 options={props.skillsList}
                                 onChange={props.handleChangeSkills}
@@ -135,8 +136,8 @@ const AddJobsCmp = (props) => {
                                 type="number"
                                 name="salaryMinRange"
                                 onChange={props.handleChange}
-                                defaultValue={props.addJobs.salaryMaxRange}
-                                className="d-inp bg-white"
+                                defaultValue={props.addJobs.salaryMinRange}
+                                className="d-inp bg-white input-number"
                                 min={0}
                                 placeholder="Salary Range"
                                 required />
@@ -148,7 +149,7 @@ const AddJobsCmp = (props) => {
                                 name="salaryMaxRange"
                                 onChange={props.handleChange}
                                 defaultValue={props.addJobs.salaryMaxRange}
-                                className="d-inp bg-white"
+                                className="d-inp bg-white input-number"
                                 min={0}
                                 placeholder="Salary Range"
                                 required />

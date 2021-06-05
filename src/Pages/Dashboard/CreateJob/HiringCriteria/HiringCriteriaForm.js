@@ -1,19 +1,15 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
-import HiringCriteriaFormCmp from '../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaFormCmp'
+import HiringCriteriaFormCmp from './Components/HiringCriteriaFormCmp'
 
 const HiringCriteriaForm = (props) => {
 
     const initialData = {
         hiringCriteriaName: '',
-        // programID: '',
-        // courseID: '',
-        // cutOffCategory: 'CGPA',
-        // cutOff: '',
-        minimumCutoffPercentage10th: 0,
-        minimumCutoffPercentage12th: 0,
-        minimumCutoffCGPAGrad: 0,
-        minimumCutoffPercentageGrad: 0,
+        minimumCutoffPercentage10th: '',
+        minimumCutoffPercentage12th: '',
+        minimumCutoffCGPAGrad: '',
+        minimumCutoffPercentageGrad: '',
         eduGapsSchoolAllowed: false,
         eduGaps11N12Allowed: false,
         eduGaps12NGradAllowed: false,
@@ -27,7 +23,7 @@ const HiringCriteriaForm = (props) => {
         eduGaps12NGrad: 0,
         eduGapsGrad: 0,
         eduGapsGradNPG: 0,
-        yearOfPassing: 0,
+        yearOfPassing: '',
         remarks: ''
     };
 
@@ -37,7 +33,20 @@ const HiringCriteriaForm = (props) => {
     const [hcPrograms, setHcPrograms] = useState([]);
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        let { name, value } = event.target;
+        
+        if(['minimumCutoffPercentage10th', 'minimumCutoffPercentage12th', 'minimumCutoffPercentageGrad', 'minimumCutoffCGPAGrad'].includes(name)) {
+            var validNumber = /^\d*(\.)?(\d{0,2})?$/;
+            if(value?.trim()!=='' && validNumber.test(value)) {
+                value = parseFloat(value);
+            } else {
+                value = ''
+            }
+        }
+
+        if(['yearOfPassing'].includes(name)) {
+            value = value.replace(/[^0-9.]/g, "");
+        }
 
         switch (name) {
             case 'programID':
@@ -59,7 +68,7 @@ const HiringCriteriaForm = (props) => {
             case 'minimumCutoffPercentageGrad':
                 setHiringData(preState => ({
                     ...preState,
-                    [name]: parseFloat(value)
+                    [name]: value
                 }));
                 break;
             case 'hiringCriteriaName':
@@ -67,12 +76,6 @@ const HiringCriteriaForm = (props) => {
                 setHiringData(preState => ({
                     ...preState,
                     [name]: value
-                }));
-                break;
-            case 'cutOff':
-                setHiringData(preState => ({
-                    ...preState,
-                    [name]: parseFloat(value)
                 }));
                 break;
             case 'numberOfAllowedBacklogs':
@@ -83,13 +86,13 @@ const HiringCriteriaForm = (props) => {
             case 'eduGapsGradNPG':
                 setHiringData(preState => ({
                     ...preState,
-                    [name]: parseInt(value)
+                    [name]: value?.trim()!='' ? parseInt(value) : ''
                 }));
                 break;
             case 'yearOfPassing':
                 setHiringData(preState => ({
                     ...preState,
-                    [name]: parseInt(value)
+                    [name]: value?.trim()!='' ? parseInt(value) : ''
                 }));
                 break;
             case 'eduGaps':
@@ -163,9 +166,9 @@ const HiringCriteriaForm = (props) => {
             minimumCutoffCGPAGrad,
             minimumCutoffPercentageGrad,
             yearOfPassing } = hiringData;
-        const year = new Date().getFullYear();
-        if (hcPrograms.length > 0 && hiringCriteriaName && minimumCutoffPercentage10th && minimumCutoffPercentage12th
-            && minimumCutoffCGPAGrad && minimumCutoffPercentageGrad && yearOfPassing < year) {
+
+        if (hcPrograms.length > 0 && hiringCriteriaName?.toString()?.trim()!=='' && minimumCutoffPercentage10th?.toString()?.trim()!=='' && minimumCutoffPercentage12th?.toString()?.trim()!==''
+            && minimumCutoffCGPAGrad?.toString()?.trim()!=='' && minimumCutoffPercentageGrad?.toString()?.trim()!=='' && yearOfPassing?.toString()?.trim()!=='') {
             const model = {
                 ...hiringData,
                 hcPrograms: hcPrograms

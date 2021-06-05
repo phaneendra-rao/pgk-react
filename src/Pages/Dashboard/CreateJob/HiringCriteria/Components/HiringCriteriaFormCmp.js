@@ -2,7 +2,6 @@ import React from 'react';
 import Select from 'react-select';
 
 const HiringCriteriaFormCmp = (props) => {
-    const year = new Date().getFullYear();
     return (
         <form className="hiring-modal-form" onSubmit={props.handleSubmit}>
             <div className="modal-grp">
@@ -11,17 +10,21 @@ const HiringCriteriaFormCmp = (props) => {
                     name="hiringCriteriaName"
                     onChange={props.handleChange}
                     className="modal-inp"
+                    value={props?.hiringData?.hiringCriteriaName}
                     required />
                 <label className="inp-caption">{`Name of the Hiring Criteria`}<sup>*</sup></label>
             </div>
             <div className="row">
-                <div className="col-md">
+                <div className="col-md-3">
                     <div className="modal-grp">
                         <select
                             name="programID"
                             onChange={props.handleChange}
                             defaultValue={'DEFAULT'}
-                            className="modal-inp" required>
+                            className="modal-inp"
+                            value={props?.hiringData?.programID}
+                            required
+                        >
                             <option value={'DEFAULT'} disabled>Program</option>
                             {props.lookUpData && props.lookUpData?.programCatalog?.length >= 0
                                 ? props.lookUpData?.programCatalog.map((item, i) => <option key={i} value={item.programCode}>{`${item.programName}(${item.programCode})`}</option>) : (null)
@@ -30,133 +33,144 @@ const HiringCriteriaFormCmp = (props) => {
                         <label className="inp-caption">{`Program`}</label>
                     </div>
                 </div>
-                <div className="col-md">
+                <div className="col-md-3">
                     <div className="modal-grp">
-                        {/* <select
-                            name="courseID"
-                            onChange={props.handleChange}
-                            defaultValue={'DEFAULT'}
-                            className="modal-inp" required>
-                            <option value={''}>Branch</option>
-                            {props.branchCatalog && props?.branchCatalog?.length >= 0
-                                ? props?.branchCatalog.map((item, i) => <option key={i} value={item.branchID}>{item.branchName}</option>) : (null)
-                            }
-                        </select> */}
                         <Select
                             closeMenuOnSelect={false}
                             label="Branch"
                             isMulti
                             zIndex={100}
+                            isSearchable
                             options={props.branchCatalog}
                             onChange={props.handleChangeBranch}
+                            placeholder={'Branch'}
                         />
                     </div>
                 </div>
-                <div className="w-100"></div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                     <div className="modal-grp">
                         <input
                             type="number"
                             name="minimumCutoffPercentage10th"
-                            min="0"
+                            max={100}
                             onChange={props.handleChange}
-                            className="modal-inp"/>
+                            value={props?.hiringData?.minimumCutoffPercentage10th}
+                            className="modal-inp input-number"
+                        />
                         <label className="inp-caption">{`Cutoff Percentage 10th`}<sup>*</sup></label>
                     </div>
                 </div>
-                <div className="col-md-4">
+                <div className={'col-md-3'}>
+                    <div className="modal-grp">
+                        <input
+                            type="text"
+                            name="yearOfPassing"
+                            maxLength={4}
+                            onChange={props.handleChange}
+                            value={props?.hiringData?.yearOfPassing}
+                            className="modal-inp input-number"
+                            required 
+                        />
+                        <label className="inp-caption">{`Year of Passing`}</label>
+                    </div>
+                </div>
+
+                <div className="modal-grp w-100 col-md-3">
+                    <span>Active Backlogs *</span>
+                    <div className="custom-control custom-radio custom-control-inline">
+                        <input
+                            type="radio"
+                            id="backlogs1"
+                            name="allowActiveBacklogs"
+                            onChange={props.handleChange}
+                            value={true}
+                            className="custom-control-input"
+                            required 
+                        />
+                        <label className="custom-control-label" htmlFor="backlogs1">Yes</label>
+                    </div>
+                    <div className="custom-control custom-radio custom-control-inline">
+                        <input
+                            type="radio"
+                            id="backlogs2"
+                            name="allowActiveBacklogs"
+                            onChange={props.handleChange}
+                            value={false}
+                            className="custom-control-input"
+                            required />
+                        <label className="custom-control-label" htmlFor="backlogs2">No</label>
+                    </div>
+                </div>
+
+                <div className={'col-md-3'}>
+                    <div className="modal-grp">
+                        <input
+                            type="text"
+                            name="numberOfAllowedBacklogs"
+                            onChange={props.handleChange}
+                            disabled={!props.hiringData?.allowActiveBacklogs}
+                            value={props.hiringData?.numberOfAllowedBacklogs}
+                            className="modal-inp input-number"
+                            required 
+                        />
+                        <label className="inp-caption">How many Backlogs ?</label>
+                    </div>
+                </div>
+
+                <div className="col-md-3">
                     <div className="modal-grp">
                         <input
                             type="number"
                             name="minimumCutoffPercentage12th"
-                            min="0"
+                            max={100}
                             onChange={props.handleChange}
-                            className="modal-inp"/>
+                            value={props?.hiringData?.minimumCutoffPercentage12th}
+                            className="modal-inp input-number"
+                        />
                         <label className="inp-caption">{`Cutoff Percentage 12th`}<sup>*</sup></label>
                     </div>
                 </div>
-                <div className="col-md-4">
+            </div>
+            <div className={'row'}>
+                <div className="col-md-3">
+                </div>
+                <div className="col-md-3">
+                </div>
+                <div className="col-md-3">
                     <div className="modal-grp">
                         <input
                             type="number"
                             name="minimumCutoffCGPAGrad"
-                            min="0"
+                            max={100}
                             onChange={props.handleChange}
-                            className="modal-inp"/>
-                        <label className="inp-caption">{`Cutoff Percentage UG`}<sup>*</sup></label>
+                            value={props?.hiringData?.minimumCutoffCGPAGrad}
+                            className="modal-inp input-number"
+                        />
+                        <label className="inp-caption">{`Cutoff CGPA UG`}<sup>*</sup></label>
                     </div>
                 </div>
-                <div className="col-md-6">
+            </div>
+            <div className={'row'}>
+                <div className="col-md-3">
+                </div>
+                <div className="col-md-3">
+                </div>
+                <div className="col-md-3">
                     <div className="modal-grp">
                         <input
                             type="number"
                             name="minimumCutoffPercentageGrad"
-                            min="0"
+                            max={100}
                             onChange={props.handleChange}
-                            className="modal-inp" />
-                        <label className="inp-caption">{`Cutoff Percentage PG`}<sup>*</sup></label>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="modal-grp">
-                        <input
-                            type="number"
-                            name="yearOfPassing"
-                            min="1900"
-                            max={year}
-                            maxLength={4}
-                            onChange={props.handleChange}
-                            className="modal-inp"
-                            required />
-                        <label className="inp-caption">{`Year of Passing`}</label>
+                            value={props?.hiringData?.minimumCutoffPercentageGrad}
+                            className="modal-inp input-number" 
+                        />
+                        <label className="inp-caption">{`Cutoff Percentage UG`}<sup>*</sup></label>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-md-6">
-                    <div className="row align-items-center">
-                        <div className="col">
-                            <div className="modal-grp w-100">
-                                <span>Active Backlogs *</span>
-                                <div className="custom-control custom-radio custom-control-inline">
-                                    <input
-                                        type="radio"
-                                        id="backlogs1"
-                                        name="allowActiveBacklogs"
-                                        onChange={props.handleChange}
-                                        value={true}
-                                        className="custom-control-input"
-                                        required />
-                                    <label className="custom-control-label" htmlFor="backlogs1">Yes</label>
-                                </div>
-                                <div className="custom-control custom-radio custom-control-inline">
-                                    <input
-                                        type="radio"
-                                        id="backlogs2"
-                                        name="allowActiveBacklogs"
-                                        onChange={props.handleChange}
-                                        value={false}
-                                        className="custom-control-input"
-                                        required />
-                                    <label className="custom-control-label" htmlFor="backlogs2">No</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="modal-grp">
-                                <input
-                                    type="number"
-                                    name="numberOfAllowedBacklogs"
-                                    min="0"
-                                    onChange={props.handleChange}
-                                    disabled={!props.hiringData?.allowActiveBacklogs}
-                                    value={props.hiringData?.numberOfAllowedBacklogs?.toString()}
-                                    className="modal-inp"
-                                    required />
-                                <label className="inp-caption">How many Backlogs ?</label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div className="col-md-6">
                     <div className="modal-grp">
@@ -186,15 +200,17 @@ const HiringCriteriaFormCmp = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row">
+            <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-md-4">
                     <div className="modal-grp">
                         <textarea
                             name="remarks"
                             onChange={props.handleChange}
                             className="modal-inp modal-textarea"
-                            rows={8} placeholder="Remarks"
-                            defaultValue={""} />
+                            value={props?.hiringData?.remarks}
+                            rows={8} 
+                            placeholder="Remarks"
+                        />
                     </div>
                 </div>
                 <div className="col">
@@ -204,7 +220,7 @@ const HiringCriteriaFormCmp = (props) => {
                                 <h3 className="gaps-title">GAPS DURING</h3>
                                 <div className="modal-grp" />
                             </div>
-                            <div className="gaps-item mb-3">
+                            <div className="gaps-item">
                                 <p className="gaps-name">Schooling</p>
                                 <div className="gaps-content">
                                     <div className="modal-grp m-0">
@@ -233,12 +249,13 @@ const HiringCriteriaFormCmp = (props) => {
                                     </div>
                                     <div className="modal-grp">
                                         <input
-                                            type="number"
+                                            type="text"
                                             name="eduGapsSchool"
                                             onChange={props.handleChange}
-                                            min="0"
-                                            value={props.hiringData?.eduGapsSchool?.toString()}
-                                            className="modal-inp" required />
+                                            value={props.hiringData?.eduGapsSchool}
+                                            className="modal-inp input-number" 
+                                            required 
+                                        />
                                         <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
@@ -271,11 +288,12 @@ const HiringCriteriaFormCmp = (props) => {
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="number" name="eduGaps11N12"
+                                        <input type="text" name="eduGaps11N12"
                                             onChange={props.handleChange}
-                                            min="0"
-                                            value={props.hiringData?.eduGaps11N12?.toString()}
-                                            className="modal-inp" required />
+                                            value={props.hiringData?.eduGaps11N12}
+                                            className="modal-inp input-number"
+                                            required
+                                        />
                                         <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
@@ -308,11 +326,13 @@ const HiringCriteriaFormCmp = (props) => {
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="number" name="eduGaps12NGrad"
+                                        <input type="text" 
+                                            name="eduGaps12NGrad"
                                             onChange={props.handleChange}
-                                            min="0"
-                                            value={props.hiringData?.eduGaps12NGrad?.toString()}
-                                            className="modal-inp" required />
+                                            value={props.hiringData?.eduGaps12NGrad}
+                                            className="modal-inp input-number" 
+                                            required 
+                                        />
                                         <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
@@ -345,11 +365,13 @@ const HiringCriteriaFormCmp = (props) => {
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="number" name="eduGapsGrad"
+                                        <input type="text" 
+                                            name="eduGapsGrad"
                                             onChange={props.handleChange}
-                                            min="0"
-                                            value={props.hiringData?.eduGapsGrad?.toString()}
-                                            className="modal-inp" required />
+                                            value={props.hiringData?.eduGapsGrad}
+                                            className="modal-inp input-number" 
+                                            required 
+                                        />
                                         <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>
@@ -378,11 +400,10 @@ const HiringCriteriaFormCmp = (props) => {
                                         </div>
                                     </div>
                                     <div className="modal-grp">
-                                        <input type="number" name="eduGapsGradNPG"
+                                        <input type="text" name="eduGapsGradNPG"
                                             onChange={props.handleChange}
-                                            min="0"
-                                            value={props.hiringData?.eduGapsGradNPG?.toString()}
-                                            className="modal-inp" />
+                                            value={props.hiringData?.eduGapsGradNPG}
+                                            className="modal-inp input-number" />
                                         <label className="inp-caption">{`Mention in months`}</label>
                                     </div>
                                 </div>

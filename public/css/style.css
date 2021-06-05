@@ -2002,8 +2002,8 @@ body .main-body .page-body .welcome-widget {
     border-radius: 5px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input.input-number::-webkit-inner-spin-button, 
+input.input-number::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
 }

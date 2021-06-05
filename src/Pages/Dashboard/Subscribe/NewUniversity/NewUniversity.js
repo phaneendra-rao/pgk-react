@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import NewUniCmp from '../../../../Components/Dashboard/SubscribeCmp/NewUniCmp/NewUniCmp';
+import NewUniCmp from './NewUniCmp/NewUniCmp';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import { SubscribeSearchSagaAction } from '../../../../Store/Actions/SagaActions/SubscriptionSagaAction';

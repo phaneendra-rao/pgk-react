@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import UniversityStudentsCmp from '../../../../../Components/Dashboard/SubscribeCmp/UniversityCmp/UniversityStudentsCmp';
+import UniversityStudentsCmp from '../UniversityCmp/UniversityStudentsCmp';
 import PortalHiringModal from '../../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { HiringSagaAction } from '../../../../../Store/Actions/SagaActions/HiringSagaAction';

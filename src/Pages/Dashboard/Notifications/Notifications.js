@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import NotificationsCmp from '../../../Components/Dashboard/NotificationsCmp/NotificationsCmp'
+import NotificationsCmp from './Components/NotificationsCmp'
 import { GetNotificationsSagaAction } from '../../../Store/Actions/SagaActions/NotificationsSagaAction';
 
 const Notifications = () => {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import UniversityCmp from '../../../../Components/Dashboard/SubscribeCmp/UniversityCmp/UniversityCmp';
-import PortalHiringModal from '../../../../Portals/PortalHiringModal';
+import UniversityCmp from './UniversityCmp/UniversityCmp';
 import CustomModal from '../../../../Components/CustomModal';
 import {
     GetSubscribeTokensSagaAction,

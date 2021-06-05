@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import SubscribeSearchCmp from '../../../../Components/Dashboard/SubscribeCmp/NewUniCmp/SubscribeSearchCmp';
+import SubscribeSearchCmp from './NewUniCmp/SubscribeSearchCmp';
 
 const SubscribeSearch = (props) => {
     const [universityName, setUniversityName] = useState('');

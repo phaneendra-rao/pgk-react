@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import JobsCmp from '../../../../Components/Dashboard/JobsCmp/JobsCmp'
-import PortalHiringModal from '../../../../Portals/PortalHiringModal';
+import JobsCmp from './Components/JobsCmp'
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import { AddJobsSagaAction, EditJobsSagaAction, GetJobByIdSagaAction, GetJobsSagaAction } from '../../../../Store/Actions/SagaActions/JobsSagaAction';

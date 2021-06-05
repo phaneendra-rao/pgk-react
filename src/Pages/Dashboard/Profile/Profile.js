@@ -61,8 +61,6 @@ const Profile = () => {
     event.preventDefault();
     const { name } = event.target;
 
-    console.log('event.target.files ', event.target.files);
-
     if (event.target.files) {
       setProfile((prevProfile) => ({
         ...prevProfile,

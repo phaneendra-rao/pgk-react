@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import HiringCriteriaCmp from '../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaCmp';
-import PortalHiringModal from '../../../../Portals/PortalHiringModal';
+import HiringCriteriaCmp from './Components/HiringCriteriaCmp';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { AddHiringSagaAction, HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import HiringCriteriaForm from './HiringCriteriaForm';
@@ -69,7 +68,7 @@ const Index = () => {
                 detailsModal={detailsModal}
                 hiringCriteria={hiringCriteria}
             />
-           {isOpen && <CustomModal show={isOpen}>
+           {isOpen && <CustomModal show={isOpen} modalStyles={{ minWidth: "85%" }}>
                 <HiringCriteriaForm
                     openCloseModal={formModal}
                     addHiringCriteria={addHiringCriteria}

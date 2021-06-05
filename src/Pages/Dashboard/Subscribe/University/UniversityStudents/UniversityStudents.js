@@ -74,7 +74,7 @@ const UniversityStudents = (props) => {
 
     const getLookupData = () => {
         dispatch(actionGetDependencyLookUpsSagaAction({
-            apiPayloadRequest: ['programs', 'branches', 'skills'],
+            apiPayloadRequest: ['programCatalog', 'branchCatalog', 'skills'],
             callback: dropdowns
         }));
     }

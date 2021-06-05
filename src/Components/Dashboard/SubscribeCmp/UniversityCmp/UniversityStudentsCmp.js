@@ -194,9 +194,9 @@ const UniversityStudentsCmp = (props) => {
                                                         className="custom-control-input"
                                                         name="skills"
                                                         onChange={props.handleChange}
-                                                        value={item.SkillID}
-                                                        id={item.SkillID} />
-                                                    <label className="custom-control-label" htmlFor={item.SkillID}>{item.skill}</label>
+                                                        value={item.skillCode}
+                                                        id={item.skillCode} />
+                                                    <label className="custom-control-label" htmlFor={item.SkillID}>{item.skillName}</label>
                                                 </div>)
                                             : (null)
                                         }

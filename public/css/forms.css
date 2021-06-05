@@ -901,19 +901,20 @@
   transition: all 300ms ease;
 }
 
-input:focus {
+textarea:focus, input:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
   outline-color: #253aa3;
 }
 
-input::-webkit-input-placeholder {
+textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
   opacity: 0;
   -webkit-transition: inherit;
   transition: inherit;
 }
 
-input:focus + .inp-caption,
+textarea:focus + .inp-caption,
+textarea:not(:placeholder-shown) + .inp-caption, input:focus + .inp-caption,
 input:not(:placeholder-shown) + .inp-caption {
   top: -10px;
   background-color: #fff;

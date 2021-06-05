@@ -1,10 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import moment from "moment";
 
+import { getCorporateProfileStats } from '../../Store/Actions/SagaActions/DashboardSagaAction';
+
 const Dashboard = () => {
   const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
+
+  const [profileStats, setProfileStats] = useState();
+  const dispatch = useDispatch();
+
+  const onReceiveStats = (data) => {
+    console.log('data ', data);
+    setProfileStats(data);
+  }
+
+  useEffect(()=>{
+    dispatch(getCorporateProfileStats({
+        callback: onReceiveStats
+    }));
+  }, []);
 
   let profileName = [];
 
@@ -24,7 +40,7 @@ const Dashboard = () => {
                     <div className="row welcome-widget d-flex flex-row justify-content-between align-items-center">
                         <div className="row d-flex flex-row justify-content-start align-items-center">
                             <div className="welcome-avatar d-flex flex-column justify-content-center align-items-center" style={{backgroundColor:'white', border:'4px solid #253AA3', padding: '5px'}}>
-                                <img src={`${profileInfo?.profilePicture?.trim()!=='' ? "data:image/png;base64,"+profileInfo.profilePicture : '../../../images/logo.png'}`} alt="logo" className="welcome-avatar-logo" />
+                                <img src={`${(profileInfo?.profilePicture!==null && profileInfo?.profilePicture?.trim()!=='') ? "data:image/png;base64,"+profileInfo.profilePicture : '../../../images/logo.png'}`} alt="logo" className="welcome-avatar-logo" />
                             </div>
                             <div className="welcome-content d-flex flex-column justify-content-start align-items-start">
                                 <p className="title" style={{textTransform: 'capitalize'}}>Welcome, {profileName.join(' ')}!</p>
@@ -51,7 +67,7 @@ const Dashboard = () => {
                                 <i className="fas fa-file" />
                                 <p>Applications Received</p>
                             </div>
-                            <p className="quick-widget-value">697</p>
+                            <p className="quick-widget-value">{profileStats?.applicationsReceived!==undefined ? profileStats?.applicationsReceived : '-'}</p>
                             <p className="quick-widget-label">8 Received in the last 2 days</p>
                         </div>
                         <div className="d-flex flex-column justify-content-between align-items-center quick-widget">
@@ -59,7 +75,7 @@ const Dashboard = () => {
                                 <i className="fas fa-briefcase" />
                                 <p>Job Offers Made</p>
                             </div>
-                            <p className="quick-widget-value">321</p>
+                            <p className="quick-widget-value">{profileStats?.jobOffersMade!==undefined ? profileStats?.jobOffersMade : '-'}</p>
                             <p className="quick-widget-label">10 Made in the recent month</p>
                         </div>
                     </div>
@@ -280,21 +296,21 @@ const Dashboard = () => {
             <div className="row">
                 <div className="d-flex flex-row justify-content-between align-items-center w-full px-3">
                     <div className="d-flex flex-row justify-content-center align-items-center flex-fill stat-widget">
-                        <p className="statNo">157</p>
+                        <p className="statNo">{profileStats?.currentlyOnline!==undefined ? profileStats?.currentlyOnline : '-'}</p>
                         <div className="d-flex flex-column justify-content-center align-items-center stat-content">
                             <p className="title">Currently</p>
                             <p className="sub-title-1">Online</p>
                         </div>
                     </div>
                     <div className="d-flex flex-row justify-content-center align-items-center flex-fill stat-widget">
-                        <p className="statNo">82</p>
+                        <p className="statNo">{profileStats?.joinedLastWeek!==undefined ? profileStats?.joinedLastWeek : '-'}</p>
                         <div className="d-flex flex-column justify-content-center align-items-center stat-content">
                             <p className="sub-title-1">Joined In</p>
                             <p className="sub-title-1">Last Hour</p>
                         </div>
                     </div>
                     <div className="d-flex flex-row justify-content-center align-items-center flex-fill stat-widget">
-                        <p className="statNo">785</p>
+                        <p className="statNo">{profileStats?.gotPlaced!==undefined ? profileStats?.gotPlaced : '-'}</p>
                         <div className="d-flex flex-column justify-content-center align-items-center stat-content">
                             <p className="title">Got Placed</p>
                             <p className="sub-title">Through Our</p>
@@ -309,21 +325,21 @@ const Dashboard = () => {
                         <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                             <p className="title">Corporates</p>
                             <p className="sub-title">Registered</p>
-                            <p className="stat-info-no">258</p>
+                            <p className="stat-info-no">{profileStats?.corporatesRegistered!==undefined ? profileStats?.corporatesRegistered : '-'}</p>
                         </div>
                     </div>
                     <div className="d-flex flex-row justify-content-start align-items-center stat-info-widget">
                         <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                             <p className="title">Universities</p>
                             <p className="sub-title">Registered</p>
-                            <p className="stat-info-no">364</p>
+                            <p className="stat-info-no">{profileStats?.universitiesRegistered!==undefined ? profileStats?.universitiesRegistered : '-'}</p>
                         </div>
                     </div>
                     <div className="d-flex flex-row justify-content-start align-items-center stat-info-widget">
                         <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                             <p className="title">Students</p>
                             <p className="sub-title">Registered</p>
-                            <p className="stat-info-no">1098</p>
+                            <p className="stat-info-no">{profileStats?.studentsRegistered!==undefined ? profileStats?.studentsRegistered : '-'}</p>
                         </div>
                     </div>
                 </div>

@@ -708,7 +708,7 @@
     transition: all 300ms ease;
 }
 
-input{  
+textarea, input{  
     &:focus {
         box-shadow: none;
         outline-color: #253aa3;

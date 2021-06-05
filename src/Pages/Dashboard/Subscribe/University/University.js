@@ -164,21 +164,20 @@ const University = (props) => {
         }));
     }
 
-    const sendMail = (event) => {
-        event.preventDefault();
-        const { emailTo, emailSubject, emailBody } = sendMailObj;
-        if (!emailTo && !emailSubject && !emailBody) {
-            toast.warning('Please enter all inout fields')
-            return;
-        }
+    const sendMail = (data) => {
+        // const model = {
+        //     campusDriveID: campusDriveID,
+        //     emailFrom: email,
+        //     emailTo: 'jaswanth@gmail.com',
+        //     emailSubject: emailSubject ? emailSubject : 'Campus Hiring Request',
+        //     emailBody: emailBody
+        // };
         const model = {
+            ...data,
             campusDriveID: campusDriveID,
             emailFrom: email,
-            emailTo: 'jaswanth@gmail.com',
-            emailSubject: emailSubject ? emailSubject : 'Campus Hiring Request',
-            emailBody: emailBody
-        };
-        console.log(model);
+        }
+        // console.log(model);
         dispatch(SendMailSagaAction({ apiPayloadRequest: model, callback: sendMailResp }));
     }
 

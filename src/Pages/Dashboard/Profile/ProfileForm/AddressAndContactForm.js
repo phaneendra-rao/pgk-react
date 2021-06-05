@@ -168,7 +168,7 @@ const AddressAndContactForm = (props) => {
               <div className="col-md-4 pl-1" style={{margin:0, padding:0}}>
                 <div className="d-grp">
                   <input
-                    type="number"
+                    type="text"
                     name="corporateHQAddressZipCode"
                     readOnly={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
@@ -177,7 +177,8 @@ const AddressAndContactForm = (props) => {
                         ? props?.profileData?.corporateHQAddressZipCode
                         : ""
                     }
-                    className="d-inp"
+                    className="d-inp input-number"
+                    maxLength={6}
                   />
                   <label className="inp-caption">{`Zipcode `}<sup>*</sup></label>
                 </div>
@@ -372,7 +373,7 @@ const AddressAndContactForm = (props) => {
               <div className="col-md-4 pl-1" style={{margin:0, padding:0}}>
                 <div className="d-grp">
                   <input
-                    type="number"
+                    type="text"
                     name="corporateLocalBranchAddressZipCode"
                     onChange={props?.onChange}
                     value={
@@ -380,7 +381,8 @@ const AddressAndContactForm = (props) => {
                         ? props?.profileData?.corporateLocalBranchAddressZipCode
                         : ""
                     }
-                    className="d-inp"
+                    className="d-inp input-number"
+                    maxLength={6}
                     readOnly={props?.disable!==undefined ? props?.disable : false}
                   />
                   <label className="inp-caption">{`Zipcode`}</label>

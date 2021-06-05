@@ -14,20 +14,20 @@ const ViewInfoModal = (props) => {
                             <div className="row">
                                 <div className="col-4">
                                     <div className="modal-grp">
-                                        <label className="inp-caption">Average CGPA recorded last year</label>
                                         <input type="text" className="modal-inp" defaultValue={props.subscribedUnvData?.averageCGPA} placeholder="Average CGPA recorded last year *" required readOnly />
+                                        <label className="inp-caption">Average CGPA recorded last year</label>
                                     </div>
                                 </div>
                                 <div className="col-4 p-0">
                                     <div className="modal-grp">
-                                        <label className="inp-caption">Highest CGPA recorded last year</label>
                                         <input type="text" className="modal-inp" defaultValue={props.subscribedUnvData?.highestCGPA} placeholder="Highest CGPA recorded last year *" required readOnly />
+                                        <label className="inp-caption">Highest CGPA recorded last year</label>
                                     </div>
                                 </div>
                                 <div className="col-4">
                                     <div className="modal-grp">
-                                        <label className="inp-caption">Highest Package received during last CH</label>
                                         <input type="text" className="modal-inp" defaultValue={props.subscribedUnvData?.highestPackage} placeholder="Highest Package received during last CH *" required readOnly />
+                                        <label className="inp-caption">Highest Package received during last CH</label>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@ const ViewInfoModal = (props) => {
                                     <div className="row">
                                         <div className="col-6">
                                             <div className="modal-grp">
-                                                <label className="inp-caption">Top Skills offered by this University</label>
+                                                <label className="textarea-caption">Top Skills offered by this University</label>
                                                 <div className="modal-inp inp-textarea" value="7.5">
                                                     <ul>
                                                     {props.subscribedUnvData?.top5Skills?.map((item, i) => <li>{item}</li>)}
@@ -52,7 +52,7 @@ const ViewInfoModal = (props) => {
                                         </div>
                                         <div className="col-6 p-0">
                                             <div className="modal-grp">
-                                                <label className="inp-caption">Top Recruiting Corporates Last year</label>
+                                                <label className="textarea-caption">Top Recruiting Corporates Last year</label>
                                                 <div className="modal-inp inp-textarea">
                                                     <ul>
                                                     {props.subscribedUnvData?.top5Recruiters?.map((item, i) => <li>{item}</li>)}
@@ -71,20 +71,20 @@ const ViewInfoModal = (props) => {
                                 <div className="col-4">
                                     <div className="col-12 p-0">
                                         <div className="modal-grp">
-                                            <label className="inp-caption">Average Package received during last CH</label>
                                             <input type="text" className="modal-inp" defaultValue={props.subscribedUnvData?.averagePackage} placeholder="Average Package received during last CH *" required />
+                                            <label className="inp-caption">Average Package received during last CH</label>
                                         </div>
                                     </div>
                                     <div className="col-12 p-0">
                                         <div className="modal-grp">
-                                            <label className="inp-caption">University Conversion Rate Last year</label>
                                             <input type="text" className="modal-inp" defaultValue={props.subscribedUnvData?.universityConvertionRatio} placeholder="Average CGPA recorded last year *" required />
+                                            <label className="inp-caption">University Conversion Rate Last year</label>
                                         </div>
                                     </div>
                                     <div className="col-12 p-0">
                                         <div className="modal-grp">
-                                            <label className="inp-caption">Tentative Passing Month</label>
                                             <input type="text" className="modal-inp" defaultValue={props.subscribedUnvData?.tentativeMonthOfPassing} placeholder="Average CGPA recorded last year *" required />
+                                            <label className="inp-caption">Tentative Passing Month</label>
                                         </div>
                                     </div>
                                 </div>

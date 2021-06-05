@@ -6,8 +6,8 @@ const AddJobs = (props) => {
     const initialData = {
         jobName: '',
         jobType: '',
-        hiringCriteriaID: 'CT',
-        hiringCriteriaName: 'CT',
+        hiringCriteriaID: '',
+        hiringCriteriaName: '',
         salaryMinRange: '',
         salaryMaxRange: '',
         monthOfHiring: '',
@@ -58,6 +58,13 @@ const AddJobs = (props) => {
                 ...prevState,
                 [name]: parseInt(value)
             }))
+        } else if (name === 'hiringCriteriaID') {
+            const hiringVal = value.split(",");
+            setAddJobs(prevState => ({
+                ...prevState,
+                hiringCriteriaID: hiringVal[0],
+                hiringCriteriaName: hiringVal[1]
+            }));
         } else {
             setAddJobs(prevState => ({
                 ...prevState,

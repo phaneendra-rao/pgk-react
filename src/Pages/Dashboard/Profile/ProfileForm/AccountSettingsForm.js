@@ -44,7 +44,7 @@ const AccountSettingsForm = (props) => {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="d-grp">
-                                        <input type="number" name="primaryContactPhone" onChange={props?.onChange} value={props?.profileData?.primaryContactPhone ? parseInt(props?.profileData?.primaryContactPhone) : ''} readOnly={props?.disable!==undefined ? props?.disable : false} className="d-inp"
+                                        <input type="text" name="primaryContactPhone" maxLength={12} minLength={12} onChange={props?.onChange} value={props?.profileData?.primaryContactPhone ? parseInt(props?.profileData?.primaryContactPhone) : ''} readOnly={props?.disable!==undefined ? props?.disable : false} className="d-inp input-number"
                                             required />
                                         <label className="inp-caption">{`Mobile Number`}</label>
                                     </div>

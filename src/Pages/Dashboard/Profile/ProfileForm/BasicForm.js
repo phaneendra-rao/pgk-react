@@ -11,12 +11,12 @@ const BasicForm = (props) => {
 
   const onGetDependencyLookUpsResponse = (response) => {
     setCorporateTypes(
-      response?.corporateTypes?.length
-        ? response.corporateTypes.map((item) => {
-            if (item?.codeDescription) {
+      response?.corporateType?.length
+        ? response.corporateType.map((item) => {
+            if (item?.corporateTypeCode) {
               return {
-                value: item.codeDescription,
-                label: item.codeDescription,
+                value: item.corporateTypeCode,
+                label: item.corporateTypeCode,
               };
             }
           })
@@ -26,10 +26,10 @@ const BasicForm = (props) => {
     setCorporateCategories(
       response?.corporateCategory?.length
         ? response.corporateCategory.map((item) => {
-            if (item?.codeDescription) {
+            if (item?.categoryName) {
               return {
-                value: item.codeDescription,
-                label: item.codeDescription,
+                value: item.categoryName,
+                label: item.categoryName,
               };
             }
           })
@@ -39,10 +39,10 @@ const BasicForm = (props) => {
     setCorporateIndustries(
       response?.corporateIndustry?.length
         ? response.corporateIndustry.map((item) => {
-            if (item?.codeDescription) {
+            if (item?.industryName) {
               return {
-                value: item.codeDescription,
-                label: item.codeDescription,
+                value: item.industryName,
+                label: item.industryName,
               };
             }
           })
@@ -80,7 +80,7 @@ const BasicForm = (props) => {
                     ? props?.profileData?.stakeholderID
                     : ""
                 }
-                readonly
+                readOnly
                 onChange={props?.onChange}
                 className="d-inp"
                 required
@@ -133,7 +133,7 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateType"}
                 ></label>
               </div>}
-              <select name="corporateType" className="d-inp" readOnly={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateType} required>
+              <select name="corporateType" className="d-inp" onChange={props?.onChange} disabled value={props?.profileData?.corporateType} required>
                 <option value="">Select Corporate Sector</option>
                 {corporateTypes?.length && (
                   corporateTypes.map((item) => {
@@ -160,7 +160,7 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateCategory"}
                 ></label>
               </div>}
-              <select name="corporateCategory" className="d-inp" readOnly={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateCategory} required>
+              <select name="corporateCategory" className="d-inp" onChange={props?.onChange} disabled={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateCategory} required>
                 <option value="">Select Corporate Category</option>
                 {corporateCategories?.length && (
                   corporateCategories.map((item) => {
@@ -188,7 +188,7 @@ const BasicForm = (props) => {
                   htmlFor={"check-corporateIndustry"}
                 ></label>
               </div>}
-              <select name="corporateIndustry" className="d-inp" readOnly={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateIndustry} required>
+              <select name="corporateIndustry" className="d-inp" onChange={props?.onChange} disabled={props?.disable!==undefined ? props?.disable : false} value={props?.profileData?.corporateIndustry} required>
                 <option value="">Select Industry Vertical</option>
                 {corporateIndustries?.length && (
                   corporateIndustries.map((item) => {
@@ -221,7 +221,8 @@ const BasicForm = (props) => {
                 value={
                   props?.profileData?.yearOfEstablishment ? props?.profileData?.yearOfEstablishment : ''}
                 onChange={props?.onChange}
-                className="d-inp"
+                className="d-inp input-number"
+                maxLength={4}
                 readOnly={props?.disable!==undefined ? props?.disable : false}
                 required
               />

@@ -27,7 +27,7 @@ const AddJobsCmp = (props) => {
                                 value={props.addJobs.jobType}
                                 className="d-inp bg-white"
                                 required>
-                                <option value={'DEFAULT'} disabled>Job Type</option>
+                                <option value={''}>Job Type</option>
                                 {props.lookUpData && props.lookUpData?.jobType?.length >= 0
                                     ? props.lookUpData?.jobType.map((item, i) => <option key={i} value={item.jobTypeCode}>{item.jobType}</option>) : (null)
                                 }
@@ -45,7 +45,7 @@ const AddJobsCmp = (props) => {
                                 value={props.addJobs.hiringCriteriaID}
                                 className="d-inp bg-white"
                             >
-                                <option value={'DEFAULT'} disabled>Select Hiring Criteria</option>
+                                <option value={''}>Select Hiring Criteria</option>
                                 {props.hiringCriteria && props.hiringCriteria?.length >= 0
                                     ? props.hiringCriteria?.map((item, i) => <option key={i} value={item.hiringCriteriaID + ',' + item.hiringCriteriaName}>{item.hiringCriteriaName}</option>)
                                     : (null)
@@ -73,7 +73,7 @@ const AddJobsCmp = (props) => {
                                 value={props.addJobs.status}
                                 className="d-inp bg-white"
                                 required>
-                                <option value={'DEFAULT'} disabled>Select Status</option>
+                                <option value={''}>Select Status</option>
                                 <option value="Open">Open</option>
                                 <option value="Close">Close</option>
                             </select>
@@ -98,7 +98,7 @@ const AddJobsCmp = (props) => {
                                 value={props.addJobs.location}
                                 className="d-inp bg-white"
                                 required>
-                                <option value={'DEFAULT'}>Select the location</option>
+                                <option value={''}>Select the location</option>
                                 <option value="Hyderabad">Hyderabad</option>
                                 <option value="Delhi">Delhi</option>
                                 <option value="Mumbai">Mumbai</option>

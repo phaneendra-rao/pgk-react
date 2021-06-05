@@ -127,6 +127,7 @@ const AddJobs = (props) => {
                 ...addJobs,
                 skills: addskills?.map(item => ({ skillID: item.value, skill: item.label })),
             }
+            // console.log(model);
             props.addJobsForm(model);
         } else {
             toast.error("Please enter all required fields");

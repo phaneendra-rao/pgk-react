@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 
 const UniversityStudentsCmp = (props) => {
     return (
@@ -62,7 +63,17 @@ const UniversityStudentsCmp = (props) => {
                 </div>
                 {!props.studentSearchList?.studentsData ?
                     <form onSubmit={props.searchSubmit} className="search-filter-container d-flex justify-content-between align-items-center w-full">
-                        <div className="dropdown dropdown-col">
+                        <div className="modal-grp">
+                            <Select
+                                closeMenuOnSelect={false}
+                                label="By Hiring Criteria"
+                                isMulti
+                                zIndex={100}
+                                options={props.hiringCriteriaOptions}
+                                onChange={props.handleChangeBranch}
+                            />
+                        </div>
+                        {/* <div className="dropdown dropdown-col">
                             <button className="dropdown-select dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 By Hiring Criteria
                         </button>
@@ -82,7 +93,7 @@ const UniversityStudentsCmp = (props) => {
                                     : (null)
                                 }
                             </ul>
-                        </div>
+                        </div> */}
                         {/* <select className="form-control item" multiple name="hiringCriteriaID" onChange={props.handleChange}>
                         <option value={''}>By Hiring Criteria</option>
                         {props.hiringCriteria && props.hiringCriteria?.length >= 0

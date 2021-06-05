@@ -165,12 +165,13 @@ const UniversityStudents = (props) => {
         $("#mailSentSuccess").modal("show");
     }
 
+    const hiringCriteriaOptions = hiringCriteria.map(item => ({ value: item.hiringCriteriaID, label: item.hiringCriteriaName }))
 
     return (
         <>
             <UniversityStudentsCmp
                 months={months}
-                hiringCriteria={hiringCriteria}
+                hiringCriteriaOptions={hiringCriteriaOptions}
                 lookUpData={lookUpData}
                 universityId={universityId}
                 universityInfoList={universityInfoList}

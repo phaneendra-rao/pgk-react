@@ -26,6 +26,19 @@ const HiringCriteriaListItem = (props) => {
     }
   };
 
+  const getValueByType = (val, type) => {
+    if(val && type) {
+      const parsedData = JSON.parse(val);
+      return parsedData.length > 0 ? parsedData[0][type]!==undefined ? parsedData[0][type] : '' : '';
+    } else {
+      return '-'
+    }
+  }
+
+  const isEduGapsAllowed = () => {
+    return hiringCriteriaData?.eduGapsSchoolAllowed || hiringCriteriaData?.eduGaps11N12Allowed || hiringCriteriaData?.eduGaps12NGradAllowed || hiringCriteriaData?.eduGapsGradAllowed || hiringCriteriaData?.eduGapsGradNPGAllowed;
+  }
+
   return (
     <div className="w-full d-flex justify-content-center align-items-center">
       {props?.checkHandler && (
@@ -48,14 +61,14 @@ const HiringCriteriaListItem = (props) => {
               ? props?.item?.hiringCriteriaName
               : "-"}
           </p>
-          <button className="btn2">{props?.item?.programID}</button>
-          <p className="job-published-date">{props?.item?.course}</p>
+          <button className="btn2">{getValueByType(props?.item?.hcProgramsInString, 'programID')}</button>
+          <p className="job-published-date">{getValueByType(props?.item?.hcProgramsInString, 'branchName')}</p>
           <p className="job-published-date">
             {props?.item?.creationDate
               ? props?.item?.publishedFlag ? `Published on ${moment(props?.item?.creationDate).format(
-                "DD/MM/YYYY"
+                "DD-MM-YYYY"
               )}` : `Created on ${moment(props?.item?.creationDate).format(
-                "DD/MM/YYYY"
+                "DD-MM-YYYY"
               )}`
               : "-"}
           </p>
@@ -99,218 +112,261 @@ const HiringCriteriaListItem = (props) => {
         </div>
       </div>
       <CustomModal show={showModal} modalStyles={{ minWidth: "75%" }}>
-        <div className="hiring-modal">
-          <div className="modal-header hiring-modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
-              Hiring Criteria Details {hiringCriteriaData?.hiringCriteriaName}
-            </h5>
-            <button
-              type="button"
-              className="close"
-              onClick={() => {
-                setShowModal(false);
-              }}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+      <div className="hiring-modal">
+    <div className="modal-header hiring-modal-header">
+      <h5 className="modal-title" id="exampleModalLabel">
+        Hiring Criteria Details {hiringCriteriaData?.hiringCriteriaName}
+      </h5>
+      <button
+        type="button"
+        className="close"
+        onClick={()=>{
+          setShowModal(false);
+        }}
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form className="hiring-modal-form">
+      <div className="row">
+        <div className="col-md p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={
+                hiringCriteriaData?.hiringCriteriaName
+                  ? hiringCriteriaData?.hiringCriteriaName
+                  : ""
+              }
+              readOnly
+              required
+            />
+            <label className="inp-caption">
+              Name of the Hiring Criteria
+            </label>
           </div>
-          <form className="hiring-modal-form">
-            <div className="row">
-              <div className="col-md p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">
-                    Name of the Hiring Criteria
-                  </label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      hiringCriteriaData?.hiringCriteriaName
-                        ? hiringCriteriaData?.hiringCriteriaName
-                        : ""
-                    }
-                    readOnly
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Program</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      hiringCriteriaData?.programID
-                        ? hiringCriteriaData?.programID
-                        : ""
-                    }
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-5 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Course</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      hiringCriteriaData?.courseID
-                        ? hiringCriteriaData?.courseID
-                        : ""
-                    }
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-3 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Cutoff Percentage</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      hiringCriteriaData?.cutOff
-                        ? hiringCriteriaData?.cutOff
-                        : ""
-                    }
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-4 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Year of Passing</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      hiringCriteriaData?.yearOfPassing
-                        ? hiringCriteriaData?.yearOfPassing
-                        : ""
-                    }
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-2 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Active Backlogs allowed</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={`${
-                      hiringCriteriaData?.allowActiveBacklogs
-                        ? `Yes ${hiringCriteriaData?.numberOfAllowedBacklogs} Backlogs`
-                        : "No"
-                    }`}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-2 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Education Gaps allowed</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    defaultValue={hiringCriteriaData?.eduGapsGradAllowed ? "Yes" : "No"}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-2 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">During Schooling</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    defaultValue={hiringCriteriaData?.eduGapsSchoolAllowed ? "Yes" : "No"}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-2 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">During X - XII</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={""}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-2 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Between XII - Grad</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    defaultValue={hiringCriteriaData?.eduGaps11N12Allowed ? "Yes" : "No"}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-2 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">During Grad</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    defaultValue={hiringCriteriaData?.eduGapsGradAllowed ? "Yes" : "No"}
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-12 p-1">
-                <div className="modal-grp">
-                  <label className="inp-caption">Remarks</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      hiringCriteriaData?.remarks
-                        ? hiringCriteriaData?.remarks
-                        : ""
-                    }
-                    disabled
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-          </form>
         </div>
+        <div className="col-md p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={getValueByType(hiringCriteriaData?.hcProgramsInString, 'programID')}
+              disabled
+              required
+            />
+            <label className="inp-caption">Program</label>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={getValueByType(hiringCriteriaData?.hcProgramsInString, 'branchName')}
+              disabled
+              required
+            />
+            <label className="inp-caption">Branch</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={
+                hiringCriteriaData?.minimumCutoffPercentage10th!==undefined
+                  ? hiringCriteriaData?.minimumCutoffPercentage10th?.toFixed(2)
+                  : ""
+              }
+              disabled
+              required
+            />
+            <label className="inp-caption">X Percentage</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={
+                hiringCriteriaData?.minimumCutoffPercentage12th!==undefined
+                  ? hiringCriteriaData?.minimumCutoffPercentage12th?.toFixed(2)
+                  : ""
+              }
+              disabled
+              required
+            />
+            <label className="inp-caption">XII Percentage</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={
+                hiringCriteriaData?.minimumCutoffCGPAGrad!==undefined
+                  ? hiringCriteriaData?.minimumCutoffCGPAGrad?.toFixed(2)
+                  : ""
+              }
+              disabled
+              required
+            />
+            <label className="inp-caption">UG CGPA</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={
+                hiringCriteriaData?.minimumCutoffPercentageGrad!==undefined
+                  ? hiringCriteriaData?.minimumCutoffPercentageGrad?.toFixed(2)
+                  : ""
+              }
+              disabled
+              required
+            />
+            <label className="inp-caption">UG Percentage</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={
+                hiringCriteriaData?.yearOfPassing
+                  ? hiringCriteriaData?.yearOfPassing
+                  : ""
+              }
+              disabled
+              required
+            />
+            <label className="inp-caption">Year of Passing</label>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={`${
+                hiringCriteriaData?.allowActiveBacklogs
+                  ? `Yes ${hiringCriteriaData?.numberOfAllowedBacklogs} Backlogs`
+                  : "No"
+              }`}
+              disabled
+              required
+            />
+            <label className="inp-caption">Active Backlogs allowed</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              defaultValue={isEduGapsAllowed()}
+              disabled
+              required
+            />
+            <label className="inp-caption">Education Gaps allowed</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              defaultValue={hiringCriteriaData?.eduGapsSchoolAllowed ? `Yes - ${hiringCriteriaData?.eduGapsSchool} months` : "No"}
+              disabled
+              required
+            />
+            <label className="inp-caption">During Schooling</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              defaultValue={hiringCriteriaData?.eduGaps11N12Allowed ? `Yes - ${hiringCriteriaData?.eduGaps11N12} months` : "No"}
+              disabled
+              required
+            />
+            <label className="inp-caption">During XI - XII</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              defaultValue={hiringCriteriaData?.eduGaps12NGradAllowed ? `Yes - ${hiringCriteriaData?.eduGaps12NGrad} months` : "No"}
+              disabled
+              required
+            />
+            <label className="inp-caption">Between XII - Grad</label>
+          </div>
+        </div>
+        <div className="col-md-2 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              defaultValue={hiringCriteriaData?.eduGapsGradAllowed ? `Yes - ${hiringCriteriaData?.eduGapsGrad} months` : "No"}
+              disabled
+              required
+            />
+            <label className="inp-caption">During Grad</label>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12 p-1">
+          <div className="modal-grp">
+            <input
+              type="text"
+              name=""
+              className="modal-inp"
+              value={
+                hiringCriteriaData?.remarks
+                  ? hiringCriteriaData?.remarks
+                  : ""
+              }
+              disabled
+              required
+            />
+            <label className="inp-caption">Remarks</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
       </CustomModal>
     </div>
   );

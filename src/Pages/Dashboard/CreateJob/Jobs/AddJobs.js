@@ -154,8 +154,6 @@ const AddJobs = (props) => {
                 defaultSkills={defaultSkills}
                 handleChange={handleChange}
                 handleChangeSkills={handleChangeSkills}
-                // addNewItem={addNewItem}
-                // removeItem={removeItem}
                 skillsList={skillsList}
                 handleSubmit={handleSubmit}
                 dateFormat={dateFormat}

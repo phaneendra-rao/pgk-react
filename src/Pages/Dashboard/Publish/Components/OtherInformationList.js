@@ -20,7 +20,7 @@ const OtherInformationList = (props) => {
           <p className="job-published-date" style={{textOverflow:'ellipsis', fontWeight: 'bold'}}>{info?.title}</p>
           <p className="job-published-date">
             {info?.creationDate &&
-              `Published on ${moment(info.creationDate).format("DD/MM/YYYY")}`}
+              `Published on ${moment(info.creationDate).format("DD-MM-YYYY")}`}
           </p>
         </div>
         <div className="vertical-divider"></div>
@@ -73,7 +73,6 @@ const OtherInformationList = (props) => {
             <div className="row">
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Publish ID</label>
                   <input
                     type="text"
                     name=""
@@ -82,25 +81,25 @@ const OtherInformationList = (props) => {
                     disabled
                     required
                   />
+                  <label className="inp-caption">Publish ID</label>
                 </div>
               </div>
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Published Date & Time</label>
                   <input
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={otherInformation?.creationDate ? `Published on ${moment(otherInformation?.creationDate).format("DD/MM/YYYY")}`: ''}
+                    value={otherInformation?.creationDate ? `Published on ${moment(otherInformation?.creationDate).format("DD-MM-YYYY")}`: ''}
                     disabled
                     required
                   />
+                  <label className="inp-caption">Published Date & Time</label>
                 </div>
               </div>
               <div className="w-100"></div>
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Title</label>
                   <input
                     type="text"
                     name=""
@@ -109,12 +108,12 @@ const OtherInformationList = (props) => {
                     disabled
                     required
                   />
+                  <label className="inp-caption">Title</label>
                 </div>
               </div>
               <div className="w-100"></div>
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Content</label>
                   <textarea
                     name=""
                     rows="6"
@@ -124,16 +123,20 @@ const OtherInformationList = (props) => {
                     disabled
                     required
                   ></textarea>
+                  <label className="inp-caption">Content</label>
                 </div>
               </div>
               <div className="w-100"></div>
-              <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
+              {(otherInformation?.attachment?.trim()!=='' && otherInformation?.attachmentName?.trim()!=='') ?
+                <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
                 <p className="label">Attachment Present (if any)</p>
-                <div className="attachmentStripe d-flex justify-content-between align-items-center">
-                    <p>New Hiring Criteria for Job-2.pdf</p>
-                    <i className="fas fa-paperclip"></i>
-                </div>
-              </div>
+                <a href={'data:application/pdf;base64,'+otherInformation?.attachment} target="blank" style={{textDecoration:'none', outline:'none', width:'70%'}}>
+                  <div className="attachmentStripe d-flex justify-content-between align-items-center">
+                      <p>{otherInformation?.attachmentName}</p>
+                      <i className="fas fa-paperclip"></i>
+                  </div>
+                </a>
+              </div> : null}
             </div>
           </form>
         </div>

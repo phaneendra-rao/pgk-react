@@ -69,14 +69,14 @@ const Index = () => {
                 detailsModal={detailsModal}
                 hiringCriteria={hiringCriteria}
             />
-           {isOpen && <CustomModal show={isOpen}>
+           {isOpen && <CustomModal show={isOpen} modalStyles={{ minWidth: "85%" }}>
                 <HiringCriteriaForm
                     openCloseModal={formModal}
                     addHiringCriteria={addHiringCriteria}
                     lookUpData={lookUpData}
                 />
             </CustomModal>} 
-           {isDetailsModal && <CustomModal show={isDetailsModal}>
+           {isDetailsModal && <CustomModal show={isDetailsModal} modalStyles={{minWidth: '85%'}}>
                 <HiringModal
                     detailsModal={detailsModal}
                     modelData={modelData}

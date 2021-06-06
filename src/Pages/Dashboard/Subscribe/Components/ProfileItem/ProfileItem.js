@@ -91,7 +91,7 @@ const ProfileItem = (props) => {
           <p className="job-published-date">
           {props?.parentItem?.dateOfPublish
                 ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
-                    "DD/MM/YYYY"
+                    "DD-MM-YYYY"
                   )}`
                 : "-"}
           </p>

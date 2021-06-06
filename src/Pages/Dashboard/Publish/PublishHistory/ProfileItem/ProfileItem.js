@@ -91,7 +91,7 @@ const ProfileItem = (props) => {
           <p className="job-published-date">
           {props?.parentItem?.dateOfPublish
                 ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
-                    "DD/MM/YYYY"
+                    "DD-MM-YYYY"
                   )}`
                 : "-"}
           </p>
@@ -112,6 +112,7 @@ const ProfileItem = (props) => {
               }}
             >
               <p>Details</p>
+              <i className="fas fa-chevron-right"></i>
             </button>
         </div>
       </div>

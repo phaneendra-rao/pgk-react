@@ -16,6 +16,7 @@ const PublishJobs = () => {
   const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
   const [jobsList, setJobsList] = useState([]);
   const [singleJob, setSingleJob] = useState();
+  const [singleJobSkills, setSingleJobSkills] = useState([]);
   const [showSingleJobDetails, setShowSingleJobDetails] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -41,6 +42,9 @@ const PublishJobs = () => {
 
   const getJobByIdResp = (response) => {
     setSingleJob(response);
+    if(response?.skillsInString?.trim()!=='' && JSON.parse(response.skillsInString)) {
+      setSingleJobSkills(JSON.parse(response.skillsInString));
+    }
     setShowModal(true);
   };
 
@@ -286,8 +290,8 @@ const PublishJobs = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {singleJob?.skills?.length &&
-                        singleJob.skills.map((item) => {
+                      {singleJobSkills?.length &&
+                        singleJobSkills.map((item) => {
                           return (
                             <tr>
                               <td>
@@ -296,7 +300,7 @@ const PublishJobs = () => {
                                   name=""
                                   className="table-item-checkbox"
                                 />} {" "}
-                                {item?.skillID + item?.skill}
+                                {item?.skillID + item?.skillName}
                               </td>
                               <td>
                                 {item?.noOfPositions ? item.noOfPositions : "-"}

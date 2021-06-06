@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const UniversitySendMail = (props) => {
@@ -7,6 +7,15 @@ const UniversitySendMail = (props) => {
     emailSubject: '',
     emailBody: ''
   });
+
+  useEffect(()=>{
+    if(props?.emailTo) {
+      setSendMailObj((prevState)=>({
+        ...prevState,
+        emailTo: props.emailTo
+      }))
+    }
+  }, [props?.emailTo])
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -19,8 +28,8 @@ const UniversitySendMail = (props) => {
   const sendMail = (event) => {
     event.preventDefault();
     const { emailTo, emailSubject, emailBody } = sendMailObj;
-    if (!emailTo && !emailSubject && !emailBody) {
-      toast.warning('Please enter all inout fields')
+    if (emailTo?.trim()!=='' && emailSubject?.trim()!=='' && emailBody?.trim()!=='') {
+      toast.warning('Please enter all input fields')
       return;
     }
     const model = {

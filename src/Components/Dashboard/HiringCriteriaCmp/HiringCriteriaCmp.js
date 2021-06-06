@@ -1,11 +1,15 @@
 import React from 'react'
+import moment from "moment";
 
 const HiringCriteriaCmp = (props) => {
-    const parseObj = (val) => {
-        const parsedData = JSON.parse(val);
-        const programID = parsedData.length > 0 ? parsedData[0]?.programID : ''
-        return programID;
-    }
+    const getValueByType = (val, type) => {
+        if(val && type) {
+          const parsedData = JSON.parse(val);
+          return parsedData.length > 0 ? parsedData[0][type]!==undefined ? parsedData[0][type] : '' : '';
+        } else {
+          return '-'
+        }
+      }
     return (
         <>
             <div className="row published-jobs-section">
@@ -20,17 +24,34 @@ const HiringCriteriaCmp = (props) => {
                                         <i className="fas fa-cube" />
                                     </div>
                                     <p className="job-label">{item.hiringCriteriaName}</p>
-                                    <button className="btn2">{parseObj(item.hcProgramsInString)}</button>
-                                    <p className="job-published-date">{item.course}</p>
-                                    <p className="job-published-date">Created on {item.creationDate}</p>
+                                    <button className="btn2">{getValueByType(item.hcProgramsInString, 'programID')}</button>
+                                    <p className="job-published-date">{getValueByType(item.hcProgramsInString, 'branchName')}</p>
+                                    <p className="job-published-date">
+                                        {item?.creationDate
+                                        ? item?.publishedFlag ? `Published on ${moment(item?.creationDate).format(
+                                            "DD-MM-YYYY"
+                                        )}` : `Created on ${moment(item?.creationDate).format(
+                                            "DD-MM-YYYY"
+                                        )}`
+                                        : "-"}
+                                    </p>
                                 </div>
                                 <div className="vertical-divider" />
-                                <div className="job-list-item-details-container d-flex flex-row justify-content-center align-items-center">
-                                    <div className="job-details-btn d-flex flex-row justify-content-around align-items-center" onClick={() => props.detailsModal(item)} data-toggle="modal" data-target="#hiringCriteriaDetails">
-                                        <p>Details</p>
-                                        <i className="fas fa-chevron-right" />
-                                    </div>
-                                </div>
+                                <button
+                                    type="button"
+                                    className="btn d-flex justify-content-around align-items-center"
+                                    style={{
+                                        height: "30px",
+                                        width: "100px",
+                                        fontSize: ".600rem",
+                                        marginRight: "10px",
+                                        borderRadius: "4px",
+                                    }}
+                                    onClick={() => props.detailsModal(item)}
+                                >
+                                    <p>Details</p>
+                                    <i className="fas fa-chevron-right"></i>
+                                </button>
                             </div>) : 'no data'}
                     <button type="button" onClick={props.openCloseModal} className="add-job-btn" data-toggle="modal" data-target="#hiringCriteria">
                         Add new Hiring Criteria

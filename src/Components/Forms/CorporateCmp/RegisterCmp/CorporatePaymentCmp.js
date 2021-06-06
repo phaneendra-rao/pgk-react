@@ -15,6 +15,7 @@ const CorporatePaymentCmp = ({paymentData, errors, handlerChange, handleSubmit, 
                             placeholder="Name"
                             autoFocus
                             required={true} />
+                        <label className="inp-caption">Name</label>
                         {nameErr ? <p className="inp-errors">{nameErr}</p> : null}
                     </div>
                     <div className="login-grp">
@@ -25,6 +26,7 @@ const CorporatePaymentCmp = ({paymentData, errors, handlerChange, handleSubmit, 
                             className={`login-inp${mobileErr ? ' login-inp-error' : ''}`}
                             placeholder="Phone Number"
                             required={true} />
+                        <label className="inp-caption">Phone Number</label>
                         {mobileErr ? <p className="inp-errors">{mobileErr}</p> : null}
                     </div>
                     <div className="login-grp">
@@ -35,6 +37,7 @@ const CorporatePaymentCmp = ({paymentData, errors, handlerChange, handleSubmit, 
                             className={`login-inp${emailErr ? ' login-inp-error' : ''}`}
                             placeholder="Email"
                             required={true} />
+                        <label className="inp-caption">Email</label>
                         {emailErr ? <p className="inp-errors">{emailErr}</p> : null}
                     </div>
                     <div className="login-grp">
@@ -45,7 +48,10 @@ const CorporatePaymentCmp = ({paymentData, errors, handlerChange, handleSubmit, 
                             className={`login-inp${amtErr ? ' login-inp-error' : ''}`}
                             defaultValue={paymentData.amount}
                             placeholder="Amount"
+                            readOnly
                             required={true} />
+                        <label className="inp-caption">Amount</label>
+
                         {amtErr ? <p className="inp-errors">{amtErr}</p> : null}
                     </div>
                     {/* <div className="login-grp">

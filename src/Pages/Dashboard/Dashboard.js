@@ -25,7 +25,7 @@ const Dashboard = () => {
   let profileName = [];
 
   const profileNameKeys = ['primaryContactFirstName', 'primaryContactMiddleName', 'primaryContactLastName'];
-  const profileDataKeys = Object.keys(profileInfo);
+  const profileDataKeys = (profileInfo!==null && profileInfo) ? Object.keys(profileInfo) : [];
 
   profileNameKeys.forEach((item)=>{
     if (profileDataKeys.includes(item) && profileInfo[item]!==undefined && profileInfo[item].trim()!=='') {
@@ -40,7 +40,7 @@ const Dashboard = () => {
                     <div className="row welcome-widget d-flex flex-row justify-content-between align-items-center">
                         <div className="row d-flex flex-row justify-content-start align-items-center">
                             <div className="welcome-avatar d-flex flex-column justify-content-center align-items-center" style={{backgroundColor:'white', border:'4px solid #253AA3', padding: '5px'}}>
-                                <img src={`${(profileInfo?.profilePicture!==null && profileInfo?.profilePicture?.trim()!=='') ? "data:image/png;base64,"+profileInfo.profilePicture : '../../../images/logo.png'}`} alt="logo" className="welcome-avatar-logo" />
+                                <img src={`${(profileInfo?.profilePicture!==null && profileInfo?.profilePicture!==undefined && profileInfo?.profilePicture?.trim()!=='') ? "data:image/png;base64,"+profileInfo.profilePicture : '../../../images/logo.png'}`} alt="logo" className="welcome-avatar-logo" />
                             </div>
                             <div className="welcome-content d-flex flex-column justify-content-start align-items-start">
                                 <p className="title" style={{textTransform: 'capitalize'}}>Welcome, {profileName.join(' ')}!</p>

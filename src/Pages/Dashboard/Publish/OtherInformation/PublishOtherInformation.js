@@ -109,6 +109,7 @@ const PublishProfile = () => {
                   onChange={onChangeHandler}
                   required
                 />
+                <label className="inp-caption">{`Title`}<sup>*</sup></label>
               </div>
               <div className="d-grp">
                 <textarea
@@ -120,6 +121,7 @@ const PublishProfile = () => {
                   onChange={onChangeHandler}
                   required
                 ></textarea>
+                <label className="inp-caption">{`Information/Text`}<sup>*</sup></label>
               </div>
               <div className="d-attach">
               <p className="float-left mt-2 ml-2">{otherInfo?.attachment?.name}</p>

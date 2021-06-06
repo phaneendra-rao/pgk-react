@@ -122,6 +122,7 @@ const AddJobsCmp = (props) => {
                             <Select
                                 closeMenuOnSelect={false}
                                 label="Select Skills"
+                                placeholder={'Select Skill(s)'}
                                 isMulti
                                 onChange={props.handleChangeSkills}
                                 defaultValue={props.defaultSkills}

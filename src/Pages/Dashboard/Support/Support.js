@@ -100,7 +100,8 @@ const Support = () => {
             <div className="row">
               <div className="col-md">
                 <div className="d-grp">
-                  <input type="text" name="stakeholderId" className="d-inp" value={formData.stakeholderId} placeholder="Stakeholder ID"  readOnly/>
+                  <input type="text" name="stakeholderId" className="d-inp" value={formData.stakeholderId}  readOnly/>
+                  <label className="inp-caption">{`Stakeholder ID`}</label>
                 </div>
               </div>
               <div className="col-md">

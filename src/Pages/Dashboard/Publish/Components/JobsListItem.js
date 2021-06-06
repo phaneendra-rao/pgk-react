@@ -33,9 +33,9 @@ const JobsListItem = (props) => {
           <p className="job-published-date">
           {props?.item?.creationDate
               ? props?.item?.publishedFlag ? `Published on ${moment(props?.item?.creationDate).format(
-                "DD/MM/YYYY"
+                "DD-MM-YYYY"
               )}` : `Created on ${moment(props?.item?.creationDate).format(
-                "DD/MM/YYYY"
+                "DD-MM-YYYY"
               )}`
               : "-"}
           </p>
@@ -75,6 +75,7 @@ const JobsListItem = (props) => {
               }}
             >
               <p>Details</p>
+              <i className="fas fa-chevron-right"></i>
             </button>
           )}
         </div>

@@ -19,7 +19,7 @@ const OtherInformationItem = (props) => {
           <p className="job-published-date">
           {props?.parentItem?.dateOfPublish
                 ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
-                    "DD/MM/YYYY"
+                    "DD-MM-YYYY"
                   )}`
                 : "-"}
           </p>
@@ -40,6 +40,7 @@ const OtherInformationItem = (props) => {
               }}
             >
               <p>Details</p>
+              <i className="fas fa-chevron-right"></i>
             </button>
         </div>
       </div>
@@ -84,7 +85,7 @@ const OtherInformationItem = (props) => {
                     type="text"
                     name=""
                     className="modal-inp"
-                    value={props?.item?.creationDate ? `Published on ${moment(props?.item?.creationDate).format("DD/MM/YYYY")}`: ''}
+                    value={props?.item?.creationDate ? `Published on ${moment(props?.item?.creationDate).format("DD-MM-YYYY")}`: ''}
                     disabled
                     required
                   />

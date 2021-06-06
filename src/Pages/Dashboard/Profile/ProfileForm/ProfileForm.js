@@ -41,7 +41,7 @@ const ProfileForm = (props) => {
             <div className="row d-flex justify-content-center align-items-center" style={{margin:0, padding:0}}>
               <div className="col-md-11" style={{margin:0, padding:0}}>
                 <div className="d-attach">
-                  <p className="float-left" style={{padding: '8px'}}>{props?.attachment?.attachmentName}</p>
+                  <p className="float-left" style={{padding: '8px'}}>{props?.tempAttachment?.attachmentName}</p>
                   <input
                     type="file"
                     onChange={props?.fileHandler}
@@ -57,13 +57,15 @@ const ProfileForm = (props) => {
                   {/* <i className="fas fa-download mr-2"></i> Download */}
                 </div>
               </div>
-              <div className="col-md-1" style={{margin:0, padding:0}}>
+              
+                <div className="col-md-1" style={{margin:0, padding:0}}>
                 <div className="d-attach">
-                  <label style={{backgroundColor: '#878BA6', width: '100%', height: '100%', paddingTop: '10px', color: 'white', textAlign: 'center'}}>
+                {props?.tempAttachment?.attachment?.trim()!=='' ? <a href={'data:application/pdf;base64,'+props?.tempAttachment?.attachment} target="blank" style={{textDecoration:'none', outline:'none', width: '100%', cursor:'pointer'}}> <label style={{backgroundColor: '#878BA6', width: '100%', height: '100%', paddingTop: '10px', color: 'white', textAlign: 'center'}}>
                     <i className="fas fa-download mr-2"></i>
-                  </label>
+                  </label></a> : null}
                 </div>
               </div>
+              
             </div>
           </div>
         </div>

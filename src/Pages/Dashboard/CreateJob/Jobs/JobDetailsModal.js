@@ -100,7 +100,6 @@ const JobDetailsModal = (props) => {
                                                 value={props.modelData?.salaryMaxRange}
                                                 className="d-inp bg-white"
                                                 required />
-                                            <label className="d-job-label text-white small">(Lakhs)</label>
                                         </div>
                                     </div>
                                 </div>

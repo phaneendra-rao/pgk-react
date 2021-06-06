@@ -1,5 +1,5 @@
 import React from 'react'
-
+import moment from 'moment';
 const JobsCmp = (props) => {
     return (
         <div className="row published-jobs-section">
@@ -20,17 +20,26 @@ const JobsCmp = (props) => {
                                 <option value="Open">Open</option>
                                 <option value="Close">Close</option>
                             </select>
-                            <p className="job-published-date">Created on {item.creationDate}</p>
+                            <p className="job-published-date">Created on {item?.creationDate ? moment(item?.creationDate).format("DD-MM-YYYY") : ''}</p>
                         </div>
                         <div className="vertical-divider" />
                         <div className="job-list-item-details-container d-flex flex-row justify-content-center align-items-center">
-                            <button className="job-details-btn d-flex flex-row justify-content-around align-items-center" onClick={() => props.detailsModal(item.jobID)} data-toggle="modal" data-target="#jobDetails">
+                            <button 
+                                className="btn d-flex flex-row justify-content-around align-items-center" 
+                                style={{
+                                    height: "30px",
+                                    width: "100px",
+                                    fontSize: ".600rem",
+                                    marginRight: "10px",
+                                    borderRadius: "4px",
+                                }} 
+                                onClick={() => props.detailsModal(item.jobID)}>
                                 <p>Details</p>
                                 <i className="fas fa-chevron-right" />
                             </button>
                         </div>
                     </div>) : "No data"}
-                <button type="button" onClick={props.handleClick} className="add-job-btn"> Add New Job</button>
+                <button type="button" onClick={props.handleClick} className="btn"> Add New Job</button>
             </div>
         </div>
 

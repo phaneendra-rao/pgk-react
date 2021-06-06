@@ -119,7 +119,7 @@ const Jobs = () => {
             }
 
             {isDetailsModal
-                ? <CustomModal show={isDetailsModal}>
+                ? <CustomModal show={isDetailsModal} modalStyles={{minWidth: '70%'}}>
                     <JobDetailsModal
                         hiringCriteria={hiringCriteria}
                         modelData={modelData}

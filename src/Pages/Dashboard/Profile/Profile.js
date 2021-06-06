@@ -197,7 +197,7 @@ const Profile = () => {
       <ProfileForm
         profileData={profile}
         onChange={updateProfileData}
-        attachment={attachment}
+        tempAttachment={attachment}
         fileHandler={fileHandler}
       />
       <AccountSettingsForm profileData={profile} onChange={updateProfileData} />

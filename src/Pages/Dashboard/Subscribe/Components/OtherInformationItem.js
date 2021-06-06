@@ -88,7 +88,7 @@ const OtherInformationItem = (props) => {
                       props?.item?.creationDate
                         ? `Published on ${moment(
                             props?.item?.creationDate
-                          ).format("DD/MM/YYYY")}`
+                          ).format("DD-MM-YYYY")}`
                         : ""
                     }
                     disabled

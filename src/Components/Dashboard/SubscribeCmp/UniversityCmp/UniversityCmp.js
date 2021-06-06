@@ -105,11 +105,12 @@ const UniversityCmp = (props) => {
                 data-target="#subscribe"
                 onClick={() => props.subscribeModal("unvInsight")}
                 className="quick-widget-btn"
+                style={{cursor:'pointer'}}
               >
                 Subscribe to view
               </button>
             ) : (
-              <button type="button" className="quick-widget-btn">
+              <button type="button" className="quick-widget-btn" style={{cursor:'pointer'}}>
                 Subscribe to view
               </button>
             )}
@@ -128,6 +129,7 @@ const UniversityCmp = (props) => {
                 type="button"
                 data-toggle="modal"
                 data-target="#subscribe"
+                style={{cursor:'pointer'}}
                 onClick={() => props.subscribeModal("unvStuData")}
                 className="quick-widget-btn"
               >
@@ -137,6 +139,7 @@ const UniversityCmp = (props) => {
               <button
                 type="button"
                 onClick={props.navigateToStudent}
+                style={{cursor:'pointer'}}
                 className="quick-widget-btn"
               >
                 Subscribe to Access
@@ -151,6 +154,7 @@ const UniversityCmp = (props) => {
             {/* <button className="quick-widget-btn">Subscribe to Place the request</button> */}
             <button
               type="button"
+              style={{cursor:'pointer'}}
               data-toggle="modal"
               data-target="#subscribe"
               onClick={() => props.subscribeModal("campusDrive")}

@@ -6,6 +6,15 @@ const HiringCriteriaItem = (props) => {
 
     const [showModal, setShowModal] = useState(false);
 
+    const getValueByType = (val, type) => {
+      if(val && type) {
+        const parsedData = JSON.parse(val);
+        return parsedData.length > 0 ? parsedData[0][type]!==undefined ? parsedData[0][type] : '' : '';
+      } else {
+        return '-'
+      }
+    }
+
     return (<>
     <div
         className="w-full d-flex justify-content-center align-items-center"
@@ -19,16 +28,12 @@ const HiringCriteriaItem = (props) => {
             <p className="job-label">
               {props?.item?.hiringCriteriaName ? props.item.hiringCriteriaName : "-"}
             </p>
-            <button className="btn2">
-              {props?.item?.programID ? props.item.programID : "-"}
-            </button>
-            <p className="job-published-date">
-              {props?.item?.course ? props.item.course : "-"}
-            </p>
+            <button className="btn2" style={{marginRight:'20px'}}>{getValueByType(props?.item?.hcProgramsInString, 'programID')}</button>
+            <p className="job-published-date">{getValueByType(props?.item?.hcProgramsInString, 'branchName')}</p>
             <p className="job-published-date">
               {props?.parentItem?.dateOfPublish
                 ? `Published on ${moment(props.parentItem?.dateOfPublish).format(
-                    "DD/MM/YYYY"
+                    "DD-MM-YYYY"
                   )}`
                 : "-"}
             </p>

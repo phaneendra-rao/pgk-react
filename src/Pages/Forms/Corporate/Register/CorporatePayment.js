@@ -65,7 +65,8 @@ const CorporatePayment = (props) => {
 
     const openPayModal = () => {
         const options = {
-            key: "rzp_test_as3TPs08PoZ4UR",
+            key: process.env.REACT_APP_REGISTER,
+            order_id: paymentOrder?.orderID,
             amount: gstCalc.total * 100, //  = INR 1
             name: "PGK",
             description: "PGK TECHNOLOGIES PRIVATE LIMITED",

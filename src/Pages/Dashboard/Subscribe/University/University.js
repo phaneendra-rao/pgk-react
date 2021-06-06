@@ -33,6 +33,7 @@ const University = (props) => {
     const [subscribeType, setSubscribeType] = useState('');
     const [campusDriveID, setCampusDriveID] = useState('');
     const [isSendOpen, setIsSendOpen] = useState(false);
+    const [isSendMailSuccess, setIsSendMailSuccess] = useState(false);
     const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
     const [sendMailObj, setSendMailObj] = useState({
         emailTo: '',
@@ -122,7 +123,6 @@ const University = (props) => {
     }
 
     const subscribeUnvInfoRes = (data) => {
-        $("#subscribe").modal("hide");
         setIsSubscribe(false);
         if (subscribeType === 'unvStuData') {
             localStorage.setItem('subscriptionID', data?.subscriptionID);
@@ -130,13 +130,12 @@ const University = (props) => {
         } else if (subscribeType === 'unvInsight') {
             setSubscribedUnvData(data)
             setIsSubUnvInfoSuccess(true);
-            $("#subSuccess").modal("show");
             getUniversityById();
         } else {
             console.log(data);
             setCampusDriveID(data?.campusDriveID);
             setIsSendOpen(true);
-            $("#mailModal").modal("show");
+            // $("#mailModal").modal("show");
         }
     }
 
@@ -184,7 +183,7 @@ const University = (props) => {
     const sendMailResp = (data) => {
         toast.success(data?.message);
         setIsSendOpen(false);
-        $("#mailSentSuccess").modal("show");
+        setIsSendMailSuccess(true);
     }
 
     // campusDrive
@@ -248,12 +247,17 @@ const University = (props) => {
             </CustomModal>}
 
             {/* SEND MAIL SUCCESS MAIL */}
+            {isSendMailSuccess && <CustomModal show={isSendMailSuccess} modalStyles={{ minWidth: "40%", maxWidth: "40%" }}> 
             <UniversitySendMailSuccessModal
                 universityName={universityInfoList?.universityName}
-            />
+                closeModal={()=>{
+                    setIsSendMailSuccess(false);
+                }}
+            /></CustomModal>}
+
 
              {/* ADD TOKENS MODAL */}
-             {isTokenModalOpen && <CustomModal show={isTokenModalOpen} modalStyles={{ maxWidth: "60%" }}>
+             {isTokenModalOpen && <CustomModal show={isTokenModalOpen} modalStyles={{ maxWidth: "40%" }}>
                  <div className="purchase-modal">
                     <div className="modal-header purchase-modal-header">
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">

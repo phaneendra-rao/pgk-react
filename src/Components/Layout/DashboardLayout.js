@@ -36,30 +36,6 @@ const DashboardLayout = () => {
                     </Switch>
                 </div>
             </div>
-            <div className="modal fade" id="balance" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
-                    <div className="modal-content purchase-modal">
-                        <div className="modal-header purchase-modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        {/* <form>
-                            <div className="modal-body purchase-modal-body d-flex flex-column justify-content-center align-items-center">
-                                <p className="heading">How many credits would you like to purchase ?</p>
-                                <input type="number" name="credit_points" className="form-control credits-input" required />
-                            </div>
-                            <div className="text-center">
-                                <button type="submit" className="modal-footer-full-btn w-100 border-0">
-                                    Purchase
-                            </button>
-                            </div>
-                        </form> */}
-                        <HeaderModalForm />
-                    </div>
-                </div>
-            </div>
-
         </div>
     )
 }

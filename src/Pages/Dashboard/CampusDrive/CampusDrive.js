@@ -4,7 +4,7 @@ const CampusDrive = () => {
 
   return ( 
     <>
-    {/* <div className={'notification'}>
+     <div className={'notification'}>
       <div className={'close-notification'}>
         <i className={'fas fa-times'}></i>
       </div>
@@ -60,7 +60,7 @@ const CampusDrive = () => {
         <button type="button" className={"btn btn-accept"}>Accept</button>
         <button type="button" className={"btn btn-reject"}>Reject</button>
       </div>
-    </div> */}
+    </div>
       <div className="main" style={{marginTop:'10px', marginBottom: '0px'}}>
         <h3 className="main-title" style={{color:'#878BA6'}}>CAMPUS DRIVE</h3>
       </div>

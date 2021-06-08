@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import {getTransactionHistoryRequest} from '../../../Store/Actions/SagaActions/TransactionHistoryActions';
 import moment from 'moment';
 
 const TransactionHistory = () => {
@@ -13,12 +14,9 @@ const TransactionHistory = () => {
     }
 
     useEffect(()=>{
-      dispatch({
-        type: 'get_all_transactions',
-        payload: {
-          callback: getResponse
-        }
-      })
+      dispatch(getTransactionHistoryRequest({
+        callback: getResponse
+      }))
     }, [])
 
   return ( 

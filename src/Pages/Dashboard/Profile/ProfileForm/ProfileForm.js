@@ -1,4 +1,5 @@
 import React from "react";
+import PgkTextField from "../../../../Components/FormFields/PgkTextField";
 
 const ProfileForm = (props) => {
   return (
@@ -9,7 +10,7 @@ const ProfileForm = (props) => {
       <div className="profile-data">
         <div className="row">
           <div className="col-md">
-            <div className="d-grp">
+            <div className="mb-20">
             {props?.check && <div className="custom-control custom-checkbox publish-inp">
                 <input
                   type="checkbox"
@@ -24,19 +25,20 @@ const ProfileForm = (props) => {
                   htmlFor={"check-companyProfile"}
                 ></label>
               </div>}
-              <textarea
+              <PgkTextField
                 name="companyProfile"
-                onChange={props?.onChange}
                 value={
-                  props?.profileData?.companyProfile
-                    ? props?.profileData?.companyProfile
+                  props?.profileData?.companyProfile?.value
+                    ? props?.profileData?.companyProfile?.value
                     : ""
                 }
-                rows="6"
-                className="d-inp d-textarea"
-                readOnly={props?.disable!==undefined ? props?.disable : false}
-              ></textarea>
-              <label className="inp-caption">{`Write in brief about the company `}<sup>*</sup></label>
+                label={"Write in brief about the company"}
+                required={props?.profileData?.companyProfile?.isRequired}
+                disabled={props?.disable!==undefined ? props?.disable : false}
+                onChange={props?.onChange}
+                multiline={true}
+                minRows={6}
+              />
             </div>
             <div className="row d-flex justify-content-center align-items-center" style={{margin:0, padding:0}}>
               <div className="col-md-11" style={{margin:0, padding:0}}>
@@ -47,6 +49,7 @@ const ProfileForm = (props) => {
                     onChange={props?.fileHandler}
                     className="d-inp"
                     name="attachment"
+                    accept=".pdf"
                     disabled={props?.disable ? true : false}
                     id="attachment"
                   />
@@ -59,8 +62,8 @@ const ProfileForm = (props) => {
               </div>
               
                 <div className="col-md-1" style={{margin:0, padding:0}}>
-                <div className="d-attach">
-                {props?.tempAttachment?.attachment?.trim()!=='' ? <a href={'data:application/pdf;base64,'+props?.tempAttachment?.attachment} target="blank" style={{textDecoration:'none', outline:'none', width: '100%', cursor:'pointer'}}> <label style={{backgroundColor: '#878BA6', width: '100%', height: '100%', paddingTop: '10px', color: 'white', textAlign: 'center'}}>
+                <div className="d-attach" style={{cursor: 'pointer'}}>
+                {props?.tempAttachment?.attachment?.trim()!=='' ? <a href={'data:application/pdf;base64,'+props?.tempAttachment?.attachment} style={{textDecoration:'none', outline:'none', width: '100%', cursor:'pointer'}} download> <label style={{backgroundColor: '#878BA6', width: '100%', height: '100%', paddingTop: '10px', color: 'white', textAlign: 'center', cursor: 'pointer'}} >
                     <i className="fas fa-download mr-2"></i>
                   </label></a> : null}
                 </div>

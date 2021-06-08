@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { GetTokensAction } from '../../Store/Actions/DashboardActions/DashboardAction';
 import { getTokensSagaAction } from '../../Store/Actions/SagaActions/DashboardSagaAction';
 import { actionGetCorporateProfileSagaAction } from '../../Store/Actions/SagaActions/CorporateProfileSagaActions';
+import { actionGetUniversalAccessToken, actionGetCountriesRequest } from '../../Store/Actions/SagaActions/CommonSagaActions';
 // const $ = window.$;
 import moment from 'moment';
 
@@ -10,13 +11,21 @@ const DashboardHeader = () => {
   
   const balance = useSelector(state => state.DashboardReducer.balance);
   const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
+  const universalTutorialAccessToken = useSelector(state => state.DashboardReducer.universalTutorialAccessToken);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // dispatch(GetTokensAction());
     dispatch(getTokensSagaAction());
     dispatch(actionGetCorporateProfileSagaAction());
+    dispatch(actionGetUniversalAccessToken());
   }, [])
+
+  useEffect(()=>{
+    if(universalTutorialAccessToken) {
+      dispatch(actionGetCountriesRequest());
+    }
+  }, [universalTutorialAccessToken]);
 
   let profileName = [];
 

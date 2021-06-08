@@ -13,8 +13,76 @@ import {
   actionPatchCorporateProfileSagaAction,
 } from "../../../Store/Actions/SagaActions/CorporateProfileSagaActions";
 
+import {
+  actionGetUniversalAccessToken
+} from "../../../Store/Actions/SagaActions/CommonSagaActions";
+
+import { actionGetStatesByCountryNameRequest, actionGetCitiesByStateNameRequest } from "../../../Store/Actions/SagaActions/CommonSagaActions";
+
+
+
+const requiredFields = [
+  'stakeholderID',
+  'CIN',
+  'corporateType',
+  'corporateCategory',
+  'corporateIndustry',
+  'yearOfEstablishment',
+  'corporateHQAddressLine1',
+  'corporateHQAddressCountry',
+  'corporateHQAddressState',
+  'corporateHQAddressCity',
+  'corporateHQAddressDistrict',
+  'corporateHQAddressZipCode',
+  'corporateHQAddressPhone',
+  'corporateHQAddressEmail',
+  'primaryContactFirstName',
+  'primaryContactLastName',
+  'primaryContactPhone',
+  'primaryContactEmail'
+];
+
+const formFields = [
+  'stakeholderID',
+  'CIN',
+  'corporateType',
+  'corporateCategory',
+  'corporateIndustry',
+  'yearOfEstablishment',
+
+  'corporateHQAddressLine1',
+  'corporateHQAddressLine2',
+  'corporateHQAddressCountry',
+  'corporateHQAddressState',
+  'corporateHQAddressCity',
+  'corporateHQAddressDistrict',
+  'corporateHQAddressZipCode',
+  'corporateHQAddressPhone',
+  'corporateHQAddressEmail',
+
+  'corporateLocalBranchAddressLine1',
+  'corporateLocalBranchAddressLine2',
+  'corporateLocalBranchAddressCountry',
+  'corporateLocalBranchAddressState',
+  'corporateLocalBranchAddressCity',
+  'corporateLocalBranchAddressDistrict',
+  'corporateLocalBranchAddressZipCode',
+  'corporateLocalBranchAddressPhone',
+  'corporateLocalBranchAddressEmail',
+
+  'primaryContactFirstName',
+  'primaryContactMiddleName',
+  'primaryContactLastName',
+  'primaryContactPhone',
+  'primaryContactEmail',
+  'primaryContactDesignation',
+  'companyProfile',
+  'profilePicture', 
+  'attachment'
+];
+
 const Profile = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState();
   const [checkStatus, setCheckStatus] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [profilePicture, setProfilePicture] = useState();
@@ -27,33 +95,262 @@ const Profile = () => {
     setIsTermsAndConditionsChecked,
   ] = useState(false);
 
+  const [initHqAddress, setInitHqAddress] = useState({
+    states: false,
+    cities: false
+  });
+
+  const [initLocalAddress, setInitLocalAddress] = useState({
+    states: false,
+    cities: false
+  });
+
+  const [countries, setCountries] = useState([]);
+
+  const [hqStates, setHqStates] = useState([]);
+  const [hqCities, setHqCities] = useState([]);
+  
+  const [localStates, setLocalStates] = useState([]);
+  const [localCities, setLocalCities] = useState([]);
+
   const dispatch = useDispatch();
 
   const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
+  const universalTutorialAccessToken = useSelector(state => state.DashboardReducer.universalTutorialAccessToken);
+  const actualCountries = useSelector(state => state.DashboardReducer.countries);
 
   useEffect(()=>{
-    setProfilePicture(profileInfo?.profilePicture);
-    setAttachment({
-      attachment: profileInfo?.attachment,
-      attachmentName: profileInfo?.attachmentName
-    });
-    setProfile({
-      ...profileInfo,
-      profilePicture: undefined,
-      attachment: undefined,
-    })
+    if(actualCountries?.length && countries?.length===0) {
+      const updatedCountryOptions = actualCountries.map((item) => {
+        return { value: item?.country_name, label: item?.country_name };
+      });
+
+      setCountries(updatedCountryOptions);
+    }
+  }, [actualCountries?.length])
+
+  const onStatesResponse = (response, type) => {
+    let updatedStatesOptions = [];
+
+    if (response?.length) {
+      updatedStatesOptions = response.map((item) => {
+        return { value: item?.state_name, label: item?.state_name };
+      });
+    }
+
+    if(type==='HQ') {
+      setHqStates(updatedStatesOptions);
+      if(!initHqAddress.states) {
+        setInitHqAddress((prevState)=>({
+          ...prevState,
+          states: true
+        }))
+      }
+    } else {
+      setLocalStates(updatedStatesOptions);
+      if(!initLocalAddress.states) {
+        setInitLocalAddress((prevState)=>({
+          ...prevState,
+          states: true
+        }))
+      }
+    }
+  }
+
+  const onCitiesResponse = (response, type) => {
+    let updatedCitiesOptions = [];
+
+    if (response?.length) {
+      updatedCitiesOptions = response.map((item) => {
+        return { value: item?.city_name, label: item?.city_name };
+      });
+    }
+
+    if(type==='HQ') {
+      setHqCities(updatedCitiesOptions);
+      if(!initHqAddress.cities) {
+        setInitHqAddress((prevState)=>({
+          ...prevState,
+          cities: true
+        }))
+      }
+    } else {
+      setLocalCities(updatedCitiesOptions);
+      if(!initLocalAddress.cities) {
+        setInitLocalAddress((prevState)=>({
+          ...prevState,
+          cities: true
+        }))
+      }
+    }
+  }
+
+  const getStatesByCountryName = (countryName, type) => {
+    dispatch(
+      actionGetStatesByCountryNameRequest({
+        countryName: countryName,
+        callback: (response)=>{
+          onStatesResponse(response, type)
+        },
+      })
+    );
+  }
+
+  const getCitiesByStateName = (stateName, type) => {
+    dispatch(
+      actionGetCitiesByStateNameRequest({
+        stateName: stateName,
+        callback: (response)=>{
+          onCitiesResponse(response, type)
+        },
+      })
+    );
+  }
+
+  useEffect(()=>{
+    if(profileInfo) {
+      setProfilePicture(profileInfo?.profilePicture);
+      setAttachment({
+        attachment: profileInfo?.attachment,
+        attachmentName: profileInfo?.attachmentName
+      });
+  
+      let profileData = {};
+  
+      formFields.forEach((key)=>{
+        if(['profilePicture', 'attachment'].includes(key)) {
+          profileData[key] = {
+            value: undefined,
+            errorMessage: undefined,
+            isRequired: requiredFields.includes(key) ? true : false
+          }
+        } else {
+          profileData[key] = {
+            value: profileInfo[key],
+            errorMessage: undefined,
+            isRequired: requiredFields.includes(key) ? true : false
+          }
+        }
+      })
+      setProfile(profileData);
+    }
+
   }, [profileInfo]);
 
-  const updateProfileData = (event) => {
-    let { name, value } = event.target;
+  useEffect(()=>{
+    if(profile?.corporateHQAddressCountry?.value && universalTutorialAccessToken && !initHqAddress?.states) {
+      getStatesByCountryName(profile?.corporateHQAddressCountry?.value, 'HQ');
+    }
 
-    if(['yearOfEstablishment', 'corporateHQAddressZipCode', 'corporateLocalBranchAddressZipCode'].includes(name)) {
-      value = value.replace(/[^0-9.]/g, "");
+    if(profile?.corporateHQAddressState?.value && universalTutorialAccessToken && !initHqAddress?.cities) {
+      getCitiesByStateName(profile?.corporateHQAddressState?.value, 'HQ');
+    }
+
+  }, [profile, universalTutorialAccessToken])
+
+  useEffect(()=>{
+    if(profile?.corporateLocalBranchAddressCountry?.value && universalTutorialAccessToken && initHqAddress?.states && !initLocalAddress?.states) {
+      getStatesByCountryName(profile?.corporateLocalBranchAddressCountry?.value, 'LOCAL');
+    }
+
+  }, [profile, universalTutorialAccessToken, initHqAddress?.states])
+
+  useEffect(()=>{
+    if(profile?.corporateLocalBranchAddressState?.value && universalTutorialAccessToken && initHqAddress?.cities && !initLocalAddress?.cities) {
+      getCitiesByStateName(profile?.corporateLocalBranchAddressState?.value, 'LOCAL');
+    }
+  }, [profile, universalTutorialAccessToken, initHqAddress?.cities])
+
+  useEffect(()=>{
+    if(universalTutorialAccessToken===undefined) {
+      dispatch(actionGetUniversalAccessToken());
+    }
+  }, [universalTutorialAccessToken])
+
+  const updateProfileData = (name, value, errorMessage) => {
+    let data = profile[name];
+    data['value'] = value;
+    data['errorMessage'] = errorMessage
+
+    let updatedProfile = {...profile}
+
+    if((name==='corporateHQAddressCountry' || name==='corporateLocalBranchAddressCountry') && value && value?.toString()?.trim()!=='') {
+      getStatesByCountryName(value, name==='corporateHQAddressCountry' ? 'HQ' : 'LOCAL')
+      if(name==='corporateHQAddressCountry') {
+        setHqStates([]);
+      } else if(name==='corporateLocalBranchAddressCountry') {
+        setLocalStates([]);
+      }
+
+      if(name==='corporateLocalBranchAddressCountry') {
+        setHqCities([]);
+      } else if(name==='corporateLocalBranchAddressCountry') {
+        setLocalCities([]);
+      }
+
+      if(name==='corporateHQAddressCountry') {
+        updatedProfile = {
+          ...updatedProfile,
+          corporateHQAddressState: {
+            ...updatedProfile.corporateHQAddressState,
+            value: undefined,
+            errorMessage: updatedProfile.corporateHQAddressState.isRequired ? 'Required' : ''
+          },
+          corporateHQAddressCity: {
+            ...updatedProfile.corporateHQAddressCity,
+            value: undefined,
+            errorMessage: updatedProfile.corporateHQAddressCity.isRequired ? 'Required' : ''
+          }
+        }
+      } else if(name==='corporateLocalBranchAddressCountry') {
+        updatedProfile = {
+          ...updatedProfile,
+          corporateLocalBranchAddressState: {
+            ...updatedProfile.corporateLocalBranchAddressState,
+            value: undefined,
+            errorMessage: updatedProfile.corporateLocalBranchAddressState.isRequired ? 'Required' : ''
+          },
+          corporateLocalBranchAddressCity: {
+            ...updatedProfile.corporateLocalBranchAddressCity,
+            value: undefined,
+            errorMessage: updatedProfile.corporateLocalBranchAddressCity.isRequired ? 'Required' : ''
+          }
+        }
+      }
+    }
+
+    if((name==='corporateHQAddressState' || name==='corporateLocalBranchAddressState') && value && value?.toString()?.trim()!=='') {
+      getCitiesByStateName(value, name==='corporateHQAddressState' ? 'HQ' : 'LOCAL')
+      if(name==='corporateHQAddressState') {
+        setHqCities([]);
+      } else if(name==='corporateLocalBranchAddressState') {
+        setLocalCities([]);
+      }
+      if(name==='corporateHQAddressState') {
+        updatedProfile = {
+          ...updatedProfile,
+          corporateHQAddressCity: {
+            ...updatedProfile.corporateHQAddressCity,
+            value: undefined,
+            errorMessage: updatedProfile.corporateHQAddressCity.isRequired ? 'Required' : ''
+          }
+        }
+      } else if(name==='corporateLocalBranchAddressState') {
+        updatedProfile = {
+          ...updatedProfile,
+          corporateLocalBranchAddressCity: {
+            ...updatedProfile.corporateLocalBranchAddressCity,
+            value: undefined,
+            errorMessage: updatedProfile.corporateLocalBranchAddressCity.isRequired ? 'Required' : ''
+          }
+        }
+      }
     }
     
     setProfile((prevProfile) => ({
       ...prevProfile,
-      [name]: value,
+      ...updatedProfile,
+      ...data,
     }));
   };
 
@@ -61,14 +358,17 @@ const Profile = () => {
     event.preventDefault();
     const { name } = event.target;
 
-    console.log('event.target.files ', event.target.files);
-
     if (event.target.files) {
+      let data = profile[name];
+      data['value'] = event.target.files[0]
       setProfile((prevProfile) => ({
         ...prevProfile,
-        [name]: event.target.files[0],
+        ...data
       }));
     }
+
+    console.log('name ', name);
+    console.log('value ', event.target.files[0]);
 
     const val = event.target.files.length;
     for (let i = 0; i < val; i++) {
@@ -91,26 +391,71 @@ const Profile = () => {
   const toggleCorporateHeadQuarters = () => {
     setCheckStatus(!checkStatus);
     if(!checkStatus) {
+      setLocalStates(hqStates);
+      setLocalCities(hqCities);
+
       setProfile((prevState)=>({
         ...prevState,
-        corporateLocalBranchAddressLine1: prevState.corporateHQAddressLine1,
-        corporateLocalBranchAddressLine2: prevState.corporateHQAddressLine2,
-        corporateLocalBranchAddressCountry: prevState.corporateHQAddressCountry,
-        corporateLocalBranchAddressState: prevState.corporateHQAddressState,
-        corporateLocalBranchAddressCity: prevState.corporateHQAddressCity,
-        corporateLocalBranchAddressDistrict: prevState.corporateHQAddressDistrict,
-        corporateLocalBranchAddressZipCode: prevState.corporateHQAddressZipCode,
-        corporateLocalBranchAddressPhone: prevState.corporateHQAddressPhone,
-        corporateLocalBranchAddressEmail: prevState.corporateHQAddressEmail
+        corporateLocalBranchAddressLine1: {
+          value: prevState.corporateHQAddressLine1.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressLine2: {
+          value: prevState.corporateHQAddressLine2.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressCountry: {
+          value: prevState.corporateHQAddressCountry.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressState: {
+          value: prevState.corporateHQAddressState.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressCity: {
+          value: prevState.corporateHQAddressCity.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressDistrict: {
+          value: prevState.corporateHQAddressDistrict.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressZipCode: {
+          value: prevState.corporateHQAddressZipCode.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressPhone: {
+          value: prevState.corporateHQAddressPhone.value,
+          errorMessage: undefined
+        },
+        corporateLocalBranchAddressEmail: {
+          value: prevState.corporateHQAddressEmail.value,
+          errorMessage: undefined
+        }
       }));
     }
   };
 
   const saveProfile = () => {
-    const updatedProfile = {
-      ...profile,
-      dateOfJoining: moment(profile.dateOfJoining),
+    const profileKeys = profile ? Object.keys(profile) : [];
+
+    console.log('profile ', profile);
+
+    let updatedProfile = {};
+
+    profileKeys?.forEach((item)=>{
+      if(profile[item]?.value) {
+        updatedProfile[item] = profile[item].value
+      }
+    });
+
+    updatedProfile = {
+      ...updatedProfile,
+      dateOfJoining: moment(updatedProfile.dateOfJoining),
     };
+
+    console.log('updatedProfile 1 ', updatedProfile);
+
 
     if (updatedProfile?.attachment === undefined) {
       delete updatedProfile.attachment;
@@ -119,6 +464,8 @@ const Profile = () => {
     if (updatedProfile?.profilePicture === undefined) {
       delete updatedProfile.profilePicture;
     }
+
+    console.log('updatedProfile 2 ', updatedProfile);
 
     dispatch(
       actionPatchCorporateProfileSagaAction({
@@ -131,26 +478,10 @@ const Profile = () => {
   };
 
   const isFormValid = () => {
-    if (
-      profile?.stakeholderID &&
-      profile?.CIN &&
-      profile?.corporateType &&
-      profile?.corporateCategory &&
-      profile?.corporateIndustry &&
-      profile?.dateOfJoining &&
-      profile?.corporateHQAddressLine1 &&
-      profile?.corporateHQAddressCountry &&
-      profile?.corporateHQAddressState &&
-      profile?.corporateHQAddressCity &&
-      profile?.corporateHQAddressDistrict &&
-      profile?.corporateHQAddressZipCode &&
-      profile?.corporateHQAddressPhone &&
-      profile?.corporateHQAddressEmail &&
-      isTermsAndConditionsChecked
-    ) {
-      return true;
-    } else {
+    if (profile && requiredFields.some((item)=>profile[item]?.errorMessage!==undefined)) {
       return false;
+    } else {
+      return true && isTermsAndConditionsChecked;
     }
   };
 
@@ -176,7 +507,7 @@ const Profile = () => {
             name="profilePicture"
             onChange={fileHandler}
             id="profile"
-            accept="image/*"
+            accept="image/jpeg, image/jpg, image/png"
             className="upload-pic-inp"
           />
         </div>
@@ -193,6 +524,11 @@ const Profile = () => {
         onChange={updateProfileData}
         checkStatus={checkStatus}
         toggleCorporateHeadQuarters={toggleCorporateHeadQuarters}
+        countries={countries}
+        hqStates={hqStates}
+        hqCities={hqCities}
+        localStates={localStates}
+        localCities={localCities}
       />
       <ProfileForm
         profileData={profile}

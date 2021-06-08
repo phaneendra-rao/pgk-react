@@ -277,30 +277,6 @@ function* getSingleSubscriptionRequest(action) {
     }
 }
 
-function getAllTransactionsFromServer() {
-    const URL = '/t/allTransactions';
-    return Axios.get(URL).then(res => res.data);
-}
-
-function* getAllTransactions(action) {
-    yield put(actionUpdateGlobalLoaderSagaAction(true));
-
-    try {
-        const resp = yield call(getAllTransactionsFromServer);
-        if(action.payload.callback) {
-            action.payload.callback(resp);
-        }
-    } catch (err) {
-        if (err?.response) {
-            toast.error(err?.response?.data?.errors[0]?.message);
-        } else {
-            toast.error("Something Wrong!", err?.message);
-        }
-    } finally {
-      yield put(actionUpdateGlobalLoaderSagaAction(false));
-    }
-}
-
 export default function* SubscriptionWatcherSaga() {
     yield takeLatest(ACTION_POST_CORPORATE_SUBSCRIBESEARCH_REQUEST, getSearchDataSaga);
     yield takeLatest(ACTION_GET_CORPORATE_SUBSCRIBE_UNIVERSITY_REQUEST, getUniversityInfoSaga);
@@ -311,7 +287,4 @@ export default function* SubscriptionWatcherSaga() {
     yield takeLatest(ACTION_POST_CORPORATE_SENDMAIL_TO_UNIVERSITY_REQUEST, sendMailSaga);
     yield takeLatest(ACTION_POST_CORPORATE_STUDENT_SEARCH_REQUEST, searchStudentSaga);
     yield takeLatest(ACTION_GET_CORPORATE_SINGLE_SUBSCRIPTION_REQUEST, getSingleSubscriptionRequest);
-    yield takeLatest('get_all_transactions', getAllTransactions);
-
-    
 }

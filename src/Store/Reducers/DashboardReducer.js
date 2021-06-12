@@ -7,7 +7,9 @@ const INITIAL = {
     apiError: false,
     balance: {},
     hiringCriteria: [],
-    profileInfo: {}
+    profileInfo: {},
+    universalTutorialAccessToken: undefined,
+    countries: []
 }
 
 const DashboardReducer = (state = INITIAL, action) => {
@@ -29,7 +31,10 @@ const DashboardReducer = (state = INITIAL, action) => {
             } else {
                 return { ...state, apiStatus: state.apiStatus - 1 }
             }
-
+        case SagaActionTypes.ACTION_SAVE_UNIVERSAL_ACCESS_TOKEN:
+            return { ...state, universalTutorialAccessToken: action.payload };
+        case SagaActionTypes.ACTION_SAVE_COUNTRIES:
+            return { ...state, countries: action.payload };
         case actionTypes.SUCCESS:
             return { ...state, apiSuccess: action.payload }
 

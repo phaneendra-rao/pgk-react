@@ -1,28 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { actionGetCountryCodesSagaAction } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
+import { useDispatch, useSelector } from "react-redux";
+import PgkTextField from "../../../../Components/FormFields/PgkTextField";
+import PgkSelectField from "../../../../Components/FormFields/PgkSelectField";
+import { actionGetStatesByCountryNameRequest, actionGetCitiesByStateNameRequest } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
 
 const AddressAndContactForm = (props) => {
-  const [countries, setCountries] = useState([]);
-  const dispatch = useDispatch();
-
-  const onCountryCodesResponse = (response) => {
-    if (response?.length) {
-      const updatedCountryOptions = response.map((item) => {
-        return { value: item?.name, label: item?.name };
-      });
-
-      setCountries(updatedCountryOptions);
-    }
-  };
-
-  useEffect(() => {
-    dispatch(
-      actionGetCountryCodesSagaAction({
-        callback: onCountryCodesResponse,
-      })
-    );
-  }, []);
 
   return (
     <div className="profile-box">
@@ -49,174 +31,153 @@ const AddressAndContactForm = (props) => {
               </div>}
             <h6 className="reg-label" style={{marginBottom:'20px'}}>Corporate Headquarters <sup>*</sup></h6>
             </div>
-            <div className="d-grp">
-              <input
-                type="text"
+            <div className="mb-20">
+              <PgkTextField
                 name="corporateHQAddressLine1"
-                readOnly={props?.disable!==undefined ? props?.disable : false}
-                onChange={props?.onChange}
                 value={
-                  props?.profileData?.corporateHQAddressLine1
-                    ? props?.profileData?.corporateHQAddressLine1
+                  props?.profileData?.corporateHQAddressLine1?.value
+                    ? props?.profileData?.corporateHQAddressLine1?.value
                     : ""
                 }
-                className="d-inp"
+                errorMessage={props?.profileData?.corporateHQAddressLine1?.errorMessage}
+                label={"Address Line 1"}
+                disabled={props?.disable!==undefined ? props?.disable : false}
+                onChange={props?.onChange}
+                required={props?.profileData?.corporateHQAddressLine1?.isRequired}
               />
-              <label className="inp-caption">{`Address Line 1 `}<sup>*</sup></label>
             </div>
-            <div className="d-grp">
-              <input
-                type="text"
+            <div className="mb-20">
+              <PgkTextField
                 name="corporateHQAddressLine2"
-                readOnly={props?.disable!==undefined ? props?.disable : false}
-                onChange={props?.onChange}
                 value={
-                  props?.profileData?.corporateHQAddressLine2
-                    ? props?.profileData?.corporateHQAddressLine2
+                  props?.profileData?.corporateHQAddressLine2?.value
+                    ? props?.profileData?.corporateHQAddressLine2?.value
                     : ""
                 }
-                className="d-inp"
+                label={"Address Line 2"}
+                disabled={props?.disable!==undefined ? props?.disable : false}
+                onChange={props?.onChange}
+                required={props?.profileData?.corporateHQAddressLine2?.isRequired}
               />
-              <label className="inp-caption">{`Address Line 2`}</label>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <select
-                    name="corporateHQAddressCountry"
-                    id=""
-                    disabled={props?.disable!==undefined ? props?.disable : false}
-                    className="d-inp"
-                    value={props?.profileData?.corporateHQAddressCountry}
+                <div className="mb-20">
+                  <PgkSelectField
+                    name={"corporateHQAddressCountry"}
                     onChange={props?.onChange}
-                  >
-                    <option value="">Select Country</option>
-                    {countries?.map((item) => {
-                      return (
-                        <option
-                          value={item.value}
-                        >
-                          {item.label}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <label className="inp-caption">{`Country `}<sup>*</sup></label>
+                    value={props?.profileData?.corporateHQAddressCountry?.value ? props?.profileData?.corporateHQAddressCountry?.value : ''}
+                    errorMessage={props?.profileData?.corporateHQAddressCountry?.errorMessage ? props?.profileData?.corporateHQAddressCountry?.errorMessage : ''}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    required={props?.profileData?.corporateHQAddressCountry?.isRequired}
+                    options={props?.countries}
+                    label={"Country"}
+                  />
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <select
-                    name="corporateHQAddressState"
-                    id=""
-                    disabled={props?.disable!==undefined ? props?.disable : false}
-                    className="d-inp"
-                    value={props?.profileData?.corporateHQAddressState}
+                <div className="mb-20">
+                  <PgkSelectField
+                    name={"corporateHQAddressState"}
                     onChange={props?.onChange}
-                  >
-                    <option value="">Select State</option>
-                    <option
-                      value="TS"
-                    >
-                      TS
-                    </option>
-                    <option
-                      value="AP"
-                    >
-                      AP
-                    </option>
-                  </select>
-                  <label className="inp-caption">{`State `}<sup>*</sup></label>
+                    value={props?.profileData?.corporateHQAddressState?.value ? props?.profileData?.corporateHQAddressState?.value : ''}
+                    errorMessage={props?.profileData?.corporateHQAddressState?.errorMessage ? props?.profileData?.corporateHQAddressState?.errorMessage : ''}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    required={props?.profileData?.corporateHQAddressState?.isRequired}
+                    options={props?.hqStates}
+                    label={"State"}
+                  />
                 </div>
               </div>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-4 pr-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="text"
-                    name="corporateHQAddressCity"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                    onChange={props?.onChange}
-                    value={
-                      props?.profileData?.corporateHQAddressCity
-                        ? props?.profileData?.corporateHQAddressCity
-                        : ""
-                    }
-                    className="d-inp"
+                <div className="mb-20">
+                  <PgkSelectField
+                      name={"corporateHQAddressCity"}
+                      onChange={props?.onChange}
+                      value={props?.profileData?.corporateHQAddressCity?.value ? props?.profileData?.corporateHQAddressCity?.value : ''}
+                      errorMessage={props?.profileData?.corporateHQAddressCity?.errorMessage ? props?.profileData?.corporateHQAddressCity?.errorMessage : ''}
+                      disabled={props?.disable!==undefined ? props?.disable : false}
+                      required={props?.profileData?.corporateHQAddressCity?.isRequired}
+                      options={props?.hqCities}
+                      label={"City"}
                   />
-                <label className="inp-caption">{`City `}<sup>*</sup></label>
                 </div>
               </div>
               <div className="col-md-4 px-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="text"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateHQAddressDistrict"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateHQAddressDistrict
-                        ? props?.profileData?.corporateHQAddressDistrict
+                      props?.profileData?.corporateHQAddressDistrict?.value
+                        ? props?.profileData?.corporateHQAddressDistrict?.value
                         : ""
                     }
-                    className="d-inp"
+                    errorMessage={props?.profileData?.corporateHQAddressDistrict?.errorMessage}
+                    label={"District"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateHQAddressDistrict?.isRequired}
                   />
-                <label className="inp-caption">{`District `}<sup>*</sup></label>
                 </div>
               </div>
               <div className="col-md-4 pl-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="text"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateHQAddressZipCode"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateHQAddressZipCode
-                        ? props?.profileData?.corporateHQAddressZipCode
+                      props?.profileData?.corporateHQAddressZipCode?.value
+                        ? props?.profileData?.corporateHQAddressZipCode?.value
                         : ""
                     }
-                    className="d-inp input-number"
-                    maxLength={6}
+                    type={'number'}
+                    errorMessage={props?.profileData?.corporateHQAddressZipCode?.errorMessage}
+                    label={"Zipcode"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateHQAddressZipCode?.isRequired}
+                    validations={['isNumeric']}
                   />
-                  <label className="inp-caption">{`Zipcode `}<sup>*</sup></label>
                 </div>
               </div>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="number"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateHQAddressPhone"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateHQAddressPhone
-                        ? parseInt(props?.profileData?.corporateHQAddressPhone)
+                      props?.profileData?.corporateHQAddressPhone?.value
+                        ? parseInt(props?.profileData?.corporateHQAddressPhone?.value)
                         : ""
                     }
-                    className="d-inp"
+                    type={'number'}
+                    errorMessage={props?.profileData?.corporateHQAddressPhone?.errorMessage}
+                    label={"Phone Number"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateHQAddressPhone?.isRequired}
+                    validations={['isNumeric']}
                   />
-                  <label className="inp-caption">{`Phone Number `}<sup>*</sup></label>
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="email"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateHQAddressEmail"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateHQAddressEmail
-                        ? props?.profileData?.corporateHQAddressEmail
+                      props?.profileData?.corporateHQAddressEmail?.value
+                        ? props?.profileData?.corporateHQAddressEmail?.value
                         : ""
                     }
-                    className="d-inp"
+                    errorMessage={props?.profileData?.corporateHQAddressEmail?.errorMessage}
+                    label={"Office Email"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateHQAddressEmail?.isRequired}
+                    validations={['isEmail']}
                   />
-                  <label className="inp-caption">{`Office Email `}<sup>*</sup></label>
                 </div>
               </div>
             </div>
@@ -252,178 +213,156 @@ const AddressAndContactForm = (props) => {
                 </label>
               </div>}
             </div>
-            <div className="d-grp">
-              <input
-                type="text"
+            <div className="mb-20">
+              <PgkTextField
                 name="corporateLocalBranchAddressLine1"
-                onChange={props?.onChange}
                 value={
-                  props?.profileData?.corporateLocalBranchAddressLine1
-                    ? props?.profileData?.corporateLocalBranchAddressLine1
+                  props?.profileData?.corporateLocalBranchAddressLine1?.value
+                    ? props?.profileData?.corporateLocalBranchAddressLine1?.value
                     : ""
                 }
-                className="d-inp"
-                readOnly={props?.disable!==undefined ? props?.disable : false}
+                errorMessage={props?.profileData?.corporateLocalBranchAddressLine1?.errorMessage}
+                label={"Address Line 1"}
+                disabled={props?.disable!==undefined ? props?.disable : false}
+                onChange={props?.onChange}
+                required={props?.profileData?.corporateLocalBranchAddressLine1?.isRequired}
               />
-              <label className="inp-caption">{`Address Line 1`}</label>
             </div>
-            <div className="d-grp">
-              <input
-                type="text"
+            <div className="mb-20">
+              <PgkTextField
                 name="corporateLocalBranchAddressLine2"
-                onChange={props?.onChange}
                 value={
-                  props?.profileData?.corporateLocalBranchAddressLine2
-                    ? props?.profileData?.corporateLocalBranchAddressLine2
+                  props?.profileData?.corporateLocalBranchAddressLine2?.value
+                    ? props?.profileData?.corporateLocalBranchAddressLine2?.value
                     : ""
                 }
-                className="d-inp"
-                readOnly={props?.disable!==undefined ? props?.disable : false}
+                errorMessage={props?.profileData?.corporateLocalBranchAddressLine2?.errorMessage}
+                label={"Address Line 2"}
+                disabled={props?.disable!==undefined ? props?.disable : false}
+                onChange={props?.onChange}
+                required={props?.profileData?.corporateLocalBranchAddressLine2?.isRequired}
               />
-              <label className="inp-caption">{`Address Line 2`}</label>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <select
-                    name="corporateLocalBranchAddressCountry"
-                    id=""
-                    disabled={props?.disable!==undefined ? props?.disable : false}
-                    className="d-inp"
-                    value={props?.profileData?.corporateLocalBranchAddressCountry}
+                <div className="mb-20">
+                  <PgkSelectField
+                    name={"corporateLocalBranchAddressCountry"}
                     onChange={props?.onChange}
-                  >
-                    <option value="">Select Country</option>
-                    {countries?.map((item) => {
-                      return (
-                        <option
-                          value={item.value}
-                        >
-                          {item.label}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <label className="inp-caption">{`Country`}</label>
+                    value={props?.profileData?.corporateLocalBranchAddressCountry?.value ? props?.profileData?.corporateLocalBranchAddressCountry?.value : ''}
+                    errorMessage={props?.profileData?.corporateLocalBranchAddressCountry?.errorMessage ? props?.profileData?.corporateLocalBranchAddressCountry?.errorMessage : ''}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    options={props?.countries}
+                    label={"Country"}
+                    required={props?.profileData?.corporateLocalBranchAddressCountry?.isRequired}
+                  />
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <select
-                    name="corporateLocalBranchAddressState"
-                    id=""
-                    disabled={props?.disable!==undefined ? props?.disable : false}
-                    className="d-inp"
-                    value={props?.profileData?.corporateLocalBranchAddressState}
+                <div className="mb-20">
+                  <PgkSelectField
+                    name={"corporateLocalBranchAddressState"}
                     onChange={props?.onChange}
-                  >
-                      <option value="">Select State</option>
-                    <option
-                      value="TS"
-                    >
-                      TS
-                    </option>
-                    <option
-                      value="AP"
-                    >
-                      AP
-                    </option>
-                  </select>
-                  <label className="inp-caption">{`State`}</label>
+                    value={props?.profileData?.corporateLocalBranchAddressState?.value ? props?.profileData?.corporateLocalBranchAddressState?.value : ''}
+                    errorMessage={props?.profileData?.corporateLocalBranchAddressState?.errorMessage ? props?.profileData?.corporateLocalBranchAddressState?.errorMessage : ''}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    options={props?.localStates}
+                    label={"State"}
+                    required={props?.profileData?.corporateLocalBranchAddressState?.isRequired}
+                  />
                 </div>
               </div>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-4 pr-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="text"
-                    name="corporateLocalBranchAddressCity"
-                    onChange={props?.onChange}
-                    value={
-                      props?.profileData?.corporateLocalBranchAddressCity
-                        ? props?.profileData?.corporateLocalBranchAddressCity
-                        : ""
-                    }
-                    className="d-inp"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                  />
-                  <label className="inp-caption">{`City`}</label>
+                <div className="mb-20">
+                  <PgkSelectField
+                      name={"corporateLocalBranchAddressCity"}
+                      onChange={props?.onChange}
+                      value={
+                        props?.profileData?.corporateLocalBranchAddressCity?.value
+                          ? props?.profileData?.corporateLocalBranchAddressCity?.value
+                          : ""
+                      }
+                      errorMessage={props?.profileData?.corporateLocalBranchAddressCity?.errorMessage ? props?.profileData?.corporateLocalBranchAddressCity?.errorMessage : ''}
+                      disabled={props?.disable!==undefined ? props?.disable : false}
+                      options={props?.localCities}
+                      label={"City"}
+                      required={props?.profileData?.corporateLocalBranchAddressCity?.isRequired}
+                    />
                 </div>
               </div>
               <div className="col-md-4 px-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="text"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateLocalBranchAddressDistrict"
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateLocalBranchAddressDistrict
+                      props?.profileData?.corporateLocalBranchAddressDistrict?.value
                         ? props?.profileData
-                            ?.corporateLocalBranchAddressDistrict
+                            ?.corporateLocalBranchAddressDistrict?.value
                         : ""
                     }
-                    className="d-inp"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                    placeholder="District"
+                    errorMessage={props?.profileData?.corporateLocalBranchAddressDistrict?.errorMessage}
+                    label={"District"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateLocalBranchAddressDistrict?.isRequired}
                   />
-                <label className="inp-caption">{`District`}</label>
                 </div>
               </div>
               <div className="col-md-4 pl-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="text"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateLocalBranchAddressZipCode"
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateLocalBranchAddressZipCode
-                        ? props?.profileData?.corporateLocalBranchAddressZipCode
+                      props?.profileData?.corporateLocalBranchAddressZipCode?.value
+                        ? props?.profileData?.corporateLocalBranchAddressZipCode?.value
                         : ""
                     }
-                    className="d-inp input-number"
-                    maxLength={6}
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
+                    type={'number'}
+                    errorMessage={props?.profileData?.corporateLocalBranchAddressZipCode?.errorMessage}
+                    label={"Zipcode"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateLocalBranchAddressZipCode?.isRequired}
                   />
-                  <label className="inp-caption">{`Zipcode`}</label>
                 </div>
               </div>
             </div>
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="number"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateLocalBranchAddressPhone"
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateLocalBranchAddressPhone
-                        ? parseInt(
-                            props?.profileData?.corporateLocalBranchAddressPhone
-                          )
+                      props?.profileData?.corporateLocalBranchAddressPhone?.value
+                        ? parseInt(props?.profileData?.corporateLocalBranchAddressPhone?.value)
                         : ""
                     }
-                    className="d-inp"
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
+                    type={'number'}
+                    errorMessage={props?.profileData?.corporateLocalBranchAddressPhone?.errorMessage}
+                    label={"Phone Number"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateLocalBranchAddressPhone?.isRequired}
                   />
-                  <label className="inp-caption">{`Phone Number`}</label>
                 </div>
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
-                <div className="d-grp">
-                  <input
-                    type="email"
+                <div className="mb-20">
+                  <PgkTextField
                     name="corporateLocalBranchAddressEmail"
-                    onChange={props?.onChange}
                     value={
-                      props?.profileData?.corporateLocalBranchAddressEmail
-                        ? props?.profileData?.corporateLocalBranchAddressEmail
+                      props?.profileData?.corporateLocalBranchAddressEmail?.value
+                        ? props?.profileData?.corporateLocalBranchAddressEmail?.value
                         : ""
                     }
-                    readOnly={props?.disable!==undefined ? props?.disable : false}
-                    className="d-inp"
+                    errorMessage={props?.profileData?.corporateLocalBranchAddressEmail?.errorMessage}
+                    label={"Office Email"}
+                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    onChange={props?.onChange}
+                    required={props?.profileData?.corporateLocalBranchAddressEmail?.isRequired}
                   />
-                  <label className="inp-caption">{`Office Email`}</label>
                 </div>
               </div>
             </div>

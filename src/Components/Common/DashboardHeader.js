@@ -1,22 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { GetTokensAction } from '../../Store/Actions/DashboardActions/DashboardAction';
 import { getTokensSagaAction } from '../../Store/Actions/SagaActions/DashboardSagaAction';
 import { actionGetCorporateProfileSagaAction } from '../../Store/Actions/SagaActions/CorporateProfileSagaActions';
+import { actionGetUniversalAccessToken, actionGetCountriesRequest } from '../../Store/Actions/SagaActions/CommonSagaActions';
+
+import CustomModal from '../CustomModal';
+import HeaderModalForm from '../Common/HeaderModalForm';
+
 // const $ = window.$;
 import moment from 'moment';
 
 const DashboardHeader = () => {
+  const [showModal, setShowModal] = useState(false);
   
   const balance = useSelector(state => state.DashboardReducer.balance);
   const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
+  const universalTutorialAccessToken = useSelector(state => state.DashboardReducer.universalTutorialAccessToken);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // dispatch(GetTokensAction());
     dispatch(getTokensSagaAction());
     dispatch(actionGetCorporateProfileSagaAction());
+    dispatch(actionGetUniversalAccessToken());
   }, [])
+
+  useEffect(()=>{
+    if(universalTutorialAccessToken) {
+      dispatch(actionGetCountriesRequest());
+    }
+  }, [universalTutorialAccessToken]);
 
   let profileName = [];
 
@@ -75,8 +89,9 @@ const DashboardHeader = () => {
             </div>
             <div
               className="add-credits-container"
-              data-toggle="modal"
-              data-target="#balance"
+              onClick={()=>{
+                setShowModal(true);
+              }}
             >
               <i className="fas fa-plus-circle" />
               <p className="label">Add Tokens</p>
@@ -88,6 +103,11 @@ const DashboardHeader = () => {
         <p className="profile-name" style={{textTransform:'capitalize'}}>{profileName.join(' ')}</p>
           {(profileInfo?.profilePicture!=null && profileInfo?.profilePicture?.trim()!=='') ? <img src={"data:image/png;base64,"+profileInfo.profilePicture} className={'profile-avatar'} style={{backgroundColor:'transparent'}} /> : <div className="profile-avatar"> <i className="fas fa-user" /> </div>}
       </div>
+      <CustomModal show={showModal} modalStyles={{ minWidth: "40%", maxWidth: "40%" }}>
+        <HeaderModalForm onClose={()=>{
+          setShowModal(false);
+        }} />
+      </CustomModal>
     </div>
   );
 };

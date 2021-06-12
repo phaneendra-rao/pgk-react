@@ -1,205 +1,258 @@
-import React, { useState } from 'react'
-import { toast } from 'react-toastify';
-import HiringCriteriaFormCmp from '../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaFormCmp'
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import HiringCriteriaFormCmp from "../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaFormCmp";
 
 const HiringCriteriaForm = (props) => {
+  const [hiringData, setHiringData] = useState();
+  const [programCatalog, setProgramCatalog] = useState([]);
+  const [branchCatalog, setBranchCatalog] = useState([]);
 
-    const initialData = {
-        hiringCriteriaName: '',
-        minimumCutoffPercentage10th: '',
-        minimumCutoffPercentage12th: '',
-        minimumCutoffCGPAGrad: '',
-        minimumCutoffPercentageGrad: '',
-        eduGapsSchoolAllowed: false,
-        eduGaps11N12Allowed: false,
-        eduGaps12NGradAllowed: false,
-        eduGapsGradAllowed: false,
-        eduGapsGradNPGAllowed: false,
-        eduGapsPGAllowed: false,
-        allowActiveBacklogs: false,
-        numberOfAllowedBacklogs: 0,
-        eduGapsSchool: 0,
-        eduGaps11N12: 0,
-        eduGaps12NGrad: 0,
-        eduGapsGrad: 0,
-        eduGapsGradNPG: 0,
-        yearOfPassing: '',
-        remarks: ''
-    };
+  useEffect(()=>{
+    if(props.hiringCriteriaData) {
+        setHiringData(props.hiringCriteriaData)
+    }
+  }, [props?.hiringCriteriaData])
 
-    const [hiringData, setHiringData] = useState(initialData);
-    const [eduGaps, setEduGaps] = useState(false);
-    const [branchCatalog, setBranchCatalog] = useState([]);
-    const [hcPrograms, setHcPrograms] = useState([]);
+  useEffect(() => {
+    if (props?.lookUpData?.programCatalog?.length) {
+      setProgramCatalog(
+        props?.lookUpData?.programCatalog?.map((item) => {
+          return { label: item?.programName, value: item?.programCode };
+        })
+      );
+    }
+  }, [props?.lookUpData?.programCatalog]);
 
-    const handleChange = (event) => {
-        let { name, value } = event.target;
-        
-        if(['minimumCutoffPercentage10th', 'minimumCutoffPercentage12th', 'minimumCutoffPercentageGrad', 'minimumCutoffCGPAGrad'].includes(name)) {
-            var validNumber = /^\d*(\.)?(\d{0,2})?$/;
-            if(value?.trim()!=='' && validNumber.test(value)) {
-                value = parseFloat(value);
-            } else {
-                value = ''
-            }
-        }
+  const updateField = (name, value, errorMessage) => {
+    let data = hiringData[name];
+    data["value"] = value;
+    data["errorMessage"] = errorMessage;
 
-        if(['yearOfPassing'].includes(name)) {
-            value = value.replace(/[^0-9.]/g, "");
-        }
+    setHiringData((prevState) => ({
+      ...prevState,
+      ...data,
+    }));
+  };
 
-        switch (name) {
-            case 'programID':
-                const programObj = props.lookUpData?.programCatalog?.find(program => program.programCode === value);
-                const filteredBranches = props.lookUpData?.branchCatalog?.filter(branch => branch.programID === value);
-                const branchCatalog = filteredBranches.map(item => (
-                    {
-                        value: item.branchID,
-                        label: item.branchName,
-                        programID: item.programID,
-                        programName: programObj.programName,
-                    }
-                ));
-                setBranchCatalog(branchCatalog);
-                break;
-            case 'minimumCutoffPercentage10th':
-            case 'minimumCutoffPercentage12th':
-            case 'minimumCutoffCGPAGrad':
-            case 'minimumCutoffPercentageGrad':
-                setHiringData(preState => ({
-                    ...preState,
-                    [name]: value
-                }));
-                break;
-            case 'hiringCriteriaName':
-            case 'remarks':
-                setHiringData(preState => ({
-                    ...preState,
-                    [name]: value
-                }));
-                break;
-            case 'numberOfAllowedBacklogs':
-            case 'eduGapsSchool':
-            case 'eduGaps11N12':
-            case 'eduGaps12NGrad':
-            case 'eduGapsGrad':
-            case 'eduGapsGradNPG':
-                setHiringData(preState => ({
-                    ...preState,
-                    [name]: value?.trim()!='' ? parseInt(value) : ''
-                }));
-                break;
-            case 'yearOfPassing':
-                setHiringData(preState => ({
-                    ...preState,
-                    [name]: value?.trim()!='' ? parseInt(value) : ''
-                }));
-                break;
-            case 'eduGaps':
-                const eduGaps = value === 'true' ? true : false;
-                setEduGaps(eduGaps);
-                if (!eduGaps) {
-                    setHiringData(preState => ({
-                        ...preState,
-                        eduGapsSchoolAllowed: false,
-                        eduGaps11N12Allowed: false,
-                        eduGaps12NGradAllowed: false,
-                        eduGapsGradAllowed: false,
-                        eduGapsGradNPGAllowed: false,
-                        eduGapsPGAllowed: false,
-                        eduGapsSchool: 0,
-                        eduGaps11N12: 0,
-                        eduGaps12NGrad: 0,
-                        eduGapsGrad: 0,
-                        eduGapsGradNPG: 0,
-                    }))
-                }
-                break;
-            case 'allowActiveBacklogs':
-                const allowActiveBacklogs = value === 'true' ? true : false;
-                if (allowActiveBacklogs) {
-                    setHiringData(preState => ({
-                        ...preState,
-                        [name]: allowActiveBacklogs
-                    }));
-                } else {
-                    setHiringData(preState => ({
-                        ...preState,
-                        numberOfAllowedBacklogs: 0,
-                        [name]: allowActiveBacklogs
-                    }));
-                }
-                break;
-            case 'eduGapsSchoolAllowed':
-            case 'eduGaps11N12Allowed':
-            case 'eduGaps12NGradAllowed':
-            case 'eduGapsGradAllowed':
-            case 'eduGapsGradNPGAllowed':
-            case 'eduGapsPGAllowed':
-                const isTrue = value === 'true' ? true : false;
-                setHiringData(preState => ({
-                    ...preState,
-                    [name]: isTrue
-                }));
-                break;
+  const enableEduGaps = (value) => {
+    let eduGapsAllowedRadioButtons = {};
+    [
+      "eduGapsSchoolAllowed",
+      "eduGaps11N12Allowed",
+      "eduGaps12NGradAllowed",
+      "eduGapsGradAllowed",
+      "eduGapsGradNPGAllowed",
+    ].forEach((item) => {
+      eduGapsAllowedRadioButtons[item] = {
+        value: hiringData[item].value,
+        errorMessage: hiringData[item].errorMessage,
+        isRequired: hiringData[item].isRequired,
+        isDisabled: !value,
+      };
+    });
 
-            default:
-                break;
-        }
+    let eduGapsAllowedFields = {};
+    [
+      "eduGapsSchool",
+      "eduGaps11N12",
+      "eduGaps12NGrad",
+      "eduGapsGrad",
+      "eduGapsGradNPG",
+    ].forEach((item) => {
+      eduGapsAllowedFields[item] = {
+        value: hiringData[item].value,
+        errorMessage: hiringData[item].errorMessage,
+        isRequired: hiringData[item].isRequired,
+        isDisabled: value ? !hiringData[item + "Allowed"].value : !value,
+      };
+    });
+
+    setHiringData((prevState) => ({
+      ...prevState,
+      ...eduGapsAllowedRadioButtons,
+      ...eduGapsAllowedFields,
+    }));
+  };
+
+  const enableEduGapField = (name, value) => {
+    let data = hiringData[name.replace("Allowed", "")];
+    data["isDisabled"] = !value;
+
+    setHiringData((prevState) => ({
+      ...prevState,
+      ...data,
+    }));
+  };
+
+  const enableActiveBacklogsField = (value) => {
+    setHiringData((prevState) => ({
+      ...prevState,
+      numberOfAllowedBacklogs: {
+        ...prevState.numberOfAllowedBacklogs,
+        isDisabled: !value,
+      },
+    }));
+  };
+
+  const handleChange = (name, value, errorMessage) => {
+    switch (name) {
+      case "programID":
+        const programObj = programCatalog?.find(
+          (program) => program.value === value
+        );
+        const filteredBranches = props.lookUpData?.branchCatalog?.filter(
+          (branch) => branch.programID === value
+        );
+        const _branchCatalog = filteredBranches.map((item) => ({
+          value: item.branchID,
+          label: item.branchName,
+          programID: item.programID,
+          programName: programObj.label,
+        }));
+        setBranchCatalog(_branchCatalog);
+        updateField(name, value, errorMessage);
+        break;
+      case "minimumCutoffPercentage10th":
+      case "minimumCutoffPercentage12th":
+      case "minimumCutoffCGPAGrad":
+      case "minimumCutoffPercentageGrad":
+      case "hiringCriteriaName":
+      case "remarks":
+      case "numberOfAllowedBacklogs":
+      case "eduGapsSchool":
+      case "eduGaps11N12":
+      case "eduGaps12NGrad":
+      case "eduGapsGrad":
+      case "eduGapsGradNPG":
+      case "yearOfPassing":
+      case "hcPrograms":
+        updateField(name, value, errorMessage);
+        break;
+      case "eduGapsAllowed":
+        updateField(name, value, errorMessage);
+        enableEduGaps(value);
+        break;
+      case "allowActiveBacklogs":
+        updateField(name, value, errorMessage);
+        enableActiveBacklogsField(value);
+        break;
+      case "eduGapsSchoolAllowed":
+      case "eduGaps11N12Allowed":
+      case "eduGaps12NGradAllowed":
+      case "eduGapsGradAllowed":
+      case "eduGapsGradNPGAllowed":
+        updateField(name, value, errorMessage);
+        enableEduGapField(name, value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = (event) => {
+    console.log("before hiringData ", hiringData);
+
+    const hiringCriteriaKeys = [
+      "allowActiveBacklogs",
+      "eduGaps11N12Allowed",
+      "eduGaps12NGradAllowed",
+      "eduGapsAllowed",
+      "eduGapsGradAllowed",
+      "eduGapsGradNPGAllowed",
+      "eduGapsSchoolAllowed",
+      "hcPrograms",
+      "hiringCriteriaName",
+      "remarks",
+    ];
+
+    const cutOffKeys = [
+      "minimumCutoffCGPAGrad",
+      "minimumCutoffPercentage10th",
+      "minimumCutoffPercentage12th",
+      "minimumCutoffPercentageGrad",
+      "yearOfPassing",
+    ];
+
+    let finalHiringCriteria = {};
+
+    hiringCriteriaKeys.forEach((item) => {
+      finalHiringCriteria[item] = hiringData[item].value;
+    });
+
+    cutOffKeys.forEach((item) => {
+      finalHiringCriteria[item] = hiringData[item].value
+        ? parseFloat(hiringData[item].value)
+        : 0;
+    });
+
+    const activeBackLogKeys = ["numberOfAllowedBacklogs"];
+
+    if (hiringData["allowActiveBacklogs"].value) {
+      activeBackLogKeys.forEach((item) => {
+        finalHiringCriteria[item] = hiringData[item].value
+          ? parseFloat(hiringData[item].value)
+          : 0;
+      });
+    } else {
+      activeBackLogKeys.forEach((item) => {
+        finalHiringCriteria[item] = 0;
+      });
     }
 
-    const handleChangeBranch = (selected) => {
-        const hcPrograms = selected.map(item => ({
-            branchID: item.value,
-            branchName: item.label,
-            programID: item.programID,
-            programName: item.programName,
-        }))
-        setHcPrograms(hcPrograms);
+    const eduGapsKeys = [
+      "eduGaps11N12",
+      "eduGaps12NGrad",
+      "eduGapsGrad",
+      "eduGapsGradNPG",
+      "eduGapsSchool",
+    ];
+
+    if (hiringData["eduGapsAllowed"].value) {
+      eduGapsKeys.forEach((item) => {
+        finalHiringCriteria[item] = hiringData[item + "Allowed"].value
+          ? hiringData[item].value
+            ? parseFloat(hiringData[item].value)
+            : 0
+          : 0;
+      });
+    } else {
+      eduGapsKeys.forEach((item) => {
+        finalHiringCriteria[item] = 0;
+      });
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const { hiringCriteriaName,
-            minimumCutoffPercentage10th,
-            minimumCutoffPercentage12th,
-            minimumCutoffCGPAGrad,
-            minimumCutoffPercentageGrad,
-            yearOfPassing } = hiringData;
-
-        if (hcPrograms.length > 0 && hiringCriteriaName?.toString()?.trim()!=='' && minimumCutoffPercentage10th?.toString()?.trim()!=='' && minimumCutoffPercentage12th?.toString()?.trim()!==''
-            && minimumCutoffCGPAGrad?.toString()?.trim()!=='' && minimumCutoffPercentageGrad?.toString()?.trim()!=='' && yearOfPassing?.toString()?.trim()!=='') {
-            const model = {
-                ...hiringData,
-                hcPrograms: hcPrograms
-            }
-            props.addHiringCriteria(model);
-        } else {
-            toast.error('please enter required fields')
-        }
+    if(props?.addHiringCriteria) {
+        props.addHiringCriteria(finalHiringCriteria)
     }
+  };
 
-
-    return (
-        <div className="hiring-modal">
-            <div className="modal-header hiring-modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Create a new Hiring Criteria</h5>
-                <button type="button" className="close" onClick={props.openCloseModal} data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <HiringCriteriaFormCmp
-                hiringData={hiringData}
-                eduGaps={eduGaps}
-                branchCatalog={branchCatalog}
-                openCloseModal={props.openCloseModal}
-                lookUpData={props.lookUpData}
-                handleChange={handleChange}
-                handleChangeBranch={handleChangeBranch}
-                handleSubmit={handleSubmit}
-            />
-        </div>
-    )
-}
+  return (
+    <div className="hiring-modal">
+      <div className="modal-header hiring-modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">
+          Create a new Hiring Criteria
+        </h5>
+        <button
+          type="button"
+          className="close"
+          onClick={props.openCloseModal}
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <HiringCriteriaFormCmp
+        hiringData={hiringData}
+        branchCatalog={branchCatalog}
+        openCloseModal={props.openCloseModal}
+        programCatalog={programCatalog}
+        editable={props?.editable}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+    </div>
+  );
+};
 
 export default HiringCriteriaForm;

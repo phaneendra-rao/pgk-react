@@ -4,8 +4,11 @@ import routes from '../../routes';
 import DashboardHeader from '../Common/DashboardHeader';
 import DashboardSidebar from '../Common/DashboardSidebar';
 import HeaderModalForm from '../Common/HeaderModalForm';
+import { useSelector } from 'react-redux';
+
 
 const DashboardLayout = () => {
+    const apiStatus = useSelector(state => state.DashboardReducer.apiStatus);
 
     const getRoutes = (routes) => {
         const token = localStorage.getItem('token');
@@ -25,42 +28,33 @@ const DashboardLayout = () => {
         });
     }
 
+
+    
+
     return (
-        <div className="main-body">
-            <DashboardSidebar />
-            <div className="main-container">
-                <DashboardHeader />
-                <div className="page-body">
-                    <Switch>
-                        {getRoutes(routes)}
-                    </Switch>
+        <>
+            {apiStatus ?
+                <div className="loader">
+                    <svg width="100px" height="100px" version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enableBackground="new 0 0 0 0" xmlSpace="preserve">
+                        <circle fill="none" stroke="red" strokeWidth={4} cx={50} cy={50} r={44} style={{ opacity: '0.5' }} />
+                        <circle fill="#fff" stroke="#e74c3c" strokeWidth={3} cx={8} cy={54} r={6}>
+                            <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 48" to="360 50 52" repeatCount="indefinite" />
+                        </circle>
+                    </svg>
                 </div>
-            </div>
-            <div className="modal fade" id="balance" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
-                    <div className="modal-content purchase-modal">
-                        <div className="modal-header purchase-modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        {/* <form>
-                            <div className="modal-body purchase-modal-body d-flex flex-column justify-content-center align-items-center">
-                                <p className="heading">How many credits would you like to purchase ?</p>
-                                <input type="number" name="credit_points" className="form-control credits-input" required />
-                            </div>
-                            <div className="text-center">
-                                <button type="submit" className="modal-footer-full-btn w-100 border-0">
-                                    Purchase
-                            </button>
-                            </div>
-                        </form> */}
-                        <HeaderModalForm />
+            : null}
+            <div className="main-body">
+                <DashboardSidebar />
+                <div className="main-container">
+                    <DashboardHeader />
+                    <div className="page-body">
+                        <Switch>
+                            {getRoutes(routes)}
+                        </Switch>
                     </div>
                 </div>
             </div>
-
-        </div>
+        </>
     )
 }
 

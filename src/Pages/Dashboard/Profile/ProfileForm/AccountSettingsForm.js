@@ -1,6 +1,6 @@
 import React from 'react';
 import PgkTextField from "../../../../Components/FormFields/PgkTextField";
-import PgkAutoComplete from "../../../../Components/FormFields/PgkAutoComplete";
+import PgkSelectField from "../../../../Components/FormFields/PgkSelectField";
 
 const AccountSettingsForm = (props) => {
     return (
@@ -97,7 +97,7 @@ const AccountSettingsForm = (props) => {
                                             errorMessage={props?.profileData?.primaryContactPhone?.errorMessage}
                                             label={"Mobile Number"}
                                             type={'number'}
-                                            disabled={props?.disable!==undefined ? props?.disable : false}
+                                            disabled
                                             onChange={props?.onChange}
                                             required={props?.profileData?.primaryContactPhone?.isRequired}
                                         />
@@ -114,7 +114,7 @@ const AccountSettingsForm = (props) => {
                                             }
                                             errorMessage={props?.profileData?.primaryContactEmail?.errorMessage}
                                             label={"Email"}
-                                            disabled={props?.disable!==undefined ? props?.disable : false}
+                                            disabled
                                             onChange={props?.onChange}
                                             required={props?.profileData?.primaryContactEmail?.isRequired}
                                             validations={['isEmail']}

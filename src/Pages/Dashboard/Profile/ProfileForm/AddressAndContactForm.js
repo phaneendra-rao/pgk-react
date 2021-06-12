@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PgkTextField from "../../../../Components/FormFields/PgkTextField";
-import PgkAutoComplete from "../../../../Components/FormFields/PgkAutoComplete";
+import PgkSelectField from "../../../../Components/FormFields/PgkSelectField";
 import { actionGetStatesByCountryNameRequest, actionGetCitiesByStateNameRequest } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
 
 const AddressAndContactForm = (props) => {
@@ -63,7 +63,7 @@ const AddressAndContactForm = (props) => {
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
                 <div className="mb-20">
-                  <PgkAutoComplete
+                  <PgkSelectField
                     name={"corporateHQAddressCountry"}
                     onChange={props?.onChange}
                     value={props?.profileData?.corporateHQAddressCountry?.value ? props?.profileData?.corporateHQAddressCountry?.value : ''}
@@ -77,7 +77,7 @@ const AddressAndContactForm = (props) => {
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
                 <div className="mb-20">
-                  <PgkAutoComplete
+                  <PgkSelectField
                     name={"corporateHQAddressState"}
                     onChange={props?.onChange}
                     value={props?.profileData?.corporateHQAddressState?.value ? props?.profileData?.corporateHQAddressState?.value : ''}
@@ -93,7 +93,7 @@ const AddressAndContactForm = (props) => {
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-4 pr-1" style={{margin:0, padding:0}}>
                 <div className="mb-20">
-                  <PgkAutoComplete
+                  <PgkSelectField
                       name={"corporateHQAddressCity"}
                       onChange={props?.onChange}
                       value={props?.profileData?.corporateHQAddressCity?.value ? props?.profileData?.corporateHQAddressCity?.value : ''}
@@ -246,7 +246,7 @@ const AddressAndContactForm = (props) => {
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-6 pr-1" style={{margin:0, padding:0}}>
                 <div className="mb-20">
-                  <PgkAutoComplete
+                  <PgkSelectField
                     name={"corporateLocalBranchAddressCountry"}
                     onChange={props?.onChange}
                     value={props?.profileData?.corporateLocalBranchAddressCountry?.value ? props?.profileData?.corporateLocalBranchAddressCountry?.value : ''}
@@ -260,7 +260,7 @@ const AddressAndContactForm = (props) => {
               </div>
               <div className="col-md-6 pl-1" style={{margin:0, padding:0}}>
                 <div className="mb-20">
-                  <PgkAutoComplete
+                  <PgkSelectField
                     name={"corporateLocalBranchAddressState"}
                     onChange={props?.onChange}
                     value={props?.profileData?.corporateLocalBranchAddressState?.value ? props?.profileData?.corporateLocalBranchAddressState?.value : ''}
@@ -276,7 +276,7 @@ const AddressAndContactForm = (props) => {
             <div className="row" style={{margin:0, padding:0}}>
               <div className="col-md-4 pr-1" style={{margin:0, padding:0}}>
                 <div className="mb-20">
-                  <PgkAutoComplete
+                  <PgkSelectField
                       name={"corporateLocalBranchAddressCity"}
                       onChange={props?.onChange}
                       value={

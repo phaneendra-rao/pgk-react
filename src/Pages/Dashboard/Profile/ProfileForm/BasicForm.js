@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PgkTextField from "../../../../Components/FormFields/PgkTextField";
-import PgkAutoComplete from "../../../../Components/FormFields/PgkAutoComplete";
+import PgkSelectField from "../../../../Components/FormFields/PgkSelectField";
 import { actionGetDependencyLookUpsSagaAction } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
 
 const BasicForm = (props) => {
@@ -165,7 +165,7 @@ const BasicForm = (props) => {
                   ></label>
                 </div>
               )}
-              <PgkAutoComplete
+              <PgkSelectField
                 name={"corporateType"}
                 onChange={props?.onChange}
                 disabled
@@ -199,10 +199,10 @@ const BasicForm = (props) => {
                   ></label>
                 </div>
               )}
-              <PgkAutoComplete
+              <PgkSelectField
                 name={"corporateCategory"}
                 onChange={props?.onChange}
-                disabled={props?.disable !== undefined ? props?.disable : false}
+                disabled
                 value={props?.profileData?.corporateCategory?.value ? props?.profileData?.corporateCategory?.value : ''}
                 required={props?.profileData?.corporateCategory?.isRequired}
                 options={corporateCategories}
@@ -234,7 +234,7 @@ const BasicForm = (props) => {
                   ></label>
                 </div>
               )}
-              <PgkAutoComplete
+              <PgkSelectField
                 name={"corporateIndustry"}
                 onChange={props?.onChange}
                 disabled={props?.disable !== undefined ? props?.disable : false}
@@ -281,7 +281,7 @@ const BasicForm = (props) => {
                   props?.profileData?.yearOfEstablishment?.errorMessage
                 }
                 label={"Year of Establishment"}
-                disabled={props?.disable !== undefined ? props?.disable : false}
+                disabled
                 validations={["isNumeric", "minLength_4", "maxLength_4"]}
                 required={props?.profileData?.yearOfEstablishment?.isRequired}
               />

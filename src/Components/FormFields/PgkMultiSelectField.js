@@ -2,13 +2,45 @@ import React, {useState, useEffect} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import Chip from '@material-ui/core/Chip';
 
-function PgkAutoComplete(props) {
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+      maxWidth: 300,
+      whiteSpace: 'nowrap', 
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    },
+    chips: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    chip: {
+      margin: 2,
+      minWidth: 120,
+      maxWidth: 200,
+      whiteSpace: 'nowrap', 
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    },
+    noLabel: {
+      marginTop: theme.spacing(3),
+    },
+  }));
+
+function PgkMultiSelectField(props) {
+    const classes = useStyles();
+
     // const [option, setOption] = useState({});
 
     // useEffect(()=>{
@@ -25,7 +57,7 @@ function PgkAutoComplete(props) {
         variant='outlined',
         size='small',
         name='',
-        value='',
+        values=[],
         onChange=()=>{},
         disabled=false,
         className='',
@@ -33,46 +65,76 @@ function PgkAutoComplete(props) {
         errorMessage='',
         styles={width:'100%'},
         validations=[],
-        options=[]
+        options=[],
+        labelStyles={},
+        selectStyles={},
+        menuStyles={}
     } = props
 
     const onSelect = (event) => {
+
+        const _values = event.target.value;
+
+        let updatedValues = [];
+
+        options.forEach(item => {
+            if(_values.includes(item.value)) {
+                updatedValues.push({
+                    branchID: item.value,
+                    branchName: item.label,
+                    programID: item.programID,
+                    programName: item.programName,
+                });
+            }
+        })
+
         let newValidations = [];
         if(required) {
             newValidations = ['isRequired', ...validations]
         }
 
-        const errorString = fieldValidations(event?.target?.value, newValidations);
-        onChange(name, event?.target?.value, errorString);
+        const errorString = fieldValidations(updatedValues, newValidations);
+        onChange(name, updatedValues, errorString);
+    }
+
+    const getLabel = (value) => {
+        if(values?.length) {
+            const item = values.find((item)=>item.branchID===value);
+            return item.branchName;
+        } else {
+            return ''
+        }
     }
 
     return (
         <FormControl size={size} variant="outlined" style={styles} disabled={disabled} required={required} error={errorMessage!==undefined && errorMessage?.trim()!=='' ? true : false}>
-            <InputLabel>{label}</InputLabel>
+            <InputLabel style={labelStyles}>{label}</InputLabel>
             <Select
-                value={value}
+                value={values?.length ? values.map((item)=>{
+                    return item.branchID
+                }) : []}
                 onChange={onSelect}
                 label={label}
                 autoWidth
+                multiple
+                style={selectStyles}
+                renderValue={(selected) => {
+                    return (
+                        <div className={classes.chips}>
+                          {selected?.map((value) => (
+                            <Chip key={value} label={getLabel(value)} className={classes.chip} />
+                          ))}
+                        </div>
+                      )
+                }}
             >
-                <MenuItem value={''}>{`Select ${label}`}</MenuItem>
+                <MenuItem style={menuStyles} value={''}>{`Select ${label}`}</MenuItem>
                 {options?.length ? options.map((option)=>{
-                    return <MenuItem value={option?.value}>{option?.label}</MenuItem>
+                    return <MenuItem style={menuStyles} value={option?.value}>{option?.label}</MenuItem>
                 }) : null}
             </Select>
             <FormHelperText error={errorMessage!==undefined && errorMessage?.trim()!=='' ? true : false}>{errorMessage!==undefined && errorMessage?.trim()!=='' ? errorMessage : ''}</FormHelperText>
         </FormControl>
-        // <Autocomplete
-        //     options={options}
-        //     getOptionLabel={(_option) => _option?.label!==undefined ? _option?.label : ''}
-        //     style={styles}
-        //     renderInput={(params) => <TextField {...params} required={required} error={errorMessage!==undefined && errorMessage?.trim()!=='' ? true : false} helperText={errorMessage!==undefined && errorMessage?.trim()!=='' ? errorMessage : ''} label={label} variant={variant} />}
-        //     size={size}
-        //     disabled={disabled}
-        //     onChange={onSelect}
-        //     value={option}
-        //     autoComplete={'off'}
-        // />
     );
 }
 
@@ -91,8 +153,6 @@ const fieldValidations = (value, validations) => {
                     error = validationsListItem(value)
                 }
 
-                console.log('error ', error);
-
                 if (error !== undefined) {
                     flag = false
                 }
@@ -105,11 +165,17 @@ const fieldValidations = (value, validations) => {
 
 function validateIsRequired(value) {
     let error;
-    if (value==null || value == undefined || value.toString().trim() === '') {
+    if (value==null || value == undefined || value.length === 0) {
         error = 'Required';
+    }
+
+    if(value?.length) {
+        if(value.every(item=>item===null || item === undefined || item?.toString()?.trim()==='')) {
+            error = 'required'
+        }
     }
 
     return error;
 }
 
-export default PgkAutoComplete;
+export default PgkMultiSelectField;

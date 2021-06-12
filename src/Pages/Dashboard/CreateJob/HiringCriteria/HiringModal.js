@@ -1,4 +1,5 @@
 import React from "react";
+import PgkTextField from '../../../../Components/FormFields/PgkTextField';
 
 const HiringModal = ({ detailsModal, modelData }) => {
   const getValueByType = (val, type) => {
@@ -32,6 +33,13 @@ const HiringModal = ({ detailsModal, modelData }) => {
       <div className="row">
         <div className="col-md p-1">
           <div className="modal-grp">
+            {/* <PgkTextField 
+              value={
+                modelData?.hiringCriteriaName
+                  ? modelData?.hiringCriteriaName
+                  : ""
+              }            
+            /> */}
             <input
               type="text"
               name=""

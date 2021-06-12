@@ -12,7 +12,6 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const onReceiveStats = (data) => {
-    console.log('data ', data);
     setProfileStats(data);
   }
 
@@ -60,7 +59,7 @@ const Dashboard = () => {
                                 <p>Jobs Published</p>
                             </div>
                             <p className="quick-widget-value">34</p>
-                            <p className="quick-widget-label">8 Published in the recent month</p>
+                            <p className="quick-widget-label">{profileStats?.jobsPublished} Published in the recent month</p>
                         </div>
                         <div className="d-flex flex-column justify-content-between align-items-center quick-widget">
                             <div className="d-flex flex-row justify-content-center align-items-center quick-widget-2">
@@ -68,7 +67,7 @@ const Dashboard = () => {
                                 <p>Applications Received</p>
                             </div>
                             <p className="quick-widget-value">{profileStats?.applicationsReceived!==undefined ? profileStats?.applicationsReceived : '-'}</p>
-                            <p className="quick-widget-label">8 Received in the last 2 days</p>
+                            <p className="quick-widget-label">{profileStats?.applicationsReceivedInTwoDays} Received in the last 2 days</p>
                         </div>
                         <div className="d-flex flex-column justify-content-between align-items-center quick-widget">
                             <div className="d-flex flex-row justify-content-center align-items-center quick-widget-3">
@@ -76,7 +75,7 @@ const Dashboard = () => {
                                 <p>Job Offers Made</p>
                             </div>
                             <p className="quick-widget-value">{profileStats?.jobOffersMade!==undefined ? profileStats?.jobOffersMade : '-'}</p>
-                            <p className="quick-widget-label">10 Made in the recent month</p>
+                            <p className="quick-widget-label">{profileStats?.jobOffersMadeInLastMonth} Made in the recent month</p>
                         </div>
                     </div>
                     <div className="row">

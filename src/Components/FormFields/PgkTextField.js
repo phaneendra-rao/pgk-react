@@ -20,7 +20,8 @@ function PgkTextField(props) {
         errorMessage='',
         styles={width:'100%'},
         inputProps={},
-        validations=[]
+        validations=[],
+        inputLabelProps={}
     } = props
 
     const inputHandler = (event) => {
@@ -70,6 +71,7 @@ function PgkTextField(props) {
             helperText={errorMessage}
             style={styles}
             inputProps={inputProps}
+            InputLabelProps={inputLabelProps}
             autoComplete={'off'}
         />
     );
@@ -188,12 +190,19 @@ function minOrMaxValue(value, minOrMax, minOrMaxVal) {
 
     if (value !== undefined && minOrMax === 'min' && value < minOrMaxVal) {
         minOrMaxVal = parseFloat(minOrMaxVal).toFixed(2);
-        error = 'MinimumValue' + minOrMaxVal.toString().split('').reduce((prevValue, currentValue) => {
+        if(minOrMaxVal.endsWith('.00')) {
+            minOrMaxVal = minOrMaxVal.slice(0, minOrMaxVal.length - 3)
+        }
+        error = 'Minimum Value ' + minOrMaxVal.toString().split('').reduce((prevValue, currentValue) => {
             return prevValue + '' + (currentValue == '.' ? '.' : currentValue);
         }, '');
     } else if (value !== undefined && minOrMax === 'max' && value > minOrMaxVal) {
         minOrMaxVal = parseFloat(minOrMaxVal).toFixed(2);
-        error = 'MaximumValue' + minOrMaxVal.toString().split('').reduce((prevValue, currentValue) => {
+        minOrMaxVal = parseFloat(minOrMaxVal).toFixed(2);
+        if(minOrMaxVal.endsWith('.00')) {
+            minOrMaxVal = minOrMaxVal.slice(0, minOrMaxVal.length - 3)
+        }
+        error = 'Maximum Value ' + minOrMaxVal.toString().split('').reduce((prevValue, currentValue) => {
             return prevValue + '' + (currentValue == '.' ? '.' : currentValue);
         }, '');
     }

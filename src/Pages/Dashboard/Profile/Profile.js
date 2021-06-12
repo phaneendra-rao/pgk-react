@@ -358,19 +358,10 @@ const Profile = () => {
     event.preventDefault();
     const { name } = event.target;
 
-    if (event.target.files) {
-      let data = profile[name];
-      data['value'] = event.target.files[0]
-      setProfile((prevProfile) => ({
-        ...prevProfile,
-        ...data
-      }));
-    }
-
-    console.log('name ', name);
-    console.log('value ', event.target.files[0]);
-
+  if (event.target.files) {
+    let errorMessage = undefined;
     const val = event.target.files.length;
+
     for (let i = 0; i < val; i++) {
       let reader = new FileReader();
       reader.onload = function (ev) {
@@ -385,6 +376,21 @@ const Profile = () => {
       };
 
       reader.readAsDataURL(event.target.files[i]);
+    }
+
+    console.log('parseFloat((event.target.files[0].size / 1024).toFixed(2)) ', parseFloat((event.target.files[0].size / 1024).toFixed(2)));
+
+    if(parseFloat((event.target.files[0].size / 1024).toFixed(2)) > 5000) {
+      errorMessage = 'Please select file below 5 MB';
+    }
+
+    let data = profile[name];
+    data['value'] = event.target.files[0]
+    data['errorMessage'] = errorMessage
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        ...data
+      }));
     }
   };
 
@@ -439,8 +445,6 @@ const Profile = () => {
   const saveProfile = () => {
     const profileKeys = profile ? Object.keys(profile) : [];
 
-    console.log('profile ', profile);
-
     let updatedProfile = {};
 
     profileKeys?.forEach((item)=>{
@@ -454,9 +458,6 @@ const Profile = () => {
       dateOfJoining: moment(updatedProfile.dateOfJoining),
     };
 
-    console.log('updatedProfile 1 ', updatedProfile);
-
-
     if (updatedProfile?.attachment === undefined) {
       delete updatedProfile.attachment;
     }
@@ -464,8 +465,6 @@ const Profile = () => {
     if (updatedProfile?.profilePicture === undefined) {
       delete updatedProfile.profilePicture;
     }
-
-    console.log('updatedProfile 2 ', updatedProfile);
 
     dispatch(
       actionPatchCorporateProfileSagaAction({

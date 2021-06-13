@@ -75,7 +75,7 @@ export const SignupAction = (model, history, type) => {
                 let resp = res.data;
                 localStorage.removeItem('imgpath');
                 localStorage.setItem('regStatus', JSON.stringify(resp));
-                localStorage.setItem('steps', 3);
+                sessionStorage.setItem('steps', 3);
                 dispatch({ type: actionTypes.STEPS, payload: 3 });
                 dispatch(APIStatus(false));
                 toast.success(resp.message);
@@ -107,7 +107,7 @@ export const StudentSignupAction = (model, history, type) => {
                 let resp = res.data;
                 localStorage.removeItem('imgpath');
                 localStorage.setItem('regStatus', JSON.stringify(resp));
-                localStorage.setItem('steps', 3);
+                sessionStorage.setItem('steps', 3);
                 dispatch({ type: actionTypes.STEPS, payload: 3 });
                 dispatch(APIStatus(false));
                 toast.success(resp.message);
@@ -242,7 +242,7 @@ export const GetCategoryListAction = (type) => {
 
 export const SaveCoprorateData = (data, step) => {
     return (dispatch) => {
-        localStorage.setItem('steps', step);
+        sessionStorage.setItem('steps', step);
         dispatch({ type: actionTypes.CORPORATE, payload: data });
         dispatch({ type: actionTypes.STEPS, payload: step });
     }

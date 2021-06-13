@@ -6,7 +6,10 @@ const RegistrationCompleted = (props) => {
 
     useEffect(() => {
         let data = JSON.parse(localStorage.getItem('regStatus'));
-        setData(data.platformUID);
+        if (data) {
+            setData(data.platformUID);
+        }
+        props.history.replace('/')
     }, [])
 
     return (

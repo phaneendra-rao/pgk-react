@@ -19,9 +19,9 @@ const LoginForm = (props) => {
   useEffect(() => {
     localStorage.removeItem("amount");
     localStorage.removeItem("regStatus");
-    localStorage.removeItem("steps");
     localStorage.removeItem("token");
     localStorage.removeItem("orderID");
+    sessionStorage.removeItem("steps");
   }, []);
 
   // useEffect(() => {

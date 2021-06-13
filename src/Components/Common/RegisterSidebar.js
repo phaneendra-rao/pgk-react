@@ -9,11 +9,11 @@ const RegisterSidebar = () => {
     const steps = useSelector(state => state.CorporateReducer.steps);
 
     useEffect(() => {
-        const step = localStorage.getItem('steps') || steps;
+        const step = sessionStorage.getItem('steps') || steps;
         setStepUpdate(parseInt(step))
         // console.log(steps, stepUpdate, (stepUpdate >= 1 ? '' : 'completed'));
         return () => {
-            localStorage.removeItem('steps');
+            sessionStorage.removeItem('steps');
         }
     }, [steps]);
 

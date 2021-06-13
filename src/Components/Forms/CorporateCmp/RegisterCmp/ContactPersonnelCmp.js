@@ -3,11 +3,6 @@ import PgkTextField from '../../../FormFields/PgkTextField';
 import RegisterHeader from './RegisterHeader';
 
 const ContactPersonnelCmp = (props) => {
-    const updatePhone = (value) => {
-        if (value.length !== 10) {
-            return 'Invalid phone number'
-        }
-    }
 
     const isMatch = (value) => {
         if (props?.contactPersonnel?.password !== value) {
@@ -17,6 +12,7 @@ const ContactPersonnelCmp = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit} className="login-form reg-form">
+            {props.showError ? <div className="alert alert-danger" role="alert">Please check all inputs</div> : null}
             <RegisterHeader title="Primary Contact" />
             <div className="row justify-content-center">
                 <div className="col-md-11">
@@ -80,7 +76,8 @@ const ContactPersonnelCmp = (props) => {
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.primaryContactPhone}
                                     required={true}
-                                    validations={[(value) => updatePhone(value)]}
+                                    // validations={[(value) => updatePhone(value)]}
+                                    validations={['minLength_10', 'maxLength_10']}
                                 />
                             </div>
                         </div>
@@ -163,7 +160,8 @@ const ContactPersonnelCmp = (props) => {
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.secondaryContactPhone}
                                     required={false}
-                                    validations={[(value) => updatePhone(value)]}
+                                    // validations={[(value) => updatePhone(value)]}
+                                    validations={['minLength_10', 'maxLength_10']}
                                 />
                             </div>
                         </div>
@@ -221,7 +219,7 @@ const ContactPersonnelCmp = (props) => {
 
             <div className="d-flex justify-content-between mt-4">
                 <button type="button" className="reg-btn" onClick={() => { props.history.push('/register/CorporateSecondary') }}>Previous</button>
-                <button type="submit" className="reg-btn">Next</button>
+                <button type="submit" className="reg-btn" disabled={props.isBtnDisabled}>Next</button>
             </div>
         </form>
     )

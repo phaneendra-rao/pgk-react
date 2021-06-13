@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import CorporateSecondaryCmp from '../../../../Components/Forms/CorporateCmp/RegisterCmp/CorporateSecondaryCmp';
 import { GetCategoryListAction, GetCountryCodeAction, SaveCoprorateData } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import { actionGetCitiesByStateNameRequest, actionGetCountryCodesSagaAction, actionGetStatesByCountryNameRequest } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+import { checkObjectProperties } from '../../../../utils/utils';
 
 const CorporateSecondary = (props) => {
     // const initialState = {
@@ -47,6 +49,13 @@ const CorporateSecondary = (props) => {
     const [path, setPath] = useState('');
     const [code, setCode] = useState('');
     const [code2, setCode2] = useState('');
+    const [countries, setCountries] = useState([]);
+    const [stateList, setStateList] = useState([]);
+    const [citylist, setCitylist] = useState([]);
+    // const [countriesLocal, setCountriesLocal] = useState([]);
+    const [stateListLocal, setStateListLocal] = useState([]);
+    const [citylistLocal, setCitylistLocal] = useState([]);
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
     // const [corporateSecondary, setCorporateSecondary] = useState(initialState);
     // const [errors, setErrors] = useState({ profileErr: '' });
@@ -60,10 +69,12 @@ const CorporateSecondary = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(GetCountryCodeAction());
-        // dispatch(GetCategoryListAction(selectedName));
-        // if (selectedName === 'Corporate') {
-        // }
+        // dispatch(GetCountryCodeAction());
+        dispatch(
+            actionGetCountryCodesSagaAction({
+                callback: onCountryCodesResponse,
+            })
+        );
         console.log("secondary------", storeData);
         const localStorageObj = JSON.parse(sessionStorage.getItem('secondary'));
         const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 9 ? true : false;
@@ -82,6 +93,21 @@ const CorporateSecondary = (props) => {
 
     }, []);
 
+    useEffect(() => {
+        const isErrorsObjEmpty = checkObjectProperties(errors);
+        setIsBtnDisabled(isErrorsObjEmpty);
+    }, [errors]);
+
+
+    const onCountryCodesResponse = (response) => {
+        if (response?.length) {
+            const updatedCountryOptions = response.map((item) => {
+                return { value: item?.name, label: item?.name, callingCodes: item?.callingCodes };
+            });
+            setCountries(updatedCountryOptions);
+        }
+    };
+
     const handleChange = (name, value, errorMessage) => {
         setCorporateSecondary(preState => ({
             ...preState,
@@ -91,6 +117,16 @@ const CorporateSecondary = (props) => {
             ...preState,
             [name]: errorMessage
         }));
+        if (name === 'corporateHQAddressCountry') {
+            getStatesByCountryName(value, 'HQ');
+        } else if (name === 'corporateLocalBranchAddressCountry') {
+            getStatesByCountryName(value, 'LOCAL');
+        }
+        if (name === 'corporateHQAddressState') {
+            getCitiesByStateName(value, 'HQ');
+        } else if (name === 'corporateLocalBranchAddressState') {
+            getCitiesByStateName(value, 'LOCAL');
+        }
         // if (name === 'corporateHQAddressCountry') {
         //     const countryCode = countryCodes?.find(item => item.name === corporateSecondary.corporateHQAddressCountry)
         //     setCode('+' + countryCode?.callingCodes[0])
@@ -100,9 +136,74 @@ const CorporateSecondary = (props) => {
         // }
     }
 
+    const getStatesByCountryName = (countryName, type) => {
+        dispatch(
+            actionGetStatesByCountryNameRequest({
+                countryName: countryName,
+                callback: (response) => {
+                    let statesList = response && response.length >= 0
+                        ? response?.map((item, i) => ({ value: item?.state_name, label: item?.state_name })) : (null);
+                    if (type === 'HQ') {
+                        setStateList(statesList);
+                    } else {
+                        setStateListLocal(statesList)
+                    }
+                },
+            })
+        );
+    }
+
+    const getCitiesByStateName = (stateName, type) => {
+        dispatch(
+            actionGetCitiesByStateNameRequest({
+                stateName: stateName,
+                callback: (response) => {
+                    let citiesList = response && response.length >= 0
+                        ? response?.map((item, i) => ({ value: item?.city_name, label: item?.city_name })) : (null);
+                    if (type === 'HQ') {
+                        setCitylist(citiesList);
+                    } else {
+                        setCitylistLocal(citiesList)
+                    }
+                },
+            })
+        );
+    }
+
+    // const onStatesResponse = (response, type) => {
+    //     let updatedStatesOptions = [];
+
+    //     if (response?.length) {
+    //         updatedStatesOptions = response.map((item) => {
+    //             return { value: item?.state_name, label: item?.state_name };
+    //         });
+    //     }
+
+    //     if (type === 'HQ') {
+    //         setHqStates(updatedStatesOptions);
+    //         if (!initHqAddress.states) {
+    //             setInitHqAddress((prevState) => ({
+    //                 ...prevState,
+    //                 states: true
+    //             }))
+    //         }
+    //     } else {
+    //         setLocalStates(updatedStatesOptions);
+    //         if (!initLocalAddress.states) {
+    //             setInitLocalAddress((prevState) => ({
+    //                 ...prevState,
+    //                 states: true
+    //             }))
+    //         }
+    //     }
+    // }
+
     const saveData = (event) => {
         const isCheked = event.target.checked;
         if (isCheked) {
+            setCode2(code);
+            setStateListLocal(stateList);
+            setCitylistLocal(citylist);
             setCorporateSecondary(preState => ({
                 ...preState,
                 corporateLocalBranchAddressLine1: corporateSecondary.corporateHQAddressLine1,
@@ -115,8 +216,10 @@ const CorporateSecondary = (props) => {
                 corporateLocalBranchAddressPhone: corporateSecondary.corporateHQAddressPhone,
                 corporateLocalBranchAddressEmail: corporateSecondary.corporateHQAddressEmail
             }));
-            setCode2(code);
         } else {
+            setCode2('');
+            setStateListLocal([]);
+            setCitylistLocal([]);
             setCorporateSecondary(preState => ({
                 ...preState,
                 corporateLocalBranchAddressLine1: '',
@@ -129,7 +232,6 @@ const CorporateSecondary = (props) => {
                 corporateLocalBranchAddressPhone: '',
                 corporateLocalBranchAddressEmail: ''
             }));
-            setCode2('')
         }
     }
 
@@ -161,14 +263,14 @@ const CorporateSecondary = (props) => {
             corporateHQAddressCity, corporateHQAddressDistrict, corporateHQAddressZipCode, corporateHQAddressPhone,
             corporateHQAddressEmail, companyProfile, corporateLocalBranchAddressPhone
         } = corporateSecondary;
-        const countryCode = countryCodes?.find(item => item.name === corporateSecondary.corporateHQAddressCountry);
-        const countryCode2 = countryCodes?.find(item => item.name === corporateSecondary.corporateLocalBranchAddressCountry);
-        corporateSecondary['countryCode'] = '+' + countryCode?.callingCodes[0];
-        corporateSecondary['countryCode2'] = corporateHQAddressCountry ? '+' + countryCode2?.callingCodes[0] : '';
         if (selectedName === 'Corporate') {
             if (corporateHQAddressLine1 && corporateHQAddressLine2 && corporateHQAddressCountry && corporateHQAddressState
                 && corporateHQAddressCity && corporateHQAddressDistrict && corporateHQAddressZipCode && corporateHQAddressPhone
                 && corporateHQAddressEmail && companyProfile) {
+                const countryCode = countries?.find(item => item?.value === corporateSecondary?.corporateHQAddressCountry);
+                const countryCode2 = countries?.find(item => item?.value === corporateSecondary?.corporateLocalBranchAddressCountry);
+                corporateSecondary['countryCode'] = '+' + countryCode?.callingCodes[0];
+                corporateSecondary['countryCode2'] = corporateHQAddressCountry ? '+' + countryCode2?.callingCodes[0] : '';
                 sessionStorage.setItem('secondary', JSON.stringify(corporateSecondary));
                 dispatch(SaveCoprorateData(corporateSecondary, 2));
                 props.history.push('/register/contactPersonnel');
@@ -196,8 +298,14 @@ const CorporateSecondary = (props) => {
             path={"data:image/png;base64," + path}
             corporateSecondary={corporateSecondary}
             errors={errors}
+            isBtnDisabled={isBtnDisabled}
             attachment={corporateSecondary.attachment2}
-            countryCodes={countryCodes}
+            countryCodes={countries}
+            stateList={stateList}
+            citylist={citylist}
+            // countryCodesLocal={countriesLocal}
+            stateListLocal={stateListLocal}
+            citylistLocal={citylistLocal}
             saveData={saveData}
             handleChangeImg={handleChangeImg}
             handleChange={handleChange}

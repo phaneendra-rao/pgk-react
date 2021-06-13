@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import CorporatePrimaryCmp from '../../../../Components/Forms/CorporateCmp/RegisterCmp/CorporatePrimaryCmp';
 import { GetCountryCodeAction, SaveCoprorateData } from '../../../../Store/Actions/CorporateActions/CorporateAction';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+import { checkObjectProperties } from '../../../../utils/utils';
 
 const Register = (props) => {
     // =========***Main Object***=========
@@ -26,6 +27,7 @@ const Register = (props) => {
     const [path, setPath] = useState('');
     const [lookUpData, setLookUpData] = useState([]);
     const [imageObj, setImageObj] = useState({});
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
     const dispatch = useDispatch();
     const storeData = useSelector(state => state.CorporateReducer.corporatePrimaryState);
@@ -43,16 +45,20 @@ const Register = (props) => {
             Object.keys(data).map(keyName => {
                 for (const key in initialState) {
                     if (keyName === key) {
-                        // if (key === 'attachment') {
-                        //     convertImgBase64(data[key])
-                        // }
                         storeObj[key] = data[key];
                     }
                 }
             });
             setCorporatePrimaryData(storeObj);
+            // const image1 = JSON.parse(sessionStorage.getItem('image1'));
+            // convertImgToBase64(image1)
         }
     }, []);
+
+    useEffect(() => {
+        const isErrorsObjEmpty = checkObjectProperties(errors);
+        setIsBtnDisabled(isErrorsObjEmpty);
+    }, [errors]);
 
     const dropdowns = (data) => {
         setLookUpData(data);
@@ -79,6 +85,7 @@ const Register = (props) => {
                 obj[key] = imageObj[key]
             }
             setImageObj(obj);
+            sessionStorage.setItem('image1', JSON.stringify(obj))
             // if (event.target.files[0].type === "application/pdf")
             setCorporatePrimaryData(preState => ({
                 ...preState,
@@ -89,17 +96,27 @@ const Register = (props) => {
                 let reader = new FileReader();
                 reader.onload = function (ev) {
                     setPath(ev.target.result.split(',')[1]);
+                    console.log(ev.target.result.split(','));
                 }.bind(this);
                 reader.readAsDataURL(event.target.files[i]);
             }
         }
     }
 
-
+    // const convertImgToBase64 = (image1) => {
+    //     const file = image1?.name?.split('.').slice(0, -1).join('.')
+    //     const convertToFile = new File([file], image1?.name, { type: image1?.type, lastModified: image1?.lastModified });
+    //     console.log(convertToFile);
+    //     let reader = new FileReader();
+    //     reader.onload = function (ev) {
+    //         setPath(ev.target.result.split(','));
+    //         console.log(ev.target.result.split(','));
+    //     }.bind(this);
+    //     reader.readAsDataURL(convertToFile);
+    // }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // const { emailErr, mobileErr } = errors;
         const { corporateName, CIN, corporateType, corporateCategory, corporateIndustry,
             attachment, yearOfEstablishment } = corporatePrimaryData;
         if (corporateName && CIN && corporateType && corporateCategory && corporateIndustry
@@ -119,6 +136,7 @@ const Register = (props) => {
             errors={errors}
             path={"data:image/png;base64," + path}
             lookUpData={lookUpData}
+            isBtnDisabled={isBtnDisabled}
             handleChange={handleChange}
             handleChangeImg={handleChangeImg}
             handleSubmit={handleSubmit}

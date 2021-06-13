@@ -7,16 +7,16 @@ import RegisterHeader from './RegisterHeader';
 const CorporateSecondaryCmp = (props) => {
     const type = localStorage.getItem('type');
     const countryCodes = props.countryCodes && props.countryCodes.length >= 0
-        ? props.countryCodes?.map((item, i) => ({ value: item.name, label: item.name })) : (null);
-    const stateList = [
-        { value: 'AP', label: 'AP' },
-        { value: 'TS', label: 'TS' }
-    ]
+        ? props.countryCodes?.map((item, i) => ({ value: item.value, label: item.label })) : (null);
+    // const stateList = props.stateList && props.stateList.length >= 0
+    //     ? props.stateList?.map((item, i) => ({ value: item.state_name, label: item.state_name })) : (null);
+    // const cityList = props.citylist && props.citylist.length >= 0
+    //     ? props.citylist?.map((item, i) => ({ value: item.city_name, label: item.city_name })) : (null);
 
     const updatePhone = (value) => {
-        if (value.length !== 10) {
-            return 'Invalid phone number'
-        }
+        // if (value.length !== 10) {
+        //     return 'Invalid phone number'
+        // }
     }
 
     const history = useHistory();
@@ -68,7 +68,7 @@ const CorporateSecondaryCmp = (props) => {
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateHQAddressState}
                                     label={'State'}
-                                    options={stateList}
+                                    options={props.stateList}
                                     errorMessage={props?.errors?.corporateHQAddressState}
                                     required={true}
                                 />
@@ -79,11 +79,21 @@ const CorporateSecondaryCmp = (props) => {
                     <div className="row">
                         <div className="col-md">
                             <div className="mb-15">
-                                <PgkTextField
+                                {/* <PgkTextField
                                     name="corporateHQAddressCity"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateHQAddressCity}
                                     label={'City'}
+                                    errorMessage={props?.errors?.corporateHQAddressCity}
+                                    required={true}
+                                /> */}
+
+                                <PgkSelectField
+                                    name="corporateHQAddressCity"
+                                    onChange={props?.handleChange}
+                                    value={props?.corporateSecondary?.corporateHQAddressCity}
+                                    label={'City'}
+                                    options={props.citylist}
                                     errorMessage={props?.errors?.corporateHQAddressCity}
                                     required={true}
                                 />
@@ -111,6 +121,7 @@ const CorporateSecondaryCmp = (props) => {
                                     label={'Zipcode'}
                                     errorMessage={props?.errors?.corporateHQAddressZipCode}
                                     required={true}
+                                    validations={['minLength_6', 'maxLength_6']}
                                 />
                             </div>
                         </div>
@@ -127,7 +138,8 @@ const CorporateSecondaryCmp = (props) => {
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.corporateHQAddressPhone}
                                     required={true}
-                                    validations={[(value) => updatePhone(value)]}
+                                    // validations={[(value) => updatePhone(value)]}
+                                    validations={['minLength_10', 'maxLength_10']}
                                 />
                             </div>
                         </div>
@@ -200,7 +212,7 @@ const CorporateSecondaryCmp = (props) => {
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressState}
                                     label={'State'}
-                                    options={stateList}
+                                    options={props.stateListLocal}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressState}
                                     required={true}
                                 />
@@ -211,11 +223,12 @@ const CorporateSecondaryCmp = (props) => {
                     <div className="row">
                         <div className="col-md">
                             <div className="mb-15">
-                                <PgkTextField
+                                <PgkSelectField
                                     name="corporateLocalBranchAddressCity"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressCity}
                                     label={'City'}
+                                    options={props.citylistLocal}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressCity}
                                     required={true}
                                 />
@@ -243,6 +256,7 @@ const CorporateSecondaryCmp = (props) => {
                                     label={'Zipcode'}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressZipCode}
                                     required={true}
+                                    validations={['minLength_6', 'maxLength_6']}
                                 />
                             </div>
                         </div>
@@ -259,7 +273,8 @@ const CorporateSecondaryCmp = (props) => {
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressPhone}
                                     required={true}
-                                    validations={[(value) => updatePhone(value)]}
+                                    // validations={[(value) => updatePhone(value)]}
+                                    validations={['minLength_10', 'maxLength_10']}
                                 />
                             </div>
                         </div>
@@ -298,29 +313,29 @@ const CorporateSecondaryCmp = (props) => {
                 </div>
                 <div className="col-md-12">
                     <div className="reg-attach">
-                        {props?.corporateSecondary?.attachment ? <span><i className="fas fa-check-circle"></i></span> : <span style={{fontSize: 14, top: 10, color: 'grey'}}>Attachment for profile</span>}
+                        {props?.corporateSecondary?.attachment ? <span><i className="fas fa-check-circle"></i></span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile</span>}
                         <input
                             type="file"
                             onChange={props.handleChangeImg}
-                            accept="image/*"
+                            accept="application/pdf"
                             className="reg-inp"
                             name="attachment"
                             id="attachment"
                             required={false} />
                         <label htmlFor="attachment" className="reg-label">Attach</label>
                     </div>
-                    {props.path
+                    {/* {props.path
                         ? <div className="text-center">
                             <img src={props.path} alt="please select image" className="img-thumbnail mb-3 w-50" />
                         </div>
                         : (null)
-                    }
+                    } */}
                 </div>
             </div>
 
             <div className="d-flex justify-content-between mt-4">
                 <button type="button" className="reg-btn" onClick={() => history.push('/register')}>Previous</button>
-                <button type="submit" className="reg-btn">Next</button>
+                <button type="submit" className="reg-btn" disabled={props.isBtnDisabled}>Next</button>
             </div>
         </form>
     )

@@ -154,7 +154,7 @@ const CorporatePrimaryCmp = (props) => {
 
             <div className="d-flex justify-content-between mt-4">
                 <button type="button" className="reg-btn" onClick={() => history.push('/')}>Go to login</button>
-                <button type="submit" className="reg-btn">Next</button>
+                <button type="submit" className="reg-btn" disabled={props.isBtnDisabled}>Next</button>
             </div>
         </form>
     )

@@ -9,7 +9,7 @@ const RegistrationCompleted = (props) => {
         if (data) {
             setData(data.platformUID);
         }
-        props.history.replace('/')
+        // props.history.replace('/')
     }, [])
 
     return (

@@ -3,12 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import AuthenticationCmp from '../../../../Components/Forms/CorporateCmp/RegisterCmp/AuthenticationCmp';
 import { VerifyOtpAction, ResendOtpAction } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import { checkObjectProperties } from '../../../../utils/utils';
 
 const Authentication = (props) => {
 
-    const [otp, setOtp] = useState('');
-    const [emailOtp, setEmailOtp] = useState('');
-    const [errors, setErrors] = useState({ otpErr: '', otp2Err: '' });
+    const initial = {
+        phoneOtp: '',
+        emailOtp: '',
+    }
+
+    const errorsObj = initial
+
+    // const [phoneOtp, setOtp] = useState('');
+    // const [emailOtp, setEmailOtp] = useState('');
+    const [otp, setOtp] = useState(initial)
+    const [errors, setErrors] = useState(errorsObj);
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -23,116 +33,51 @@ const Authentication = (props) => {
     //     // }
     // }, [apiStatus])
 
-    const handlerChange = (event) => {
-        const { name, value } = event.target;
-        switch (name) {
-            case 'otp':
-                const num = /^[0-9\b]+$/;
-                setOtp(value);
-                // setEmailOtp('');
-                if (num.test(value)) {
-                    // if (val.match(phoneno)) {
-                    if (value.length === 6) {
-                        setErrors(preState => ({
-                            ...preState,
-                            otpErr: ''
-                        }));
-                    } else {
-                        setErrors(preState => ({
-                            ...preState,
-                            otpErr: 'Invalid'
-                        }));
-                    }
-                } else {
-                    setErrors(preState => ({
-                        ...preState,
-                        otpErr: 'Invalid'
-                    }));
-                }
-                return;
-            case 'emailOtp':
-                const num2 = /^[0-9\b]+$/;
-                // setOtp('');
-                setEmailOtp(value);
-                if (num2.test(value)) {
-                    // if (val.match(phoneno)) {
-                    if (value.length === 6) {
-                        setErrors(preState => ({
-                            ...preState,
-                            otp2Err: ''
-                        }));
-                    } else {
-                        setErrors(preState => ({
-                            ...preState,
-                            otp2Err: 'Invalid'
-                        }));
-                    }
-                } else {
-                    setErrors(preState => ({
-                        ...preState,
-                        otp2Err: 'Invalid'
-                    }));
-                }
-                return;
+    useEffect(() => {
+        const isErrorsObjEmpty = checkObjectProperties(errors);
+        setIsBtnDisabled(isErrorsObjEmpty);
+    }, [errors]);
 
-            default:
-                break;
-        }
+    const handleChange = (name, value, errorMessage) => {
+        setOtp(preState => ({
+            ...preState,
+            [name]: value
+        }));
+        setErrors(preState => ({
+            ...preState,
+            [name]: errorMessage
+        }));
     }
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const { otpErr, otp2Err } = errors;
+        const { phoneOtp, emailOtp } = otp;
         let data = JSON.parse(localStorage.getItem('regStatus'));
-        if (otp && emailOtp) {
+        if (phoneOtp && emailOtp) {
             if (!otpErr && !otp2Err) {
-                const mobileModel = {
+                const model = {
                     stakeholder: data?.stakeholder,
                     platformUID: data?.platformUID,
                     email: data?.email,
                     phone: data?.phoneNumber,
-                    phoneOtp: otp,
+                    phoneOtp: phoneOtp,
                     emailOtp: emailOtp,
                 }
-                dispatch(VerifyOtpAction(mobileModel, props.history));
+                dispatch(VerifyOtpAction(model, props.history));
                 // props.history.push('/register/CorporateSecondary');
             } else {
                 toast.error("Please enter Mobile & Email OTP")
             }
-            // if (!otpErr) {
-            //     const mobileModel = {
-            //         stakeholder: data.stakeholder,
-            //         platformUID: data.platformUID,
-            //         otp: otp,
-            //         phone: data.phoneNumber,
-            //     }
-            //     dispatch(VerifyOtpAction(mobileModel, 1, props.history));
-            //     // props.history.push('/register/CorporateSecondary');
-            // } else {
-            //     toast.error("Please enter Mobile OTP")
-            // }
         }
-        //  else {
-        //     if (!otp2Err) {
-        //         const emailModel = {
-        //             stakeholder: data.stakeholder,
-        //             platformUID: data.platformUID,
-        //             otp: emailOtp,
-        //             email: data.email,
-        //         }
-        //         dispatch(VerifyOtpAction(emailModel, 2, props.history));
-        //     } else {
-        //         toast.error("Please enter Email OTP")
-        //     }
-        // }
     }
 
     const resend = (val) => {
         let data = JSON.parse(localStorage.getItem('regStatus'));
         const model = {
-            stakeholder: data.stakeholder,
-            platformUID: data.platformUID,
+            stakeholder: data?.stakeholder,
+            platformUID: data?.platformUID,
             otpType: val,
         }
         dispatch(ResendOtpAction(model));
@@ -142,10 +87,10 @@ const Authentication = (props) => {
         <AuthenticationCmp
             history={props.history}
             errors={errors}
-            emailOtp={emailOtp}
             otp={otp}
+            isBtnDisabled={isBtnDisabled}
             resend={resend}
-            handlerChange={handlerChange}
+            handleChange={handleChange}
             handleSubmit={handleSubmit}
         />
     )

@@ -8,8 +8,7 @@ const SubscribeSearch = (props) => {
     const [hcID, setHcID] = useState('');
     const [skills, setSkills] = useState('');
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
+    const onChange = (name, value, errorMessage=undefined) => {
         switch (name) {
             case 'universityName':
                 setUniversityName(value);
@@ -64,9 +63,11 @@ const SubscribeSearch = (props) => {
             <SubscribeSearchCmp
                 hcID={hcID}
                 hcEnable={hcEnable}
+                universityName={universityName}
+                locations={locations}
                 lookUpData={props.lookUpData}
                 hiringCriteria={props.hiringCriteria}
-                handleChange={handleChange}
+                onChange={onChange}
                 handleSubmit={handleSubmit}
             />
         </>

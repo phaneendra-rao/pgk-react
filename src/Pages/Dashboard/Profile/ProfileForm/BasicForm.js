@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import PgkTextField from "../../../../Components/FormFields/PgkTextField";
 import PgkSelectField from "../../../../Components/FormFields/PgkSelectField";
 import { actionGetDependencyLookUpsSagaAction } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
+import Checkbox from '@material-ui/core/Checkbox';
 
 const BasicForm = (props) => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const BasicForm = (props) => {
             if (item?.corporateTypeCode) {
               return {
                 value: item.corporateTypeCode,
-                label: item.corporateTypeCode,
+                label: item.corporateTypeName,
               };
             }
           })
@@ -29,7 +30,7 @@ const BasicForm = (props) => {
         ? response.corporateCategory.map((item) => {
             if (item?.categoryName) {
               return {
-                value: item.categoryName,
+                value: item.categoryCode,
                 label: item.categoryName,
               };
             }
@@ -42,7 +43,7 @@ const BasicForm = (props) => {
         ? response.corporateIndustry.map((item) => {
             if (item?.industryName) {
               return {
-                value: item.industryName,
+                value: item.industryCode,
                 label: item.industryName,
               };
             }
@@ -63,22 +64,6 @@ const BasicForm = (props) => {
       })
     );
   }, []);
-
-  // const date = new Date();
-  // const currentYear = date.getFullYear();
-
-  // const yearOfEstablishment = (value) => {
-  //   const years = [
-  //     currentYear - 2,
-  //     currentYear - 1,
-  //     currentYear,
-  //     currentYear + 1,
-  //     currentYear + 2,
-  //   ];
-  //   if (!years.includes(parseInt(value))) {
-  //     return "Invalid Year of Establishment";
-  //   }
-  // };
 
   return (
     <div className="profile-box">
@@ -104,28 +89,14 @@ const BasicForm = (props) => {
             </div>
           </div>
           <div className="col-md">
-            {props?.check && (
-              <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="CIN"
-                  id="check-CIN"
-                  className="custom-control-input"
-                  onChange={(e) => {
-                    props?.handleCheckData(
-                      e.target.name,
-                      !props?.checkData?.CIN
-                    );
-                  }}
-                  checked={props?.checkData?.CIN ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-CIN"}
-                ></label>
-              </div>
-            )}
-            <div className="mb-20">
+            <div className="mb-20 d-flex">
+              {props?.check && (
+                <Checkbox size={'small'} color={'primary'} name={'CIN'} checked={props?.checkData?.CIN ? true : false} onChange={(e)=>{
+                  props?.handleCheckData(
+                    e.target.name,
+                    !props?.checkData?.CIN
+                  );
+              }} />)}
               <PgkTextField
                 name="CIN"
                 value={
@@ -143,28 +114,14 @@ const BasicForm = (props) => {
           </div>
           <div className="w-100"></div>
           <div className="col-md">
-            <div className="mb-20">
+            <div className="mb-20 d-flex">
               {props?.check && (
-                <div className="custom-control custom-checkbox publish-inp">
-                  <input
-                    type="checkbox"
-                    name="corporateType"
-                    id="check-corporateType"
-                    className="custom-control-input"
-                    onChange={(e) => {
-                      props?.handleCheckData(
-                        e.target.name,
-                        !props?.checkData?.corporateType
-                      );
-                    }}
-                    checked={props?.checkData?.corporateType ? true : false}
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor={"check-corporateType"}
-                  ></label>
-                </div>
-              )}
+                <Checkbox size={'small'} color={'primary'} name={'corporateType'} checked={props?.checkData?.corporateType ? true : false} onChange={(e)=>{
+                  props?.handleCheckData(
+                    e.target.name,
+                    !props?.checkData?.corporateType
+                  );
+              }} />)}
               <PgkSelectField
                 name={"corporateType"}
                 onChange={props?.onChange}
@@ -177,28 +134,14 @@ const BasicForm = (props) => {
             </div>
           </div>
           <div className="col-md">
-            <div className="mb-20">
+            <div className="mb-20 d-flex">
               {props?.check && (
-                <div className="custom-control custom-checkbox publish-inp">
-                  <input
-                    type="checkbox"
-                    name="corporateCategory"
-                    id="check-corporateCategory"
-                    className="custom-control-input"
-                    onChange={(e) => {
-                      props?.handleCheckData(
-                        e.target.name,
-                        !props?.checkData?.corporateCategory
-                      );
-                    }}
-                    checked={props?.checkData?.corporateCategory ? true : false}
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor={"check-corporateCategory"}
-                  ></label>
-                </div>
-              )}
+                <Checkbox size={'small'} color={'primary'} name={'corporateCategory'} checked={props?.checkData?.corporateCategory ? true : false} onChange={(e)=>{
+                  props?.handleCheckData(
+                    e.target.name,
+                    !props?.checkData?.corporateCategory
+                  );
+              }} />)}
               <PgkSelectField
                 name={"corporateCategory"}
                 onChange={props?.onChange}
@@ -212,28 +155,14 @@ const BasicForm = (props) => {
           </div>
           <div className="w-100"></div>
           <div className="col-md">
-            <div className="mb-20">
+            <div className="mb-20 d-flex">
               {props?.check && (
-                <div className="custom-control custom-checkbox publish-inp">
-                  <input
-                    type="checkbox"
-                    name="corporateIndustry"
-                    id="check-corporateIndustry"
-                    className="custom-control-input"
-                    onChange={(e) => {
-                      props?.handleCheckData(
-                        e.target.name,
-                        !props?.checkData?.corporateIndustry
-                      );
-                    }}
-                    checked={props?.checkData?.corporateIndustry ? true : false}
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor={"check-corporateIndustry"}
-                  ></label>
-                </div>
-              )}
+                <Checkbox size={'small'} color={'primary'} name={'corporateIndustry'} checked={props?.checkData?.corporateIndustry ? true : false} onChange={(e)=>{
+                  props?.handleCheckData(
+                    e.target.name,
+                    !props?.checkData?.corporateIndustry
+                  );
+              }} />)}
               <PgkSelectField
                 name={"corporateIndustry"}
                 onChange={props?.onChange}
@@ -246,28 +175,14 @@ const BasicForm = (props) => {
             </div>
           </div>
           <div className="col-md">
-            <div className="mb-20">
+            <div className="mb-20 d-flex">
               {props?.check && (
-                <div className="custom-control custom-checkbox publish-inp">
-                  <input
-                    type="checkbox"
-                    name="dateOfJoining"
-                    id="check-dateOfJoining"
-                    className="custom-control-input"
-                    onChange={(e) => {
-                      props?.handleCheckData(
-                        e.target.name,
-                        !props?.checkData?.dateOfJoining
-                      );
-                    }}
-                    checked={props?.checkData?.dateOfJoining ? true : false}
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor={"check-dateOfJoining"}
-                  ></label>
-                </div>
-              )}
+                <Checkbox size={'small'} color={'primary'} name={'yearOfEstablishment'} checked={props?.checkData?.yearOfEstablishment ? true : false} onChange={(e)=>{
+                  props?.handleCheckData(
+                    e.target.name,
+                    !props?.checkData?.yearOfEstablishment
+                  );
+              }} />)}
               <PgkTextField
                 type={"number"}
                 name="yearOfEstablishment"

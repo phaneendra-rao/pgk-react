@@ -15,15 +15,15 @@ const JobsCmp = (props) => {
                                     <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
                                         <i className="fas fa-cube" />
                                     </div>
-                                    <p className="job-label text-ellipsis" style={{marginLeft: '14px', minWidth: '120px', maxWidth: '120px', textTransform:'capitalize'}}>{item.jobName}</p>
+                                    <p className="job-label text-ellipsis" style={{marginLeft: '14px', maxWidth: '120px', textTransform:'capitalize'}}>{item.jobName}</p>
                                 </div>
                                 <div className="col-md-2">
-                                    <div style={{border: '1px solid #454545', borderRadius: '4px', padding: '8px 4px', maxWidth: '180px', minWidth: '180px'}}>
+                                    <div style={{border: '1px solid #454545', borderRadius: '4px', padding: '8px 4px',}}>
                                         <p className="text-ellipsis" style={{marginLeft: '10px', textTransform:'capitalize', fontSize: '.800rem'}}>{item.hiringCriteriaName}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-1">
-                                    <div style={{border: '1px solid #454545', borderRadius: '4px', padding: '8px 4px', minWidth: '120px', marginLeft: '20px'}}>
+                                    <div style={{border: '1px solid #454545', borderRadius: '4px', padding: '8px 4px', minWidth: '120px'}}>
                                         <p style={{marginLeft: '10px', textTransform:'capitalize', fontSize: '.800rem'}}>{item.status}</p>
                                     </div>
                                 </div>
@@ -53,14 +53,14 @@ const JobsCmp = (props) => {
                                             textTransform: "uppercase",
                                             fontWeight: 'bolder'
                                         }}
-                                        onClick={() => props.detailsModal(item.jobID)}
+                                        onClick={() => props.viewDetails(item.jobID)}
                                     >
                                         <p>Details</p>
                                         <i className="fas fa-chevron-right"></i>
                                     </button>
                                 </div>
                     </div>): apiStatus ? 'Loading...' : 'No jobs created, Please add to continue.'}
-                <button type="button" onClick={props.handleClick} className="btn add-job-btn" style={{height: '20px'}}> Add New Job</button>
+                <button type="button" onClick={props.openCloseJobModal} className="btn add-job-btn" style={{height: '20px'}}> Add New Job</button>
             </div>
         </div>
 

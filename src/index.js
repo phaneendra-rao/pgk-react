@@ -34,7 +34,7 @@ sagaMiddleware.run(webportalAppRootSaga);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router history={history}>
+      <Router history={history}  basename="/corporate">
         <App />
       </Router>
     </Provider>

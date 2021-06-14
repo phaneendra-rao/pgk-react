@@ -29,6 +29,7 @@ const Register = (props) => {
     const [imageObj, setImageObj] = useState({});
     const [filename, setFilename] = useState('')
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+    const [showError, setShowError] = useState(false)
 
     const dispatch = useDispatch();
     const storeData = useSelector(state => state.CorporateReducer.corporatePrimaryState);
@@ -62,7 +63,12 @@ const Register = (props) => {
     useEffect(() => {
         const isErrorsObjEmpty = checkObjectProperties(errors);
         setIsBtnDisabled(isErrorsObjEmpty);
-    }, [errors]);
+        if (showError) {
+            setTimeout(() => {
+                setShowError(false)
+            }, 2000);
+        }
+    }, [errors, showError]);
 
     const dropdowns = (data) => {
         setLookUpData(data);
@@ -138,10 +144,11 @@ const Register = (props) => {
             && attachment && yearOfEstablishment) {
             sessionStorage.setItem('image1', JSON.stringify(imageObj))
             sessionStorage.setItem('primary', JSON.stringify(corporatePrimaryData))
+            setShowError(false)
             dispatch(SaveCoprorateData(corporatePrimaryData, 1));
             props.history.push('/register/CorporateSecondary');
         } else {
-            toast.error("Please enter all input fields")
+            setShowError(true)
         }
     }
 
@@ -154,6 +161,7 @@ const Register = (props) => {
             filename={filename}
             lookUpData={lookUpData}
             isBtnDisabled={isBtnDisabled}
+            showError={showError}
             handleChange={handleChange}
             handleChangeImg={handleChangeImg}
             handleSubmit={handleSubmit}

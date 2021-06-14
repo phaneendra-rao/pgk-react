@@ -1,0 +1,2009 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    background-color: #ECEFF8;
+    /* font-family: Poppins-Regular; */
+}
+
+body .main-body {
+    display: flex;
+    justify-content: flex-start;
+}
+.css-2b097c-container{
+    z-index: 120;
+}
+.w-full {
+    width: 100%;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+}
+
+.bg-primary {
+    background-color: #253AA3;
+}
+
+.form-control:focus{
+    outline:0px !important; 
+    box-shadow: none !important;
+ }
+
+ .btn-primary {
+    background-color: #253AA3;
+    border-radius: 8px;
+}
+
+.btn-secondary:focus, .btn-primary:focus, .btn-secondary:active, .btn-primary:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn-primary:hover {
+    background-color: #253AA3 !important;
+    color: white !important;
+}
+
+.btn-secondary:hover {
+    background-color: white !important;
+    color: #253AA3 !important;
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    border-radius: 8px;
+    color: #253AA3;
+    border-radius: 0px;
+    font-size: .800rem;
+}
+
+p {
+    margin: 0px;
+}
+   
+.bg-grey {
+    background-color: #878BA6;
+}
+
+
+/* Side bar and navigation ---- Start */
+body .main-body .sidebar {
+    display: block;
+    min-width: 240px;
+    max-width: 240px;
+    background-color: #253AA3;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+    overflow-y: scroll;
+    z-index: 1000 !important;
+}
+
+body .main-body .sidebar .logo-section {
+    width: 100%;
+    height: 180px;
+    background-color: #253AA3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body .main-body .sidebar .logo-section .logoHead {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: white;    
+}
+
+body .main-body .sidebar .logo-section .logo {
+    height: auto;
+    width: 98px;
+    padding: 5px;
+    margin-top: 33px;
+}
+
+body .main-body .sidebar .logo-section .label {
+    background-color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    color: #253AA3;
+    font-size: .900rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: -10px;
+}
+/* 
+body .main-body .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+body .main-body .sidebar nav .nav-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 30px;
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+body .main-body .sidebar nav .active {
+    background-color: rgba(255, 255, 255, 0.26);
+    border-left: 10px solid white;
+    padding-left: 20px;
+} */
+
+body .main-body .sidebar .logout {
+    background-color: white;
+    height: 45px;
+    border-radius: 22px;
+    color: #253AA3;
+    margin: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body .main-body .sidebar nav .logout .label {
+    margin: 0px;
+    padding: 3px 0px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+body .main-body .sidebar nav .nav-item .nav-item-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1
+}
+
+body .main-body .sidebar nav .nav-item .nav-item-container .nav-item-label {
+    margin:0px;
+}
+
+body .main-body .sidebar nav .nav-item .nav-item-container .nav-item-icon {
+    margin-right: 16px;
+}
+
+body .main-body .sidebar nav .nav-item-collapsable-parent {
+    margin-bottom: 0px;
+}
+
+body .main-body .sidebar nav .nav-item-collapsable-child {
+    padding-left: 60px;
+    font-size: .800rem;
+    margin-bottom: 0px;
+}
+
+body .main-body .sidebar nav .child-active {
+    background-color: rgba(255, 255, 255, 0.26);
+    border-left: 10px solid white;
+    padding-left: 50px;
+}
+
+body .main-body .sidebar nav .nav-item-collapsable-child .nav-item-container .nav-item-icon{
+    margin-right: 10px;
+}
+
+/* Sidebar and navigation ---- End */
+
+/* Main container and top bar ---- Start */
+
+body .main-body .main-container {
+    margin-left: 240px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex: 1;
+}
+
+body .main-body .main-container .topbar {
+    height: 100px;
+    width: calc(100% - 240px);
+    background-color: white;
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    z-index: 999 !important;
+}
+
+body .main-body .main-container .topbar .date {
+    margin: 0px 10px;
+    text-align: center;
+    padding: 0px 0px 0px 20px;
+    font-size: .900rem;
+}
+
+body .main-body .main-container .topbar .search {
+    flex:1;
+    max-width: 440px;
+    border: 2px solid #9499B71F;
+    border-radius: 12px;
+    padding: 3px;
+    margin: 0px 10px;
+    background-color: #ECEFF8;
+}
+
+body .main-body .main-container .topbar .search .form-control {
+    border: none;
+    background-color: transparent;
+    font-weight: 400;
+    margin: 0px 10px;
+}
+
+body .main-body .main-container .topbar .search .input-group-append .input-group-text {
+    background-color: transparent;
+    border:none;
+    font-weight: 200;
+}
+
+.points-btn:focus, .points-btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.points-btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0px 10px;
+}
+
+.hamburger {
+    display:none;
+}
+
+.points-btn .btn-label {
+    font-size: .800rem;
+    padding: 0px 10px;
+}
+
+.points-btn .points {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.dropdown-menu-right {
+    padding:0px;
+}
+
+.points-container {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.points-container .credits-container {
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    padding-top: 40px;
+    background-color: #253AA3;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 100%;
+}
+
+.points-container .credits-container .label-head {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.points-container .credits-container .label-body {
+    font-size: 2.4rem;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.points-container .credits-container .credits-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+}
+
+.credits-table {
+    margin-top: 20px;
+}
+
+.credits-table tbody .t-row {
+    height: 45px;
+    border: 1px solid white;
+}
+
+.credits-table tbody .t-row .t-label {
+    color: white;
+    text-align: right;
+    padding: 10px;
+    font-size: .900rem;
+}
+
+.credits-table tbody .t-row .t-value {
+    background-color: white;
+    color: #253AA3;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.points-container .add-credits-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #253AA3;
+    width: 100%;
+    font-size: .900rem;
+    padding: 10px 30px;
+}
+
+.points-container .add-credits-container .label {
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+
+body .main-body .main-container .topbar .profile-avatar-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+body .main-body .main-container .topbar .profile-avatar-container .profile-name {
+    margin: 0px;
+    padding-right: 10px;
+    font-size: .900rem;
+}
+
+body .main-body .main-container .topbar .profile-avatar-container .profile-avatar {
+    height: 40px;
+    width: 40px;
+    background-color: #253AA3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.4rem;
+}
+
+
+/* Main container and top bar ---- End */
+
+/* Main dashboard page ---- Start */
+
+body .main-body .page-body {
+    margin-top: 100px;
+    flex:1;
+}
+
+body .main-body .page-body .row {
+    margin: 12px;
+}
+
+/* Welcome widget ---- Start */
+body .main-body .page-body .welcome-widget {
+    border: 1px solid #253AA34D;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.welcome-widget .date-of-joining-widget {
+    background-color: #253AA3;
+    height: 80px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.welcome-widget .date-of-joining-widget .sub-label {
+    color: white;
+    font-size: .700rem;
+    text-align: center;
+}
+
+.welcome-widget .date-of-joining-widget .label {
+    color: white;
+    font-size: .900rem;
+    text-align: center;
+}
+
+.welcome-avatar {
+    padding: 4px;
+    border-radius: 50%;
+    background-color: #253AA3;
+}
+
+.welcome-avatar .welcome-avatar-logo {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.welcome-content {
+    margin-left: 30px;
+}
+
+.welcome-content .title {
+    color: #2A3050;
+    font-size: 1.1rem;
+    letter-spacing: 0.06px;
+}
+
+.welcome-content .sub-title {
+    color: #878BA6;
+    font-size: .800rem;
+    letter-spacing: 0.06px;
+}
+
+.welcome-content .content {
+    color: #2A3050;
+    font-size: .900rem;
+    letter-spacing: 0.06px;
+    margin-top: 10px;
+}
+
+/* Welcome widget ---- End */
+
+/* Quick widgets --- Start */
+
+.quick-widget {
+    border: 1px solid #253AA34D;
+    background-color: white;
+    border-radius: 5px;
+    padding-bottom: 10px;
+    width: 32%;
+    font-size: .900rem;
+}
+
+.quick-widget-1 {
+    background-color: #FEAD43;
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.quick-widget-2 {
+    background-color: #5473E8;
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.quick-widget-3 {
+    background-color: #20BDC9;
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.quick-widget-1 p, .quick-widget-2 p, .quick-widget-3 p {
+    padding: 10px 15px;
+}
+
+.quick-widget .quick-widget-value {
+    font-size: 2.5rem;
+}
+
+.quick-widget .quick-widget-label {
+    font-size: .800rem;
+}
+
+/* Quick widgets ---- End */
+
+/* Feature widget ---- Start */
+
+.feature-widget {
+    width: 100%;
+    border: 1px solid #253AA34D;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.feature-widget-header {
+    width: 100%;
+    background-color: #253AA3;
+    padding: 14px 14px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.feature-widget-header .label {
+    color: white;
+    font-size: 1rem;
+    flex: 1;
+}
+
+.feature-widget .table .table-header {
+    color: #8b8b8b;
+    font-weight: bold;
+    font-size: .800rem;
+}
+
+.feature-widget .table .table-header tr {
+    background-color: rgb(226, 226, 226);
+    padding: 8px;
+}
+
+.feature-widget .table .table-header tr td {
+    text-align: center;
+}
+
+.feature-widget .table .table-body tr td {
+    text-align: center;
+    border-bottom: 1px solid #d3d3d3;
+    font-size: .800rem;
+    vertical-align: middle;
+}
+
+.feature-widget .table .table-body tr td .table-btn {
+    background-color: #253AA3;
+    padding: 6px 10px;
+    width: 100%;
+    font-size: .800rem;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.feature-widget .table .table-body tr td:first-child {
+    text-align: left;
+    padding-left: 40px;
+}
+
+.feature-widget .table .table-body tr:last-child td {
+    border-bottom: none;
+    padding-bottom: 0px;
+}
+
+/* Feature widget ---- End */
+
+/* Account info widget ---- Start */
+
+.account-info-widget {
+    background-color: #253AA3;
+    padding: 46px 22px;
+    border-radius: 6px;
+}
+
+.account-info-widget .avatar-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: white;
+    font-size: 1.5rem;
+    font-weight: 200;
+    color: #253AA3;
+}
+.account-info-widget .account-info-content {
+    flex: 1;
+}
+.account-info-widget .label {
+    color: white;
+    font-size: .800rem;
+    margin-left: 15px;
+}
+
+.account-info-widget .label span {
+    font-weight: bold;
+}
+
+/* Account info widget ---- End */
+
+/* Notifications widget ---- Start */
+
+.notifications-widget {
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #253AA34D;
+    padding-bottom: 10px;
+}
+
+.notifications-widget .header {
+    color: white;
+    background-color: #253AA3;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 12px 22px;
+    font-size: 1rem;
+}
+
+.notifications-widget .header .label {
+    margin-left: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.notification-list .notification-list-item {
+    padding: 12.5px 8px; 
+    width: 100%;
+    border-bottom: 1px solid #253AA34D;
+}
+
+.notification-btn {
+    width: 100%;
+    background-color: #253AA3;
+    color: white;
+    font-size: .900rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.notification-list .notification-list-item .notification-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #253AA3;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.notification-list .notification-list-item:last-of-type {
+    border-bottom: none;
+}
+
+.notification-list .notification-list-item .notification-content {
+    margin-left: 8px;
+}
+
+.notification-list .notification-list-item .notification-content .sub-title {
+    font-size: .700rem;
+    flex: 1;
+}
+
+.notification-list .notification-list-item .notification-content .title-with-badge {
+    width: 100%;
+}
+
+.notification-list .notification-list-item .notification-content .title-with-badge .icon-badge {
+    background-color: #C2C4D1;
+    font-size: .500rem;
+    color: white;
+    padding: 1px 2px;
+    margin-left: 5px;
+    border-radius: 10px;
+}
+
+.notification-list .notification-list-item .notification-content .title-with-badge .icon-badge i {
+    margin-right: 5px;
+}
+
+.notification-list .notification-list-item .notification-content .title-with-badge .title {
+    font-size: .760rem;
+}
+
+/* Notifications widget ---- End */
+
+/* University widget ---- Start */
+
+.univ-widget {
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #253AA34D;
+    padding-bottom: 10px;
+}
+
+.univ-widget .univ-header {
+    color: white;
+    background-color: #253AA3;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 12px 12px;
+    font-size: 1rem;
+}
+
+.univ-widget .univ-header .label {
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+}
+
+.univ-table {
+    padding: 0px 5px; 
+}
+.table-universities-header tr td {
+    text-align: left;
+    font-size: .700rem;
+    color: #878BA6;
+}
+
+.table-universities-body tr td {
+    text-align: left;
+    border-bottom: 1px solid #d3d3d3;
+    padding: 12px;
+    font-size: .700rem;
+}
+
+.table-universities-body tr:last-child td {
+    border-bottom: none;
+}
+
+.univ-btn {
+    width: 100%;
+    background-color: #253AA3;
+    color: white;
+    font-size: .900rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* University widget ---- End */
+
+/* Stat widget stripe ---- Start */
+
+.stat-widget {
+    background-color: #253AA3;
+    min-height: 80px;
+    border-right: 1px solid white;
+    flex: 1;
+} 
+
+.stat-widget:last-of-type {
+    border-right: none;
+}
+
+.stat-widget .statNo {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.stat-widget .stat-content {
+    margin-left: 20px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.stat-widget .stat-content .title {
+    font-size: 1rem;
+}
+
+.stat-widget .stat-content .sub-title {
+    font-size: .800rem;
+}
+
+.stat-widget .stat-content .sub-title-1 {
+    font-size: 1.2rem;
+}
+
+/* Stat widget stripe ---- End */
+
+/* Stat info widget stripe ---- Start */
+
+.stat-info-widget {
+    width: 32%;
+    padding: 24px;
+}
+
+.stat-info-widget:first-of-type {
+    background: transparent linear-gradient(91deg, #F68B10 0%, #F44E7F 100%) 0% 0% no-repeat padding-box;
+}
+
+.stat-info-widget:nth-of-type(2) {
+    background: transparent linear-gradient(91deg, #8310F6 0%, #12B8D3 100%) 0% 0% no-repeat padding-box;
+}
+
+.stat-info-widget:nth-of-type(3) {
+    background: transparent linear-gradient(91deg, #F610E1 0%, #7B0BEB 100%) 0% 0% no-repeat padding-box;
+}
+
+.stat-info-widget .stat-info-content {
+    text-transform: uppercase;
+    color: white;
+}
+
+.stat-info-widget .stat-info-content .title {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.stat-info-widget .stat-info-content .sub-title {
+    font-weight: 200;
+    font-size: .800rem;
+}
+
+.stat-info-widget .stat-info-content .stat-info-no {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+/* Stat info widget stripe ---- End */
+
+.purchase-modal-header {
+    border: none;
+}
+
+.purchase-modal-header .modal-title {
+    text-align: center;
+}
+
+.purchase-modal .modal-footer-full-btn {
+    background-color: #253AA3;
+    color: white;
+    font-size: 1rem;
+    padding: 15px 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.purchase-modal .purchase-modal-header {
+    padding:10px;
+}
+
+.purchase-modal .purchase-modal-body {
+    padding:0px 20px;
+}
+
+.purchase-modal .purchase-modal-body .label {
+    text-align: center;
+    color: #cacaca;
+    font-size: .900rem;
+}
+
+.purchase-modal .purchase-modal-body .credits-input {
+    width: 60%;
+    margin: 20px;
+    font-size: 1.5rem;
+}
+
+/* JOBS STYLING START */
+.published-jobs-section {
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.published-jobs-section .heading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #2A3050;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.published-jobs-section .add-job-btn {
+    background-color: #253AA3;
+    color: white;
+    margin-top: 20px;
+    padding: 14px 60px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: .900rem;
+}
+
+.jobs-list-item {
+    background-color: white;
+    border: 1px solid #253AA34D;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.jobs-list-item .item {
+    flex: 1;
+    padding: 12px;
+}
+
+.jobs-list-item .job-icon {
+    border-radius: 6px;
+    color: white;
+    padding: 12px;
+    font-size: 1.4rem;
+}
+
+.job-blue-icon {
+    background-color: #5473E8;
+}
+
+.job-orange-icon {
+    background-color: #FEAD43;
+}
+
+.jobs-list-item .item .job-label {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-left: 20px;
+}
+
+.jobs-list-item .item .job-published-date {
+    flex: 1;
+    font-size: .800rem;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.jobs-list-item .item .job-dropdown {
+    flex: 1;
+    border: 1px solid #253AA34D;
+    background-color: white;
+    font-size: .900rem;
+    margin: 0px 10px;
+}
+
+.vertical-divider {
+    width: 1px;
+    background-color: #F5F6FA;
+    min-height: 60px;
+    max-height: 60px;
+}
+.jobs-list-item .job-list-item-details-container {
+    padding: 12px;
+}
+.jobs-list-item .job-list-item-details-container .job-details-btn {
+    border-radius: 6px;
+    padding: 6px 30px;
+    margin: 10px;
+    background-color: #253AA3;
+    min-width: 180px;
+}
+
+.jobs-list-item .job-list-item-details-container .job-details-btn p {
+    color: white;
+    font-size: .800rem;
+    text-transform: uppercase;
+}
+
+.jobs-list-item .job-list-item-details-container .job-details-btn i {
+    color: white;
+    font-size: .800rem;
+}
+
+.jobs-saved-section .heading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #2A3050;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 14px;
+    background-color: #aeb1c5e7;
+}
+
+.jobs-saved-section-list .no-list-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #8e91a5e7;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin: 12px;
+}
+
+.job-details-modal .job-details-modal-header{
+    background-color: #253AA3;
+}
+
+.job-details-modal .job-details-modal-header .heading {
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+}
+
+.job-details-modal .job-details-modal-header button {
+    color: white;
+}
+
+.job-details-modal .job-details-modal-body {
+    padding:20px;
+}
+
+.job-details-modal .job-details-modal-body .header {
+    background-color: #253AA3;
+    padding: 20px;
+    border-radius: 0px;
+}
+
+.job-details-modal .job-details-modal-body .header .form-control {
+    margin: 0px 10px;
+    font-size: .900rem;
+}
+
+.job-details-modal .job-details-modal-body .job-details-table .job-details-table-header tr {
+    background-color: rgb(226, 226, 226);
+}
+
+.job-details-modal .job-details-modal-body .job-details-table .job-details-table-header tr td {
+    font-size: .900rem;
+    font-weight: 400;
+}
+
+.job-details-modal .job-details-modal-body .job-details-table tbody tr td {
+    font-size: .900rem;
+}
+
+/* Add new jobs section */
+.page-body .add-new-jobs-section {
+    margin: 0px !important;
+}
+.add-new-jobs-section .heading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #2A3050;
+    font-weight: 500;
+    padding: 10px 20px;
+}
+
+.add-new-jobs-section .job-details-form {
+    background-color: rgba(135, 139, 166, 0.31);
+    padding: 10px 14px;
+}
+
+.add-new-jobs-section .job-details-form .form-control {
+    max-width: 30%;
+    height: 50px;
+}
+
+.add-new-jobs-section .add-new-jobs-section-list {
+    padding: 12px;
+    background-color: white;
+}
+
+
+.add-new-jobs-section .add-new-jobs-section-list .add-new-jobs-section-item .form-control {
+    flex: 1;
+    margin: 0px 4px;
+}
+
+.add-new-jobs-section .add-new-jobs-section-list .add-new-jobs-section-item .sno {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 10px;
+    padding: 4px;
+}
+
+.add-new-jobs-section .add-new-jobs-section-list .add-new-jobs-section-item .round-btn {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #253AA3;
+    color:white;
+    font-size: 1rem;
+    margin: 0px 5px 0px 10px;
+}
+
+.add-new-jobs-section .job-btn {
+    width: 24%;
+    background-color: #253AA3;
+    color:white;
+    font-size: .900rem;
+    text-align: center;
+    padding: 15px 18px;
+    margin: 0px 5px;
+    border-radius: 6px;
+}
+
+.job-publish-modal .job-publish-modal-header{
+    background-color: #253AA3;
+}
+
+.job-publish-modal .job-publish-modal-header .heading {
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+}
+
+.job-publish-modal .job-publish-modal-header button {
+    color: white;
+}
+
+.job-publish-modal .job-publish-modal-body {
+    padding:20px;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .header {
+    background-color: #253AA3;
+    padding: 15px 20px;
+    border-radius: 0px;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .header .label {
+    color: white;
+    font-size: .900rem;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .header i {
+    color: white;
+    padding: 0px 10px;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .body-section {
+    flex: 1;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .body-section .job-btn {
+    width: 24%;
+    background-color: #253AA3;
+    color:white;
+    font-size: .900rem;
+    text-align: center;
+    padding: 15px 18px;
+    margin: 0px 5px;
+    border-radius: 6px;   
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .job-checkbox {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+}
+
+.job-publish-modal .job-publish-modal-body .job-publish-table tbody tr td .table-item-checkbox {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .header .form-control {
+    margin: 0px 10px;
+    font-size: .900rem;
+    max-width: 180px;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .header .job-label {
+    font-size: .900rem;
+    color: white;
+}
+
+.job-publish-modal .job-publish-modal-body .heading-section .header .job-heading-btn {
+    font-size: .900rem;
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+.job-publish-modal .job-publish-modal-body .job-publish-table .job-publish-table-header tr {
+    background-color: rgb(226, 226, 226);
+}
+
+.job-publish-modal .job-publish-modal-body .job-publish-table .job-publish-table-header tr td {
+    font-size: .900rem;
+    font-weight: 400;
+}
+
+.job-publish-modal .job-publish-modal-body .job-publish-table tbody tr td {
+    font-size: .900rem;
+}
+
+.publish-selected-btn-container {
+    margin-bottom: 20px;
+}
+.publish-job-checkbox {
+    height: 20px;
+    width: 20px;
+    margin-right: 20px;
+}
+.publish-selected-btn {
+    width: 18%;
+    background-color: #253AA3;
+    color:white;
+    font-size: .900rem;
+    text-align: center;
+    padding: 10px 15px;
+    margin: 0px 5px;
+    border-radius: 6px;   
+}
+/*jobs section ---- End */
+
+/* Universities section ---- Start */
+.universities-section .heading {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.universities-filter-section {
+    padding: 24px 30px;
+    background-color: #253AA3;
+    margin-top: 12px;
+    border-radius: 6px;
+}
+.universities-filter-section .filter-input-container {
+    flex: 1;
+}
+
+.universities-filter-section .filter-input-container .search-univ {
+    font-size: .800rem;
+    margin-bottom: 12px;
+}
+
+.universities-filter-section .filter-input-container .drop-down-inputs-container .select-filter {
+    font-size: .800rem;
+    margin: 0px 6px;
+}
+
+.universities-filter-section .filter-input-container .drop-down-inputs-container .select-filter:first-child {
+    margin-left: 0px;
+}
+
+.universities-filter-section .filter-input-container .drop-down-inputs-container .select-filter:last-child {
+    margin-right: 0px;
+}
+
+.universities-filter-section .filter-input-container .drop-down-inputs-container .dividerWord {
+    margin: 0px 6px;
+    font-size: .750rem;
+    color: white;
+}
+
+.universities-filter-section .filter-search-btn-container .univ-search-btn {
+    border-radius: 4px;
+    padding: 10px 50px;
+    background-color: #20BDC9;
+    color: white;
+    font-size: .800rem;
+    margin: 0px 0px 0px 40px;
+}
+.universities-filter-section .filter-search-btn-container .univ-search-btn p {
+    margin-right: 20px;
+}
+
+.universities-list-container .heading {
+    font-size: 1.2rem;
+    color:rgb(124, 124, 124);
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.universities-list-container .filter-chips-list .filter-chip {
+    font-size: .500rem;
+    background-color: #5473E8;
+    border-radius: 6px;
+    color: white;
+    padding: 2px;
+    margin: 0px 3px;
+}
+
+.universities-list-container .filter-chips-list .filter-chip p {
+    padding: 0px 8px;
+}
+
+.universities-list-container .filter-chips-list .filter-chip .fas {
+    padding: 0px 4px;
+}
+
+.university-item {
+    padding: 18px 24px;
+    background-color: white;
+    border: 1px solid rgb(197, 196, 196);
+    border-radius: 6px;
+    margin-bottom: 14px;
+}
+
+.university-item .univ-item-container {
+    width: 400px;
+}
+
+.university-item .univ-item-container .univ-icon {
+    padding: 8px;
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 6px;
+    margin-right: 16px;
+}
+
+.university-item .univ-item-container .univ-icon i {
+    font-size: 2rem;
+    color: rgb(230, 230, 230);
+}
+
+.university-item .univ-item-container .univ-basic-info .title{
+    font-size: .800rem;
+    color: black;
+    margin-bottom: 3px;
+}
+
+.university-item .univ-item-container .univ-basic-info .sub-title {
+    font-size: .700rem;
+    color: grey;
+}
+
+.university-item .univ-info-item .title {
+    font-size: .600rem;
+    color: grey;
+    margin-bottom: 3px;
+}
+
+.university-item .univ-info-item .sub-title {
+    font-size: .700rem;
+    color: black;
+}
+
+.vertical-divider-2 {
+    width: 1px;
+    background-color: #e0e0e0;
+    min-height: 50px;
+    max-height: 50px;
+}
+
+.university-item .univ-view-more-btn {
+    border-radius: 4px;
+    background-color: #253AA3;
+    padding: 6px 20px;
+    color: white;
+    font-size: .800rem;
+}
+/* Universities section ---- End */
+
+/* Single University ---- Start */
+.single-university-section .header .backBtn {
+    border-radius: 4px;
+    border: 1px solid grey;
+    padding: 3px 10px;
+    font-size: .900rem;
+}
+
+.single-university-section .header .backBtn .btnLabel {
+    margin-left: 15px;
+}
+
+.single-university-section .header .title-container {
+    margin-left: 350px;
+}
+
+.single-university-section .header .title-container .title {
+    text-align: center;
+    font-size: 1.4rem;
+    color: grey;
+    font-weight: 500;
+}
+
+.single-university-section .university-info-widget {
+    border-radius: 4px;
+    border: 1px solid grey;
+    overflow: hidden;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.single-university-section .university-info-widget .university-info-plain-stripe {
+    height: 60px;
+    background-color: #253AA3;
+}
+
+.single-university-section .university-info-widget .univ-info .univ-header {
+    margin: 0px 0px 0px 30px;
+}
+
+.single-university-section .university-info-widget .univ-info .univ-verticle-border {
+    width: 1px;
+    background-color: #9e9e9e;
+    min-height: 135px;
+    max-height: 135px;
+}
+
+.single-university-section .university-info-widget .univ-info .univ-header .univ-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    margin-top: -30px;
+    overflow: hidden;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-header .univ-header-name {
+    padding: 14px;
+    margin-right: 30px;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-header .univ-header-name .title {
+    font-weight: 500;
+    color: black;
+    font-size: 1.4rem;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-header .univ-header-name .sub-title {
+    font-weight: 400;
+    color: grey;
+    font-size: .900rem;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget{
+    flex: 1;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget .univ-info-data-list .univ-info-data {
+    padding: 20px;
+    flex: 1;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget .univ-info-data-list .univ-verticle-border-3 {
+    width: 1px;
+    background-color: #9e9e9e;
+    min-height: 90px;
+    max-height: 90px;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget .univ-info-data-list .univ-info-data .title {
+    color: grey;
+    font-size: .800rem;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget .univ-info-data-list .univ-info-data .sub-title {
+    font-size: .950rem;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget .univ-course-stripe {
+    padding: 20px 0px;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget .univ-course-stripe .title {
+    padding-left: 50px;
+    font-size: .800rem;
+    color: grey;
+}
+
+.single-university-section .university-info-widget .univ-info  .univ-info-widget .univ-course-stripe .sub-title {
+    padding-left: 50px;
+    font-size: .900rem;
+}
+
+.single-university-section .univ-profile-container {
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 20px;
+    border: 1px solid grey;
+    background-color: white;
+}
+
+.single-university-section .univ-profile-container .profile-bar {
+    background-color: #253AA3;
+    width: 50px;
+    height: 100%;
+}
+
+.single-university-section .univ-profile-container .univ-profile {
+    padding: 20px 20px 20px 40px;
+    border-left: none;
+}
+
+.single-university-section .univ-profile-container .univ-profile .title {
+    font-size: .950rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.single-university-section .univ-profile-container .univ-profile .sub-title {
+    font-size: .800rem;
+    color: grey;
+}
+
+.single-university-section .univ-quick-widgets-container {
+    margin-top: 20px;
+}
+
+.single-university-section .univ-quick-widgets-container .univ-quick-widget {
+    width: 30%;
+    flex: 1;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 6px;
+    /* overflow: hidden; */
+    position: relative;
+}
+
+.single-university-section .univ-quick-widgets-container .univ-quick-widget:nth-child(2) {
+    margin: 0px 30px;
+}
+
+.single-university-section .univ-quick-widgets-container .univ-quick-widget .fas {
+    color: #253AA3;
+    font-size: 3rem;
+    padding-top: 20px;
+}
+
+.single-university-section .univ-quick-widgets-container .univ-quick-widget .title {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    padding: 10px 0px 20px 0px;
+    font-weight: bold;
+}
+
+.single-university-section .univ-quick-widgets-container .univ-quick-widget .quick-widget-btn {
+    background-color: #253AA3;
+    padding: 10px;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+.single-university-section .univ-subscription-history-stripe {
+    background-color: #CDD0DE;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.single-university-section .univ-subscription-history-stripe .label {
+    padding: 12px 0px;
+    font-size: 1rem;
+    color: black;
+    text-align: center;
+}
+.single-university-section .univ-subscription-list-container {
+    margin-top: 20px;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item {
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 4px;
+    width: 100%;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .sub-type-container {
+    width: 30%
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .sub-type-container .icon {
+    color: #253AA3;
+    font-size: 1.8rem;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .sub-type-container .sub-label {
+    font-size: 1rem;
+    margin-left: 30px;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .name-address .title {
+    font-size: .800rem;   
+    margin-bottom: 3px;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .name-address .sub-title {
+    font-size: .700rem;
+    color: grey;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .sub-item-container .title {
+    font-size: .600rem;
+    color: grey;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .sub-item-container .sub-title {
+    font-size: .700rem;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .view-info-btn {
+    padding: 5px 20px;
+    font-size: .750rem;
+    background-color: #253AA3;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.single-university-section .univ-subscription-list-container .univ-sub-item .vertical-border {
+    width: 1px;
+    background-color: #d8d8d8;
+    min-height: 60px;
+    max-height: 60px;
+}
+
+.single-university-section .filter-heading .label {
+    text-align: center;
+    font-size: 1rem;
+    color: grey;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+.single-university-section .search-filter-container {
+    padding: 20px 30px;
+    background-color: #253AA3;
+    border-radius: 4px;
+}
+
+.single-university-section .search-filter-container .item {
+    flex: 1;
+}
+
+.single-university-section .search-filter-container .form-control {
+    font-size: .850rem;
+}
+
+.single-university-section .search-filter-container .item:nth-child(3) {
+    flex: 2;
+}
+
+.single-university-section .search-filter-container .dividerWord {
+    color: white;
+    font-size: .900rem;
+    margin: 0px 20px;
+}
+
+.single-university-section .search-filter-container .students-list-btn {
+    text-align: center;
+    padding: 10px 10px;
+    color: white;
+    font-size: .850rem;
+    background-color: #20BDC9;
+    border-radius: 4px;
+    margin-left: 20px;
+}
+
+.single-university-section .search-filter-container {
+    margin-top: 20px;
+}
+
+.single-university-section .search-filter-container .four-filters .form-control {
+    margin: 10px;
+    font-size: .850rem;
+}
+
+/* Single University ---- End */
+.attachmentStripeContainer {
+    padding: 10px;
+}
+
+.attachmentStripeContainer .label {
+    font-size: .750rem;
+    color: #686868;
+    margin-right: 6px;
+}
+
+.attachmentStripeContainer .attachmentStripe {
+    flex: 1;
+    background-color: #cacaca;
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.modal-backdrop {
+    display: none;
+}
+
+.portalModalChildren {
+    position: fixed;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000000;
+}
+
+.analytics-reports-style {
+    height: 100vh
+}
+
+/**
+* Transaction page css
+*/
+.transaction-container {
+    height: 250px; 
+    overflow: scroll;
+}
+
+.transaction-container .sub-transaction-item, .transaction-container .main-transaction-item {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background-color: white;
+}
+
+.transaction-container .sub-transaction-item div {
+    align-self: center;
+}
+
+.transaction-container .sub-transaction-item .label {
+    font-size: .900rem;
+}
+
+.transaction-container .sub-transaction-item .sub-label {
+    font-size: .700rem;
+    color: grey;
+}
+
+.transaction-container .sub-transaction-item .tokens {
+    border-radius: 5px;
+    background-color: #12B8D3;
+    color: white;
+    padding: 4px 6px;
+    font-size: .700rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 100px;
+}
+
+.transaction-container .sub-transaction-item .end-label {
+    font-size: .700rem;
+    color: black;
+}
+
+.transaction-container .main-transaction-item div {
+    align-self: center;
+}
+
+.transaction-container .main-transaction-item .label {
+    font-size: .900rem;
+}
+
+.transaction-container .main-transaction-item .tokens {
+    border-radius: 5px;
+    background-color: #12B8D3;
+    color: white;
+    padding: 20px 8px;
+    font-size: .700rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 160px;
+}
+
+.transaction-container .main-transaction-item .end-label {
+    font-size: .700rem;
+    color: black;
+}
+
+.blueHeaderStrip {
+    background-color: #253AA3;
+    padding: 10px 8px 0px 8px;
+    margin: 0;
+}
+
+.blueHeaderStrip label {
+    border-radius: 3px;
+}
+
+.blueHeaderStrip input.d-inp, .blueHeaderStrip select.d-inp {
+    background-color: white;
+    font-size: .800rem;
+    height: 40px;
+} 
+.blueHeaderStrip .item {
+    padding: 0px 4px;
+}
+
+.campus-drive-comp div {
+    padding: 0;
+}
+
+.campus-drive-comp .univ-comp {
+    max-width: 350px;
+}
+
+.campus-drive-comp .univ-icon {
+    background-color: #5473E8;
+    color: white;
+    min-height: 50px !important;
+    min-width: 50px !important;
+    max-height: 50px !important;
+    max-width: 50px !important;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.campus-drive-comp .univ-info {
+    padding-left: 6px;
+    width: 300px;
+}
+.campus-drive-comp .univ-info .univ-title, .campus-drive-comp .univ-info .univ-sub-title {
+    font-size: .700rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.campus-drive-comp .date {
+    padding: 2px;
+    background-color: #5473E8;
+    color: white;
+    text-align: center;
+    font-size: .650rem;
+    border-radius: 12px;
+    margin: 0px 5px;
+}
+
+.campus-drive-comp .btn-accept {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    border-radius: 5px;
+    max-height: 40px;
+}
+
+.campus-drive-comp .btn-reject {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-view-more {
+    background-color: #253AA3;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 100px;
+    max-height: 40px;
+    max-width: 140px;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-history-accepted {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-history-rejected {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-history-accepted .subLabel, .campus-drive-comp .btn-history-rejected .subLabel {
+    font-size: .600rem;
+}
+
+.notification {
+    background-color: #F6EDED;
+    position: relative;
+    width: 40%;
+}
+
+.notification .close-notification {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.notification .notification-header {
+    padding: 20px;
+    margin: 20px 30px 10px 30px;
+    border-bottom: 1px solid #878BA6;
+}
+
+.table-borderless td,
+.table-borderless th {
+    border: 0;
+}
+
+.notification .notification-header .heading{
+    font-size: 1.2rem;
+    color: #878BA6;
+    font-weight: 600;
+}
+
+.notification .notification-header .status-btn {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+    cursor: auto;
+}
+
+.notification .notification-body {
+    padding: 0px 20px 0px 20px;
+}
+
+.notification .notification-body table td {
+    padding: 5px 20px;
+}
+
+.notification .notification-body table td.keyLabel {
+    color: #878BA6;
+    font-size: .800rem;
+    font-weight: 500;
+}
+
+.notification .notification-body table td.valueLabel {
+    color: #2A3050;
+    font-size: .850rem;
+    font-weight: 600;
+}
+
+.notification .notification-body .notification-body-footer .heading {
+    width: 100%;
+    border-bottom: 1px solid #878BA6;
+}
+
+.notification .notification-body .notification-body-footer .heading .label {
+    font-size: .750rem;
+    color: black;
+    font-weight: 700;
+}
+
+.notification .notification-body .notification-body-footer .body {
+    font-size: .750rem;
+    color: #878BA6;
+    margin-top: 12px;
+    font-weight: 500;
+}
+
+.notification .notification-body .notification-body-footer.inherit {
+    background-color: white;
+    padding: 10px;
+}
+
+.notification-footer {
+    margin-top: 30px;
+}
+
+.notification-footer .btn-view-more-info {
+    background-color: #253AA3;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+}
+
+.notification-footer .btn-accept {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+}
+
+.notification-footer .btn-reject {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

@@ -1,19 +1,14 @@
 import React from "react";
 import moment from "moment";
+import Checkbox from '@material-ui/core/Checkbox';
 
 const JobsListItem = (props) => {
   return (
     <div className="w-full d-flex justify-content-center align-content-center publish-selected-btn-container">
       {props?.checkHandler && (
-        <input
-          type="checkbox"
-          className="align-self-center"
-          onChange={() => {
-            props?.checkHandler(props?.item?.jobID);
-          }}
-          checked={props?.isCheck ? props?.isCheck : false}
-          style={{ marginRight: "10px" }}
-        />
+        <Checkbox size={'small'} color={'primary'} checked={props?.isCheck ? props?.isCheck : false} onChange={(e)=>{
+          props?.checkHandler(props?.item?.jobID);
+        }} />
       )}
       <div className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full">
         <div className="item d-flex flex-row justify-content-between align-items-center w-full">
@@ -52,6 +47,7 @@ const JobsListItem = (props) => {
                 fontSize: ".600rem",
                 borderRadius: "4px",
               }}
+              disabled={!props?.isCheck}
               onClick={() => {
                 props?.onPublish(props?.item?.jobID);
               }}

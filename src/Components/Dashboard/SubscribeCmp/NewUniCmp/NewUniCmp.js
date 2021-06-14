@@ -49,7 +49,7 @@ const NewUniCmp = (props) => {
                                 <p className="sub-title">{item?.accredations?.issuingAuthority}</p>
                             </div>
                             <div className="vertical-divider-2" />
-                            <button type="button" onClick={() => props.viewMore(item.universityID)} className="univ-view-more-btn">View more</button>
+                            <button type="button" onClick={() => props.viewMore(item.universityID)} style={{height: '28px', maxWidth: '80px'}} className="btn univ-view-more-btn">View more</button>
                         </div>)
                     : (null)
                 }

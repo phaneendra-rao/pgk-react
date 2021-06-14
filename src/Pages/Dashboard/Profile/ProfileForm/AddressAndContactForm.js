@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PgkTextField from "../../../../Components/FormFields/PgkTextField";
 import PgkSelectField from "../../../../Components/FormFields/PgkSelectField";
 import { actionGetStatesByCountryNameRequest, actionGetCitiesByStateNameRequest } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
+import Checkbox from '@material-ui/core/Checkbox';
 
 const AddressAndContactForm = (props) => {
 
@@ -14,22 +15,15 @@ const AddressAndContactForm = (props) => {
       <div className="profile-data">
         <div className="row">
           <div className="col-md-6">
-            <div className="d-flex">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateHeadQuarters"
-                  id="check-corporateHeadQuarters"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateHeadQuarters)}}
-                  checked={props?.checkData?.corporateHeadQuarters ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateHeadQuarters"}
-                ></label>
-              </div>}
-            <h6 className="reg-label" style={{marginBottom:'20px'}}>Corporate Headquarters <sup>*</sup></h6>
+            <div className="d-flex align-items-center mb-20">
+            {props?.check && (
+              <Checkbox size={'small'} color={'primary'} name={'corporateHeadQuarters'} checked={props?.checkData?.corporateHeadQuarters ? true : false} onChange={(e)=>{
+                props?.handleCheckData(
+                  e.target.name,
+                  !props?.checkData?.corporateHeadQuarters
+                );
+            }} />)}
+            <h6 className="reg-label">Corporate Headquarters <sup>*</sup></h6>
             </div>
             <div className="mb-20">
               <PgkTextField
@@ -183,23 +177,16 @@ const AddressAndContactForm = (props) => {
             </div>
           </div>
           <div className="col-md-6">
-            <div className="d-flex">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="corporateLocalAddress"
-                  id="check-corporateLocalAddress"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.corporateLocalAddress)}}
-                  checked={props?.checkData?.corporateLocalAddress ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-corporateLocalAddress"}
-                ></label>
-              </div>}
-              <h6 className="reg-label"  style={{marginBottom:'20px'}}>Corporate Local Branch <sup>*</sup></h6>
-              {props?.checkData === undefined && <div className="custom-control custom-checkbox" style={{marginLeft: '15px', marginBottom:'20px'}}>
+            <div className="d-flex align-items-center mb-20">
+              {props?.check && (
+              <Checkbox size={'small'} color={'primary'} name={'corporateLocalAddress'} checked={props?.checkData?.corporateLocalAddress ? true : false} onChange={(e)=>{
+                props?.handleCheckData(
+                  e.target.name,
+                  !props?.checkData?.corporateLocalAddress
+                );
+            }} />)}
+              <h6 className="reg-label" >Corporate Local Branch <sup>*</sup></h6>
+              {props?.checkData === undefined && <div className="custom-control custom-checkbox d-flex align-items-center" style={{marginLeft: '15px',}}>
                 <input
                   type="checkbox"
                   onChange={props?.toggleCorporateHeadQuarters}

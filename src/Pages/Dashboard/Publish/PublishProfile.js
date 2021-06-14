@@ -10,11 +10,73 @@ import {
   actionPostPublishCorporateProfileSagaAction,
 } from "../../../Store/Actions/SagaActions/CorporateProfileSagaActions";
 import CustomToastModal from "../../../Components/CustomToastModal";
+import { actionGetStatesByCountryNameRequest, actionGetCitiesByStateNameRequest, actionGetUniversalAccessToken } from "../../../Store/Actions/SagaActions/CommonSagaActions";
+
+const requiredFields = [
+  'stakeholderID',
+  'CIN',
+  'corporateType',
+  'corporateCategory',
+  'corporateIndustry',
+  'yearOfEstablishment',
+  'corporateHQAddressLine1',
+  'corporateHQAddressCountry',
+  'corporateHQAddressState',
+  'corporateHQAddressCity',
+  'corporateHQAddressDistrict',
+  'corporateHQAddressZipCode',
+  'corporateHQAddressPhone',
+  'corporateHQAddressEmail',
+  'primaryContactFirstName',
+  'primaryContactLastName',
+  'primaryContactPhone',
+  'primaryContactEmail'
+];
+
+const formFields = [
+  'stakeholderID',
+  'CIN',
+  'corporateType',
+  'corporateCategory',
+  'corporateIndustry',
+  'yearOfEstablishment',
+
+  'corporateHQAddressLine1',
+  'corporateHQAddressLine2',
+  'corporateHQAddressCountry',
+  'corporateHQAddressState',
+  'corporateHQAddressCity',
+  'corporateHQAddressDistrict',
+  'corporateHQAddressZipCode',
+  'corporateHQAddressPhone',
+  'corporateHQAddressEmail',
+
+  'corporateLocalBranchAddressLine1',
+  'corporateLocalBranchAddressLine2',
+  'corporateLocalBranchAddressCountry',
+  'corporateLocalBranchAddressState',
+  'corporateLocalBranchAddressCity',
+  'corporateLocalBranchAddressDistrict',
+  'corporateLocalBranchAddressZipCode',
+  'corporateLocalBranchAddressPhone',
+  'corporateLocalBranchAddressEmail',
+
+  'primaryContactFirstName',
+  'primaryContactMiddleName',
+  'primaryContactLastName',
+  'primaryContactPhone',
+  'primaryContactEmail',
+  'primaryContactDesignation',
+  'companyProfile',
+  'profilePicture', 
+  'attachment'
+];
 
 const PublishProfile = () => {
   const history = useHistory();
   const [profile, setProfile] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [profilePicture, setProfilePicture] = useState();
   const [attachment, setAttachment] = useState({
     attachment: undefined,
     attachmentName: undefined
@@ -25,7 +87,7 @@ const PublishProfile = () => {
     corporateType: false,
     corporateCategory: false,
     corporateIndustry: false,
-    dateOfJoining: false,
+    yearOfEstablishment: false,
     corporateHeadQuarters: false,
     corporateLocalAddress: false,
     companyProfile: false,
@@ -37,85 +99,235 @@ const PublishProfile = () => {
     setIsTermsAndConditionsChecked,
   ] = useState(false);
 
+  const [initHqAddress, setInitHqAddress] = useState({
+    states: false,
+    cities: false
+  });
+
+  const [initLocalAddress, setInitLocalAddress] = useState({
+    states: false,
+    cities: false
+  });
+
+  const [countries, setCountries] = useState([]);
+
+  const [hqStates, setHqStates] = useState([]);
+  const [hqCities, setHqCities] = useState([]);
+  
+  const [localStates, setLocalStates] = useState([]);
+  const [localCities, setLocalCities] = useState([]);
+
   const dispatch = useDispatch();
 
-  const onGetCorporateProfileRequest = (response) => {
-    setAttachment({
-      attachment: response?.attachment,
-      attachmentName: response?.attachmentName
-    });
+  const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
+  const universalTutorialAccessToken = useSelector(state => state.DashboardReducer.universalTutorialAccessToken);
+  const actualCountries = useSelector(state => state.DashboardReducer.countries);
 
-    setProfile({
-      ...response,
-      profilePicture: undefined,
-      attachment: undefined,
-    });
-  };
 
-  const getProfile = () => {
+  useEffect(()=>{
+    if(actualCountries?.length && countries?.length===0) {
+      const updatedCountryOptions = actualCountries.map((item) => {
+        return { value: item?.country_name, label: item?.country_name };
+      });
+
+      setCountries(updatedCountryOptions);
+    }
+  }, [actualCountries?.length])
+
+  const onStatesResponse = (response, type) => {
+    let updatedStatesOptions = [];
+
+    if (response?.length) {
+      updatedStatesOptions = response.map((item) => {
+        return { value: item?.state_name, label: item?.state_name };
+      });
+    }
+
+    if(type==='HQ') {
+      setHqStates(updatedStatesOptions);
+      if(!initHqAddress.states) {
+        setInitHqAddress((prevState)=>({
+          ...prevState,
+          states: true
+        }))
+      }
+    } else {
+      setLocalStates(updatedStatesOptions);
+      if(!initLocalAddress.states) {
+        setInitLocalAddress((prevState)=>({
+          ...prevState,
+          states: true
+        }))
+      }
+    }
+  }
+
+  const onCitiesResponse = (response, type) => {
+    let updatedCitiesOptions = [];
+
+    if (response?.length) {
+      updatedCitiesOptions = response.map((item) => {
+        return { value: item?.city_name, label: item?.city_name };
+      });
+    }
+
+    if(type==='HQ') {
+      setHqCities(updatedCitiesOptions);
+      if(!initHqAddress.cities) {
+        setInitHqAddress((prevState)=>({
+          ...prevState,
+          cities: true
+        }))
+      }
+    } else {
+      setLocalCities(updatedCitiesOptions);
+      if(!initLocalAddress.cities) {
+        setInitLocalAddress((prevState)=>({
+          ...prevState,
+          cities: true
+        }))
+      }
+    }
+  }
+
+  const getStatesByCountryName = (countryName, type) => {
     dispatch(
-      actionGetCorporateProfileSagaAction({
-        callback: onGetCorporateProfileRequest,
+      actionGetStatesByCountryNameRequest({
+        countryName: countryName,
+        callback: (response)=>{
+          onStatesResponse(response, type)
+        },
       })
     );
-  };
+  }
 
-  useEffect(() => {
-    getProfile();
-  }, []);
+  const getCitiesByStateName = (stateName, type) => {
+    dispatch(
+      actionGetCitiesByStateNameRequest({
+        stateName: stateName,
+        callback: (response)=>{
+          onCitiesResponse(response, type)
+        },
+      })
+    );
+  }
+
+  useEffect(()=>{
+    if(profileInfo) {
+      setProfilePicture(profileInfo?.profilePicture);
+      setAttachment({
+        attachment: profileInfo?.attachment,
+        attachmentName: profileInfo?.attachmentName,
+        attachmentError: undefined
+      });
+  
+      let profileData = {};
+  
+      formFields.forEach((key)=>{
+        if(['profilePicture', 'attachment'].includes(key)) {
+          profileData[key] = {
+            value: undefined,
+            errorMessage: undefined,
+            isRequired: requiredFields.includes(key) ? true : false
+          }
+        } else {
+          profileData[key] = {
+            value: profileInfo[key],
+            errorMessage: undefined,
+            isRequired: requiredFields.includes(key) ? true : false
+          }
+        }
+      })
+      setProfile(profileData);
+    }
+
+  }, [profileInfo]);
+
+  useEffect(()=>{
+    if(profile?.corporateHQAddressCountry?.value && universalTutorialAccessToken && !initHqAddress?.states) {
+      getStatesByCountryName(profile?.corporateHQAddressCountry?.value, 'HQ');
+    }
+
+    if(profile?.corporateHQAddressState?.value && universalTutorialAccessToken && !initHqAddress?.cities) {
+      getCitiesByStateName(profile?.corporateHQAddressState?.value, 'HQ');
+    }
+
+  }, [profile, universalTutorialAccessToken])
+
+  useEffect(()=>{
+    if(profile?.corporateLocalBranchAddressCountry?.value && universalTutorialAccessToken && initHqAddress?.states && !initLocalAddress?.states) {
+      getStatesByCountryName(profile?.corporateLocalBranchAddressCountry?.value, 'LOCAL');
+    }
+
+  }, [profile, universalTutorialAccessToken, initHqAddress?.states])
+
+  useEffect(()=>{
+    if(profile?.corporateLocalBranchAddressState?.value && universalTutorialAccessToken && initHqAddress?.cities && !initLocalAddress?.cities) {
+      getCitiesByStateName(profile?.corporateLocalBranchAddressState?.value, 'LOCAL');
+    }
+  }, [profile, universalTutorialAccessToken, initHqAddress?.cities])
+
+  useEffect(()=>{
+    if(universalTutorialAccessToken===undefined) {
+      dispatch(actionGetUniversalAccessToken());
+    }
+  }, [universalTutorialAccessToken])
 
   const publishProfile = () => {
     let updatedPublishProfile = {};
 
     if(checkData?.CIN) {
-      updatedPublishProfile['CIN'] = profile?.CIN
+      updatedPublishProfile['CIN'] = profile?.CIN?.value
     }
 
     if(checkData?.corporateType) {
-      updatedPublishProfile['corporateType'] = profile?.corporateType
+      updatedPublishProfile['corporateType'] = profile?.corporateType?.value
     }
 
     if(checkData?.corporateCategory) {
-      updatedPublishProfile['corporateCategory'] = profile?.corporateCategory
+      updatedPublishProfile['corporateCategory'] = profile?.corporateCategory?.value
     }
 
     if(checkData?.corporateIndustry) {
-      updatedPublishProfile['corporateIndustry'] = profile?.corporateIndustry
+      updatedPublishProfile['corporateIndustry'] = profile?.corporateIndustry?.value
     }
 
-    if(checkData?.dateOfJoining) {
-      updatedPublishProfile['dateOfJoining'] = profile?.dateOfJoining
+    if(checkData?.yearOfEstablishment) {
+      updatedPublishProfile['yearOfEstablishment'] = profile?.yearOfEstablishment?.value
     }
 
     if(checkData?.companyProfile) {
-      updatedPublishProfile['companyProfile'] = profile?.companyProfile
+      updatedPublishProfile['companyProfile'] = profile?.companyProfile?.value
     }
 
     // TODO attachment ?
 
     if(checkData?.corporateHeadQuarters) {
-      updatedPublishProfile['corporateHQAddressLine1'] = profile?.corporateHQAddressLine1;
-      updatedPublishProfile['corporateHQAddressLine2'] = profile?.corporateHQAddressLine2;
-      updatedPublishProfile['corporateHQAddressCountry'] = profile?.corporateHQAddressCountry;
-      updatedPublishProfile['corporateHQAddressState'] = profile?.corporateHQAddressState;
-      updatedPublishProfile['corporateHQAddressCity'] = profile?.corporateHQAddressCity;
-      updatedPublishProfile['corporateHQAddressDistrict'] = profile?.corporateHQAddressDistrict;
-      updatedPublishProfile['corporateHQAddressZipCode'] = profile?.corporateHQAddressZipCode;
-      updatedPublishProfile['corporateHQAddressPhone'] = profile?.corporateHQAddressPhone;
-      updatedPublishProfile['corporateHQAddressEmail'] = profile?.corporateHQAddressEmail;
+      updatedPublishProfile['corporateHQAddressLine1'] = profile?.corporateHQAddressLine1?.value;
+      updatedPublishProfile['corporateHQAddressLine2'] = profile?.corporateHQAddressLine2?.value;
+      updatedPublishProfile['corporateHQAddressCountry'] = profile?.corporateHQAddressCountry?.value;
+      updatedPublishProfile['corporateHQAddressState'] = profile?.corporateHQAddressState?.value;
+      updatedPublishProfile['corporateHQAddressCity'] = profile?.corporateHQAddressCity?.value;
+      updatedPublishProfile['corporateHQAddressDistrict'] = profile?.corporateHQAddressDistrict?.value;
+      updatedPublishProfile['corporateHQAddressZipCode'] = profile?.corporateHQAddressZipCode?.value;
+      updatedPublishProfile['corporateHQAddressPhone'] = profile?.corporateHQAddressPhone?.value;
+      updatedPublishProfile['corporateHQAddressEmail'] = profile?.corporateHQAddressEmail?.value;
     }
 
     if(checkData?.corporateLocalAddress) {
-      updatedPublishProfile['corporateLocalBranchAddressLine1'] = profile?.corporateLocalBranchAddressLine1;
-      updatedPublishProfile['corporateLocalBranchAddressLine2'] = profile?.corporateLocalBranchAddressLine2;
-      updatedPublishProfile['corporateLocalBranchAddressCountry'] = profile?.corporateLocalBranchAddressCountry;
-      updatedPublishProfile['corporateLocalBranchAddressState'] = profile?.corporateLocalBranchAddressState;
-      updatedPublishProfile['corporateLocalBranchAddressCity'] = profile?.corporateLocalBranchAddressCity;
-      updatedPublishProfile['corporateLocalBranchAddressDistrict'] = profile?.corporateLocalBranchAddressDistrict;
-      updatedPublishProfile['corporateLocalBranchAddressZipCode'] = profile?.corporateLocalBranchAddressZipCode;
-      updatedPublishProfile['corporateLocalBranchAddressPhone'] = profile?.corporateLocalBranchAddressPhone;
-      updatedPublishProfile['corporateLocalBranchAddressEmail'] = profile?.corporateLocalBranchAddressEmail;
+      updatedPublishProfile['corporateLocalBranchAddressLine1'] = profile?.corporateLocalBranchAddressLine1?.value;
+      updatedPublishProfile['corporateLocalBranchAddressLine2'] = profile?.corporateLocalBranchAddressLine2?.value;
+      updatedPublishProfile['corporateLocalBranchAddressCountry'] = profile?.corporateLocalBranchAddressCountry?.value;
+      updatedPublishProfile['corporateLocalBranchAddressState'] = profile?.corporateLocalBranchAddressState?.value;
+      updatedPublishProfile['corporateLocalBranchAddressCity'] = profile?.corporateLocalBranchAddressCity?.value;
+      updatedPublishProfile['corporateLocalBranchAddressDistrict'] = profile?.corporateLocalBranchAddressDistrict?.value;
+      updatedPublishProfile['corporateLocalBranchAddressZipCode'] = profile?.corporateLocalBranchAddressZipCode?.value;
+      updatedPublishProfile['corporateLocalBranchAddressPhone'] = profile?.corporateLocalBranchAddressPhone?.value;
+      updatedPublishProfile['corporateLocalBranchAddressEmail'] = profile?.corporateLocalBranchAddressEmail?.value;
     }
+
+    console.log('profile ', profile);
+    console.log('updatedPublishProfile ', updatedPublishProfile);
 
     dispatch(
       actionPostPublishCorporateProfileSagaAction({
@@ -176,10 +388,15 @@ const PublishProfile = () => {
         handleCheckData={handleCheckData}
         check
         disable
+        countries={countries}
+        hqStates={hqStates}
+        hqCities={hqCities}
+        localStates={localStates}
+        localCities={localCities}
       />
       <ProfileForm
         profileData={profile}
-        attachment={attachment}
+        tempAttachment={attachment}
         checkData={checkData}
         handleCheckData={handleCheckData}
         check

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import HiringCriteriaFormCmp from "../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaFormCmp";
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
 
 const HiringCriteriaForm = (props) => {
   const [hiringData, setHiringData] = useState();
@@ -150,8 +152,6 @@ const HiringCriteriaForm = (props) => {
   };
 
   const handleSubmit = (event) => {
-    console.log("before hiringData ", hiringData);
-
     const hiringCriteriaKeys = [
       "allowActiveBacklogs",
       "eduGaps11N12Allowed",
@@ -160,7 +160,6 @@ const HiringCriteriaForm = (props) => {
       "eduGapsGradAllowed",
       "eduGapsGradNPGAllowed",
       "eduGapsSchoolAllowed",
-      "hcPrograms",
       "hiringCriteriaName",
       "remarks",
     ];
@@ -221,6 +220,16 @@ const HiringCriteriaForm = (props) => {
       });
     }
 
+    let updatedHcPropgrams = [];
+
+    if(hiringData["hcPrograms"].value?.length) {
+      updatedHcPropgrams = hiringData["hcPrograms"].value.map((item)=>{
+        return {branchID: item.value, branchName: item.label, programID: item.programID, programName: item.programName}
+      });
+    }
+
+    finalHiringCriteria['hcPrograms'] = updatedHcPropgrams;
+
     if(props?.addHiringCriteria) {
         props.addHiringCriteria(finalHiringCriteria)
     }
@@ -232,15 +241,17 @@ const HiringCriteriaForm = (props) => {
         <h5 className="modal-title" id="exampleModalLabel">
           Create a new Hiring Criteria
         </h5>
-        <button
+        <IconButton style={{color:'white', marginTop:'-10px'}} onClick={props?.openCloseModal} component="span">
+            <Close />
+        </IconButton>
+        {/* <button
           type="button"
-          className="close"
+          className="close align-self-center"
           onClick={props.openCloseModal}
-          data-dismiss="modal"
-          aria-label="Close"
+          style={{color:'white', marginTop:'-25px'}}
         >
           <span aria-hidden="true">×</span>
-        </button>
+        </button> */}
       </div>
       <HiringCriteriaFormCmp
         hiringData={hiringData}

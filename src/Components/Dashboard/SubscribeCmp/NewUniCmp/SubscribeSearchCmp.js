@@ -1,4 +1,6 @@
 import React from 'react'
+import PgkTextField from '../../../../Components/FormFields/PgkTextField';
+import PgkSelectField from '../../../../Components/FormFields/PgkSelectField';
 
 const SubscribeSearchCmp = (props) => {
     return (
@@ -7,54 +9,70 @@ const SubscribeSearchCmp = (props) => {
                 <h4 className="heading">Subscribe to new University/Universities</h4>
                 <form className="universities-filter-section d-flex align-items-center w-full" onSubmit={props.handleSubmit}>
                     <div className="filter-input-container d-flex flex-column align-items-center">
-                        <input type="text"
-                            name="universityName"
-                            onChange={props.handleChange}
-                            className="form-control search-univ" placeholder="Enter the name of any specific university" />
+                        <div style={{marginBottom: '10px', width: '100%'}}>
+                            <PgkTextField
+                                name="universityName"
+                                value={props?.universityName}
+                                label={"Enter the name of any specific university"}
+                                onChange={props?.onChange}
+                                inputLabelProps={{style:{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}}
+                                inputProps={{style:{fontSize: '.800rem', backgroundColor: 'white', borderRadius: '5px'}}}
+                            />
+                        </div>
                         <div className="drop-down-inputs-container d-flex justify-content-between align-items-center w-full">
-                            <select
+                            <PgkSelectField 
                                 name="hcID"
-                                onChange={props.handleChange}
-                                disabled={props.hcEnable}
-                                className="form-control select-filter">
-                                <option value>By Hiring Criteria</option>
-                                {props.hiringCriteria && props.hiringCriteria?.length >= 0
-                                    ? props.hiringCriteria?.map((item, i) => <option key={i} value={item.hiringCriteriaID}>{item.hiringCriteriaName}</option>)
-                                    : (null)
-                                }
-                            </select>
+                                value={props?.hcID}
+                                onChange={props?.onChange}
+                                label={`By Hiring Criteria`}
+                                options={props?.hiringCriteria?.length ? props.hiringCriteria.map((item)=>{
+                                    return {value: item.hiringCriteriaID, label: item.hiringCriteriaName}
+                                }) : []}
+                                labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                                selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                                menuStyles={{fontSize: '.800rem'}}
+                            />
                             <p className="dividerWord">Or</p>
-                            <select
+                            <PgkSelectField 
                                 name="locations"
-                                onChange={props.handleChange}
-                                className="form-control select-filter"
-                                disabled={props.hcID}>
-                                <option value="">By Location</option>
-                                <option value="Hyderabad">Hyderabad</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Mumbai">Mumbai</option>
-                            </select>
-                            <select
+                                value={props?.locations}
+                                onChange={props?.onChange}
+                                label={`By Location`}
+                                options={['Hyderabad', 'Delhi', 'Mumbai'].map((item)=>{
+                                    return {value: item, label: item}
+                                })}
+                                labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                                selectStyles={{fontSize: '.800rem', backgroundColor: 'white', marginRight: '2px'}}
+                                menuStyles={{fontSize: '.800rem'}}
+                            />
+                            <PgkSelectField 
                                 name="skills"
-                                onChange={props.handleChange}
-                                disabled={props.hcID}
-                                className="form-control select-filter">
-                                <option value={''}>By Skills</option>
-                                {props.lookUpData && props.lookUpData?.skills?.length >= 0
-                                    ? props.lookUpData?.skills.map((item, i) => <option key={i} value={item.skillCode}>{item.skillName}</option>) : (null)
-                                }
-                            </select>
-                            <select className="form-control select-filter"
-                                disabled={props.hcID}>
-                                <option>By Average CGPA</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
+                                value={props?.skills}
+                                onChange={props?.onChange}
+                                label={`By Skills`}
+                                options={props.lookUpData?.skills?.length ? props.lookUpData?.skills.map((item)=>{
+                                    return {value: item.skillCode, label: item.skillName}
+                                }) : []}
+                                labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                                selectStyles={{fontSize: '.800rem', backgroundColor: 'white', marginLeft: '2px', marginRight: '2px'}}
+                                menuStyles={{fontSize: '.800rem'}}
+                            />
+                            <PgkSelectField 
+                                name="locations"
+                                value={props?.cgpa}
+                                onChange={props?.onChange}
+                                label={`By Average CGPA`}
+                                options={['8', '9', '10'].map((item)=>{
+                                    return {value: item, label: item}
+                                })}
+                                labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                                selectStyles={{fontSize: '.800rem', backgroundColor: 'white', marginLeft: '2px'}}
+                                menuStyles={{fontSize: '.800rem'}}
+                            />
                         </div>
                     </div>
                     <div className="filter-search-btn-container d-flex justify-content-center align-items-center">
-                        <button type="submit" style={{cursor:'pointer'}} className="univ-search-btn d-flex justify-content-between align-items-center">
+                        <button type="submit" style={{height: '25px', maxWidth: '80px'}} className="btn univ-search-btn d-flex justify-content-between align-items-center">
                             Search <i className="fas fa-search ml-2" />
                         </button>
                     </div>

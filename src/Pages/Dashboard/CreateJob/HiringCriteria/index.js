@@ -12,7 +12,8 @@ import CustomDialogPopup from '../../../../Components/CustomDialogPopup';
 // import getHiringCriteriaSaga from '../../../../Store/Sagas/HiringWatcherSaga';
 const $ = window.$;
 
-const hiringCriteriaInitialData = {
+const Index = () => {
+  const hiringCriteriaInitialData = {
     programID: {
       value: undefined,
       errorMessage: undefined,
@@ -147,144 +148,10 @@ const hiringCriteriaInitialData = {
     },
   };
 
-const Index = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [lookUpData, setLookUpData] = useState([]);
     const [editable, setEditable] = useState(false);
-    const [hiringCriteriaData, setHiringCriteriaData] = useState({
-        programID: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        hiringCriteriaName: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        minimumCutoffPercentage10th: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        minimumCutoffPercentage12th: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        minimumCutoffCGPAGrad: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        minimumCutoffPercentageGrad: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        eduGapsAllowed: {
-          value: false,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        eduGapsSchoolAllowed: {
-          value: false,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGaps11N12Allowed: {
-          value: false,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGaps12NGradAllowed: {
-          value: false,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGapsGradAllowed: {
-          value: false,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGapsGradNPGAllowed: {
-          value: false,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        allowActiveBacklogs: {
-          value: false,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        numberOfAllowedBacklogs: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGapsSchool: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGaps11N12: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGaps12NGrad: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGapsGrad: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        eduGapsGradNPG: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: true,
-        },
-        yearOfPassing: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-        remarks: {
-          value: undefined,
-          errorMessage: undefined,
-          isRequired: false,
-          isDisabled: false,
-        },
-        hcPrograms: {
-          value: [],
-          errorMessage: undefined,
-          isRequired: true,
-          isDisabled: false,
-        },
-      });
+    const [hiringCriteriaData, setHiringCriteriaData] = useState(hiringCriteriaInitialData);
     const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
 
     const dispatch = useDispatch();
@@ -316,140 +183,7 @@ const Index = () => {
     }
 
     const formModal = () => {
-        setHiringCriteriaData({
-            programID: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            hiringCriteriaName: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffPercentage10th: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffPercentage12th: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffCGPAGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffPercentageGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            eduGapsAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            eduGapsSchoolAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps11N12Allowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps12NGradAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGradAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGradNPGAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            allowActiveBacklogs: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            numberOfAllowedBacklogs: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsSchool: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps11N12: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps12NGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGradNPG: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            yearOfPassing: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            remarks: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: false,
-              isDisabled: false,
-            },
-            hcPrograms: {
-              value: [],
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-          });
+        setHiringCriteriaData(hiringCriteriaInitialData);
         setEditable(true);
         setIsOpen(!isOpen);
     }
@@ -478,140 +212,7 @@ const Index = () => {
             "eduGapsSchool",
         ];
 
-        let updatedHiringData = {
-            programID: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            hiringCriteriaName: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffPercentage10th: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffPercentage12th: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffCGPAGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            minimumCutoffPercentageGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            eduGapsAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            eduGapsSchoolAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps11N12Allowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps12NGradAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGradAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGradNPGAllowed: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            allowActiveBacklogs: {
-              value: false,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            numberOfAllowedBacklogs: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsSchool: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps11N12: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGaps12NGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGrad: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            eduGapsGradNPG: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: true,
-            },
-            yearOfPassing: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-            remarks: {
-              value: undefined,
-              errorMessage: undefined,
-              isRequired: false,
-              isDisabled: false,
-            },
-            hcPrograms: {
-              value: [],
-              errorMessage: undefined,
-              isRequired: true,
-              isDisabled: false,
-            },
-          };
+        let updatedHiringData = hiringCriteriaInitialData;
 
         hiringCriteriaKeys.forEach((item)=>{
             updatedHiringData[item].value = hiringData[item];
@@ -620,7 +221,11 @@ const Index = () => {
 
         const hcBranches = JSON.parse(hiringData['hcProgramsInString']);
 
-        updatedHiringData['hcPrograms'].value = hcBranches;
+        const updatedHcBranches = hcBranches.map((item)=>{
+          return {value: item.branchID, label: item.branchName, programID: item.programID, programName: item.programName}
+        })
+
+        updatedHiringData['hcPrograms'].value = updatedHcBranches;
         updatedHiringData['hcPrograms'].isDisabled = true;
 
         updatedHiringData['programID'].value = hcBranches[0].programID;

@@ -87,15 +87,13 @@ const CorporatePrimaryCmp = (props) => {
                 <div className="col-md-6">
                     <div className="mb-15">
                         <PgkTextField
-                            type={'date'}
                             name="yearOfEstablishment"
-                            InputLabelProps={{ shrink: true }}
                             onChange={props?.handleChange}
                             value={props?.corporatePrimaryData?.yearOfEstablishment}
                             label={'Year of Establishment'}
                             errorMessage={props?.errors?.yearOfEstablishment}
                             required={true}
-                            InputLabelProps={{ shrink: true }}
+                            validations={['minLength_4', 'maxLength_4', 'isNumeric']}
                         />
                     </div>
                     {/* <div className="login-grp">
@@ -118,13 +116,13 @@ const CorporatePrimaryCmp = (props) => {
                             type="file"
                             onChange={props.handleChangeImg}
                             accept="image/*"
-                            className="reg-inp"
+                            className="reg-inp d-none"
                             name="attachment"
                             id="attachment"
                             required={false} />
                         <label htmlFor="attachment" className="reg-label">Attach</label>
                     </div>
-                    {props.path
+                    {props.actualPath
                         ? <div className="text-center">
                             <img src={props.path} alt="please select image" className="img-thumbnail mb-3 w-50" />
                         </div>

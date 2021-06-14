@@ -1,5 +1,6 @@
 import React from "react";
 import PgkTextField from "../../../../Components/FormFields/PgkTextField";
+import Checkbox from '@material-ui/core/Checkbox';
 
 const ProfileForm = (props) => {
   return (
@@ -10,21 +11,13 @@ const ProfileForm = (props) => {
       <div className="profile-data">
         <div className="row">
           <div className="col-md">
-            <div className="mb-20">
-            {props?.check && <div className="custom-control custom-checkbox publish-inp">
-                <input
-                  type="checkbox"
-                  name="companyProfile"
-                  id="check-companyProfile"
-                  className="custom-control-input"
-                  onChange={(e)=>{props?.handleCheckData(e.target.name, !props?.checkData?.companyProfile)}}
-                  checked={props?.checkData?.companyProfile ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor={"check-companyProfile"}
-                ></label>
-              </div>}
+            <div className="mb-20 d-flex align-items-start">
+              {props?.check && <Checkbox disableRipple size={'small'} color={'primary'} name={'companyProfile'} checked={props?.checkData?.companyProfile ? true : false} onChange={(e)=>{
+                  props?.handleCheckData(
+                    e.target.name,
+                    !props?.checkData?.companyProfile
+                  );
+              }} />}
               <PgkTextField
                 name="companyProfile"
                 value={
@@ -41,13 +34,15 @@ const ProfileForm = (props) => {
               />
             </div>
             <div className="row d-flex justify-content-center align-items-center" style={{margin:0, padding:0}}>
-              <div className="col-md-11" style={{margin:0, padding:0}}>
+              <div className={`col-md-${props?.tempAttachment?.attachment ? '11' : '12'}`} style={{margin:0, padding:0}}>
                 <div className="d-attach">
-                  <p className="float-left" style={{padding: '8px'}}>{props?.tempAttachment?.attachmentName}</p>
+                {props?.tempAttachment?.attachmentName ? <div className={'d-flex justify-content-between align-items-center'} style={{width:'84%'}}>
+                    <p className="float-left" style={{padding: '8px', fontSize: '.800rem', flex: '1'}}>{props?.tempAttachment?.attachmentName}</p>
+                </div> : null}
                   <input
                     type="file"
                     onChange={props?.fileHandler}
-                    className="d-inp"
+                    className="d-inp d-none"
                     name="attachment"
                     accept=".pdf"
                     disabled={props?.disable ? true : false}
@@ -61,15 +56,15 @@ const ProfileForm = (props) => {
                 </div>
               </div>
               
-                <div className="col-md-1" style={{margin:0, padding:0}}>
-                <div className="d-attach" style={{cursor: 'pointer'}}>
-                {props?.tempAttachment?.attachment?.trim()!=='' ? <a href={'data:application/pdf;base64,'+props?.tempAttachment?.attachment} style={{textDecoration:'none', outline:'none', width: '100%', cursor:'pointer'}} download> <label style={{backgroundColor: '#878BA6', width: '100%', height: '100%', paddingTop: '10px', color: 'white', textAlign: 'center', cursor: 'pointer'}} >
-                    <i className="fas fa-download mr-2"></i>
-                  </label></a> : null}
-                </div>
-              </div>
-              
+                {props?.tempAttachment?.attachment && <div className="col-md-1" style={{margin:0, padding:0}}>
+                  <div className="d-attach" style={{cursor: 'pointer'}}>
+                  {props?.tempAttachment?.attachment?.trim()!=='' ? <a href={'data:application/pdf;base64,'+props?.tempAttachment?.attachment} style={{textDecoration:'none', outline:'none', width: '100%', cursor:'pointer'}} download> <label style={{backgroundColor: '#878BA6', width: '100%', height: '100%', paddingTop: '10px', color: 'white', textAlign: 'center', cursor: 'pointer'}} >
+                      <i className="fas fa-download mr-2"></i>
+                    </label></a> : null}
+                  </div>
+                </div>}
             </div>
+            {props?.tempAttachment?.attachmentError ? <p style={{color:'red', fontSize: '.800rem', marginTop:'-15px'}}>{props?.tempAttachment?.attachmentError}</p> : null}
           </div>
         </div>
       </div>

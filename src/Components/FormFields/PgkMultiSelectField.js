@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -79,12 +80,7 @@ function PgkMultiSelectField(props) {
 
         options.forEach(item => {
             if(_values.includes(item.value)) {
-                updatedValues.push({
-                    branchID: item.value,
-                    branchName: item.label,
-                    programID: item.programID,
-                    programName: item.programName,
-                });
+                updatedValues.push(item);
             }
         })
 
@@ -99,8 +95,8 @@ function PgkMultiSelectField(props) {
 
     const getLabel = (value) => {
         if(values?.length) {
-            const item = values.find((item)=>item.branchID===value);
-            return item.branchName;
+            const item = values.find((item)=>item.value===value);
+            return item.label;
         } else {
             return ''
         }
@@ -111,7 +107,7 @@ function PgkMultiSelectField(props) {
             <InputLabel style={labelStyles}>{label}</InputLabel>
             <Select
                 value={values?.length ? values.map((item)=>{
-                    return item.branchID
+                    return item.value
                 }) : []}
                 onChange={onSelect}
                 label={label}
@@ -128,9 +124,12 @@ function PgkMultiSelectField(props) {
                       )
                 }}
             >
-                <MenuItem style={menuStyles} value={''}>{`Select ${label}`}</MenuItem>
+                <MenuItem style={menuStyles} className={'py-2'} value={''}>{`Select ${label}`}</MenuItem>
                 {options?.length ? options.map((option)=>{
-                    return <MenuItem style={menuStyles} value={option?.value}>{option?.label}</MenuItem>
+                    return <MenuItem className={'py-0'} style={menuStyles} value={option?.value}>
+                        <Checkbox size={'small'} checked={values && values.length ? values.findIndex((item)=>item.value===option.value)>-1 : false} color={'primary'} />
+                        {option?.label}
+                    </MenuItem>
                 }) : null}
             </Select>
             <FormHelperText error={errorMessage!==undefined && errorMessage?.trim()!=='' ? true : false}>{errorMessage!==undefined && errorMessage?.trim()!=='' ? errorMessage : ''}</FormHelperText>

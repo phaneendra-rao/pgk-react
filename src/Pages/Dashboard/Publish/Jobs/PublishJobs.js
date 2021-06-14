@@ -11,6 +11,7 @@ import { HiringSagaAction } from "../../../../Store/Actions/SagaActions/HiringSa
 import CustomModal from "../../../../Components/CustomModal";
 import moment from "moment";
 import CustomToastModal from "../../../../Components/CustomToastModal";
+import Checkbox from '@material-ui/core/Checkbox';
 
 const PublishJobs = () => {
   const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
@@ -152,14 +153,9 @@ const PublishJobs = () => {
         <p className="heading">Publish Jobs</p>
         {(jobsList?.length && jobsList.some((item)=>!item.publishedFlag)) ? (
           <div className="w-full d-flex justify-content-start align-content-center publish-selected-btn-container">
-            <input
-              type="checkbox"
-              onChange={() => {
+            <Checkbox size={'small'} color={'primary'} checked={selectAll} onChange={(e)=>{
                 onSelect("ALL");
-              }}
-              checked={selectAll}
-              className="align-self-center mr-2"
-            />
+            }} />
             <button
               type="button"
               className="btn"

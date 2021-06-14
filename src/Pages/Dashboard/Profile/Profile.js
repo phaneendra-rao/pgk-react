@@ -19,8 +19,6 @@ import {
 
 import { actionGetStatesByCountryNameRequest, actionGetCitiesByStateNameRequest } from "../../../Store/Actions/SagaActions/CommonSagaActions";
 
-
-
 const requiredFields = [
   'stakeholderID',
   'CIN',
@@ -88,7 +86,8 @@ const Profile = () => {
   const [profilePicture, setProfilePicture] = useState();
   const [attachment, setAttachment] = useState({
     attachment: undefined,
-    attachmentName: undefined
+    attachmentName: undefined,
+    attachmentError: undefined
   });
   const [
     isTermsAndConditionsChecked,
@@ -212,7 +211,8 @@ const Profile = () => {
       setProfilePicture(profileInfo?.profilePicture);
       setAttachment({
         attachment: profileInfo?.attachment,
-        attachmentName: profileInfo?.attachmentName
+        attachmentName: profileInfo?.attachmentName,
+        attachmentError: undefined
       });
   
       let profileData = {};
@@ -362,6 +362,12 @@ const Profile = () => {
     let errorMessage = undefined;
     const val = event.target.files.length;
 
+    if(val) {
+      if(parseFloat((event.target.files[0].size / 1024).toFixed(2)) > 5000) {
+        errorMessage = 'Please select file below 5 MB';
+      }
+    }
+
     for (let i = 0; i < val; i++) {
       let reader = new FileReader();
       reader.onload = function (ev) {
@@ -370,18 +376,13 @@ const Profile = () => {
         } else if (name === "attachment") {
           setAttachment({
             attachment: ev.target.result.split(",")[1],
-            attachmentName: event?.target?.files[0]?.name ? event.target.files[0].name : '-'
+            attachmentName: event?.target?.files[0]?.name ? event.target.files[0].name : '-',
+            attachmentError: errorMessage
           });
         }
       };
 
       reader.readAsDataURL(event.target.files[i]);
-    }
-
-    console.log('parseFloat((event.target.files[0].size / 1024).toFixed(2)) ', parseFloat((event.target.files[0].size / 1024).toFixed(2)));
-
-    if(parseFloat((event.target.files[0].size / 1024).toFixed(2)) > 5000) {
-      errorMessage = 'Please select file below 5 MB';
     }
 
     let data = profile[name];
@@ -477,7 +478,7 @@ const Profile = () => {
   };
 
   const isFormValid = () => {
-    if (profile && requiredFields.some((item)=>profile[item]?.errorMessage!==undefined)) {
+    if ((profile && requiredFields.some((item)=>profile[item]?.errorMessage!==undefined)) || attachment.attachmentError) {
       return false;
     } else {
       return true && isTermsAndConditionsChecked;

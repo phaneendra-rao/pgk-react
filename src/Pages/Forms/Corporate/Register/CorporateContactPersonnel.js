@@ -31,7 +31,7 @@ const CorporateContactPersonnel = (props) => {
     const [repeatPasswordErr, setRepeatPasswordErr] = useState('');
     const [errors, setErrors] = useState(errorsObj);
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
-    const [showError, setshowError] = useState(false)
+    const [showError, setshowError] = useState()
 
     const storeData = useSelector(state => state.CorporateReducer.corporatePrimaryState);
     const apiStatus = useSelector(state => state.CorporateReducer.apiStatus);
@@ -60,15 +60,6 @@ const CorporateContactPersonnel = (props) => {
         setIsBtnDisabled(isErrorsObjEmpty);
     }, [errors]);
 
-    // useEffect(() => {
-    //     if (apiStatus) {
-    //         props.history.push('/register/authentication');
-    //     }
-    //     return () => {
-    //         dispatch(ResetRdrAction());
-    //     }
-    // }, [apiStatus])
-
     const handleChange = (name, value, errorMessage) => {
         if (name !== "repeatPassword") {
             setContactPersonnel(preState => ({
@@ -85,22 +76,23 @@ const CorporateContactPersonnel = (props) => {
         }
     }
 
+    const checkObjectPropertyList = (obj) => {
+        let keyList = [];
+        for (const key in obj) {
+            if (obj[key] === '' || obj[key] === null || obj[key] === undefined) {
+                keyList.push(key);
+            }
+        }
+        return keyList;
+    }
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const selectedName = localStorage.getItem('type');
-        const { emailErr, email2Err, passwordErr, lnameErr, fnameErr, designationErr, repeatPasswordErr, mobileErr, mobile2Err } = errors;
         const { primaryContactFirstName, primaryContactLastName, primaryContactDesignation, primaryContactPhone, primaryContactEmail, password } = contactPersonnel;
 
         const primary = JSON.parse(sessionStorage.getItem('primary'));
         const secondary = JSON.parse(sessionStorage.getItem('secondary'));
-        const store1 = checkObjectProperties(primary);
-        const store2 = checkObjectProperties(secondary);
-        if (store1 && store2) {
-            setshowError(true);
-            return;            
-        } else {
-            setshowError(false);
-        }
         // const finalData = Object.assign(storeData, contactPersonnel);
         const finalData = { ...primary, ...secondary, ...contactPersonnel };
         if (primaryContactFirstName && primaryContactLastName && primaryContactDesignation && primaryContactPhone && primaryContactEmail) {
@@ -111,7 +103,6 @@ const CorporateContactPersonnel = (props) => {
             finalData.corporateHQAddressPhone = secondary?.countryCode + secondary?.corporateHQAddressPhone?.toString();
             finalData.corporateLocalBranchAddressPhone = secondary?.corporateLocalBranchAddressPhone ? secondary?.countryCode2 + secondary?.corporateLocalBranchAddressPhone?.toString() : '';
             finalData.stakeholder = selectedName;
-            finalData.yearOfEstablishment = primary?.yearOfEstablishment?.split('-')[0];
             finalData.primaryContactPhone = secondary?.countryCode + contactPersonnel?.primaryContactPhone?.toString();
             finalData.secondaryContactPhone = contactPersonnel?.secondaryContactPhone ? secondary?.countryCode + contactPersonnel?.secondaryContactPhone?.toString() : '';
             // finalData.attachment = convertToFile;
@@ -122,14 +113,16 @@ const CorporateContactPersonnel = (props) => {
             delete finalData.referral;
             sessionStorage.setItem('contact', JSON.stringify(contactPersonnel));
 
-            // ========= TO CHECK OBJECT VALUES ARE EMPTY OR NOT
-            const isObjEmpty = checkObjectProperties(finalData);
-            if (isObjEmpty) {
-                setshowError(isObjEmpty);
-                return;
-            } else {
-                setshowError(isObjEmpty);
-            }
+            // // ========= TO CHECK OBJECT VALUES ARE EMPTY OR NOT
+            // const isObjEmpty = checkObjectPropertyList(finalData);
+            // console.log(finalData, isObjEmpty);
+            // setshowError(isObjEmpty);
+            // if (isObjEmpty.length > 0) {
+            //     setshowError(isObjEmpty);
+            //     return;
+            // } else {
+            //     setshowError(isObjEmpty);
+            // }
 
             // await dispatch(SaveCoprorateData(contactPersonnel, 3));
             // await dispatch(SignupAction(finalData, props.history));
@@ -137,6 +130,7 @@ const CorporateContactPersonnel = (props) => {
             if (selectedName === 'Corporate') {
                 await dispatch(SaveCoprorateData(contactPersonnel, 3));
                 await dispatch(SignupAction(finalData, props.history, selectedName));
+                setshowError(false);
             } else if (selectedName === 'University') {
                 const data = {
                     universityName: finalData.corporateName,

@@ -18,6 +18,7 @@ const CorporatePrimaryCmp = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit} className="login-form reg-form">
+        {props.showError ? <div className="alert alert-danger" role="alert">Please check all inputs </div> : null}
             <RegisterHeader title="Primary Details" />
             <div className="row">
                 <div className="col-md-6">

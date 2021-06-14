@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import RegisterSidebar from '../Common/RegisterSidebar';
 import routes from '../../routes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionGetUniversalAccessToken } from '../../Store/Actions/SagaActions/CommonSagaActions';
 // import Register from '../../Pages/Forms/Corporate/Register/Register';
 // import CorporateSecondary from '../../Pages/Forms/Corporate/Register/CorporateSecondary';
 
-const RegisterLayout = () => {
+const RegisterLayout = (props) => {
 
     const apiStatus = useSelector(state => state.CorporateReducer.apiStatus);
+    const universalTutorialAccessToken = useSelector(state => state.DashboardReducer.universalTutorialAccessToken);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+       if (props.match.url === '/register' && !universalTutorialAccessToken) {
+           dispatch(actionGetUniversalAccessToken());
+       }
+    }, [])
 
     const getRoutes = (routes) => {
         return routes.map((route, i) => {

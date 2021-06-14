@@ -2,114 +2,266 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import CorporateSecondaryCmp from '../../../../Components/Forms/CorporateCmp/RegisterCmp/CorporateSecondaryCmp';
-import { GetCategoryListAction, SaveCoprorateData } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import { GetCategoryListAction, GetCountryCodeAction, SaveCoprorateData } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import { actionGetCitiesByStateNameRequest, actionGetCountryCodesSagaAction, actionGetStatesByCountryNameRequest } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+import { checkObjectProperties } from '../../../../utils/utils';
 
 const CorporateSecondary = (props) => {
+    // const initialState = {
+    //     corporateType: '',
+    //     corporateCategory: '',
+    //     corporateIndustry: '',
+    //     companyProfile: '',
+    //     attachment: '',
+    //     yearOfEstablishment: '',
+    // };
+    // =========***Main Object***=========
     const initialState = {
-        corporateType: '',
-        corporateCategory: '',
-        corporateIndustry: '',
+        // corporateName: '',
+        corporateHQAddressLine1: '',
+        corporateHQAddressLine2: '',
+        corporateHQAddressCountry: '',
+        corporateHQAddressState: '',
+        corporateHQAddressCity: '',
+        corporateHQAddressDistrict: '',
+        corporateHQAddressZipCode: '',
+        corporateHQAddressPhone: '',
+        corporateHQAddressEmail: '',
+        // CIN: '',
+        corporateLocalBranchAddressLine1: '',
+        corporateLocalBranchAddressLine2: '',
+        corporateLocalBranchAddressCountry: '',
+        corporateLocalBranchAddressState: '',
+        corporateLocalBranchAddressCity: '',
+        corporateLocalBranchAddressDistrict: '',
+        corporateLocalBranchAddressZipCode: '',
+        corporateLocalBranchAddressPhone: '',
+        corporateLocalBranchAddressEmail: '',
         companyProfile: '',
-        attachment: '',
-        yearOfEstablishment: '',
+        attachment2: ''
     };
+
+    // =========***Error Object***=========
+    const errorsObj = initialState;
+
     const [corporateSecondary, setCorporateSecondary] = useState(initialState);
-    const [errors, setErrors] = useState({ profileErr: '' });
+    const [errors, setErrors] = useState(errorsObj);
     const [path, setPath] = useState('');
+    const [code, setCode] = useState('');
+    const [code2, setCode2] = useState('');
+    const [countries, setCountries] = useState([]);
+    const [stateList, setStateList] = useState([]);
+    const [citylist, setCitylist] = useState([]);
+    // const [countriesLocal, setCountriesLocal] = useState([]);
+    const [stateListLocal, setStateListLocal] = useState([]);
+    const [citylistLocal, setCitylistLocal] = useState([]);
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+    const [imageObj, setImageObj] = useState({});
+    const [filename, setFilename] = useState('')
+    // const [corporateSecondary, setCorporateSecondary] = useState(initialState);
+    // const [errors, setErrors] = useState({ profileErr: '' });
+    // const [path, setPath] = useState('');
 
     const storeData = useSelector(state => state.CorporateReducer.corporatePrimaryState);
-    const categoryList = useSelector(state => state.CorporateReducer.categoryList);
-
+    const countryCodes = useSelector(state => state.CorporateReducer.countryCodes);
     const selectedName = localStorage.getItem('type');
+
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(GetCategoryListAction(selectedName));
-        // if (selectedName === 'Corporate') {
-        // }
-        if (storeData) {
-            Object.keys(initialState).map(keyName => {
-                for (const key in storeData) {
+    useEffect(async () => {
+        dispatch(
+            actionGetCountryCodesSagaAction({
+                callback: onCountryCodesResponse,
+            })
+        );
+        const localStorageObj = JSON.parse(sessionStorage.getItem('secondary'));
+        const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 9 ? true : false;
+        if ((localStorageObj || storeData) && isLocalStorageAvailable) {
+            let data = Object.keys(storeData).length > 9 ? storeData : localStorageObj;
+            let storeSecondaryObj = {};
+            Object.keys(data).map(keyName => {
+                for (const key in initialState) {
                     if (keyName === key) {
-                        setCorporateSecondary(prevState => ({
-                            ...prevState,
-                            [key]: storeData[key]
-                        }))
+                        storeSecondaryObj[key] = data[key];
                     }
                 }
-            })
+            });
+            setCorporateSecondary(storeSecondaryObj);
+            if (storeSecondaryObj?.corporateHQAddressCountry) {
+                await getStatesByCountryName(storeSecondaryObj['corporateHQAddressCountry'], 'HQ');
+            }
+            if (storeSecondaryObj?.corporateLocalBranchAddressCountry) {
+                await getStatesByCountryName(storeSecondaryObj['corporateLocalBranchAddressCountry'], 'LOCAL');
+            }
+            if (storeSecondaryObj.corporateHQAddressState) {
+                await getCitiesByStateName(storeSecondaryObj['corporateHQAddressState'], 'HQ');
+            }
+            if (storeSecondaryObj?.corporateLocalBranchAddressState) {
+                await getCitiesByStateName(storeSecondaryObj['corporateLocalBranchAddressState'], 'LOCAL');
+            }
         }
 
     }, []);
 
+    useEffect(() => {
+        const isErrorsObjEmpty = checkObjectProperties(errors);
+        setIsBtnDisabled(isErrorsObjEmpty);
+    }, [errors]);
+
+
+    const onCountryCodesResponse = (response) => {
+        if (response?.length) {
+            const updatedCountryOptions = response.map((item) => {
+                return { value: item?.name, label: item?.name, callingCodes: item?.callingCodes };
+            });
+            setCountries(updatedCountryOptions);
+        }
+    };
+
+    const handleChange = (name, value, errorMessage) => {
+        setCorporateSecondary(preState => ({
+            ...preState,
+            [name]: value
+        }));
+        setErrors(preState => ({
+            ...preState,
+            [name]: errorMessage
+        }));
+        if (name === 'corporateHQAddressCountry') {
+            getStatesByCountryName(value, 'HQ');
+        } else if (name === 'corporateLocalBranchAddressCountry') {
+            getStatesByCountryName(value, 'LOCAL');
+        }
+        if (name === 'corporateHQAddressState') {
+            getCitiesByStateName(value, 'HQ');
+        } else if (name === 'corporateLocalBranchAddressState') {
+            getCitiesByStateName(value, 'LOCAL');
+        }
+        // if (name === 'corporateHQAddressCountry') {
+        //     const countryCode = countryCodes?.find(item => item.name === corporateSecondary.corporateHQAddressCountry)
+        //     setCode('+' + countryCode?.callingCodes[0])
+        // } else if (name === 'corporateLocalBranchAddressCountry') {
+        //     const countryCode1 = countryCodes?.find(item => item.name === corporateSecondary.corporateLocalBranchAddressCountry)
+        //     setCode2('+' + countryCode1?.callingCodes[0])
+        // }
+    }
+
+    const getStatesByCountryName = (countryName, type) => {
+        dispatch(
+            actionGetStatesByCountryNameRequest({
+                countryName: countryName,
+                callback: (response) => {
+                    let statesList = response && response.length >= 0
+                        ? response?.map((item, i) => ({ value: item?.state_name, label: item?.state_name })) : (null);
+                    if (type === 'HQ') {
+                        setStateList(statesList);
+                    } else {
+                        setStateListLocal(statesList)
+                    }
+                },
+            })
+        );
+    }
+
+    const getCitiesByStateName = (stateName, type) => {
+        dispatch(
+            actionGetCitiesByStateNameRequest({
+                stateName: stateName,
+                callback: (response) => {
+                    let citiesList = response && response.length >= 0
+                        ? response?.map((item, i) => ({ value: item?.city_name, label: item?.city_name })) : (null);
+                    if (type === 'HQ') {
+                        setCitylist(citiesList);
+                    } else {
+                        setCitylistLocal(citiesList)
+                    }
+                },
+            })
+        );
+    }
+
+    const saveData = (event) => {
+        const isCheked = event.target.checked;
+        if (isCheked) {
+            setCode2(code);
+            setStateListLocal(stateList);
+            setCitylistLocal(citylist);
+            setCorporateSecondary(preState => ({
+                ...preState,
+                corporateLocalBranchAddressLine1: corporateSecondary.corporateHQAddressLine1,
+                corporateLocalBranchAddressLine2: corporateSecondary.corporateHQAddressLine2,
+                corporateLocalBranchAddressCountry: corporateSecondary.corporateHQAddressCountry,
+                corporateLocalBranchAddressState: corporateSecondary.corporateHQAddressState,
+                corporateLocalBranchAddressCity: corporateSecondary.corporateHQAddressCity,
+                corporateLocalBranchAddressDistrict: corporateSecondary.corporateHQAddressDistrict,
+                corporateLocalBranchAddressZipCode: corporateSecondary.corporateHQAddressZipCode,
+                corporateLocalBranchAddressPhone: corporateSecondary.corporateHQAddressPhone,
+                corporateLocalBranchAddressEmail: corporateSecondary.corporateHQAddressEmail
+            }));
+        } else {
+            setCode2('');
+            setStateListLocal([]);
+            setCitylistLocal([]);
+            setCorporateSecondary(preState => ({
+                ...preState,
+                corporateLocalBranchAddressLine1: '',
+                corporateLocalBranchAddressLine2: '',
+                corporateLocalBranchAddressCountry: '',
+                corporateLocalBranchAddressState: '',
+                corporateLocalBranchAddressCity: '',
+                corporateLocalBranchAddressDistrict: '',
+                corporateLocalBranchAddressZipCode: '',
+                corporateLocalBranchAddressPhone: '',
+                corporateLocalBranchAddressEmail: ''
+            }));
+        }
+    }
+
     const handleChangeImg = (event) => {
         event.preventDefault();
+        let imageObj = event.target.files[0];
         if (event.target.files) {
             setCorporateSecondary(preState => ({
                 ...preState,
-                attachment: event.target.files[0]
+                attachment2: imageObj
             }))
+            let obj = {};
+            for (const key in imageObj) {
+                obj[key] = imageObj[key]
+            }
+            setImageObj(obj);
+            setFilename(obj.name);
             // if (event.target.files[0].type === "application/pdf")
             const val = event.target.files.length;
             for (let i = 0; i < val; i++) {
                 let reader = new FileReader();
                 reader.onload = function (ev) {
                     setPath(ev.target.result.split(',')[1]);
-                    // localStorage.setItem('imgpath', ev.target.result.split(',')[1]);
-                    // setPath(preState => ({
-                    //     ...preState,
-                    //     path: ev.target.result.split(',')[1]
-                    // }))
                 }.bind(this);
                 reader.readAsDataURL(event.target.files[i]);
             }
         }
     }
 
-
-    const handlerChange = (event) => {
-        const { name, value } = event.target;
-
-        if (name === "yearOfEstablishment") {
-            let date = parseInt(value)
-            setCorporateSecondary(preState => ({
-                ...preState,
-                [name]: date
-            }));
-        } else {
-            setCorporateSecondary(preState => ({
-                ...preState,
-                [name]: value
-            }));
-        }
-
-        switch (name) {
-            case 'companyProfile':
-                if (value) {
-                    setErrors(preState => ({
-                        ...preState,
-                        profileErr: ''
-                    }));
-                } else if (!value) {
-                    setErrors(preState => ({
-                        ...preState,
-                        profileErr: 'profile error'
-                    }));
-                }
-                return;
-
-            default:
-                break;
-        }
-    }
-
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(code, code2);
         const { profileErr } = errors;
-        const { corporateType, corporateCategory, companyProfile, attachment, yearOfEstablishment, corporateIndustry } = corporateSecondary;
+        const {
+            corporateHQAddressLine1, corporateHQAddressLine2, corporateHQAddressCountry, corporateHQAddressState,
+            corporateHQAddressCity, corporateHQAddressDistrict, corporateHQAddressZipCode, corporateHQAddressPhone,
+            corporateHQAddressEmail, companyProfile, corporateLocalBranchAddressPhone
+        } = corporateSecondary;
         if (selectedName === 'Corporate') {
-            if (corporateType && corporateCategory && companyProfile && attachment && yearOfEstablishment && !profileErr) {
+            if (corporateHQAddressLine1 && corporateHQAddressLine2 && corporateHQAddressCountry && corporateHQAddressState
+                && corporateHQAddressCity && corporateHQAddressDistrict && corporateHQAddressZipCode && corporateHQAddressPhone
+                && corporateHQAddressEmail && companyProfile) {
+                const countryCode = countries?.find(item => item?.value === corporateSecondary?.corporateHQAddressCountry);
+                const countryCode2 = countries?.find(item => item?.value === corporateSecondary?.corporateLocalBranchAddressCountry);
+                corporateSecondary['countryCode'] = '+' + countryCode?.callingCodes[0];
+                corporateSecondary['countryCode2'] = corporateHQAddressCountry ? '+' + countryCode2?.callingCodes[0] : '';
+                sessionStorage.setItem('secondary', JSON.stringify(corporateSecondary));
                 dispatch(SaveCoprorateData(corporateSecondary, 2));
                 props.history.push('/register/contactPersonnel');
 
@@ -117,7 +269,9 @@ const CorporateSecondary = (props) => {
                 toast.error("Please enter required input fields")
             }
         } else if (selectedName === 'University') {
-            if (corporateIndustry && companyProfile && attachment && yearOfEstablishment && !profileErr) {
+            if (corporateHQAddressLine1 && corporateHQAddressLine2 && corporateHQAddressCountry && corporateHQAddressState
+                && corporateHQAddressCity && corporateHQAddressDistrict && corporateHQAddressZipCode && corporateHQAddressPhone
+                && corporateHQAddressEmail && companyProfile) {
                 dispatch(SaveCoprorateData(corporateSecondary, 2));
                 props.history.push('/register/contactPersonnel');
 
@@ -131,12 +285,21 @@ const CorporateSecondary = (props) => {
         <CorporateSecondaryCmp
             history={props.history}
             selectedName={selectedName}
-            path={path}
+            path={"data:image/png;base64," + path}
             corporateSecondary={corporateSecondary}
-            attachment={corporateSecondary.attachment}
-            categoryList={categoryList}
+            errors={errors}
+            isBtnDisabled={isBtnDisabled}
+            attachment={corporateSecondary.attachment2}
+            countryCodes={countries}
+            stateList={stateList}
+            citylist={citylist}
+            // countryCodesLocal={countriesLocal}
+            stateListLocal={stateListLocal}
+            citylistLocal={citylistLocal}
+            filename={filename}
+            saveData={saveData}
             handleChangeImg={handleChangeImg}
-            handlerChange={handlerChange}
+            handleChange={handleChange}
             handleSubmit={handleSubmit}
         />
     )

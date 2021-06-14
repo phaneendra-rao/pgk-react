@@ -3,197 +3,141 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import CorporatePrimaryCmp from '../../../../Components/Forms/CorporateCmp/RegisterCmp/CorporatePrimaryCmp';
 import { GetCountryCodeAction, SaveCoprorateData } from '../../../../Store/Actions/CorporateActions/CorporateAction';
+import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+import { checkObjectProperties } from '../../../../utils/utils';
 
 const Register = (props) => {
+    // =========***Main Object***=========
     const initialState = {
         corporateName: '',
-        corporateHQAddressLine1: '',
-        corporateHQAddressLine2: '',
-        corporateHQAddressCountry: '',
-        corporateHQAddressState: '',
-        corporateHQAddressCity: '',
-        corporateHQAddressDistrict: '',
-        corporateHQAddressZipCode: '',
-        corporateHQAddressPhone: '',
-        corporateHQAddressEmail: '',
         CIN: '',
-        corporateLocalBranchAddressLine1: '',
-        corporateLocalBranchAddressLine2: '',
-        corporateLocalBranchAddressCountry: '',
-        corporateLocalBranchAddressState: '',
-        corporateLocalBranchAddressCity: '',
-        corporateLocalBranchAddressDistrict: '',
-        corporateLocalBranchAddressZipCode: '',
-        corporateLocalBranchAddressPhone: '',
-        corporateLocalBranchAddressEmail: ''
+        corporateType: '',
+        corporateCategory: '',
+        corporateIndustry: '',
+        attachment: '',
+        yearOfEstablishment: '',
+        referral: ''
     };
 
+    // =========***Error Object***=========
+    const errorsObj = initialState;
+
     const [corporatePrimaryData, setCorporatePrimaryData] = useState(initialState);
-    const [errors, setErrors] = useState({ emailErr: '', email2Err: '', mobileErr: '', mobile2Err: '' });
-    const [code, setCode] = useState('');
-    const [code2, setCode2] = useState('');
+    const [errors, setErrors] = useState(errorsObj);
+    const [path, setPath] = useState('');
+    const [lookUpData, setLookUpData] = useState([]);
+    const [imageObj, setImageObj] = useState({});
+    const [filename, setFilename] = useState('')
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
     const dispatch = useDispatch();
     const storeData = useSelector(state => state.CorporateReducer.corporatePrimaryState);
-    const countryCodes = useSelector(state => state.CorporateReducer.countryCodes);
-    console.log(storeData);
 
     useEffect(() => {
-        dispatch(GetCountryCodeAction());
-        if (storeData) {
-            for (const key in storeData) {
-                setCorporatePrimaryData(prevState => ({
-                    // ...prevState,
-                    [key]: storeData[key]
-                }))
-            }
+        dispatch(actionGetDependencyLookUpsSagaAction({
+            apiPayloadRequest: ['corporateCategory', 'corporateIndustry', 'corporateType'],
+            callback: dropdowns
+        }));
+        const image1 = JSON.parse(sessionStorage.getItem('image1'));
+        const base64Img = sessionStorage.getItem('base64Img');
+        const localStorageObj = JSON.parse(sessionStorage.getItem('primary'));
+        const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 5 ? true : false;
+        setPath(base64Img);
+        if ((localStorageObj || storeData) && isLocalStorageAvailable) {
+            let data = Object.keys(storeData).length > 5 ? storeData : localStorageObj;
+            let storeObj = {};
+            Object.keys(data).map(keyName => {
+                for (const key in initialState) {
+                    if (keyName === key) {
+                        storeObj[key] = data[key];
+                    }
+                }
+            });
+            setCorporatePrimaryData(storeObj);
+            // convertImgToBase64(image1)
+            // const size = dataURLtoFile(base64Img, image1?.name, image1?.type)
         }
     }, []);
 
-    const handlerChange = (event) => {
-        const { name, value } = event.target;
+    useEffect(() => {
+        const isErrorsObjEmpty = checkObjectProperties(errors);
+        setIsBtnDisabled(isErrorsObjEmpty);
+    }, [errors]);
+
+    const dropdowns = (data) => {
+        setLookUpData(data);
+    }
+
+    const handleChange = (name, value, errorMessage) => {
         setCorporatePrimaryData(preState => ({
             ...preState,
             [name]: value
         }));
+        setErrors(preState => ({
+            ...preState,
+            [name]: errorMessage
+        }));
+    }
 
-        switch (name) {
-            case 'corporateHQAddressEmail':
-                const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                if (value && mailformat.test(value)) {
-                    setErrors(preState => ({
-                        ...preState,
-                        emailErr: ''
-                    }));
-                } else if (!value || !mailformat.test(value)) {
-                    setErrors(preState => ({
-                        ...preState,
-                        emailErr: 'Email error'
-                    }));
-                }
-                return;
-
-            case 'corporateLocalBranchAddressEmail':
-                const mailformat1 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                if (value && mailformat1.test(value)) {
-                    setErrors(preState => ({
-                        ...preState,
-                        email2Err: ''
-                    }));
-                } else if (!value || !mailformat1.test(value)) {
-                    setErrors(preState => ({
-                        ...preState,
-                        email2Err: 'Email error'
-                    }));
-                }
-                return;
-
-            case 'corporateHQAddressPhone':
-                // setCorporatePrimaryData({
-                //     corporateHQAddressPhone: code + value
-                // });
-                const num = /^[+-]?[0-9\b]+$/;
-                if (num.test(value)) {
-                    // if (val.match(phoneno)) {
-                    if (value.length === 10) {
-                        setErrors(preState => ({
-                            ...preState,
-                            mobileErr: ''
-                        }));
-                    } else {
-                        setErrors(preState => ({
-                            ...preState,
-                            mobileErr: 'Invalid'
-                        }));
-                    }
-                } else {
-                    setErrors(preState => ({
-                        ...preState,
-                        mobileErr: 'Invalid'
-                    }));
-                }
-                return;
-            case 'corporateLocalBranchAddressPhone':
-                // setCorporatePrimaryData({
-                //     corporateLocalBranchAddressPhone: code + value
-                // });
-                const num2 = /^[+-]?[0-9\b]+$/;
-                if (num2.test(value)) {
-                    // if (val.match(phoneno)) {
-                    if (value.length === 10) {
-                        setErrors(preState => ({
-                            ...preState,
-                            mobile2Err: ''
-                        }));
-                    } else {
-                        setErrors(preState => ({
-                            ...preState,
-                            mobile2Err: 'Invalid'
-                        }));
-                    }
-                } else {
-                    setErrors(preState => ({
-                        ...preState,
-                        mobile2Err: 'Invalid'
-                    }));
-                }
-                return;
-
-            case 'corporateHQAddressCountry':
-                const countryCode1 = countryCodes.find(item => item.name === value);
-                setCode('+' + countryCode1?.callingCodes[0]);
-                return;
-
-            case 'corporateLocalBranchAddressCountry':
-                const countryCode2 = countryCodes.find(item => item.name === value);
-                setCode2('+' + countryCode2.callingCodes[0]);
-                return;
-
-            default:
-                break;
+    const handleChangeImg = (event) => {
+        event.preventDefault();
+        if (event.target.files) {
+            let imageObj = event.target.files[0];
+            let obj = {};
+            for (const key in imageObj) {
+                obj[key] = imageObj[key]
+            }
+            setImageObj(obj);
+            setFilename(obj.name);
+            sessionStorage.setItem('image1', JSON.stringify(obj))
+            // if (event.target.files[0].type === "application/pdf")
+            setCorporatePrimaryData(preState => ({
+                ...preState,
+                attachment: event.target.files[0]
+            }));
+            const val = event.target.files.length;
+            for (let i = 0; i < val; i++) {
+                let reader = new FileReader();
+                reader.onload = function (ev) {
+                    setPath(ev.target.result.split(',')[1]);
+                    sessionStorage.setItem('base64Img', ev.target.result.split(',')[1])
+                }.bind(this);
+                reader.readAsDataURL(event.target.files[i]);
+            }
         }
     }
 
-    const saveData = (event) => {
-        const isCheked = event.target.checked;
-        if (isCheked) {
-            setCorporatePrimaryData(preState => ({
-                ...preState,
-                corporateLocalBranchAddressLine1: corporatePrimaryData.corporateHQAddressLine1,
-                corporateLocalBranchAddressLine2: corporatePrimaryData.corporateHQAddressLine2,
-                corporateLocalBranchAddressCountry: corporatePrimaryData.corporateHQAddressCountry,
-                corporateLocalBranchAddressState: corporatePrimaryData.corporateHQAddressState,
-                corporateLocalBranchAddressCity: corporatePrimaryData.corporateHQAddressCity,
-                corporateLocalBranchAddressDistrict: corporatePrimaryData.corporateHQAddressDistrict,
-                corporateLocalBranchAddressZipCode: corporatePrimaryData.corporateHQAddressZipCode,
-                corporateLocalBranchAddressPhone: corporatePrimaryData.corporateHQAddressPhone,
-                corporateLocalBranchAddressEmail: corporatePrimaryData.corporateHQAddressEmail
-            }));
-            setCode2(code);
-        } else {
-            setCorporatePrimaryData(preState => ({
-                ...preState,
-                corporateLocalBranchAddressLine1: '',
-                corporateLocalBranchAddressLine2: '',
-                corporateLocalBranchAddressCountry: '',
-                corporateLocalBranchAddressState: '',
-                corporateLocalBranchAddressCity: '',
-                corporateLocalBranchAddressDistrict: '',
-                corporateLocalBranchAddressZipCode: '',
-                corporateLocalBranchAddressPhone: '',
-                corporateLocalBranchAddressEmail: ''
-            }));
-            setCode2('')
+    // const convertImgToBase64 = (image1) => {
+    //     const file = image1?.name?.split('.').slice(0, -1).join('.')
+    //     const convertToFile = new File([file], image1?.name, { type: image1?.type, lastModified: image1?.lastModified });
+    //     console.log(convertToFile);
+    //     let reader = new FileReader();
+    //     reader.onload = function (ev) {
+    //         setPath(ev.target.result.split(','));
+    //         console.log(ev.target.result.split(','));
+    //     }.bind(this);
+    //     reader.readAsDataURL(convertToFile);
+    // }
+    const dataURLtoFile = (dataurl, filename, type) => {
+        let arr = dataurl;
+        // let mime = arr[0]?.match(/:(.*?);/)[1];
+        let bstr = atob(arr);
+        let n = bstr?.length;
+        let u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr?.charCodeAt(n);
         }
+        return new File([u8arr], filename, { type: type });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const { emailErr, mobileErr } = errors;
-        const { corporateName, CIN, corporateHQAddressPhone, corporateLocalBranchAddressPhone, corporateHQAddressZipCode } = corporatePrimaryData;
-        if (corporateName && CIN && corporateHQAddressPhone && corporateHQAddressZipCode && !emailErr && !mobileErr) {
-            corporatePrimaryData.corporateHQAddressPhone = code + corporateHQAddressPhone;
-            corporatePrimaryData.corporateLocalBranchAddressPhone = code2 + corporateLocalBranchAddressPhone;
+        const { corporateName, CIN, corporateType, corporateCategory, corporateIndustry,
+            attachment, yearOfEstablishment } = corporatePrimaryData;
+        if (corporateName && CIN && corporateType && corporateCategory && corporateIndustry
+            && attachment && yearOfEstablishment) {
+            sessionStorage.setItem('image1', JSON.stringify(imageObj))
+            sessionStorage.setItem('primary', JSON.stringify(corporatePrimaryData))
             dispatch(SaveCoprorateData(corporatePrimaryData, 1));
             props.history.push('/register/CorporateSecondary');
         } else {
@@ -205,12 +149,12 @@ const Register = (props) => {
         <CorporatePrimaryCmp
             corporatePrimaryData={corporatePrimaryData}
             errors={errors}
-            code={code}
-            code2={code2}
-            countryCodes={countryCodes}
-            history={props.history}
-            saveData={saveData}
-            handlerChange={handlerChange}
+            path={"data:image/png;base64," + path}
+            filename={filename}
+            lookUpData={lookUpData}
+            isBtnDisabled={isBtnDisabled}
+            handleChange={handleChange}
+            handleChangeImg={handleChangeImg}
             handleSubmit={handleSubmit}
         />
 

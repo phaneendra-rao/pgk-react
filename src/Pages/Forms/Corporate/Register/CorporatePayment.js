@@ -200,10 +200,15 @@ const CorporatePayment = (props) => {
     }
 
     const cancelPayment = () => {
-        if (pathname) {
-            history.replace(pathname);            
+        const token = localStorage.getItem('token');
+        if (token) {
+            if (pathname) {
+                history.replace(pathname);
+            } else {
+                history.replace('/dashboard');
+            }
         } else {
-            history.replace('/dashboard');
+            history.replace('/');
         }
     }
 

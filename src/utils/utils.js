@@ -3,7 +3,7 @@ export const ucwords = (str) => {
         return "";
     }
 
-    return str.replace(/\w\S*/g, function(txt) {
+    return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 }
@@ -12,4 +12,13 @@ export const isEmailValid = (value) => {
     const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     return value && mailformat.test(value);
+}
+
+export const checkObjectProperties = (obj) => {
+    for (const key in obj) {
+        if (obj[key] !== '' && obj[key] !== null && obj[key] !== undefined) {
+            return true
+        }
+    }
+    return false;
 }

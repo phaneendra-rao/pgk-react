@@ -6,8 +6,8 @@ const Register = React.lazy(() =>
 const CorporateSecondary = React.lazy(() =>
   import("./Pages/Forms/Corporate/Register/CorporateSecondary")
 );
-const ContactPersonnel = React.lazy(() =>
-  import("./Pages/Forms/Corporate/Register/ContactPersonnel")
+const CorporateContactPersonnel = React.lazy(() =>
+  import("./Pages/Forms/Corporate/Register/CorporateContactPersonnel")
 );
 const Authentication = React.lazy(() =>
   import("./Pages/Forms/Corporate/Register/Authentication")
@@ -104,8 +104,8 @@ const routes = [
     strict: true,
     exact: true,
     role: "corporateReg",
-    name: "ContactPersonnel",
-    component: ContactPersonnel,
+    name: "CorporateContactPersonnel",
+    component: CorporateContactPersonnel,
   },
   {
     path: "/register/authentication",

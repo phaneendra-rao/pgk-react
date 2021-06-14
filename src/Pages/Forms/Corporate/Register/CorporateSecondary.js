@@ -56,7 +56,8 @@ const CorporateSecondary = (props) => {
     const [stateListLocal, setStateListLocal] = useState([]);
     const [citylistLocal, setCitylistLocal] = useState([]);
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
-
+    const [imageObj, setImageObj] = useState({});
+    const [filename, setFilename] = useState('')
     // const [corporateSecondary, setCorporateSecondary] = useState(initialState);
     // const [errors, setErrors] = useState({ profileErr: '' });
     // const [path, setPath] = useState('');
@@ -68,14 +69,12 @@ const CorporateSecondary = (props) => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        // dispatch(GetCountryCodeAction());
+    useEffect(async () => {
         dispatch(
             actionGetCountryCodesSagaAction({
                 callback: onCountryCodesResponse,
             })
         );
-        console.log("secondary------", storeData);
         const localStorageObj = JSON.parse(sessionStorage.getItem('secondary'));
         const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 9 ? true : false;
         if ((localStorageObj || storeData) && isLocalStorageAvailable) {
@@ -88,7 +87,19 @@ const CorporateSecondary = (props) => {
                     }
                 }
             });
-            setCorporateSecondary(storeSecondaryObj)
+            setCorporateSecondary(storeSecondaryObj);
+            if (storeSecondaryObj?.corporateHQAddressCountry) {
+                await getStatesByCountryName(storeSecondaryObj['corporateHQAddressCountry'], 'HQ');
+            }
+            if (storeSecondaryObj?.corporateLocalBranchAddressCountry) {
+                await getStatesByCountryName(storeSecondaryObj['corporateLocalBranchAddressCountry'], 'LOCAL');
+            }
+            if (storeSecondaryObj.corporateHQAddressState) {
+                await getCitiesByStateName(storeSecondaryObj['corporateHQAddressState'], 'HQ');
+            }
+            if (storeSecondaryObj?.corporateLocalBranchAddressState) {
+                await getCitiesByStateName(storeSecondaryObj['corporateLocalBranchAddressState'], 'LOCAL');
+            }
         }
 
     }, []);
@@ -170,34 +181,6 @@ const CorporateSecondary = (props) => {
         );
     }
 
-    // const onStatesResponse = (response, type) => {
-    //     let updatedStatesOptions = [];
-
-    //     if (response?.length) {
-    //         updatedStatesOptions = response.map((item) => {
-    //             return { value: item?.state_name, label: item?.state_name };
-    //         });
-    //     }
-
-    //     if (type === 'HQ') {
-    //         setHqStates(updatedStatesOptions);
-    //         if (!initHqAddress.states) {
-    //             setInitHqAddress((prevState) => ({
-    //                 ...prevState,
-    //                 states: true
-    //             }))
-    //         }
-    //     } else {
-    //         setLocalStates(updatedStatesOptions);
-    //         if (!initLocalAddress.states) {
-    //             setInitLocalAddress((prevState) => ({
-    //                 ...prevState,
-    //                 states: true
-    //             }))
-    //         }
-    //     }
-    // }
-
     const saveData = (event) => {
         const isCheked = event.target.checked;
         if (isCheked) {
@@ -237,11 +220,18 @@ const CorporateSecondary = (props) => {
 
     const handleChangeImg = (event) => {
         event.preventDefault();
+        let imageObj = event.target.files[0];
         if (event.target.files) {
             setCorporateSecondary(preState => ({
                 ...preState,
-                attachment2: event.target.files[0]
+                attachment2: imageObj
             }))
+            let obj = {};
+            for (const key in imageObj) {
+                obj[key] = imageObj[key]
+            }
+            setImageObj(obj);
+            setFilename(obj.name);
             // if (event.target.files[0].type === "application/pdf")
             const val = event.target.files.length;
             for (let i = 0; i < val; i++) {
@@ -306,6 +296,7 @@ const CorporateSecondary = (props) => {
             // countryCodesLocal={countriesLocal}
             stateListLocal={stateListLocal}
             citylistLocal={citylistLocal}
+            filename={filename}
             saveData={saveData}
             handleChangeImg={handleChangeImg}
             handleChange={handleChange}

@@ -24,14 +24,13 @@ const Authentication = (props) => {
 
     // const apiStatus = useSelector(state => state.CorporateReducer.apiStatus);
 
-    // useEffect(() => {
-    //     if (apiStatus) {
-    //         props.history.push('/register/completed');
-    //     }
-    //     // return () => {
-    //     //     dispatch(ResetRdrAction());
-    //     // }
-    // }, [apiStatus])
+
+    useEffect(() => {
+        let data = JSON.parse(localStorage.getItem('regStatus'));
+        if (!data?.stakeholder && !data?.platformUID) {
+            props.history.push('/register/contactPersonnel');
+        }
+    }, [])
 
     useEffect(() => {
         const isErrorsObjEmpty = checkObjectProperties(errors);

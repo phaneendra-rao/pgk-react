@@ -313,7 +313,7 @@ const CorporateSecondaryCmp = (props) => {
                 </div>
                 <div className="col-md-12">
                     <div className="reg-attach">
-                        {props?.corporateSecondary?.attachment ? <span><i className="fas fa-check-circle"></i></span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile</span>}
+                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile</span>}
                         <input
                             type="file"
                             onChange={props.handleChangeImg}

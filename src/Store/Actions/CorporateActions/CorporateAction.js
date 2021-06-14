@@ -176,10 +176,12 @@ export const VerifyOtpAction = (model, history) => {
                 let resp = res.data;
                 dispatch(APIStatus(false));
                 if (resp?.MobileVerified && resp?.emailVerified) {
-                    sessionStorage.removeItem("secondary");
-                    sessionStorage.removeItem("primary");
-                    sessionStorage.removeItem("contact");
-                    sessionStorage.removeItem("image1");
+                    // sessionStorage.removeItem("secondary");
+                    // sessionStorage.removeItem("primary");
+                    // sessionStorage.removeItem("contact");
+                    // sessionStorage.removeItem("image1");
+                    // sessionStorage.removeItem("base64Img");
+                    sessionStorage.clear();
                     toast.success(resp.message);
                     history.push('/register/completed');
                 } else {

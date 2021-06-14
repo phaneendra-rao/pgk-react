@@ -16,6 +16,7 @@ const RegisterSidebar = () => {
             sessionStorage.removeItem('steps');
         }
     }, [steps]);
+    let data = JSON.parse(localStorage.getItem('regStatus'));
 
     return (
         <div className="login-box reg-box">

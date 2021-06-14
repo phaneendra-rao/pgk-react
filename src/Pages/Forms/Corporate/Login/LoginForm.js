@@ -31,11 +31,13 @@ const LoginForm = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("orderID");
-    sessionStorage.removeItem("steps");
-    sessionStorage.removeItem("secondary");
-    sessionStorage.removeItem("primary");
-    sessionStorage.removeItem("contact");
-    sessionStorage.removeItem("image1");
+    // sessionStorage.removeItem("steps");
+    // sessionStorage.removeItem("secondary");
+    // sessionStorage.removeItem("primary");
+    // sessionStorage.removeItem("contact");
+    // sessionStorage.removeItem("image1");
+    // sessionStorage.removeItem("base64Img");
+    sessionStorage.clear();
   }, []);
 
   useEffect(() => {

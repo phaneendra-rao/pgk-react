@@ -27,6 +27,7 @@ const Register = (props) => {
     const [path, setPath] = useState('');
     const [lookUpData, setLookUpData] = useState([]);
     const [imageObj, setImageObj] = useState({});
+    const [filename, setFilename] = useState('')
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
     const dispatch = useDispatch();
@@ -37,8 +38,11 @@ const Register = (props) => {
             apiPayloadRequest: ['corporateCategory', 'corporateIndustry', 'corporateType'],
             callback: dropdowns
         }));
+        const image1 = JSON.parse(sessionStorage.getItem('image1'));
+        const base64Img = sessionStorage.getItem('base64Img');
         const localStorageObj = JSON.parse(sessionStorage.getItem('primary'));
         const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 5 ? true : false;
+        setPath(base64Img);
         if ((localStorageObj || storeData) && isLocalStorageAvailable) {
             let data = Object.keys(storeData).length > 5 ? storeData : localStorageObj;
             let storeObj = {};
@@ -50,8 +54,8 @@ const Register = (props) => {
                 }
             });
             setCorporatePrimaryData(storeObj);
-            // const image1 = JSON.parse(sessionStorage.getItem('image1'));
             // convertImgToBase64(image1)
+            // const size = dataURLtoFile(base64Img, image1?.name, image1?.type)
         }
     }, []);
 
@@ -79,12 +83,12 @@ const Register = (props) => {
         event.preventDefault();
         if (event.target.files) {
             let imageObj = event.target.files[0];
-            console.log(imageObj);
             let obj = {};
             for (const key in imageObj) {
                 obj[key] = imageObj[key]
             }
             setImageObj(obj);
+            setFilename(obj.name);
             sessionStorage.setItem('image1', JSON.stringify(obj))
             // if (event.target.files[0].type === "application/pdf")
             setCorporatePrimaryData(preState => ({
@@ -96,7 +100,7 @@ const Register = (props) => {
                 let reader = new FileReader();
                 reader.onload = function (ev) {
                     setPath(ev.target.result.split(',')[1]);
-                    console.log(ev.target.result.split(','));
+                    sessionStorage.setItem('base64Img', ev.target.result.split(',')[1])
                 }.bind(this);
                 reader.readAsDataURL(event.target.files[i]);
             }
@@ -114,6 +118,17 @@ const Register = (props) => {
     //     }.bind(this);
     //     reader.readAsDataURL(convertToFile);
     // }
+    const dataURLtoFile = (dataurl, filename, type) => {
+        let arr = dataurl;
+        // let mime = arr[0]?.match(/:(.*?);/)[1];
+        let bstr = atob(arr);
+        let n = bstr?.length;
+        let u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr?.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: type });
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -135,6 +150,7 @@ const Register = (props) => {
             corporatePrimaryData={corporatePrimaryData}
             errors={errors}
             path={"data:image/png;base64," + path}
+            filename={filename}
             lookUpData={lookUpData}
             isBtnDisabled={isBtnDisabled}
             handleChange={handleChange}

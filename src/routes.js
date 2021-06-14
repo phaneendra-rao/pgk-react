@@ -337,9 +337,9 @@ const routes = [
     name: "Support",
     component: Support,
   },
-];
+// ];
 
-export const c2hireRoutes = [
+// export const c2hireRoutes = [
  // C2hire routes start from here
  {
   path: "/c2hire",
@@ -431,6 +431,6 @@ export const c2hireRoutes = [
   component: WhyC2Hire,
 },
 
-]
+];
 
 export default routes;

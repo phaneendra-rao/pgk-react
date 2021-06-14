@@ -8,7 +8,7 @@ import { models } from 'powerbi-client';
 import C2hireHeader from './Common/Header';
 import C2hireHome from './Common/Home';
 import C2hireFooter from './Common/Footer';
-import { c2hireRoutes } from '../../routes';
+import routes from '../../routes';
 
 
 const Landing = () => {
@@ -34,7 +34,7 @@ const Landing = () => {
 
             <C2hireHeader />
             <Switch>
-                {getRoutes(c2hireRoutes)}
+                {getRoutes(routes)}
             </Switch>
             <C2hireFooter />
         </div>

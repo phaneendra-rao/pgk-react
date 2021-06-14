@@ -39,6 +39,9 @@ const LoginCmp = ({ type, email, password, handlerChange, handleSubmit, errors }
                 <Link to={type === 'Student' ? '/register/studentRegister' : '/register'} className="login-reg-link">
                     <button type="button" className="btn">Register as new {type}</button>
                 </Link>
+                <Link to="/c2hire" className="login-reg-link">
+                    <button type="button" className="btn">C2Hire</button>
+                </Link>
             </div>
         </form>
     )

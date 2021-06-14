@@ -150,6 +150,7 @@ const Register = (props) => {
             corporatePrimaryData={corporatePrimaryData}
             errors={errors}
             path={"data:image/png;base64," + path}
+            actualPath={path}
             filename={filename}
             lookUpData={lookUpData}
             isBtnDisabled={isBtnDisabled}

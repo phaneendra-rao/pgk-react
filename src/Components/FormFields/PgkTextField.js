@@ -22,7 +22,7 @@ function PgkTextField(props) {
         inputProps={},
         validations=[],
         inputLabelProps={},
-        InputLabelProps=''
+        InputLabelProps={}
     } = props
 
     const inputHandler = (event) => {
@@ -74,7 +74,6 @@ function PgkTextField(props) {
             inputProps={inputProps}
             InputLabelProps={inputLabelProps}
             autoComplete={'off'}
-            InputLabelProps={InputLabelProps}
         />
     );
 }

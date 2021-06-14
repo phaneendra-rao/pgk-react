@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { actionGetPublishHistoryRequest } from "../../../../Store/Actions/SagaActions/PublishHistorySagaActions";
 import { HiringSagaAction } from "../../../../Store/Actions/SagaActions/HiringSagaAction";
+import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+import HiringCriteriaListItem from '../Components/HiringCriteriaListItem';
 
-import HiringCriteriaItem from './HiringCriteriaItem';
+// import HiringCriteriaItem from './HiringCriteriaItem';
 import ProfileItem from './ProfileItem/ProfileItem';
 import OtherInformation from './OtherInformationItem';
 import JobItem from './JobItem';
@@ -12,7 +14,7 @@ const PublishHistory = (props) => {
   const dispatch = useDispatch();
   const [historyList, setHistoryList] = useState([]);
   const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
-
+  const [lookUpData, setLookUpData] = useState([]);
   const onResponseReceived = (response) => {
     if (response?.length) {
       setHistoryList(response);
@@ -35,10 +37,21 @@ const PublishHistory = (props) => {
     );
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(actionGetDependencyLookUpsSagaAction({
+        apiPayloadRequest: ['branchCatalog', 'programCatalog'],
+        callback: dropdowns
+    }));
+  }, []);
+
+  const dropdowns = (data) => {
+    setLookUpData(data);
+  }
+
 
   const getListItem = (listItem, index) => {
     if (listItem?.hiringCriteriaPublished) {
-      return <HiringCriteriaItem parentItem={listItem} item={JSON.parse(listItem?.publishData)} index={index}/>
+      return <HiringCriteriaListItem parentItem={listItem} lookUpData={lookUpData} item={JSON.parse(listItem?.publishData)} index={index}/>
     } else if (listItem?.jobsPublished) {
       return <JobItem parentItem={listItem} item={JSON.parse(listItem?.publishData)} hiringCriteriaList={hiringCriteriaList} index={index} />
     } else if (listItem?.otherPublished) {

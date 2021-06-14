@@ -6,6 +6,7 @@ import HiringCriteriaListItem from "../Components/HiringCriteriaListItem";
 import { HiringSagaAction, actionPostPublishCorporateHiringRequest } from "../../../../Store/Actions/SagaActions/HiringSagaAction";
 import CustomToastModal from "../../../../Components/CustomToastModal";
 import Checkbox from '@material-ui/core/Checkbox';
+import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 
 const PublishHiringCriteria = (props) => {
   const dispatch = useDispatch();
@@ -13,10 +14,22 @@ const PublishHiringCriteria = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [lookUpData, setLookUpData] = useState([]);
   const [
     publishedHiringCriteriaList,
     setPublishedHiringCriteriaList,
   ] = useState([]);
+
+  useEffect(() => {
+    dispatch(actionGetDependencyLookUpsSagaAction({
+        apiPayloadRequest: ['branchCatalog', 'programCatalog'],
+        callback: dropdowns
+    }));
+  }, []);
+
+  const dropdowns = (data) => {
+    setLookUpData(data);
+  }
 
   const onHiringCriteriaResponse = (response) => {
     if (response?.length) {
@@ -139,6 +152,7 @@ const PublishHiringCriteria = (props) => {
                     item={item}
                     checkHandler={onCheckHandler}
                     onPublish={publishItem}
+                    lookUpData={lookUpData}
                     isCheck={
                       selectedItems.includes(item?.hiringCriteriaID)
                         ? true

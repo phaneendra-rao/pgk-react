@@ -244,14 +244,6 @@ const HiringCriteriaForm = (props) => {
         <IconButton style={{color:'white', marginTop:'-10px'}} onClick={props?.openCloseModal} component="span">
             <Close />
         </IconButton>
-        {/* <button
-          type="button"
-          className="close align-self-center"
-          onClick={props.openCloseModal}
-          style={{color:'white', marginTop:'-25px'}}
-        >
-          <span aria-hidden="true">×</span>
-        </button> */}
       </div>
       <HiringCriteriaFormCmp
         hiringData={hiringData}

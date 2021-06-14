@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CustomModal from "../../../../Components/CustomModal";
 import moment from "moment";
+import PgkTextField from '../../../../Components/FormFields/PgkTextField';
 
 const OtherInformationList = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -72,65 +73,60 @@ const OtherInformationList = (props) => {
           <form className="hiring-modal-form">
             <div className="row">
               <div className="col-md">
-                <div className="modal-grp">
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={otherInformation?.publishID ? otherInformation?.publishID : ''}
-                    disabled
-                    required
+                <div className="mb-20">
+                  <PgkTextField 
+                      onChange={()=>{}}
+                      value={otherInformation?.publishID}
+                      label={'Publish ID'}
+                      inputLabelProps={{style:{fontSize: '.800rem'}}}
+                      inputProps={{style:{fontSize: '.800rem'}}}
+                      disabled
                   />
-                  <label className="inp-caption">Publish ID</label>
                 </div>
               </div>
               <div className="col-md">
-                <div className="modal-grp">
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={otherInformation?.creationDate ? `Published on ${moment(otherInformation?.creationDate).format("DD-MM-YYYY")}`: ''}
-                    disabled
-                    required
+                <div className="mb-20">
+                  <PgkTextField 
+                      onChange={()=>{}}
+                      value={otherInformation?.creationDate ? `Published on ${moment(otherInformation?.creationDate).format("DD-MM-YYYY")}`: ''}
+                      label={'Published Date & Time'}
+                      inputLabelProps={{style:{fontSize: '.800rem'}}}
+                      inputProps={{style:{fontSize: '.800rem'}}}
+                      disabled
                   />
-                  <label className="inp-caption">Published Date & Time</label>
-                </div>
-              </div>
-              <div className="w-100"></div>
-              <div className="col-md">
-                <div className="modal-grp">
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={otherInformation?.title ? otherInformation?.title : ''}
-                    disabled
-                    required
-                  />
-                  <label className="inp-caption">Title</label>
                 </div>
               </div>
               <div className="w-100"></div>
               <div className="col-md">
-                <div className="modal-grp">
-                  <textarea
-                    name=""
-                    rows="6"
-                    className="modal-inp modal-textarea"
-                    placeholder="Write in brief about the company"
+                <div className="mb-20">
+                  <PgkTextField 
+                      onChange={()=>{}}
+                      value={otherInformation?.title ? otherInformation?.title : ''}
+                      label={'Title'}
+                      inputLabelProps={{style:{fontSize: '.800rem'}}}
+                      inputProps={{style:{fontSize: '.800rem'}}}
+                      disabled
+                  />
+                </div>
+              </div>
+              <div className="w-100"></div>
+              <div className="col-md">
+                <div className="mb-20">
+                  <PgkTextField
                     value={otherInformation?.information ? otherInformation?.information : ''}
+                    label={"Content"}
                     disabled
-                    required
-                  ></textarea>
-                  <label className="inp-caption">Content</label>
+                    onChange={()=>{}}
+                    multiline={true}
+                    minRows={6}
+                  />
                 </div>
               </div>
               <div className="w-100"></div>
               {(otherInformation?.attachment?.trim()!=='' && otherInformation?.attachmentName?.trim()!=='') ?
                 <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
                 <p className="label">Attachment Present (if any)</p>
-                <a href={'data:application/pdf;base64,'+otherInformation?.attachment} target="blank" style={{textDecoration:'none', outline:'none', width:'70%'}}>
+                <a href={'data:application/pdf;base64,'+otherInformation?.attachment} style={{textDecoration:'none', outline:'none', width:'70%'}} download>
                   <div className="attachmentStripe d-flex justify-content-between align-items-center">
                       <p>{otherInformation?.attachmentName}</p>
                       <i className="fas fa-paperclip"></i>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import CustomModal from "../../../../Components/CustomModal";
+import Checkbox from '@material-ui/core/Checkbox';
 
 import { actionGetCorporateHiringByIdRequest } from "../../../../Store/Actions/SagaActions/HiringSagaAction";
 
@@ -42,14 +43,9 @@ const HiringCriteriaListItem = (props) => {
   return (
     <div className="w-full d-flex justify-content-center align-items-center">
       {props?.checkHandler && (
-        <input
-          type="checkbox"
-          onChange={() => {
-            props?.checkHandler(props?.item?.hiringCriteriaID);
-          }}
-          checked={props?.isCheck ? props?.isCheck : false}
-          style={{ marginRight: "10px" }}
-        />
+        <Checkbox size={'small'} color={'primary'} checked={props?.isCheck ? props?.isCheck : false} onChange={(e)=>{
+          props?.checkHandler(props?.item?.hiringCriteriaID);
+        }} />
       )}
       <div className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full">
         <div className="item d-flex flex-row justify-content-between align-items-center w-full">
@@ -102,6 +98,7 @@ const HiringCriteriaListItem = (props) => {
                 fontSize: ".600rem",
                 borderRadius: "4px",
               }}
+              disabled={!props?.isCheck}
               onClick={() => {
                 props?.onPublish(props?.item?.hiringCriteriaID);
               }}

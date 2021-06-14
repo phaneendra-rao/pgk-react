@@ -5,6 +5,7 @@ import HiringCriteriaListItem from "../Components/HiringCriteriaListItem";
 
 import { HiringSagaAction, actionPostPublishCorporateHiringRequest } from "../../../../Store/Actions/SagaActions/HiringSagaAction";
 import CustomToastModal from "../../../../Components/CustomToastModal";
+import Checkbox from '@material-ui/core/Checkbox';
 
 const PublishHiringCriteria = (props) => {
   const dispatch = useDispatch();
@@ -118,14 +119,9 @@ const PublishHiringCriteria = (props) => {
               Publish Hiring Criteria
             </p>
             {hiringCriteriaList?.length ? <div className="align-self-start d-flex justify-content-center align-items-center mb-3">
-              <input
-                type="checkbox"
-                onChange={() => {
+              <Checkbox size={'small'} color={'primary'} checked={selectAll} onChange={(e)=>{
                   onSelect("ALL");
-                }}
-                checked={selectAll}
-                style={{ marginRight: "10px" }}
-              />
+              }} />
               <button
                 type="button"
                 className="btn"

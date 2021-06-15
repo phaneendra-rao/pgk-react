@@ -239,7 +239,7 @@ const HiringCriteriaForm = (props) => {
     <div className="hiring-modal">
       <div className="modal-header hiring-modal-header">
         <h5 className="modal-title" id="exampleModalLabel">
-          Create a new Hiring Criteria
+          {props?.editable ? 'Create a new Hiring Criteria' : 'Hiring Criteria Info'}
         </h5>
         <IconButton style={{color:'white', marginTop:'-10px'}} onClick={props?.openCloseModal} component="span">
             <Close />

@@ -274,7 +274,7 @@ const Profile = () => {
 
     let updatedProfile = {...profile}
 
-    if((name==='corporateHQAddressCountry' || name==='corporateLocalBranchAddressCountry') && value && value?.toString()?.trim()!=='') {
+    if((name==='corporateHQAddressCountry' || name==='corporateLocalBranchAddressCountry')) {
       getStatesByCountryName(value, name==='corporateHQAddressCountry' ? 'HQ' : 'LOCAL')
       if(name==='corporateHQAddressCountry') {
         setHqStates([]);
@@ -282,7 +282,7 @@ const Profile = () => {
         setLocalStates([]);
       }
 
-      if(name==='corporateLocalBranchAddressCountry') {
+      if(name==='corporateHQAddressCountry') {
         setHqCities([]);
       } else if(name==='corporateLocalBranchAddressCountry') {
         setLocalCities([]);
@@ -319,7 +319,7 @@ const Profile = () => {
       }
     }
 
-    if((name==='corporateHQAddressState' || name==='corporateLocalBranchAddressState') && value && value?.toString()?.trim()!=='') {
+    if((name==='corporateHQAddressState' || name==='corporateLocalBranchAddressState')) {
       getCitiesByStateName(value, name==='corporateHQAddressState' ? 'HQ' : 'LOCAL')
       if(name==='corporateHQAddressState') {
         setHqCities([]);
@@ -346,6 +346,7 @@ const Profile = () => {
         }
       }
     }
+
     
     setProfile((prevProfile) => ({
       ...prevProfile,

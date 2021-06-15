@@ -61,7 +61,9 @@ function PgkSelectField(props) {
             >
                 <MenuItem style={menuStyles} value={''}>{`Select ${label}`}</MenuItem>
                 {options?.length ? options.map((option)=>{
-                    return <MenuItem style={menuStyles} value={option?.value}>{option?.label}</MenuItem>
+                    if(option && option.value && option.label) {
+                        return <MenuItem style={menuStyles} value={option?.value}>{option?.label}</MenuItem>
+                    }
                 }) : null}
             </Select>
             <FormHelperText error={errorMessage!==undefined && errorMessage?.trim()!=='' ? true : false}>{errorMessage!==undefined && errorMessage?.trim()!=='' ? errorMessage : ''}</FormHelperText>

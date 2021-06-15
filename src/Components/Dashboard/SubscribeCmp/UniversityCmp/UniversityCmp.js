@@ -13,7 +13,7 @@ const UniversityCmp = (props) => {
         <div className="header d-flex align-items-center w-full">
           <div className="backBtn d-flex justify-content-start align-items-center">
             <i className="fas fa-chevron-left" />
-            <p className="btnLabel" onClick={props.goBack}>
+            <p className="btnLabel" onClick={props.goBack} style={{cursor:'pointer'}}>
               Go Back
             </p>
           </div>
@@ -103,8 +103,6 @@ const UniversityCmp = (props) => {
             {props.universityInfoList?.universityInsight ? (
               <button
                 type="button"
-                data-toggle="modal"
-                data-target="#subscribe"
                 onClick={() => props.subscribeModal("unvInsight")}
                 className="quick-widget-btn"
                 style={{cursor:'pointer'}}
@@ -129,8 +127,6 @@ const UniversityCmp = (props) => {
             {props.universityInfoList?.studentDbAvailable ? (
               <button
                 type="button"
-                data-toggle="modal"
-                data-target="#subscribe"
                 style={{cursor:'pointer'}}
                 onClick={() => props.subscribeModal("unvStuData")}
                 className="quick-widget-btn"
@@ -157,8 +153,6 @@ const UniversityCmp = (props) => {
             <button
               type="button"
               style={{cursor:'pointer'}}
-              data-toggle="modal"
-              data-target="#subscribe"
               onClick={() => props.subscribeModal("campusDrive")}
               className="quick-widget-btn"
             >
@@ -170,36 +164,49 @@ const UniversityCmp = (props) => {
           <p className="label">Subscription / Campus Drive History</p>
         </div>
         <div className={"blueHeaderStrip w-full"} style={{marginTop: '15px', paddingBottom:'0px'}}>
-          <div className={"row"}>
+          <div className={"row align-items-center"}>
             <div className={"col-md-2 item"}>
               <div className={"mb-0"}>
                 <PgkSelectField 
                     name="subscriptionType"
-                    value={props?.subscriptionType}
-                    onChange={props?.handleChange}
+                    value={props?.filter?.subscriptionType}
+                    onChange={props?.handleFilterChange}
                     label={`Subscription Type`}
-                    options={props?.subscriptionTypeOptions}
+                    options={props?.lookUpData?.subscriptionType?.length ? props?.lookUpData?.subscriptionType?.map((item)=>{
+                      if(['CR', 'SD', 'UI', 'UO', 'UP'].includes(item.subscriptionTypeCode)) {
+                        return {value: item.subscriptionTypeCode, label: item.subscriptionType}
+                      }
+                    }) : []}
                     labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
                     selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
                     menuStyles={{fontSize: '.800rem'}}
                 />
               </div>
-            </div>
-            <div className={"col-md-8 item"}>
             </div>
             <div className={"col-md-2 item"}>
               <div className={"mb-0"}>
                 <PgkSelectField 
                     name="sortBy"
-                    value={props?.sortBy}
-                    onChange={props?.handleChange}
+                    value={props?.filter?.sortBy}
+                    onChange={props?.handleFilterChange}
                     label={`Sort By`}
-                    options={props?.sortByOptions}
+                    options={props?.lookUpData?.sortBy?.length ? props?.lookUpData?.sortBy?.map((item)=>{
+                      if(['TA', 'TD'].includes(item.sortByCode)) {
+                        return {value: item.sortByCode, label: item.sortBy} 
+                      }
+                    }) : []}
                     labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
                     selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
                     menuStyles={{fontSize: '.800rem'}}
                 />
               </div>
+            </div>
+            <div className={"col-md-6 item"}>
+            </div>
+            <div className={'col-md-2 item'}>
+              <button type="button" onClick={props?.applyFilter} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
+                  Apply Filter
+              </button>
             </div>
           </div>
         </div>

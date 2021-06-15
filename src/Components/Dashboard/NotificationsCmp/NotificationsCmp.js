@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useDispatch} from 'react-redux';
 import moment from 'moment';
 import CustomModal from '../../CustomModal';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const NotificationsCmp = (props) => {
   const [activeNotificationIndex, setActiveNotificationIndex] = useState();
@@ -79,26 +80,14 @@ const NotificationsCmp = (props) => {
     <>
       <div className="main mt-0 pr-0 pt-0">
         <div className="row m-0 p-0">
-          <div className="col-md-7 p-0 pt-4 m-0">
-            <h4 className="notification-title">Notifications</h4>
+          <div className="col-md-8 p-0 pt-4 m-0">
+            <h4 className="notification-title" style={{fontWeight: '400'}}>Notifications</h4>
             <div className="table-responsive mb-4">
               <table className="table table-data mb-0">
                 <thead>
                   <tr>
                     <th scope="col">
-                      <div className="custom-control custom-checkbox">
-                        <input
-                          type="checkbox"
-                          onChange={props.selectAll}
-                          checked={props?.isSelectAll ? true : false}
-                          className="custom-control-input"
-                          id="selectALl"
-                        />
-                        <label
-                          className="custom-control-label mt-1"
-                          htmlFor="selectALl"
-                        ></label>
-                      </div>
+                      <Checkbox size={'small'} className={'p-0'} color={'primary'} checked={props?.isSelectAll ? true : false} onChange={props.selectAll} />
                     </th>
                     <th scope="col">
                       <button className="btn3 btn-lightgreen">
@@ -112,8 +101,15 @@ const NotificationsCmp = (props) => {
                         Delete
                       </button>
                     </th>
-                    <th colSpan={2} scope="col">
+                    <th colSpan={4} scope="col">
                       <div className="d-flex justify-content-around">
+                        <div className="d-grp mb-0 mr-1" style={{ flex: 1 }}>
+                          <select name className="d-inp" required>
+                            <option value>Filter All</option>
+                            <option value>Program</option>
+                            <option value>Program</option>
+                          </select>
+                        </div>
                         <div className="d-grp mb-0 mr-1" style={{ flex: 1 }}>
                           <select name className="d-inp" required>
                             <option value>Filter All</option>
@@ -175,7 +171,7 @@ const NotificationsCmp = (props) => {
                                 </div>
                               </div>
                             </td>
-                            <td>
+                            <td colSpan={3}>
                               <button className="btn action" style={{backgroundColor:'#5473E8', fontWeight:'700', fontSize: '.600rem'}}>
                                 {item?.senderUserRole}
                               </button>
@@ -183,7 +179,7 @@ const NotificationsCmp = (props) => {
                                 Action required
                               </button>
                             </td>
-                            <td className="time" style={{fontSize:'.600rem'}}>
+                            <td className="time" colSpan={2} style={{fontSize:'.600rem'}}>
                               {moment(item?.dateofNotification).fromNow()}
                             </td>
                           </tr>

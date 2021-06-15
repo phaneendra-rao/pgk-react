@@ -79,7 +79,7 @@ function PgkMultiSelectField(props) {
         let updatedValues = [];
 
         options.forEach(item => {
-            if(_values.includes(item.value)) {
+            if(item?.value && _values.includes(item.value)) {
                 updatedValues.push(item);
             }
         })
@@ -126,10 +126,12 @@ function PgkMultiSelectField(props) {
             >
                 <MenuItem style={menuStyles} className={'py-2'} value={''}>{`Select ${label}`}</MenuItem>
                 {options?.length ? options.map((option)=>{
-                    return <MenuItem className={'py-0'} style={menuStyles} value={option?.value}>
+                    if(option?.value && option?.label) {
+                        return <MenuItem className={'py-0'} style={menuStyles} value={option?.value}>
                         <Checkbox size={'small'} checked={values && values.length ? values.findIndex((item)=>item.value===option.value)>-1 : false} color={'primary'} />
                         {option?.label}
                     </MenuItem>
+                    }
                 }) : null}
             </Select>
             <FormHelperText error={errorMessage!==undefined && errorMessage?.trim()!=='' ? true : false}>{errorMessage!==undefined && errorMessage?.trim()!=='' ? errorMessage : ''}</FormHelperText>

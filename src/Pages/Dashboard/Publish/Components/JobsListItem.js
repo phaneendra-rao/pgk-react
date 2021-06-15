@@ -163,7 +163,7 @@ const viewDetails = (id) => {
 }
 
   return (
-    <div className="w-full d-flex justify-content-center align-content-center publish-selected-btn-container">
+    <div className="w-full d-flex justify-content-center align-content-center publish-selected-btn-container" style={{margin:'0px'}}>
       {props?.checkHandler && (
         <Checkbox
           size={"small"}
@@ -213,7 +213,7 @@ const viewDetails = (id) => {
             </p>
           </div>
         </div>
-        <div className="col-md-1">
+        <div className={`col-md-1`}>
           <div
             style={{
               border: "1px solid #454545",
@@ -234,11 +234,11 @@ const viewDetails = (id) => {
           </div>
         </div>
 
-        <div className="col-md-3 item align-items-center">
-          <p className="job-published-date" style={{ color: "#454545" }}>
+        <div className={`col-md-${props?.checkHandler ? '4' : '5'} item align-items-center`}>
+          <p className="job-published-date" style={{ color: "#454545", textAlign:'center', float:'right' }}>
             {props?.item?.creationDate
-              ? props?.item?.publishedFlag
-                ? `Published on ${moment(props?.item?.creationDate).format(
+              ? (props?.parentItem?.dateOfPublish || props?.item?.publishedFlag)
+                ? `Published on ${moment(props?.item?.dateOfPublish).format(
                     "DD-MM-YYYY"
                   )}`
                 : `Created on ${moment(props?.item?.creationDate).format(
@@ -247,7 +247,7 @@ const viewDetails = (id) => {
               : "-"}
           </p>
         </div>
-        <div className="col-md-3 row item p-0 d-flex justify-content-between align-items-center w-full">
+        <div className={`col-md-${props?.checkHandler ? '4' : '2'} row item p-0 d-flex justify-content-between align-items-center w-full`}>
           <div className="vertical-divider" />
           <button
             type="button"

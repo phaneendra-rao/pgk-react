@@ -24,6 +24,8 @@ const BasicFormItem = (props) => {
                   value={props?.profileData?.CIN}
                   label={"Organization Registration ID / CIN"}
                   disabled
+                  inputLabelProps={{style:{fontSize: '.800rem'}}}
+                  inputProps={{style:{fontSize: '.800rem'}}}
               />
             </div>
           </div>
@@ -34,11 +36,13 @@ const BasicFormItem = (props) => {
                 name={"corporateType"}
                 disabled
                 value={props?.profileData?.corporateType}
-                required
                 options={props?.lookUpData?.corporateType?.length ? props?.lookUpData?.corporateType?.map((item)=>{
                   return {value: item.corporateTypeCode, label: item.corporateTypeName}
                 }) : []}
                 label={"Corporate Sector"}
+                labelStyles={{fontSize: '.800rem'}}
+                selectStyles={{fontSize: '.800rem'}}
+                menuStyles={{fontSize: '.800rem'}}
               />
             </div>
           </div>
@@ -48,11 +52,13 @@ const BasicFormItem = (props) => {
                 name={"corporateCategory"}
                 disabled
                 value={props?.profileData?.corporateCategory}
-                required
                 options={props?.lookUpData?.corporateCategory?.length ? props?.lookUpData?.corporateCategory?.map((item)=>{
                   return {value: item.categoryCode, label: item.categoryName}
                 }) : []}
                 label={"Corporate Category"}
+                labelStyles={{fontSize: '.800rem'}}
+                selectStyles={{fontSize: '.800rem'}}
+                menuStyles={{fontSize: '.800rem'}}
               />
             </div>
           </div>
@@ -63,11 +69,13 @@ const BasicFormItem = (props) => {
                 name={"corporateIndustry"}
                 disabled
                 value={props?.profileData?.corporateIndustry}
-                required
                 options={props?.lookUpData?.corporateIndustry?.length ? props?.lookUpData?.corporateIndustry?.map((item)=>{
                   return {value: item.industryCode, label: item.industryName}
                 }) : []}
                 label={"Corporate Industry"}
+                labelStyles={{fontSize: '.800rem'}}
+                selectStyles={{fontSize: '.800rem'}}
+                menuStyles={{fontSize: '.800rem'}}
               />
             </div>
           </div>
@@ -83,6 +91,8 @@ const BasicFormItem = (props) => {
                 }
                 label={"Year of Establishment"}
                 disabled
+                inputLabelProps={{style:{fontSize: '.800rem'}}}
+                inputProps={{style:{fontSize: '.800rem'}}}
               />
             </div>
           </div>

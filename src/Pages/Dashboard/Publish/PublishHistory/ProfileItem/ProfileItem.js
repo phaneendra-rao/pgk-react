@@ -77,50 +77,62 @@ const ProfileItem = (props) => {
       }
 
   return (<>
-    <div
-        className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full"
-        key={props?.index}
-      >
-        <div className="item d-flex flex-row justify-content-between align-items-center w-full">
-          <div className="job-icon d-flex justify-content-center align-items-center">
-            <i className="fas fa-building" style={{ color: "#004FD0" }}></i>
+      <div className="w-full d-flex justify-content-center align-items-center">
+      <div className="row align-items-center jobs-list-item w-full p-0" style={{height: '80px'}}>
+        <div className="col-md-2 row align-items-center p-0">
+          <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center m-0">
+            <i className="fas fa-file-alt" style={{ color: "#ffffff" }}></i>
           </div>
-          <p className="job-label">{"Profile"}</p>
-          <p className="job-published-date" style={{textOverflow:'ellipsis', fontWeight: 'bold'}}>{getProfileItemTagLine(props?.item)}</p>
-          <p className="job-published-date">
-          {props?.parentItem?.dateOfPublish
-                ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
-                    "DD-MM-YYYY"
-                  )}`
-                : "-"}
+          <p
+            className="job-label text-ellipsis"
+            style={{ marginLeft: "14px", textTransform: "capitalize" }}
+          >
+              {"Profile"}
           </p>
         </div>
-        <div className="vertical-divider"></div>
-        <div className="job-list-item-details-container d-flex flex-row justify-content-center align-items-center">
-        <button
-              type="button"
-              className="btn d-flex justify-content-around align-items-center"
-              style={{
-                height: "30px",
-                maxWidth: "100px",
-                fontSize: ".600rem",
-                borderRadius: "4px",
-              }}
-              onClick={() => {
-                setShowModal(true);
-              }}
-            >
-              <p>Details</p>
-              <i className="fas fa-chevron-right"></i>
-            </button>
+        <div className="col-md-6 align-items-center">
+          <p className="job-published-date text-ellipsis" style={{maxWidth: '350px', fontSize: '.850rem'}}>{getProfileItemTagLine(props?.item)}</p>
+        </div>
+        <div className="col-md-2 item align-items-center">
+          <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
+          {props?.parentItem?.dateOfPublish
+              ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
+                  "DD-MM-YYYY"
+                )}`
+              : "-"}
+          </p>
+        </div>
+        <div className={`col-md-2 row item p-0 d-flex justify-content-between align-items-center w-full`}>
+          <div className="vertical-divider" />
+          <button
+            type="button"
+            className="btn d-flex justify-content-around align-items-center"
+            style={{
+              height: "30px",
+              width: "100px",
+              fontSize: ".700rem",
+              marginRight: "10px",
+              borderRadius: "4px",
+              textTransform: "uppercase",
+              fontWeight: "bolder",
+            }}
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
+            <p>Details</p>
+            <i className="fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>
-      {<CustomModal show={showModal} modalStyles={{ minWidth: "80%" }}>
-            <div className="d-flex justify-content-end align-items-center">
+      </div>
+      {showModal ? <CustomModal show={showModal} modalStyles={{ minWidth: "80%" }}>
+            <div className="d-flex justify-content-between align-items-center">
+              <div></div>
               <div className="align-self-center">  
                 <p
                   className="heading"
-                  style={{ padding: 15, marginRight: 250 }}
+                  style={{ padding: 15}}
                 >
                   Published Profile Information
                 </p>
@@ -136,9 +148,9 @@ const ProfileItem = (props) => {
               </button>
             </div>
             {basicForm && <BasicFormItem lookUpData={props?.lookUpData} profileData={props?.item} />}
-            {/* {address && <AddressAndContactFormItem lookUpData={props?.lookUpData} profileData={props?.item} />} */}
+            {address && <AddressAndContactFormItem lookUpData={props?.lookUpData} profileData={props?.item} />}
             {profile && <ProfileFormItem lookUpData={props?.lookUpData} profileData={props?.item} />}
-      </CustomModal>}
+      </CustomModal> : null}
       </>);
 }
 

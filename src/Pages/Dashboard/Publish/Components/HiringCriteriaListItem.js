@@ -261,8 +261,8 @@ const HiringCriteriaListItem = (props) => {
           </button>
         </div>
         <div
-          className="col-md-2 item align-items-center"
-          style={{ minWidth: "320px" }}
+          className={`col-md-${props?.checkHandler ? '2' : '5'} item align-items-center`}
+          style={{ minWidth: `${props?.checkHandler ? '320px' : '480px'}` }}
         >
           <p
             className="job-published-date text-ellipsis"
@@ -271,7 +271,7 @@ const HiringCriteriaListItem = (props) => {
             {getValueByType(props?.item?.hcProgramsInString, "branchName")}
           </p>
         </div>
-        <div className="col-md-2 item align-items-center">
+        <div className={`col-md-2 item align-items-center`}>
           <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
             {props?.item?.creationDate
               ? props?.item?.publishedFlag
@@ -285,6 +285,7 @@ const HiringCriteriaListItem = (props) => {
           </p>
         </div>
         <div className={`col-md-${props?.checkHandler ? '2' : '4'} row item p-0 d-flex justify-content-between align-items-center w-full`}>
+          <div></div>
           <div className="vertical-divider" />
           <button
             type="button"

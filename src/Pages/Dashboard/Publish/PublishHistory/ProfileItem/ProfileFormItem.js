@@ -22,6 +22,8 @@ const ProfileFormItem = (props) => {
                 disabled
                 multiline={true}
                 minRows={6}
+                inputLabelProps={{style:{fontSize: '.800rem'}}}
+                inputProps={{style:{fontSize: '.800rem'}}}
               />
             </div>
            {props?.profileData?.attachment ? <div className="row d-flex justify-content-center align-items-center" style={{margin:0, padding:0}}>

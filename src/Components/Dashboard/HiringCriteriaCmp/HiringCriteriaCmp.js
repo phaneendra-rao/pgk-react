@@ -12,7 +12,7 @@ const HiringCriteriaCmp = (props) => {
         } else {
           return '-'
         }
-      }
+    }
     return (
         <>
             <div className="row published-jobs-section">
@@ -21,7 +21,7 @@ const HiringCriteriaCmp = (props) => {
                     {props.hiringCriteria?.length
                         ?
                         props.hiringCriteria?.map((item, i) =>
-                            <div className="row align-items-center jobs-list-item w-full p-0" key={i}>
+                            <div className="row align-items-center jobs-list-item w-full p-0" key={i} style={{height: '80px'}}>
                                 <div className="col-md-2 row align-items-center p-0">
                                     <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
                                         <i className="fas fa-cube" />

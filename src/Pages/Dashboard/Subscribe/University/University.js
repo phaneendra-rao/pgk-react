@@ -17,6 +17,9 @@ import HeaderModalForm from '../../../../Components/Common/HeaderModalForm';
 import UniversitySendMail from './UniversitySendMail';
 import { toast } from 'react-toastify';
 import UniversitySendMailSuccessModal from './UniversitySendMailSuccessModal';
+
+import { actionGetDependencyLookUpsSagaAction, actionUpdateGlobalLoaderSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+
 const $ = window.$;
 
 const University = (props) => {
@@ -259,11 +262,6 @@ const University = (props) => {
              {/* ADD TOKENS MODAL */}
              {isTokenModalOpen && <CustomModal show={isTokenModalOpen} modalStyles={{ maxWidth: "40%" }}>
                  <div className="purchase-modal">
-                    <div className="modal-header purchase-modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
                     <HeaderModalForm additionalTokens={additionalTokens} />
                  </div>
             </CustomModal>}

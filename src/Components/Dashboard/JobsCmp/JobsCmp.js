@@ -10,7 +10,7 @@ const JobsCmp = (props) => {
             <div className="d-flex flex-column justify-content-start align-items-center w-full">
                 <p className="heading">Jobs Created</p>
                 {props.allJobs && props.allJobs?.length 
-                    ? props.allJobs?.map((item, i) => <div className="row align-items-center jobs-list-item w-full" key={i}>
+                    ? props.allJobs?.map((item, i) => <div className="row align-items-center jobs-list-item w-full" key={i}  style={{height: '80px'}}>
                         <div className="col-md-2 row align-items-center p-0">
                                     <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
                                         <i className="fas fa-cube" />

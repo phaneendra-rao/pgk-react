@@ -84,7 +84,7 @@ const AddJobs = (props) => {
                                 name="monthOfHiring"
                                 onChange={props?.handleChange}
                                 value={props?.jobFormData?.monthOfHiring?.value ? moment(props?.jobFormData?.monthOfHiring?.value).format('YYYY-MM-DD') : null}
-                                label={'Date of hiring'}
+                                label={'Month of hiring'}
                                 inputLabelProps={{style:{fontSize: '.800rem'}}}
                                 inputProps={{style:{fontSize: '.800rem'}, min: moment().format('YYYY-MM-DD')}}
                                 errorMessage={props?.jobFormData?.monthOfHiring?.errorMessage}
@@ -273,7 +273,7 @@ const AddJobs = (props) => {
             </div>
             <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
                 <button type="buttpn" onClick={props?.handleCloseModal}  style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Cancel</button>
-                <button type="button" onClick={props?.submitJobForm} disabled={!isFormValid()} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Save Job</button>
+                {props?.mode!=='DETAILS' ? <button type="button" onClick={props?.submitJobForm} disabled={!isFormValid()} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Save Job</button> : null}
             </div>
         </div>
         </form>

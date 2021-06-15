@@ -4,6 +4,8 @@ import UniversityItem from "../../../../Pages/Dashboard/Subscribe/Components/Uni
 import StudentListItem from "../../../../Pages/Dashboard/Subscribe/Components/StudentListItem";
 import CampusHiringItem from "../../../../Pages/Dashboard/Subscribe/Components/CampusHiringItem";
 
+import PgkSelectField from '../../../../Components/FormFields/PgkSelectField';
+
 const UniversityCmp = (props) => {
   return (
     <>
@@ -26,7 +28,7 @@ const UniversityCmp = (props) => {
               <div className="univ-header d-flex justify-content-center align-items-center">
                 <div className="univ-logo">
                   <img
-                    src="../../../images/univ.png"
+                    src="/images/univ.png"
                     className="img img-fluid univ-icon"
                     alt="univ-logo"
                   />
@@ -170,21 +172,33 @@ const UniversityCmp = (props) => {
         <div className={"blueHeaderStrip w-full"} style={{marginTop: '15px', paddingBottom:'0px'}}>
           <div className={"row"}>
             <div className={"col-md-2 item"}>
-              <div className={"d-grp"}>
-                <select name="subscriptionType" className="d-inp" value={""}>
-                  <option value="">Subscription Type</option>
-                </select>
-                <label className="inp-caption">{`Subscription Type`}</label>
+              <div className={"mb-0"}>
+                <PgkSelectField 
+                    name="subscriptionType"
+                    value={props?.subscriptionType}
+                    onChange={props?.handleChange}
+                    label={`Subscription Type`}
+                    options={props?.subscriptionTypeOptions}
+                    labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                    selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                    menuStyles={{fontSize: '.800rem'}}
+                />
               </div>
             </div>
             <div className={"col-md-8 item"}>
             </div>
             <div className={"col-md-2 item"}>
-              <div className={"d-grp"}>
-                <select name="sortBy" className="d-inp" value={""}>
-                  <option value="">Sort By</option>
-                </select>
-                <label className="inp-caption">{`Sort By`}</label>
+              <div className={"mb-0"}>
+                <PgkSelectField 
+                    name="sortBy"
+                    value={props?.sortBy}
+                    onChange={props?.handleChange}
+                    label={`Sort By`}
+                    options={props?.sortByOptions}
+                    labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                    selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                    menuStyles={{fontSize: '.800rem'}}
+                />
               </div>
             </div>
           </div>
@@ -199,6 +213,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />
@@ -211,6 +226,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />
@@ -221,6 +237,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />
@@ -231,6 +248,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />
@@ -239,43 +257,6 @@ const UniversityCmp = (props) => {
                   return undefined;
               }
             })}
-
-          {/* <div className="univ-sub-item d-flex justify-content-between align-items-center">
-                        <div className="sub-type-container d-flex">
-                            <i className="fas fa-file-certificate icon" />
-                            <p className="sub-label">University Information</p>
-                        </div>
-                        <div className="vertical-border" />
-                        <div className="name-address d-flex flex-column align-items-start">
-                            <p className="title">Osmania University</p>
-                            <p className="sub-title"><i className="fas fa-map-marker-alt" /> Amberpet, Hyderabad</p>
-                        </div>
-                        <div className="vertical-border" />
-                        <div className="sub-item-container d-flex flex-column align-items-center">
-                            <p className="title">University ID</p>
-                            <p className="sub-title">XXXX2002</p>
-                        </div>
-                        <div className="vertical-border" />
-                        <div className="view-info-btn">View Information</div>
-                    </div>
-                    <div className="univ-sub-item d-flex justify-content-between align-items-center">
-                        <div className="sub-type-container d-flex">
-                            <i className="fas fa-file-certificate icon" />
-                            <p className="sub-label">University Information</p>
-                        </div>
-                        <div className="vertical-border" />
-                        <div className="name-address d-flex flex-column align-items-start">
-                            <p className="title">Osmania University</p>
-                            <p className="sub-title"><i className="fas fa-map-marker-alt" /> Amberpet, Hyderabad</p>
-                        </div>
-                        <div className="vertical-border" />
-                        <div className="sub-item-container d-flex flex-column align-items-center">
-                            <p className="title">University ID</p>
-                            <p className="sub-title">XXXX2002</p>
-                        </div>
-                        <div className="vertical-border" />
-                        <div className="view-info-btn">View Information</div>
-                    </div> */}
         </div>
       </div>
     </>

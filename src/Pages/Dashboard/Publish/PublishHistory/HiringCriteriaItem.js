@@ -18,7 +18,6 @@ const HiringCriteriaItem = (props) => {
     return (<>
     <div
         className="w-full d-flex justify-content-center align-items-center"
-        key={props?.index}
       >
         <div className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full">
           <div className="item d-flex flex-row justify-content-between align-items-center w-full">

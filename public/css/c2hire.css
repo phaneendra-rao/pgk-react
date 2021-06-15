@@ -61,12 +61,15 @@ p {
 }
 
 .navbar .dropdown .dropdown-menu {
-  font-family: "Euclid Circular A";
   margin-top: 5px;
   border: 1px solid #d3d3d3;
   background-color: #ffffff;
   -webkit-box-shadow: 0px 3px 6px #00000029;
           box-shadow: 0px 3px 6px #00000029;
+}
+
+.navbar .dropdown .dropdown-menu a {
+  font-family: "Euclid Circular A";
 }
 
 .navbar .dropdown .dropdown-menu a:hover {
@@ -285,37 +288,37 @@ p {
   width: 560px !important;
 }
 
+.landing-page .showcaseBox .vid .videoBlock .c2hire-platform:hover .react-player__preview {
+  background-color: #00000031 !important;
+}
+
+.landing-page .showcaseBox .vid .videoBlock .c2hire-platform:hover .react-player__shadow {
+  background-color: #033380 !important;
+}
+
+.landing-page .showcaseBox .vid .videoBlock .c2hire-platform:hover .react-player__shadow::before {
+  content: "";
+  position: absolute !important;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  display: block;
+  width: 95px;
+  height: 95px;
+  background: #004fd0;
+  border-radius: 50%;
+  -webkit-animation: pulse-border 1500ms ease-out infinite;
+          animation: pulse-border 1500ms ease-out infinite;
+}
+
 .landing-page .showcaseBox .vid .videoBlock .c2hire-platform .react-player__preview {
   background-color: #00000062;
 }
 
 .landing-page .showcaseBox .vid .videoBlock .c2hire-platform .react-player__shadow {
   background: #004fd0 !important;
-}
-
-.landing-page .showcaseBox .vid .videoBlock .playBtn {
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  height: 120px;
-  width: 120px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: absolute;
-  background-color: #004fd0;
-  border-radius: 50%;
-}
-
-.landing-page .showcaseBox .vid .videoBlock .playBtn i {
-  font-size: 44px;
 }
 
 .landing-page .showcaseBox .vid .vidBtm-text {
@@ -357,25 +360,6 @@ p {
 .landing-page .reviewComments {
   padding: 1rem 0 1rem 0;
   background-color: #f8f9fd;
-}
-
-.landing-page .reviewComments .carousel .carousel-indicators {
-  bottom: -45px;
-}
-
-.landing-page .reviewComments .carousel .carousel-indicators li {
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  background-color: #d3d3d3;
-}
-
-.landing-page .reviewComments .carousel .carousel-indicators .active {
-  background-color: #00000050;
-}
-
-.landing-page .reviewComments #autoWidth {
-  height: 300px !important;
 }
 
 .landing-page .corporates-slides {
@@ -1600,7 +1584,7 @@ p {
   }
 }
 
-.poster_button {
+.react-player__shadow {
   position: absolute !important;
   z-index: 10;
   top: 50%;
@@ -1610,48 +1594,19 @@ p {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   display: block;
-  width: 32px;
-  height: 44px;
+  width: 40px !important;
+  height: 52px !important;
   /* background: #fa183d; */
   border-radius: 50%;
   padding: 18px 20px 18px 28px;
 }
 
-.poster_button::before {
-  content: "";
-  position: absolute !important;
-  z-index: 0;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
-  display: block;
-  width: 100px;
-  height: 100px;
-  background: #004fd0;
-  border-radius: 50%;
-  -webkit-animation: pulse-border 1500ms ease-out infinite;
-          animation: pulse-border 1500ms ease-out infinite;
+.react-player__shadow .react-player__play-icon {
+  margin-left: 0px !important;
+  border-width: 18px 0px 18px 28px !important;
 }
 
-.poster_button::after {
-  content: "";
-  position: absolute !important;
-  z-index: 1;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
-  display: block;
-  width: 100px;
-  height: 100px;
-  background: #004fd0;
-  border-radius: 50%;
-  -webkit-transition: all 200ms;
-  transition: all 200ms;
-}
-
-.poster_button img {
+.react-player__shadow img {
   position: relative;
   width: 48px !important;
   z-index: 3;
@@ -1661,7 +1616,7 @@ p {
   height: auto;
 }
 
-.poster_button span {
+.react-player__shadow span {
   display: block;
   position: relative;
   z-index: 3;
@@ -1672,7 +1627,7 @@ p {
   border-bottom: 22px solid transparent;
 }
 
-.poster_button:hover:after {
+.react-player__shadow:hover:after {
   background-color: #003c9d;
 }
 
@@ -1827,13 +1782,31 @@ p {
   .FAQs-page .Faqs-container .left-links .table-content {
     padding: 2rem 1rem;
   }
-  .team-modal .modal-dialog .modal-content .modal-body .description .title-block .title {
+  .team-modal
+.modal-dialog
+.modal-content
+.modal-body
+.description
+.title-block
+.title {
     width: 178px;
   }
-  .team-modal .modal-dialog .modal-content .modal-body .description .title-block .title span:first-child {
+  .team-modal
+.modal-dialog
+.modal-content
+.modal-body
+.description
+.title-block
+.title span:first-child {
     font-size: 14px;
   }
-  .team-modal .modal-dialog .modal-content .modal-body .description .title-block .title span:nth-child(2) {
+  .team-modal
+.modal-dialog
+.modal-content
+.modal-body
+.description
+.title-block
+.title span:nth-child(2) {
     font-size: 12px;
   }
   .footer-block .footer1stblc {

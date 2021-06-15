@@ -106,21 +106,11 @@ const [count, setCount] = useState(0);
                       light={true}
                       url="https://player.vimeo.com/video/562748881?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                     />
-                    {/* <video id="example"
-                                        poster="http://pgktechnologies.com/wp-content/uploads/2020/10/pgk-video.png">
-                                        <source
-                                            src="http://pgktechnologies.com/wp-content/uploads/2020/10/pgkharnes.mp4"
-                                            type="video/mp4"/>
-
-                                        Your browser does not support the video tag.
-                                    </video> */}
                   </div>
                 </div>
                 <p className="vidBtm-text">
                   {flashTexts[count] || "Validated and Verified profiles."}
-                </p>
-                {/* <h5 class="text-center flash" id="text"></h5> */}
-                                
+                </p>                                
                                     
 
 
@@ -213,94 +203,6 @@ const [count, setCount] = useState(0);
                 <h3>6</h3>
               </div>
             </Slider>
-
-            {/* <ul id="autoWidth" className="cs-hidden">
-              <li className="item-a">
-                <div className="comments-detail-block light-slider-box">
-                  <div className="d-flex flex-column">
-                    <i className="fas fa-quote-left quote-icon"></i>
-                    <div className="d-flex justify-content-center">
-                      <span className="circle"></span>
-                    </div>
-                    <p className="text-center title">PAVAN KUMAR</p>
-                    <p className="text-center title2">sr. data Analyts</p>
-                    <p className="message">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Repudiandae exercitationem maxime excepturi provident?
-                      Facere, vel tempore sapiente, consequatur{" "}
-                    </p>
-                  </div>
-                </div>
-              </li>
-              <li className="item-a">
-                <div className="comments-detail-block light-slider-box">
-                  <div className="d-flex flex-column">
-                    <i className="fas fa-quote-left quote-icon"></i>
-                    <div className="d-flex justify-content-center">
-                      <span className="circle"></span>
-                    </div>
-                    <p className="text-center title">VASUNDARA</p>
-                    <p className="text-center title2">sr. data Analyts</p>
-                    <p className="message">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Repudiandae exercitationem maxime excepturi provident?
-                      Facere, vel tempore sapiente, consequatur{" "}
-                    </p>
-                  </div>
-                </div>
-              </li>
-              <li className="item-a">
-                <div className="comments-detail-block light-slider-box">
-                  <i className="fas fa-quote-left quote-icon"></i>
-                  <div className="d-flex flex-column">
-                    <div className="d-flex justify-content-center">
-                      <span className="circle"></span>
-                    </div>
-                    <p className="text-center title">PRUDHVI</p>
-                    <p className="text-center title2">B-TECH</p>
-                    <p className="message">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Repudiandae exercitationem maxime excepturi provident?
-                      Facere, vel tempore sapiente, consequatur{" "}
-                    </p>
-                  </div>
-                </div>
-              </li>
-              <li className="item-a">
-                <div className="comments-detail-block light-slider-box">
-                  <i className="fas fa-quote-left quote-icon"></i>
-                  <div className="d-flex flex-column">
-                    <div className="d-flex justify-content-center">
-                      <span className="circle"></span>
-                    </div>
-                    <p className="text-center title">PRUDHVI</p>
-                    <p className="text-center title2">B-TECH</p>
-                    <p className="message">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Repudiandae exercitationem maxime excepturi provident?
-                      Facere, vel tempore sapiente, consequatur{" "}
-                    </p>
-                  </div>
-                </div>
-              </li>
-              <li className="item-a">
-                <div className="comments-detail-block light-slider-box">
-                  <i className="fas fa-quote-left quote-icon"></i>
-                  <div className="d-flex flex-column">
-                    <div className="d-flex justify-content-center">
-                      <span className="circle"></span>
-                    </div>
-                    <p className="text-center title">PRUDHVI</p>
-                    <p className="text-center title2">B-TECH</p>
-                    <p className="message">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Repudiandae exercitationem maxime excepturi provident?
-                      Facere, vel tempore sapiente, consequatur{" "}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            </ul> */}
           </div>
         </div>
         <div className="corporates-slides">

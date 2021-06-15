@@ -1,4 +1,5 @@
 import React from "react";
+import { C2HIRE_EMAIL, C2HIRE_URL } from "../constants";
 
 function RefundPolicy() {
   return (
@@ -29,7 +30,7 @@ function RefundPolicy() {
               stakeholders have an exceptional experience. As with any online
               purchase experience, the below are the terms and conditions that
               govern the Refund Policy. When you registered for a service on the{" "}
-              <a href="https://c2hire.com">c2hire.com</a>, you agree to Terms
+              <a href={C2HIRE_URL}>c2hire.com</a>, you agree to Terms
               and Conditions covered below.
             </p>
             <p>
@@ -37,8 +38,8 @@ function RefundPolicy() {
               Due to the complex nature of collaboration between stakeholders,
               we cannot refund the payment. However, in remote circumstances
               which could be beyond the scope, we request you to send out an
-              email to
-              <a href="mailto:contact@c2hire.com">contact@c2hire.com</a> with
+              email to&nbsp;
+              <a href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a> with
               the relevant information and we will try our best to accommodate
               the cancellation and refund request.
             </p>

@@ -8,7 +8,6 @@ function C2hireHeader() {
         <NavLink exact to="/c2hire" className="navbar-brand">
           C2Hire.
         </NavLink>
-        {/* <a className="navbar-brand" href="home-page.html">C2Hire.</a> */}
         <button
           className="navbar-toggler"
           type="button"
@@ -80,9 +79,6 @@ function C2hireHeader() {
                   <a className="dropdown-item" href="#">
                     Student
                   </a>
-                  {/* <NavLink to='members/mentors'>Corporate</NavLink>
-                                <NavLink to='members/mentors'>University</NavLink>
-                                <NavLink to='members/mentors'>Student</NavLink> */}
                 </div>
               </div>
             </li>

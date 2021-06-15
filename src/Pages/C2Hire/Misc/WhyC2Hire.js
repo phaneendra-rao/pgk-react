@@ -1,4 +1,5 @@
 import React from "react";
+import { C2HIRE_EMAIL } from "../constants";
 
 function WhyC2Hire() {
   return (
@@ -55,13 +56,13 @@ function WhyC2Hire() {
               Technology helps to make solutions easy and complex at the same
               time, however we chose to pick the former - the platform helps you
               understand trends, information, analytics at a single click of
-              button.{" "}
+              button.
             </p>
             <p>
               We also believe that you are the owner of your information - at
               C2Hire. you control the information which you like to share with
               the world - you publish it! ...and it simply doesn't end there -
-              you Earn Tokens for the information you Publish{" "}
+              you Earn Tokens for the information you Publish
             </p>
             <p>
               The platform also has catalogued pricing and on demand
@@ -74,7 +75,7 @@ function WhyC2Hire() {
               <label>JOIN. COLLABORATE. SUCCEED.</label>
             </p>
             <p> Team C2Hire.</p>
-            <label>contact@c2hire.com</label>
+            <label><a href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a></label>
           </div>
         </div>
       </div>

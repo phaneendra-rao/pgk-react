@@ -1,4 +1,6 @@
 import React from "react";
+import Map from "../Components/Map";
+import { C2HIRE_EMAIL, CONTACT_LOCATION } from "../constants";
 
 function ContactUs() {
   return (
@@ -36,7 +38,7 @@ function ContactUs() {
                 <div className="circle">
                   <img src="../../../images/c2hire/icon/email.svg" alt="" />
                 </div>
-                <p>contact@c2hire.com</p>
+                <p><a style={{color:"white"}} href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a></p>
               </div>
               <div className="contact-info">
                 <div className="circle">
@@ -96,7 +98,6 @@ function ContactUs() {
                   </div>
                 </div>
                 <p>
-                  {" "}
                   <span className="mandatory">*</span> Fields required
                 </p>
                 <div>
@@ -105,20 +106,7 @@ function ContactUs() {
               </form>
             </div>
           </div>
-          <div className="col-12">
-            <div className="get-direction">
-              <span className="directions">Get the Directions</span>
-              <span className="emptydirect"></span>
-              <div id="googleMap">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2820741642563!2d78.35934511435401!3d17.44620820569922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93c07819bb9d%3A0xdf907daebe89d286!2sPoornakala%2C%20Chhota%20Anjaiah%20Nagar%2C%20Gachibowli%2C%20Hyderabad%2C%20Telangana%20500032!5e0!3m2!1sen!2sin!4v1623575580765!5m2!1sen!2sin"
-                  style={{ border: "0", width: "100%", height: "498px" }}
-                  allowFullScreen={true}
-                  loading="lazy"
-                ></iframe>
-              </div>
-            </div>
-          </div>
+          <Map location={CONTACT_LOCATION}/>
         </div>
       </div>
     </section>

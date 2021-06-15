@@ -1,4 +1,5 @@
 import React from "react";
+import { C2HIRE_EMAIL } from "../constants";
 
 function TermsAndConditions() {
   return (
@@ -132,8 +133,8 @@ function TermsAndConditions() {
             Site.
           </p>
           <p>
-            Contact us:{" "}
-            <a href="mailto:contact@c2hire.com">contact@c2hire.com</a>
+            Contact us:
+            <a href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a>
           </p>
         </div>
       </div>

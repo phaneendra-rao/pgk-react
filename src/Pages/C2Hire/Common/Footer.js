@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { C2HIRE_EMAIL } from "../constants";
 
 function C2hireFooter() {
   return (
@@ -13,7 +14,7 @@ function C2hireFooter() {
               500032.
             </span>
             <span>
-              <i className="far fa-envelope"></i>&nbsp;contact@c2hire.com
+              <i className="far fa-envelope"></i>&nbsp;<a style={{color:"white"}} href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a>
             </span>
           </p>
           <div className="col-lg-6 followUs">

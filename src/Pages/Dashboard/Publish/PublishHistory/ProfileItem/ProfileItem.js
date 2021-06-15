@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import moment from "moment";
 import {ucwords} from '../../../../../utils/utils';
 import CustomModal from "../../../../../Components/CustomModal";
-
 import BasicFormItem from './BasicFormItem';
 import AddressAndContactFormItem from './AddressAndContactFormItem';
 import ProfileFormItem from './ProfileFormItem';
@@ -18,7 +17,7 @@ const ProfileItem = (props) => {
     let publishedProfileItems = Object.keys(props?.item);
 
     if(publishedProfileItems?.length) {
-      if(publishedProfileItems.some((_item)=>['CIN', 'corporateCategory', 'corporateIndustry', 'corporateType', 'dateOfJoining'].includes(_item))) {
+      if(publishedProfileItems.some((_item)=>['CIN', 'corporateCategory', 'corporateIndustry', 'corporateType', 'monthOfHiring'].includes(_item))) {
         setBasicForm(true)
       } else {
         setBasicForm(false)
@@ -136,9 +135,9 @@ const ProfileItem = (props) => {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            {basicForm && <BasicFormItem profileData={props?.item} />}
-            {address && <AddressAndContactFormItem profileData={props?.item} />}
-            {profile && <ProfileFormItem profileData={props?.item} />}
+            {basicForm && <BasicFormItem lookUpData={props?.lookUpData} profileData={props?.item} />}
+            {/* {address && <AddressAndContactFormItem lookUpData={props?.lookUpData} profileData={props?.item} />} */}
+            {profile && <ProfileFormItem lookUpData={props?.lookUpData} profileData={props?.item} />}
       </CustomModal>}
       </>);
 }

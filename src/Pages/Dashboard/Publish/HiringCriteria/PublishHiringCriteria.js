@@ -183,6 +183,7 @@ const PublishHiringCriteria = (props) => {
                   <HiringCriteriaListItem
                     key={index}
                     item={item}
+                    lookUpData={lookUpData}
                   />
                 );
               })}

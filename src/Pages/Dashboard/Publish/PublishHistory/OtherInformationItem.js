@@ -121,13 +121,16 @@ const OtherInformationItem = (props) => {
                 </div>
               </div>
               <div className="w-100"></div>
-              <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
+              {(props?.item?.attachment?.trim()!=='' && props?.item?.attachmentName?.trim()!=='') ?
+                <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
                 <p className="label">Attachment Present (if any)</p>
-                <div className="attachmentStripe d-flex justify-content-between align-items-center">
-                    <p>New Hiring Criteria for Job-2.pdf</p>
-                    <i className="fas fa-paperclip"></i>
-                </div>
-              </div>
+                <a href={'data:application/pdf;base64,'+props?.item?.attachment} style={{textDecoration:'none', outline:'none', width:'70%'}} download>
+                  <div className="attachmentStripe d-flex justify-content-between align-items-center">
+                      <p>{props?.item?.attachmentName}</p>
+                      <i className="fas fa-paperclip"></i>
+                  </div>
+                </a>
+              </div> : null}
             </div>
           </form>
         </div>

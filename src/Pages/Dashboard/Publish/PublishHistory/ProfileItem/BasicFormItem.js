@@ -3,65 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { actionGetDependencyLookUpsSagaAction } from "../../../../../Store/Actions/SagaActions/CommonSagaActions";
 
+import PgkTextField from "../../../../../Components/FormFields/PgkTextField";
+import PgkSelectField from "../../../../../Components/FormFields/PgkSelectField";
+
 const BasicFormItem = (props) => {
-  const dispatch = useDispatch();
-  const [corporateTypes, setCorporateTypes] = useState([]);
-  const [corporateCategories, setCorporateCategories] = useState([]);
-  const [corporateIndustries, setCorporateIndustries] = useState([]);
 
-  const onGetDependencyLookUpsResponse = (response) => {
-    setCorporateTypes(
-      response?.corporateTypes?.length
-        ? response.corporateTypes.map((item) => {
-            if (item?.codeDescription) {
-              return {
-                value: item.codeDescription,
-                label: item.codeDescription,
-              };
-            }
-          })
-        : []
-    );
 
-    setCorporateCategories(
-      response?.corporateCategory?.length
-        ? response.corporateCategory.map((item) => {
-            if (item?.codeDescription) {
-              return {
-                value: item.codeDescription,
-                label: item.codeDescription,
-              };
-            }
-          })
-        : []
-    );
-
-    setCorporateIndustries(
-      response?.corporateIndustry?.length
-        ? response.corporateIndustry.map((item) => {
-            if (item?.codeDescription) {
-              return {
-                value: item.codeDescription,
-                label: item.codeDescription,
-              };
-            }
-          })
-        : []
-    );
-  };
-
-  useEffect(() => {
-    dispatch(
-      actionGetDependencyLookUpsSagaAction({
-        apiPayloadRequest: [
-          "corporateType",
-          "corporateCategory",
-          "corporateIndustry",
-        ],
-        callback: onGetDependencyLookUpsResponse,
-      })
-    );
-  }, []);
 
   return (
     <div className="profile-box" style={{marginBottom:0}}>
@@ -71,71 +18,71 @@ const BasicFormItem = (props) => {
       <div className="profile-data">
         <div className="row">
           <div className="col-md">
-            <div className="d-grp">
-              <input
-                type="text"
-                name="CIN"
-                value={props?.profileData?.CIN ? props?.profileData?.CIN : ""}
-                className="d-inp"
-                placeholder="Organization Registration ID / CIN *"
-                readOnly
+            <div className="mb-20">
+              <PgkTextField
+                  name="CIN"
+                  value={props?.profileData?.CIN}
+                  label={"Organization Registration ID / CIN"}
+                  disabled
               />
             </div>
           </div>
           <div className="w-100"></div>
           <div className="col-md">
-            <div className="d-grp">
-              <select name="corporateType" className="d-inp" readOnly value={props?.profileData?.corporateType}>
-                <option value="">Select Corporate Sector</option>
-                {corporateTypes?.length && (
-                  corporateTypes.map((item) => {
-                    return <option value={item.value} key={item.value}>{item.label}</option>;
-                  })
-                )}
-              </select>
+            <div className="mb-20">
+              <PgkSelectField
+                name={"corporateType"}
+                disabled
+                value={props?.profileData?.corporateType}
+                required
+                options={props?.lookUpData?.corporateType?.length ? props?.lookUpData?.corporateType?.map((item)=>{
+                  return {value: item.corporateTypeCode, label: item.corporateTypeName}
+                }) : []}
+                label={"Corporate Sector"}
+              />
             </div>
           </div>
           <div className="col-md">
-            <div className="d-grp">
-              <select name="corporateCategory" className="d-inp" value={props?.profileData?.corporateCategory} readOnly>
-                <option value="">Select Corporate Category</option>
-                {corporateCategories?.length && (
-                  corporateCategories.map((item) => {
-                    return <option value={item.value} key={item.value}>{item.label}</option>;
-                  })
-                )}
-              </select>
+            <div className="mb-20">
+              <PgkSelectField
+                name={"corporateCategory"}
+                disabled
+                value={props?.profileData?.corporateCategory}
+                required
+                options={props?.lookUpData?.corporateCategory?.length ? props?.lookUpData?.corporateCategory?.map((item)=>{
+                  return {value: item.categoryCode, label: item.categoryName}
+                }) : []}
+                label={"Corporate Category"}
+              />
             </div>
           </div>
           <div className="w-100"></div>
           <div className="col-md">
-            <div className="d-grp">
-              <select name="corporateIndustry" className="d-inp" value={props?.profileData?.corporateIndustry} readOnly>
-                <option value="">Select Industry Vertical</option>
-                {corporateIndustries?.length && (
-                  corporateIndustries.map((item) => {
-                    return <option value={item.value} key={item.value}>{item.label}</option>;
-                  })
-                )}
-              </select>
+            <div className="mb-20">
+              <PgkSelectField
+                name={"corporateIndustry"}
+                disabled
+                value={props?.profileData?.corporateIndustry}
+                required
+                options={props?.lookUpData?.corporateIndustry?.length ? props?.lookUpData?.corporateIndustry?.map((item)=>{
+                  return {value: item.industryCode, label: item.industryName}
+                }) : []}
+                label={"Corporate Industry"}
+              />
             </div>
           </div>
           <div className="col-md">
-            <div className="d-grp">
-              <input
-                type="date"
-                name="dateOfJoining"
+            <div className="mb-20">
+              <PgkTextField
+                type={"number"}
+                name="yearOfEstablishment"
                 value={
-                  props?.profileData?.dateOfJoining
-                    ? new Date(props?.profileData?.dateOfJoining)
-                        .toISOString()
-                        .substring(0, 10)
-                    : undefined
+                  props?.profileData?.yearOfEstablishment !== undefined
+                    ? parseInt(props?.profileData?.yearOfEstablishment)
+                    : ""
                 }
-                className="d-inp"
-                title="Date of Commencement"
-                placeholder="Date of Commencement"
-                readOnly
+                label={"Year of Establishment"}
+                disabled
               />
             </div>
           </div>

@@ -39,7 +39,13 @@ const PublishHistory = (props) => {
 
   useEffect(() => {
     dispatch(actionGetDependencyLookUpsSagaAction({
-        apiPayloadRequest: ['branchCatalog', 'programCatalog'],
+        apiPayloadRequest: [
+          'branchCatalog', 
+          'programCatalog', 
+          "corporateType",
+          "corporateCategory",
+          "corporateIndustry",
+        ],
         callback: dropdowns
     }));
   }, []);
@@ -57,8 +63,7 @@ const PublishHistory = (props) => {
     } else if (listItem?.otherPublished) {
       return <OtherInformation parentItem={listItem} item={JSON.parse(listItem?.publishData)} index={index} />
     } else if (listItem?.profilePublished) {
-        console.log('JSON.parse(listItem?.publishData) ', JSON.parse(listItem?.publishData));
-        return <ProfileItem parentItem={listItem} item={JSON.parse(listItem?.publishData)} index={index} />
+        return <ProfileItem parentItem={listItem} lookUpData={lookUpData} item={JSON.parse(listItem?.publishData)} index={index} />
     } else {
       return undefined;
     }

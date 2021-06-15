@@ -119,12 +119,14 @@ const OtherInformationList = (props) => {
                     onChange={()=>{}}
                     multiline={true}
                     minRows={6}
+                    inputLabelProps={{style:{fontSize: '.800rem'}}}
+                    inputProps={{style:{fontSize: '.800rem'}}}
                   />
                 </div>
               </div>
               <div className="w-100"></div>
               {(otherInformation?.attachment?.trim()!=='' && otherInformation?.attachmentName?.trim()!=='') ?
-                <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
+                <div className="d-flex justify-content-between align-items-center attachmentStripeContainer w-full">
                 <p className="label">Attachment Present (if any)</p>
                 <a href={'data:application/pdf;base64,'+otherInformation?.attachment} style={{textDecoration:'none', outline:'none', width:'70%'}} download>
                   <div className="attachmentStripe d-flex justify-content-between align-items-center">

@@ -65,6 +65,7 @@ const SubscribeSearch = (props) => {
                 hcEnable={hcEnable}
                 universityName={universityName}
                 locations={locations}
+                skills={skills}
                 lookUpData={props.lookUpData}
                 hiringCriteria={props.hiringCriteria}
                 onChange={onChange}

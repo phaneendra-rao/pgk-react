@@ -20,7 +20,7 @@ const RegisterSidebar = () => {
 
     return (
         <div className="login-box reg-box">
-            <img src="../images/corporate/login-img.png" alt="login-img" className="login-img1" />
+            <img src="/images/corporate/login-img.png" alt="login-img" className="login-img1" />
             <h2 className="login-heading">PGK.</h2>
 
             {type === 'Corporate'

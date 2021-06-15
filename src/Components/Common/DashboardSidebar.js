@@ -16,7 +16,7 @@ const DashboardSidebar = () => {
       <div className="logo-section">
         <div className={'logoHead'}>
           <img
-            src="../../../images/c2hire.png"
+            src="/images/c2hire.png"
             alt="logo"
             className="img img-fluid logo"
           />

@@ -213,6 +213,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />
@@ -225,6 +226,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />
@@ -235,6 +237,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />
@@ -245,6 +248,7 @@ const UniversityCmp = (props) => {
                       item={{
                         ...item,
                         publisherName: props.universityInfoList?.universityName,
+                        location: props.universityInfoList?.universityHQAddressCity
                       }}
                       index={index}
                     />

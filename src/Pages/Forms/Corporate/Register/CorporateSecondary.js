@@ -7,14 +7,6 @@ import { actionGetCitiesByStateNameRequest, actionGetCountryCodesSagaAction, act
 import { checkObjectProperties } from '../../../../utils/utils';
 
 const CorporateSecondary = (props) => {
-    // const initialState = {
-    //     corporateType: '',
-    //     corporateCategory: '',
-    //     corporateIndustry: '',
-    //     companyProfile: '',
-    //     attachment: '',
-    //     yearOfEstablishment: '',
-    // };
     // =========***Main Object***=========
     const initialState = {
         // corporateName: '',
@@ -43,6 +35,17 @@ const CorporateSecondary = (props) => {
 
     // =========***Error Object***=========
     const errorsObj = initialState;
+    
+    // =========***Primary data keys to check validations***=========
+    const primaryKeyCheck = {
+        corporateName: '',
+        CIN: '',
+        corporateType: '',
+        corporateCategory: '',
+        corporateIndustry: '',
+        attachment: '',
+        yearOfEstablishment: '',
+    };
 
     const [corporateSecondary, setCorporateSecondary] = useState(initialState);
     const [errors, setErrors] = useState(errorsObj);
@@ -70,15 +73,28 @@ const CorporateSecondary = (props) => {
     const dispatch = useDispatch();
 
     useEffect(async () => {
-        dispatch(
-            actionGetCountryCodesSagaAction({
-                callback: onCountryCodesResponse,
-            })
-        );
+        let isPrimaryDataFilled = false;
+        for (const storeKey in storeData) {
+            for (const key in primaryKeyCheck) {
+                if (storeKey === key) {
+                    if (storeData[storeKey] !== '' || storeData[storeKey] !== null || storeData[storeKey] !== undefined) {
+                        isPrimaryDataFilled = true
+                    }
+                }
+            }
+        }
+        if (!isPrimaryDataFilled) {
+            return props.history.push('/register');
+        }
+        dispatch(actionGetCountryCodesSagaAction({
+            callback: onCountryCodesResponse,
+        }));
         const localStorageObj = JSON.parse(sessionStorage.getItem('secondary'));
-        const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 9 ? true : false;
-        if ((localStorageObj || storeData) && isLocalStorageAvailable) {
-            let data = Object.keys(storeData).length > 9 ? storeData : localStorageObj;
+        // const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 9 ? true : false;
+        const isLocalStorageAvailable = storeData && Object.keys(storeData).length > 9 ? true : false;
+        if ((storeData) && isLocalStorageAvailable) {
+            // let data = Object.keys(storeData).length > 9 ? storeData : localStorageObj;
+            let data = storeData;
             let storeSecondaryObj = {};
             Object.keys(data).map(keyName => {
                 for (const key in initialState) {
@@ -88,18 +104,24 @@ const CorporateSecondary = (props) => {
                 }
             });
             setCorporateSecondary(storeSecondaryObj);
-            if (storeSecondaryObj?.corporateHQAddressCountry) {
-                await getStatesByCountryName(storeSecondaryObj['corporateHQAddressCountry'], 'HQ');
+            if (storeData?.corporateHQAddressCountry) {
+                getStatesByCountryName(storeData?.corporateHQAddressCountry, 'HQ');
             }
-            if (storeSecondaryObj?.corporateLocalBranchAddressCountry) {
-                await getStatesByCountryName(storeSecondaryObj['corporateLocalBranchAddressCountry'], 'LOCAL');
+            if (storeData.corporateHQAddressState) {
+                getCitiesByStateName(storeData?.corporateHQAddressState, 'HQ');
             }
-            if (storeSecondaryObj.corporateHQAddressState) {
-                await getCitiesByStateName(storeSecondaryObj['corporateHQAddressState'], 'HQ');
-            }
-            if (storeSecondaryObj?.corporateLocalBranchAddressState) {
-                await getCitiesByStateName(storeSecondaryObj['corporateLocalBranchAddressState'], 'LOCAL');
-            }
+            // if (storeData?.corporateLocalBranchAddressCountry) {
+            //     getStatesByCountryName(storeData?.corporateLocalBranchAddressCountry, 'LOCAL');
+            // }
+            // if (storeData?.corporateLocalBranchAddressState) {
+            //     getCitiesByStateName(storeData?.corporateLocalBranchAddressState, 'LOCAL');
+            // }
+            setFilename(storeData?.attachment?.name);
+            let reader = new FileReader();
+            reader.onload = function (ev) {
+                setPath(ev.target.result.split(',')[1]);
+            }.bind(this);
+            reader.readAsDataURL(storeData.attachment2);
         }
 
     }, []);
@@ -115,6 +137,12 @@ const CorporateSecondary = (props) => {
             const updatedCountryOptions = response.map((item) => {
                 return { value: item?.name, label: item?.name, callingCodes: item?.callingCodes };
             });
+            if (storeData?.corporateLocalBranchAddressCountry) {
+                getStatesByCountryName(storeData?.corporateLocalBranchAddressCountry, 'LOCAL');
+            }
+            if (storeData?.corporateLocalBranchAddressState) {
+                getCitiesByStateName(storeData?.corporateLocalBranchAddressState, 'LOCAL');
+            }
             setCountries(updatedCountryOptions);
         }
     };
@@ -148,37 +176,37 @@ const CorporateSecondary = (props) => {
     }
 
     const getStatesByCountryName = (countryName, type) => {
-        dispatch(
-            actionGetStatesByCountryNameRequest({
-                countryName: countryName,
-                callback: (response) => {
-                    let statesList = response && response.length >= 0
-                        ? response?.map((item, i) => ({ value: item?.state_name, label: item?.state_name })) : (null);
-                    if (type === 'HQ') {
-                        setStateList(statesList);
-                    } else {
-                        setStateListLocal(statesList)
-                    }
-                },
-            })
-        );
+        dispatch(actionGetStatesByCountryNameRequest({
+            countryName: countryName,
+            callback: (data) => setStatesCitiesHQ(data, type),
+        }));
     }
 
     const getCitiesByStateName = (stateName, type) => {
-        dispatch(
-            actionGetCitiesByStateNameRequest({
-                stateName: stateName,
-                callback: (response) => {
-                    let citiesList = response && response.length >= 0
-                        ? response?.map((item, i) => ({ value: item?.city_name, label: item?.city_name })) : (null);
-                    if (type === 'HQ') {
-                        setCitylist(citiesList);
-                    } else {
-                        setCitylistLocal(citiesList)
-                    }
-                },
-            })
-        );
+        dispatch(actionGetCitiesByStateNameRequest({
+            stateName: stateName,
+            callback: (data) => setStatesCitiesLocal(data, type),
+        }));
+    }
+
+    const setStatesCitiesHQ = (data, type) => {
+        let statesList = data && data.length >= 0
+            ? data?.map((item, i) => ({ value: item?.state_name, label: item?.state_name })) : (null);
+        if (type === 'HQ') {
+            setStateList(statesList);
+        } else {
+            setStateListLocal(statesList)
+        }
+    }
+
+    const setStatesCitiesLocal = (data, type) => {
+        let citiesList = data && data.length >= 0
+            ? data?.map((item, i) => ({ value: item?.city_name, label: item?.city_name })) : (null);
+        if (type === 'HQ') {
+            setCitylist(citiesList);
+        } else {
+            setCitylistLocal(citiesList)
+        }
     }
 
     const saveData = (event) => {
@@ -231,7 +259,7 @@ const CorporateSecondary = (props) => {
                 obj[key] = imageObj[key]
             }
             setImageObj(obj);
-            setFilename(obj.name);
+            setFilename(imageObj.name);
             // if (event.target.files[0].type === "application/pdf")
             const val = event.target.files.length;
             for (let i = 0; i < val; i++) {
@@ -246,7 +274,6 @@ const CorporateSecondary = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(code, code2);
         const { profileErr } = errors;
         const {
             corporateHQAddressLine1, corporateHQAddressLine2, corporateHQAddressCountry, corporateHQAddressState,

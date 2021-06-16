@@ -54,6 +54,9 @@ const LoginCmp = (props) => {
                 <Link to={props.type === 'Student' ? '/register/studentRegister' : '/register'} className="login-reg-link">
                     <button type="button" className="login-btn">Register as new {props.type}</button>
                 </Link>
+                <Link to="/c2hire" className="login-reg-link">
+                    <button type="button" className="btn">C2Hire</button>
+                </Link>
             </div>
         </form>
     )

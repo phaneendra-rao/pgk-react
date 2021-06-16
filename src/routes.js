@@ -73,6 +73,19 @@ const CampusDrive = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/CampusD
 const TransactionHistory = React.lazy(()=> import("./Pages/Dashboard/TransactionHistory/TransactionHistory"));
 const Support = React.lazy(() => import("./Pages/Dashboard/Support/Support"));
 const UniversityStudents = React.lazy(() => import("./Pages/Dashboard/Subscribe/University/UniversityStudents/UniversityStudents"));
+// C2 Hire Lazy Comps
+const C2HireHome = React.lazy(() => import("./Pages/C2Hire/Common/Home"));
+const PrivacyPolicy = React.lazy(() => import("./Pages/C2Hire/UserGuides/PrivacyPolicy"));
+const RefundPolicy = React.lazy(() => import("./Pages/C2Hire/UserGuides/RefundPolicy"));
+const TermsAndConditions = React.lazy(() => import("./Pages/C2Hire/UserGuides/TermsAndConditions"));
+const OurTeam = React.lazy(() => import("./Pages/C2Hire/Members/OurTeam"));
+const Mentors = React.lazy(() => import("./Pages/C2Hire/Members/Mentors"));
+const Advisors = React.lazy(() => import("./Pages/C2Hire/Members/Advisors"));
+const Partners = React.lazy(() => import("./Pages/C2Hire/Members/Partners"));
+const ContactUs = React.lazy(() => import("./Pages/C2Hire/Misc/ContactUs"));
+const FAQs = React.lazy(() => import("./Pages/C2Hire/Misc/FAQs"));
+const WhyC2Hire = React.lazy(() => import("./Pages/C2Hire/Misc/WhyC2Hire"));
+
 
 const routes = [
   {
@@ -324,6 +337,100 @@ const routes = [
     name: "Support",
     component: Support,
   },
+// ];
+
+// export const c2hireRoutes = [
+ // C2hire routes start from here
+ {
+  path: "/c2hire",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Home",
+  component: C2HireHome,
+},
+
+{
+  path: "/c2hire/userguide/privacypolicy",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Privacy Policy",
+  component: PrivacyPolicy,
+},
+{
+  path: "/c2hire/userguide/refundpolicy",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Refund Policy",
+  component: RefundPolicy,
+},
+{
+  path: "/c2hire/userguide/termsandconditions",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Terms and Conditions",
+  component: TermsAndConditions,
+},
+{
+  path: "/c2hire/members/ourteam",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Our Team",
+  component: OurTeam,
+},
+{
+  path: "/c2hire/members/mentors",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Mentors",
+  component: Mentors,
+},
+{
+  path: "/c2hire/members/advisors",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Advisors",
+  component: Advisors,
+},
+{
+  path: "/c2hire/members/partners",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Partners",
+  component: Partners,
+},
+{
+  path: "/c2hire/contactus",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Contact Us",
+  component: ContactUs,
+},
+{
+  path: "/c2hire/faqs",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire FAQs",
+  component: FAQs,
+},
+{
+  path: "/c2hire/whyc2hire",
+  strict: true,
+  exact: true,
+  role: "dashboard",
+  name: "C2Hire Why C2Hire",
+  component: WhyC2Hire,
+},
+
 ];
 
 export default routes;

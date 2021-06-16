@@ -107,16 +107,16 @@
             display: block;
             margin-bottom: 18px;
             position: relative;
-            .inp-caption{
-                position: absolute;
-                top: -10px;
-                left: 10px;
-                background-color: #fff;
-                color: #878BA6;
-                font-family: Poppins-Medium;
-                font-size: 10px;
-                padding: 2px;
-            }
+            // .inp-caption{
+            //     position: absolute;
+            //     top: -10px;
+            //     left: 10px;
+            //     background-color: #fff;
+            //     color: #878BA6;
+            //     font-family: Poppins-Medium;
+            //     font-size: 10px;
+            //     padding: 2px;
+            // }
             .modal-inp{
                 width: 100%;
                 height: 42px;
@@ -192,7 +192,7 @@
                     .modal-grp{
                         margin-bottom: 0;
                         .modal-inp{
-                            height: 30px;
+                            height: 42px;
                             padding: 5px;
                             font-size: 12px;
                         }
@@ -526,7 +526,7 @@
     display: block;
     margin-bottom: 18px;
     position: relative;
-    .inp-caption {
+    .textarea-caption {
       position: absolute;
       top: -10px;
       left: 10px;

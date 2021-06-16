@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PgkSelectField from '../../../FormFields/PgkSelectField';
 import PgkTextField from '../../../FormFields/PgkTextField';
@@ -20,9 +21,11 @@ const CorporateSecondaryCmp = (props) => {
     }
 
     const history = useHistory();
+    const apiStatus = useSelector(state => state.DashboardReducer.apiStatus);
 
     return (
-        <form onSubmit={props.handleSubmit} className="login-form reg-form">
+        <form onSubmit={props.handleSubmit} className="login-form reg-form position-relative">
+            {apiStatus !== 0 && <span className="text-warning position-absolute" style={{ top: '-10px' }}>Loading countries...</span>}
             <RegisterHeader title="Address" />
             <div className="row">
                 <div className="col-md-6">
@@ -54,6 +57,7 @@ const CorporateSecondaryCmp = (props) => {
                                     name="corporateHQAddressCountry"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateHQAddressCountry}
+                                    disabled={apiStatus !== 0 ? true : false}
                                     label={'Country'}
                                     options={countryCodes}
                                     errorMessage={props?.errors?.corporateHQAddressCountry}
@@ -67,6 +71,7 @@ const CorporateSecondaryCmp = (props) => {
                                     name="corporateHQAddressState"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateHQAddressState}
+                                    disabled={props?.corporateSecondary?.corporateHQAddressCountry ? false : true}
                                     label={'State'}
                                     options={props.stateList}
                                     errorMessage={props?.errors?.corporateHQAddressState}
@@ -92,6 +97,7 @@ const CorporateSecondaryCmp = (props) => {
                                     name="corporateHQAddressCity"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateHQAddressCity}
+                                    disabled={props?.corporateSecondary?.corporateHQAddressState ? false : true}
                                     label={'City'}
                                     options={props.citylist}
                                     errorMessage={props?.errors?.corporateHQAddressCity}
@@ -198,6 +204,7 @@ const CorporateSecondaryCmp = (props) => {
                                     name="corporateLocalBranchAddressCountry"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressCountry}
+                                    disabled={apiStatus !== 0 ? true : false}
                                     label={'Country'}
                                     options={countryCodes}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressCountry}
@@ -211,6 +218,7 @@ const CorporateSecondaryCmp = (props) => {
                                     name="corporateLocalBranchAddressState"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressState}
+                                    disabled={props?.corporateSecondary?.corporateLocalBranchAddressCountry ? false : true}
                                     label={'State'}
                                     options={props.stateListLocal}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressState}
@@ -227,6 +235,7 @@ const CorporateSecondaryCmp = (props) => {
                                     name="corporateLocalBranchAddressCity"
                                     onChange={props?.handleChange}
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressCity}
+                                    disabled={props?.corporateSecondary?.corporateLocalBranchAddressState ? false : true}
                                     label={'City'}
                                     options={props.citylistLocal}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressCity}
@@ -317,25 +326,25 @@ const CorporateSecondaryCmp = (props) => {
                         <input
                             type="file"
                             onChange={props.handleChangeImg}
-                            accept="application/pdf"
+                            accept="image/*"
                             className="reg-inp"
                             name="attachment"
                             id="attachment"
                             required={false} />
                         <label htmlFor="attachment" className="reg-label">Attach</label>
                     </div>
-                    {/* {props.path
+                    {props.path
                         ? <div className="text-center">
                             <img src={props.path} alt="please select image" className="img-thumbnail mb-3 w-50" />
                         </div>
                         : (null)
-                    } */}
+                    }
                 </div>
             </div>
 
             <div className="d-flex justify-content-between mt-4">
                 <button type="button" className="reg-btn" onClick={() => history.push('/register')}>Previous</button>
-                <button type="submit" className="reg-btn" disabled={props.isBtnDisabled}>Next</button>
+                <button type="submit" className="reg-btn" disabled={props.isBtnDisabled || (apiStatus !== 0)}>Next</button>
             </div>
         </form>
     )

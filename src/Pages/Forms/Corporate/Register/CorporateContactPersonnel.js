@@ -26,6 +26,30 @@ const CorporateContactPersonnel = (props) => {
     // =========***Error Object***=========
     const errorsObj = initialState;
 
+    // =========***Primary data keys to check validations***=========
+    const primaryKeyCheck = {
+        corporateName: '',
+        CIN: '',
+        corporateType: '',
+        corporateCategory: '',
+        corporateIndustry: '',
+        attachment: '',
+        yearOfEstablishment: '',
+    };
+    // =========***Secondary data keys to check validations***=========
+    const secondaryKeyCheck = {
+        corporateHQAddressLine1: '',
+        corporateHQAddressLine2: '',
+        corporateHQAddressCountry: '',
+        corporateHQAddressState: '',
+        corporateHQAddressCity: '',
+        corporateHQAddressDistrict: '',
+        corporateHQAddressZipCode: '',
+        corporateHQAddressPhone: '',
+        corporateHQAddressEmail: '',
+        companyProfile: '',
+    };
+
     const [contactPersonnel, setContactPersonnel] = useState(initialState);
     const [repeatPassword, setRepeatPassword] = useState('');
     const [repeatPasswordErr, setRepeatPasswordErr] = useState('');
@@ -39,10 +63,40 @@ const CorporateContactPersonnel = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const localStorageObj = JSON.parse(sessionStorage.getItem('contact'));
-        const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 7 ? true : false;
-        if ((localStorageObj || storeData) && isLocalStorageAvailable) {
-            let data = storeData && Object.keys(storeData).length > 7 ? storeData : localStorageObj;
+        let isPrimaryDataFilled = false;
+        let isSecondaryDataFilled = false;
+        for (const storeKey in storeData) {
+            for (const key in primaryKeyCheck) {
+                if (storeKey === key) {
+                    if (storeData[storeKey] !== '' || storeData[storeKey] !== null || storeData[storeKey] !== undefined) {
+                        isPrimaryDataFilled = true
+                    }
+                }
+            }
+        }
+        for (const storeKey2 in storeData) {
+            for (const key in secondaryKeyCheck) {
+                if (storeKey2 === key) {
+                    if (storeData[storeKey2] !== '' || storeData[storeKey2] !== null || storeData[storeKey2] !== undefined) {
+                        isSecondaryDataFilled = true
+                    }
+                }
+            }
+        }
+        if (!isPrimaryDataFilled) {
+            sessionStorage.clear();
+            return props.history.push('/register');
+        }
+        if (!isSecondaryDataFilled) {
+            sessionStorage.clear();
+            return props.history.push('/register/corporateSecondary');
+        }
+        // const localStorageObj = JSON.parse(sessionStorage.getItem('contact'));
+        // const isLocalStorageAvailable = localStorageObj && Object.keys(localStorageObj).length > 7 ? true : false;
+        const isLocalStorageAvailable = storeData && Object.keys(storeData).length > 7 ? true : false;
+        if (storeData && isLocalStorageAvailable) {
+            // let data = storeData && Object.keys(storeData).length > 7 ? storeData : localStorageObj;
+            let data = storeData;
             let storeContactObj = {};
             Object.keys(data).map(keyName => {
                 for (const key in initialState) {
@@ -58,7 +112,12 @@ const CorporateContactPersonnel = (props) => {
     useEffect(() => {
         const isErrorsObjEmpty = checkObjectProperties(errors);
         setIsBtnDisabled(isErrorsObjEmpty);
-    }, [errors]);
+        if (showError) {
+            setTimeout(() => {
+                setshowError(false);
+            }, 2000);
+        }
+    }, [errors, showError]);
 
     const handleChange = (name, value, errorMessage) => {
         if (name !== "repeatPassword") {
@@ -85,44 +144,32 @@ const CorporateContactPersonnel = (props) => {
         }
         return keyList;
     }
-    
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const selectedName = localStorage.getItem('type');
         const { primaryContactFirstName, primaryContactLastName, primaryContactDesignation, primaryContactPhone, primaryContactEmail, password } = contactPersonnel;
-
-        const primary = JSON.parse(sessionStorage.getItem('primary'));
-        const secondary = JSON.parse(sessionStorage.getItem('secondary'));
-        // const finalData = Object.assign(storeData, contactPersonnel);
-        const finalData = { ...primary, ...secondary, ...contactPersonnel };
-        if (primaryContactFirstName && primaryContactLastName && primaryContactDesignation && primaryContactPhone && primaryContactEmail) {
-            const image1 = JSON.parse(sessionStorage.getItem('image1'));
-            const file = image1?.name?.split('.').slice(0, -1).join('.')
-            const convertToFile = new File([file], image1?.name, { type: image1?.type, lastModified: image1?.lastModified });
-            finalData.attachment = convertToFile;
-            finalData.corporateHQAddressPhone = secondary?.countryCode + secondary?.corporateHQAddressPhone?.toString();
-            finalData.corporateLocalBranchAddressPhone = secondary?.corporateLocalBranchAddressPhone ? secondary?.countryCode2 + secondary?.corporateLocalBranchAddressPhone?.toString() : '';
-            finalData.stakeholder = selectedName;
-            finalData.primaryContactPhone = secondary?.countryCode + contactPersonnel?.primaryContactPhone?.toString();
-            finalData.secondaryContactPhone = contactPersonnel?.secondaryContactPhone ? secondary?.countryCode + contactPersonnel?.secondaryContactPhone?.toString() : '';
+        // const primary = JSON.parse(sessionStorage.getItem('primary'));
+        // const secondary = JSON.parse(sessionStorage.getItem('secondary'));
+        if (primaryContactFirstName && primaryContactLastName && primaryContactDesignation && primaryContactPhone && primaryContactEmail && (password === repeatPassword)) {
+            // const finalData = { ...primary, ...secondary, ...contactPersonnel };
+            // const finalData = Object.assign(storeData, contactPersonnel);
+            const finalData = { ...storeData, ...contactPersonnel };
+            // const image1 = JSON.parse(sessionStorage.getItem('image1'));
+            // const file = image1?.name?.split('.').slice(0, -1).join('.')
+            // const convertToFile = new File([file], image1?.name, { type: image1?.type, lastModified: image1?.lastModified });
             // finalData.attachment = convertToFile;
-            // finalData.attachment = JSON.parse(sessionStorage.getItem('image1'));
+            finalData.corporateHQAddressPhone = storeData?.countryCode + storeData?.corporateHQAddressPhone?.toString();
+            finalData.corporateLocalBranchAddressPhone = storeData?.corporateLocalBranchAddressPhone ? storeData?.countryCode2 + storeData?.corporateLocalBranchAddressPhone?.toString() : '';
+            finalData.stakeholder = selectedName;
+            finalData.primaryContactPhone = storeData?.countryCode + contactPersonnel?.primaryContactPhone?.toString();
+            finalData.secondaryContactPhone = contactPersonnel?.secondaryContactPhone ? storeData?.countryCode + contactPersonnel?.secondaryContactPhone?.toString() : '';
+            // finalData.attachment = convertToFile;
             delete finalData.countryCode;
             delete finalData.countryCode2;
             delete finalData.attachment2;
             delete finalData.referral;
-            sessionStorage.setItem('contact', JSON.stringify(contactPersonnel));
-
-            // // ========= TO CHECK OBJECT VALUES ARE EMPTY OR NOT
-            // const isObjEmpty = checkObjectPropertyList(finalData);
-            // console.log(finalData, isObjEmpty);
-            // setshowError(isObjEmpty);
-            // if (isObjEmpty.length > 0) {
-            //     setshowError(isObjEmpty);
-            //     return;
-            // } else {
-            //     setshowError(isObjEmpty);
-            // }
+            // sessionStorage.setItem('contact', JSON.stringify(contactPersonnel));
 
             // await dispatch(SaveCoprorateData(contactPersonnel, 3));
             // await dispatch(SignupAction(finalData, props.history));

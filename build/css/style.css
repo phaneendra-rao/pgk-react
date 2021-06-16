@@ -10,7 +10,9 @@ body .main-body {
     display: flex;
     justify-content: flex-start;
 }
-
+.css-2b097c-container{
+    z-index: 120;
+}
 .w-full {
     width: 100%;
 }
@@ -89,10 +91,18 @@ body .main-body .sidebar .logo-section {
     align-items: center;
 }
 
-body .main-body .sidebar .logo-section .logo {
+body .main-body .sidebar .logo-section .logoHead {
     height: 100px;
     width: 100px;
     border-radius: 50%;
+    background-color: white;    
+}
+
+body .main-body .sidebar .logo-section .logo {
+    height: auto;
+    width: 98px;
+    padding: 5px;
+    margin-top: 33px;
 }
 
 body .main-body .sidebar .logo-section .label {
@@ -381,6 +391,7 @@ body .main-body .main-container .topbar .profile-avatar-container .profile-avata
     font-size: 1.4rem;
 }
 
+
 /* Main container and top bar ---- End */
 
 /* Main dashboard page ---- Start */
@@ -400,6 +411,25 @@ body .main-body .page-body .welcome-widget {
     background-color: white;
     border-radius: 5px;
     padding: 10px;
+}
+
+.welcome-widget .date-of-joining-widget {
+    background-color: #253AA3;
+    height: 80px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.welcome-widget .date-of-joining-widget .sub-label {
+    color: white;
+    font-size: .700rem;
+    text-align: center;
+}
+
+.welcome-widget .date-of-joining-widget .label {
+    color: white;
+    font-size: .900rem;
+    text-align: center;
 }
 
 .welcome-avatar {
@@ -910,7 +940,7 @@ body .main-body .page-body .welcome-widget {
 .jobs-list-item .item .job-published-date {
     flex: 1;
     font-size: .800rem;
-    font-weight: 400;
+    font-weight: bolder;
     text-align: center;
 }
 
@@ -1662,4 +1692,318 @@ body .main-body .page-body .welcome-widget {
 
 .analytics-reports-style {
     height: 100vh
+}
+
+/**
+* Transaction page css
+*/
+.transaction-container {
+    height: 250px; 
+    overflow: scroll;
+}
+
+.transaction-container .sub-transaction-item, .transaction-container .main-transaction-item {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background-color: white;
+}
+
+.transaction-container .sub-transaction-item div {
+    align-self: center;
+}
+
+.transaction-container .sub-transaction-item .label {
+    font-size: .900rem;
+}
+
+.transaction-container .sub-transaction-item .sub-label {
+    font-size: .700rem;
+    color: grey;
+}
+
+.transaction-container .sub-transaction-item .tokens {
+    border-radius: 5px;
+    background-color: #12B8D3;
+    color: white;
+    padding: 4px 6px;
+    font-size: .700rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 100px;
+}
+
+.transaction-container .sub-transaction-item .end-label {
+    font-size: .700rem;
+    color: black;
+}
+
+.transaction-container .main-transaction-item div {
+    align-self: center;
+}
+
+.transaction-container .main-transaction-item .label {
+    font-size: .900rem;
+}
+
+.transaction-container .main-transaction-item .tokens {
+    border-radius: 5px;
+    background-color: #12B8D3;
+    color: white;
+    padding: 20px 8px;
+    font-size: .700rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 160px;
+}
+
+.transaction-container .main-transaction-item .end-label {
+    font-size: .700rem;
+    color: black;
+}
+
+.blueHeaderStrip {
+    background-color: #253AA3;
+    padding: 10px 8px 0px 8px;
+    margin: 0;
+}
+
+.blueHeaderStrip label {
+    border-radius: 3px;
+}
+
+.blueHeaderStrip input.d-inp, .blueHeaderStrip select.d-inp {
+    background-color: white;
+    font-size: .800rem;
+    height: 40px;
+} 
+.blueHeaderStrip .item {
+    padding: 0px 4px;
+}
+
+.campus-drive-comp div {
+    padding: 0;
+}
+
+.campus-drive-comp .univ-comp {
+    max-width: 350px;
+}
+
+.campus-drive-comp .univ-icon {
+    background-color: #5473E8;
+    color: white;
+    min-height: 50px !important;
+    min-width: 50px !important;
+    max-height: 50px !important;
+    max-width: 50px !important;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.campus-drive-comp .univ-info {
+    padding-left: 6px;
+    width: 300px;
+}
+.campus-drive-comp .univ-info .univ-title, .campus-drive-comp .univ-info .univ-sub-title {
+    font-size: .700rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.campus-drive-comp .date {
+    padding: 2px;
+    background-color: #5473E8;
+    color: white;
+    text-align: center;
+    font-size: .650rem;
+    border-radius: 12px;
+    margin: 0px 5px;
+}
+
+.campus-drive-comp .btn-accept {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    border-radius: 5px;
+    max-height: 40px;
+}
+
+.campus-drive-comp .btn-reject {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-view-more {
+    background-color: #253AA3;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 100px;
+    max-height: 40px;
+    max-width: 140px;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-history-accepted {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-history-rejected {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    border-radius: 5px;
+}
+
+.campus-drive-comp .btn-history-accepted .subLabel, .campus-drive-comp .btn-history-rejected .subLabel {
+    font-size: .600rem;
+}
+
+.notification {
+    background-color: #F6EDED;
+    position: relative;
+    width: 40%;
+}
+
+.notification .close-notification {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.notification .notification-header {
+    padding: 20px;
+    margin: 20px 30px 10px 30px;
+    border-bottom: 1px solid #878BA6;
+}
+
+.table-borderless td,
+.table-borderless th {
+    border: 0;
+}
+
+.notification .notification-header .heading{
+    font-size: 1.2rem;
+    color: #878BA6;
+    font-weight: 600;
+}
+
+.notification .notification-header .status-btn {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+    cursor: auto;
+}
+
+.notification .notification-body {
+    padding: 0px 20px 0px 20px;
+}
+
+.notification .notification-body table td {
+    padding: 5px 20px;
+}
+
+.notification .notification-body table td.keyLabel {
+    color: #878BA6;
+    font-size: .800rem;
+    font-weight: 500;
+}
+
+.notification .notification-body table td.valueLabel {
+    color: #2A3050;
+    font-size: .850rem;
+    font-weight: 600;
+}
+
+.notification .notification-body .notification-body-footer .heading {
+    width: 100%;
+    border-bottom: 1px solid #878BA6;
+}
+
+.notification .notification-body .notification-body-footer .heading .label {
+    font-size: .750rem;
+    color: black;
+    font-weight: 700;
+}
+
+.notification .notification-body .notification-body-footer .body {
+    font-size: .750rem;
+    color: #878BA6;
+    margin-top: 12px;
+    font-weight: 500;
+}
+
+.notification .notification-body .notification-body-footer.inherit {
+    background-color: white;
+    padding: 10px;
+}
+
+.notification-footer {
+    margin-top: 30px;
+}
+
+.notification-footer .btn-view-more-info {
+    background-color: #253AA3;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+}
+
+.notification-footer .btn-accept {
+    background-color: #20BDC9;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+}
+
+.notification-footer .btn-reject {
+    background-color: #FE5D43;
+    color: white;
+    font-size: .750rem;
+    margin: 0px 3px;
+    max-height: 40px;
+    max-width: 90px;
+    border-radius: 5px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

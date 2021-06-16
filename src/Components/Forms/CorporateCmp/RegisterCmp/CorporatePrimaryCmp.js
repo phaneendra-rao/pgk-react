@@ -112,23 +112,23 @@ const CorporatePrimaryCmp = (props) => {
 
                 <div className="col-md-12">
                     <div className="reg-attach">
-                        {props?.path ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile picture</span>}
+                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile picture</span>}
                         <input
                             type="file"
                             onChange={props.handleChangeImg}
-                            accept="image/*"
+                            accept="application/pdf"
                             className="reg-inp d-none"
                             name="attachment"
                             id="attachment"
                             required={false} />
                         <label htmlFor="attachment" className="reg-label">Attach</label>
                     </div>
-                    {props.actualPath
+                    {/* {props.actualPath
                         ? <div className="text-center">
                             <img src={props.path} alt="please select image" className="img-thumbnail mb-3 w-50" />
                         </div>
                         : (null)
-                    }
+                    } */}
                 </div>
             </div>
 

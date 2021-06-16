@@ -211,8 +211,8 @@ const UniversityCmp = (props) => {
           </div>
         </div>
         <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
-          {props.universityInfoList?.subscriptions?.length &&
-            props.universityInfoList?.subscriptions.map((item, index) => {
+          {props.universityInfoSubscriptionsList?.length &&
+            props.universityInfoSubscriptionsList.map((item, index) => {
               switch (item?.generalNote) {
                 case "Other Information":
                   return (

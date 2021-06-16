@@ -211,6 +211,7 @@ const University = (props) => {
         toast.success(data?.message);
         setIsSendOpen(false);
         setIsSendMailSuccess(true);
+        getUniversityById();
     }
 
     const handleFilterChange = (name, value, errorMessage = undefined) => {
@@ -250,7 +251,8 @@ const University = (props) => {
         <>
             <UniversityCmp
                 universityId={universityId}
-                universityInfoList={universityInfoSubscriptionsList}
+                universityInfoList={universityInfo}
+                universityInfoSubscriptionsList={universityInfoSubscriptionsList}
                 goBack={goBack}
                 viewInfo={viewInfo}
                 navigateToStudent={navigateToStudent}

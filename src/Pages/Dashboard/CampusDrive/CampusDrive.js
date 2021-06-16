@@ -4,7 +4,13 @@ import {
   actionGetCampusDriveInvites,
   actionPostRespondToCampusDriveRequest,
 } from "../../../Store/Actions/SagaActions/CampusDriveSagaActions";
+import {
+  actionGetCorporateSingleNotificationRequest
+} from "../../../Store/Actions/SagaActions/NotificationsSagaAction";
 import moment from 'moment';
+
+import CustomModal from '../../../Components/CustomModal';
+import PgkTextField from '../../../Components/FormFields/PgkTextField';
 
 const CampusDrive = () => {
 
@@ -12,205 +18,24 @@ const CampusDrive = () => {
 
   const [requests, setRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const [notification, setNotification] = useState();
+  const [notificationStatus, setNotificationStatus] = useState();
+  const [notificationContent, setNotificationContent] = useState();
+
+  const [reasonForRejection, setReasonForRejection] = useState();
 
   const getCampusDriveInvites = () => {
     dispatch(actionGetCampusDriveInvites({
       callback: (data)=>{
-        console.log('data ', data);
-        
         if(data?.campusInviteReceived?.length) {
-          // setRequests(data?.campusInviteReceived);
+          setRequests(data?.campusInviteReceived);
         }
 
         if(data?.campusInviteSent?.length) {
-          // setSentRequests(data?.campusInvitesSent);
+          setSentRequests(data?.campusInviteSent);
         }
-
-        setRequests([
-          {
-              "initiatorID": "UA20210000000009",
-              "initiatorName": "Divi University Of Technology",
-              "initiatorLocation": "Hyderbad",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI90000002",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-06-12T09:16:08Z",
-              "responseDate": "",
-              "campusDriveStatus": "Pending",
-              "nftID": "NFTUNV90000007"
-          },
-          {
-              "initiatorID": "UA20210000000009",
-              "initiatorName": "Divi University Of Technology",
-              "initiatorLocation": "Hyderbad",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI90000001",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-06-12T09:13:26Z",
-              "responseDate": "",
-              "campusDriveStatus": "Pending",
-              "nftID": "NFTUNV90000006"
-          },
-          {
-              "initiatorID": "UA20210000000008",
-              "initiatorName": "Gayathri Blossom University2",
-              "initiatorLocation": "Hyderabad",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI80000001",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-06-14T11:55:09Z",
-              "responseDate": "",
-              "campusDriveStatus": "Pending",
-              "nftID": "NFTUNV80000001"
-          },
-          {
-              "initiatorID": "UD19940000000002",
-              "initiatorName": "SRM2",
-              "initiatorLocation": "Banglore",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI20000024",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-06-09T13:21:31Z",
-              "responseDate": "2021-06-09T13:22:44Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTCRP20000043"
-          },
-          {
-              "initiatorID": "UD19940000000002",
-              "initiatorName": "SRM2",
-              "initiatorLocation": "Banglore",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI20000019",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-06-13T18:03:58Z",
-              "responseDate": "",
-              "campusDriveStatus": "Pending",
-              "nftID": "NFTUNV20000069"
-          },
-          {
-              "initiatorID": "UD19940000000002",
-              "initiatorName": "SRM2",
-              "initiatorLocation": "Banglore",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI20000006",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-05-11T14:30:10Z",
-              "responseDate": "",
-              "campusDriveStatus": "Pending",
-              "nftID": "NFTUNV20000019"
-          },
-          {
-              "initiatorID": "UD19940000000002",
-              "initiatorName": "SRM2",
-              "initiatorLocation": "Banglore",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI20000005",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-05-11T12:59:20Z",
-              "responseDate": "2021-05-11T13:00:48Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTCRP20000036"
-          },
-          {
-              "initiatorID": "UD19940000000002",
-              "initiatorName": "SRM2",
-              "initiatorLocation": "Banglore",
-              "receiverID": "CJC19870000000002",
-              "campusDriveID": "UCPI20000002",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-05-08T17:09:10Z",
-              "responseDate": "",
-              "campusDriveStatus": "Pending",
-              "nftID": "NFTUNV20000011"
-          }
-      ]);
-
-        setSentRequests([
-          {
-              "initiatorID": "CJC19870000000002",
-              "receiverID": "UD19940000000002",
-              "receiverName": "SRM2",
-              "receiverLocation": "Banglore",
-              "campusDriveID": "CCDI20000007",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-06-10T06:23:04Z",
-              "responseDate": "2021-06-13T18:12:17Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTUNV20000070"
-          },
-          {
-              "initiatorID": "CJC19870000000002",
-              "receiverID": "UD19940000000002",
-              "receiverName": "SRM2",
-              "receiverLocation": "Banglore",
-              "campusDriveID": "CCDI20000006",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-06-10T06:22:49Z",
-              "responseDate": "2021-06-14T12:15:45Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTUNV20000071"
-          },
-          {
-              "initiatorID": "CJC19870000000002",
-              "receiverID": "UD19940000000002",
-              "receiverName": "SRM2",
-              "receiverLocation": "Banglore",
-              "campusDriveID": "CCDI20000005",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-05-11T13:05:42Z",
-              "responseDate": "2021-05-11T13:10:58Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTUNV20000018"
-          },
-          {
-              "initiatorID": "CJC19870000000002",
-              "receiverID": "UD19940000000002",
-              "receiverName": "SRM2",
-              "receiverLocation": "Banglore",
-              "campusDriveID": "CCDI20000004",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-05-11T13:02:42Z",
-              "responseDate": "2021-06-09T12:34:46Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTUNV20000056"
-          },
-          {
-              "initiatorID": "CJC19870000000002",
-              "receiverID": "UD19940000000002",
-              "receiverName": "SRM2",
-              "receiverLocation": "Banglore",
-              "campusDriveID": "CCDI20000003",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-05-08T17:06:54Z",
-              "responseDate": "2021-06-09T12:58:14Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTUNV20000058"
-          },
-          {
-              "initiatorID": "CJC19870000000002",
-              "receiverID": "UD19940000000002",
-              "receiverName": "SRM2",
-              "receiverLocation": "Banglore",
-              "campusDriveID": "CCDI20000002",
-              "campusDriveRequested": true,
-              "requestedDate": "2021-05-08T16:29:44Z",
-              "responseDate": "2021-06-09T12:56:30Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTUNV20000057"
-          },
-          {
-              "initiatorID": "CJC19870000000002",
-              "receiverID": "UD19940000000002",
-              "receiverName": "SRM2",
-              "receiverLocation": "Banglore",
-              "campusDriveID": "CCDI20000001",
-              "campusDriveRequested": true,
-              "requestedDate": "0001-01-01T00:00:00Z",
-              "responseDate": "2021-05-06T13:31:05Z",
-              "campusDriveStatus": "Accepted",
-              "nftID": "NFTUNV20000009"
-          }
-      ]);
       }
     }))
   }
@@ -219,66 +44,60 @@ const CampusDrive = () => {
     getCampusDriveInvites();
   }, [])
 
+  const acceptCampusDrive = (campusDriveID, acceptOrReject, notificationID) => {
+    let reason = {}
+    if(!acceptOrReject) {
+      reason['reasonToReject'] = reasonForRejection?.value
+    }
+
+    dispatch(actionPostRespondToCampusDriveRequest({
+      apiPayloadRequest: {
+        campusDriveID: campusDriveID,
+        accepted: acceptOrReject,
+        nftID: notificationID,
+        ...reason
+      },
+      callback: (response) => {
+        getCampusDriveInvites();
+        setShowModal(false);
+        setNotificationStatus();
+        setNotification();
+        setNotificationContent();
+      }
+    }));
+  }
+
+  const onNotificationReceived = (response, status) => {
+    try {
+      setNotificationStatus(status);
+      setNotification(response);
+      if(status==='REJECTED') {
+        // const content = response?.content ? JSON.parse(response.content) : undefined;
+        // setNotificationContent(content?.requestContent ? JSON.parse(content?.requestContent) : undefined);
+      } else {
+        setNotificationContent(response?.content ? JSON.parse(response.content) : undefined);
+        setReasonForRejection();
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.log('error ', error);
+    }
+  }
+
+  const getNotificationById = (id, status) => {
+    dispatch(actionGetCorporateSingleNotificationRequest({
+      apiPayloadRequest: {
+        type: 'NOTIFICATION',
+        notificationId: id
+      },
+      callback: (response) => {
+        onNotificationReceived(response, status)
+      }
+    }));
+  }
 
   return ( 
     <>
-     <div className={'notification d-none'}>
-      <div className={'close-notification'}>
-        <i className={'fas fa-times'}></i>
-      </div>
-      <div className={'notification-header d-flex justify-content-between align-items-center'}>
-        <div className={'d-flex flex-column justify-content-center align-items-center'}>
-          <p className={'heading'}>Notification from</p>
-          <p className={'heading'}>Osmania University</p>
-        </div>
-        <button type="button" className={"btn status-btn"}>Rejected</button>
-      </div>
-      <div className={'notification-body d-flex flex-column justify-content-center align-items-center'}>
-        <table className={'table table-responsive table-borderless w-full'}>
-          <tbody>
-            <tr>
-              <td className={'keyLabel'}>University Name</td>
-              <td className={'valueLabel'}>Osmania University</td>
-            </tr>
-            <tr>
-              <td className={'keyLabel'}>Location</td>
-              <td className={'valueLabel'}>Hyderabad</td>
-            </tr>
-            <tr>
-              <td className={'keyLabel'}>Year of Establishment</td>
-              <td className={'valueLabel'}>1917</td>
-            </tr>
-            <tr>
-              <td className={'keyLabel'}>University ID</td>
-              <td className={'valueLabel'}>XXXXXXXXX</td>
-            </tr>
-            <tr>
-              <td className={'keyLabel'}>Accredation</td>
-              <td className={'valueLabel'}>NAAC 'A'</td>
-            </tr>
-            <tr>
-              <td className={'keyLabel'}>Type of Request</td>
-              <td className={'valueLabel'}>Campus Hiring from University</td>
-            </tr>
-            <tr>
-              <td className={'keyLabel'}>Request made on</td>
-              <td className={'valueLabel'}>15-Apr-2020</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className={'notification-body-footer inherit'}>
-          <div className={'heading'}>
-            <p className={'label'}>Reason for Rejection</p>
-          </div>
-          <p className={'body'}>We need CSE students with an introduction to Java which does not seem to be there in curriculam </p>
-        </div>
-      </div>
-      <div className={'notification-footer d-flex justify-content-around align-items-center'}>
-        <button type="button" className={"btn btn-view-more-info"}>View more info</button>
-        <button type="button" className={"btn btn-accept"}>Accept</button>
-        <button type="button" className={"btn btn-reject"}>Reject</button>
-      </div>
-    </div>
       <div className="main" style={{marginTop:'10px', marginBottom: '0px'}}>
         <h3 className="main-title" style={{color:'#878BA6'}}>CAMPUS DRIVE</h3>
       </div>
@@ -301,14 +120,20 @@ const CampusDrive = () => {
                 </div>
               </div>
               <div className={'col-md-2'}>
-                <p className={'date'}>{item?.requestedDate ? 'Received on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p>
+                <p className={'date'}>{item?.requestedDate ? 'Received on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p>
               </div>
               <div className={'col-md-3 d-flex justify-between'}>
-                <button type="button" className={"btn btn-accept"}>Accept</button>
-                <button type="button" className={"btn btn-reject"}>Reject</button>
+                <button type="button" onClick={()=>{
+                  acceptCampusDrive(item?.campusDriveID, true, item?.nftID);
+                }} className={"btn btn-accept"}>Accept</button>
+                <button type="button" onClick={()=>{
+                  getNotificationById(item?.nftID, 'PRE-REJECT');
+                }} className={"btn btn-reject"}>Reject</button>
               </div>
               <div className={'col-md-1'}>
-                  <button type="button" className={"btn btn-view-more"}>View more info</button>
+                  <button type="button" onClick={()=>{
+                    getNotificationById(item?.nftID, 'PENDING');
+                  }} className={"btn btn-view-more"}>View more info</button>
               </div>
             </div>
           }
@@ -331,13 +156,15 @@ const CampusDrive = () => {
                 </div>
               </div>
               <div className={'col-md-2'}>
-                <p className={'date'}>{item?.requestedDate ? 'Received on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p>
+                <p className={'date'}>{item?.requestedDate ? 'Received on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p>
               </div>
               <div className={'col-md-3 d-flex justify-between'}>
-                  {item?.campusDriveStatus?.toLowerCase() === 'accepted' ? <button type="button" className={"btn btn-history-accepted"}><p className={'label'}>Accepted</p><p className={'subLabel'}>{item?.responseDate ? ' on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p></button> : <button type="button" className={"btn btn-history-rejected"}><p className={'label'}>Rejected</p><p className={'subLabel'}>{item?.responseDate ? ' on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p></button>}
+                  {item?.campusDriveStatus?.toLowerCase() === 'accepted' ? <button type="button" className={"btn btn-history-accepted"}><p className={'label'}>Accepted</p><p className={'subLabel'}>{item?.responseDate ? ' on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p></button> : <button type="button" className={"btn btn-history-rejected"}><p className={'label'}>Rejected</p><p className={'subLabel'}>{item?.responseDate ? ' on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p></button>}
               </div>
               <div className={'col-md-1'}>
-                {item?.campusDriveStatus?.toLowerCase() === 'rejected' ? <button type="button" className={"btn btn-view-more"}>View more info</button> : null }
+                {item?.campusDriveStatus?.toLowerCase() === 'rejected' ? <button type="button" onClick={()=>{
+                    getNotificationById(item?.nftID, "REJECTED");
+                  }} className={"btn btn-view-more"}>View more info</button> : null }
               </div>
             </div>
           }
@@ -362,7 +189,7 @@ const CampusDrive = () => {
               </div>
             </div>
             <div className={'col-md-2'}>
-              <p className={'date'}>{item?.requestedDate ? 'Sent on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p>
+              <p className={'date'}>{item?.requestedDate ? 'Sent on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p>
             </div>
             <div className={'col-md-3 d-flex justify-between'}>
   
@@ -391,21 +218,103 @@ const CampusDrive = () => {
                   </div>
                 </div>
                 <div className={'col-md-2'}>
-                  <p className={'date'}>{item?.requestedDate ? 'Request sent on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p>
+                  <p className={'date w-full'}>{item?.requestedDate ? 'Request sent on '+moment(item?.requestedDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p>
                 </div>
-                <div className={'col-md-2'}>
-                  <p className={'float-right'} style={{fontSize:'.800rem'}}>Status:</p>
-                </div>
-                <div className={'col-md-3 d-flex justify-between'}>
-                    {item?.campusDriveStatus?.toLowerCase()==='accepted' ? <button type="button" className={"btn btn-history-accepted"}><p className={'label'}>Accepted</p><p className={'subLabel'}>{item?.requestedDate ? 'on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p></button> : <button type="button" className={"btn btn-history-rejected"}><p className={'label'}>Rejected</p><p className={'subLabel'}>{item?.requestedDate ? 'on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss a') : '-'}</p></button>}
+                <div className={'col-md-3 d-flex justify-content-end align-items-center'}>
+                    <p className={'float-right'} style={{fontSize:'.800rem', marginRight: '12px'}}>Status:</p>
+                    {item?.campusDriveStatus?.toLowerCase()==='accepted' ? <button type="button" className={"btn btn-history-accepted"}><p className={'label'}>Accepted</p><p className={'subLabel'}>{item?.requestedDate ? 'on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p></button> : <button type="button" className={"btn btn-history-rejected"}><p className={'label'}>Rejected</p><p className={'subLabel'}>{item?.requestedDate ? 'on '+moment(item?.responseDate).format('DD-MM-YYYY, h:mm:ss') : '-'}</p></button>}
                 </div>
                 {item?.campusDriveStatus?.toLowerCase()==='rejected' ? <div className={'col-md-1'}>
                     <button type="button" className={"btn btn-view-more"}>View more info</button>
-                </div> : null}
+                </div> : <div className={'col-md-1'}></div>}
               </div>
           }
         })}
       </div>
+
+      {showModal ? <CustomModal show={showModal} modalStyles={{ maxWidth: "35%" }}>
+        <div className={'notification'} style={{width: '100%', paddingBottom: '12px'}}>
+          <div className={'close-notification'} style={{cursor:'pointer'}} onClick={()=>{
+            setShowModal(false);
+            setNotificationStatus();
+            setNotification();
+            setNotificationContent();
+          }}>
+            <i className={'fas fa-times'}></i>
+          </div>
+          <div className={`notification-header d-flex justify-content-${notificationStatus?.toLowerCase()==='rejected' ? 'between' : 'center'} align-items-center`}>
+            <div className={'d-flex flex-column justify-content-center align-items-center'}>
+              <p className={'heading'}>Notification from</p>
+              <p className={'heading'}>{notificationContent?.universityDetails?.universityName} University</p>
+            </div>
+            {notificationStatus?.toLowerCase()==='rejected' && <button type="button" className={"btn status-btn"}>Rejected</button>}
+          </div>
+          <div className={'notification-body d-flex flex-column justify-content-center align-items-center'}>
+            <table className={'table table-responsive table-borderless w-full'}>
+              <tbody>
+                <tr>
+                  <td className={'keyLabel'}>University Name</td>
+                  <td className={'valueLabel'}>{notificationContent?.universityDetails?.universityName} University</td>
+                </tr>
+                <tr>
+                  <td className={'keyLabel'}>Location</td>
+                  <td className={'valueLabel'}>{notificationContent?.universityDetails?.location}</td>
+                </tr>
+                <tr>
+                  <td className={'keyLabel'}>Year of Establishment</td>
+                  <td className={'valueLabel'}>{notificationContent?.universityDetails?.yearOfEstablishment}</td>
+                </tr>
+                <tr>
+                  <td className={'keyLabel'}>University ID</td>
+                  <td className={'valueLabel'}>{notification?.senderID}</td>
+                </tr>
+                <tr>
+                  <td className={'keyLabel'}>Accredation</td>
+                  <td className={'valueLabel'}>{notificationContent?.universityDetails?.accredations ? JSON.parse(notificationContent?.universityDetails?.accredations)?.name : ''}</td>
+                </tr>
+                <tr>
+                  <td className={'keyLabel'}>Type of Request</td>
+                  <td className={'valueLabel'}>Campus Hiring from University</td>
+                </tr>
+                <tr>
+                  <td className={'keyLabel'}>Request made on</td>
+                  <td className={'valueLabel'}>{notification?.dateofNotification ? moment(notification?.dateofNotification).format('DD-MM-YYYY') : '-'}</td>
+                </tr>
+              </tbody>
+            </table>
+            {notificationStatus?.toLowerCase()==='rejected' ? <div className={'notification-body-footer inherit'}>
+              <div className={'heading'}>
+                <p className={'label'}>Reason for Rejection</p>
+              </div>
+              <p className={'body'}>We need CSE students with an introduction to Java which does not seem to be there in curriculam </p>
+            </div> : <PgkTextField
+                name="reasonForRejection"
+                value={reasonForRejection?.value}
+                label={"Enter reason for rejection"}
+                required
+                errorMessage={reasonForRejection?.errorMessage}
+                onChange={(name, value, errorMessage)=>{
+                  setReasonForRejection((prevState)=>({
+                    ...prevState,
+                    value: value,
+                    errorMessage: errorMessage
+                  }))
+                }}
+                multiline={true}
+                minRows={6}
+              />}
+          </div>
+          {(notificationStatus?.toLowerCase()==='pending' || notificationStatus?.toLowerCase()==='pre-reject') ? <div className={'notification-footer d-flex justify-content-around align-items-center'}>
+            <button type="button" className={"btn btn-view-more-info"}>View more info</button>
+            {notificationStatus?.toLowerCase()==='pending' ? <button type="button" onClick={()=>{
+              acceptCampusDrive(notificationContent?.campusDriveID, true, notification?.notificationID);
+            }} className={"btn btn-accept"}>Accept</button> : null}
+            <button type="button" disabled={reasonForRejection?.value && reasonForRejection?.value?.trim()!=='' ? false : true} onClick={()=>{
+              acceptCampusDrive(notificationContent?.campusDriveID, false, notification?.notificationID);
+            }} className={"btn btn-reject"}>Reject</button>
+          </div> : null}
+        </div>
+      </CustomModal> : null}
     </>
   )
 }

@@ -8,57 +8,6 @@ import {
 } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
-const getHiringCriteria = () => {
-    const URL = '/p/crp/hiringCriteria/all';
-    return Axios.get(URL).then(res => res.data);
-}
-
-function* getHiringCriteriaSaga(action) {
-    yield put(actionUpdateGlobalLoaderSagaAction(true));
-
-    try {
-        const resp = yield call(getHiringCriteria);
-        // yield put({ type: ACTION_GET_CORPORATE_HIRING_RESPONSE, payload: resp });
-        action.payload.callback(resp);
-    } catch (err) {
-        if (err?.response) {
-            toast.error(err?.response?.data?.errors[0]?.message);
-        } else {
-            toast.error("Something Wrong!", err?.message);
-        }
-    } finally {
-        yield put(actionUpdateGlobalLoaderSagaAction(false));
-    }
-}
-
-
-const addHiringCriteria = (payload) => {
-    const URL = '/p/crp/hiringCriteria/';
-    return Axios.post(URL, payload).then(resp => resp.data);
-};
-
-function* addHiringCriteriaSaga(action) {
-    yield put(actionUpdateGlobalLoaderSagaAction(true));
-
-    try {
-        const model = action.payload.apiPayloadRequest;
-        let body = {
-            hiringCriterias: [model]
-        }
-        // let formData = new FormData();
-        // formData.append('hiringCriterias', JSON.stringify(model));
-        const resp = yield call(addHiringCriteria, body);
-        action.payload.callback(resp);
-    } catch (err) {
-        if (err?.response) {
-            toast.error(err?.response?.data?.errors[0]?.message);
-        } else {
-            toast.error("Something Wrong!", err?.message);
-        }
-    } finally {
-        yield put(actionUpdateGlobalLoaderSagaAction(false));
-    }
-}
 
 const postRespondToCampusDriveRequest = (listOfHiringCriteria) => {
     const URL = '/s/subscribe/campusDrive/respond';
@@ -75,7 +24,7 @@ function* postRespondToCampusDriveRequestRequest(action) {
             formData.append(key, model[key]);
         }
 
-        yield call(postRespondToCampusDriveRequest, model);
+        yield call(postRespondToCampusDriveRequest, formData);
         action.payload.callback();
 
     } catch (err) {

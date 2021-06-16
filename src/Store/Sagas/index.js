@@ -13,6 +13,7 @@ import PublishHistoryWatcherSaga from './PublishHistoryWatcherSaga';
 import SupportWatcherSaga from './SupportWatcherSaga';
 import AnalyticsWatcherSaga from './AnalyticsWatcherSaga';
 import TransactionHistoryWatcherSaga from './TransactionHistoryWatcherSaga';
+import CampusDriveWatcherSaga from './CampusDriveWatcherSaga';
 
 export function* webportalAppRootSaga() {
 	yield all([
@@ -28,6 +29,7 @@ export function* webportalAppRootSaga() {
 		PublishHistoryWatcherSaga(),
 		SupportWatcherSaga(),
 		AnalyticsWatcherSaga(),
-		TransactionHistoryWatcherSaga()
+		TransactionHistoryWatcherSaga(),
+		CampusDriveWatcherSaga()
 	]);
 }

@@ -2,9 +2,15 @@ import React, {useState} from "react";
 import {useDispatch} from 'react-redux';
 import moment from 'moment';
 import CustomModal from '../../CustomModal';
+import Checkbox from '@material-ui/core/Checkbox';
+
+import PgkSelectField from '../../../Components/FormFields/PgkSelectField';
+import { useHistory } from "react-router";
 
 const NotificationsCmp = (props) => {
   const [activeNotificationIndex, setActiveNotificationIndex] = useState();
+
+  const history = useHistory();
 
   const acceptNotification = () => {
     // if(activeNotificationIndex!==undefined) {
@@ -15,21 +21,21 @@ const NotificationsCmp = (props) => {
   const notificationHeader = (item) => {
     switch (item?.notificationType) {
       case "HiringCriteria":
-        return "HiringCriteria";
+        return "Hiring Criteria";
       case "OtherInformation":
-        return "OtherInformation";
+        return "Other Information";
       case "CorporateProfile":
-        return "CorporateProfile";
+        return "Corporate Profile";
       case "JobPublish":
-        return "JobPublish";
+        return "Job Publish";
       case "UniversityProfile":
-        return "UniversityProfile";
+        return "University Profile";
       case "UniversityOtherInformation":
         return item?.senderName + " University";
       case "RequestVerification":
-        return "RequestVerification";
+        return "Request Verification";
       case "ProcessVerification":
-        return "ProcessVerification";
+        return "Process Verification";
       case "CampusHiring Request":
         return item?.senderName + " University";
       case "CampusHiring Response":
@@ -42,21 +48,21 @@ const NotificationsCmp = (props) => {
   const notificationContent = (item) => {
     switch (item?.notificationType) {
         case "HiringCriteria":
-          return "HiringCriteria";
+          return "Hiring Criteria";
         case "OtherInformation":
-          return "OtherInformation";
+          return "Other Information";
         case "CorporateProfile":
-          return "CorporateProfile";
+          return "Corporate Profile";
         case "JobPublish":
-          return "JobPublish";
+          return "Job Publish";
         case "UniversityProfile":
-          return "UniversityProfile";
+          return "University Profile";
         case "UniversityOtherInformation":
           return item?.senderName + " University";
         case "RequestVerification":
-          return "RequestVerification";
+          return "Request Verification";
         case "ProcessVerification":
-          return "ProcessVerification";
+          return "Process Verification";
         case "CampusHiring Request":
           return "has requested for Campus hiring";
         case "CampusHiring Response":
@@ -80,68 +86,73 @@ const NotificationsCmp = (props) => {
       <div className="main mt-0 pr-0 pt-0">
         <div className="row m-0 p-0">
           <div className="col-md-7 p-0 pt-4 m-0">
-            <h4 className="notification-title">Notifications</h4>
-            <div className="table-responsive mb-4">
-              <table className="table table-data mb-0">
-                <thead>
-                  <tr>
-                    <th scope="col">
-                      <div className="custom-control custom-checkbox">
-                        <input
-                          type="checkbox"
-                          onChange={props.selectAll}
-                          checked={props?.isSelectAll ? true : false}
-                          className="custom-control-input"
-                          id="selectALl"
-                        />
-                        <label
-                          className="custom-control-label mt-1"
-                          htmlFor="selectALl"
-                        ></label>
-                      </div>
-                    </th>
-                    <th scope="col">
-                      <button className="btn3 btn-lightgreen">
-                        Mark as Read
-                      </button>
-                      <button
-                        className="btn3 btn-lightgreen"
-                        data-toggle="modal"
-                        data-target="#accept"
-                      >
-                        Delete
-                      </button>
-                    </th>
-                    <th colSpan={2} scope="col">
-                      <div className="d-flex justify-content-around">
-                        <div className="d-grp mb-0 mr-1" style={{ flex: 1 }}>
-                          <select name className="d-inp" required>
-                            <option value>Filter All</option>
-                            <option value>Program</option>
-                            <option value>Program</option>
-                          </select>
-                        </div>
-                        <div className="d-grp mb-0">
-                          <select name className="d-inp" required>
-                            <option value>Sort by Relevance</option>
-                            <option value>Program</option>
-                            <option value>Program</option>
-                          </select>
-                        </div>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {props?.notificationsList &&
+            <h4 className="notification-title" style={{fontWeight: '400'}}>Notifications</h4>
+            <div>
+              <div className={'row d-flex flex-nowrap align-items-center'}>
+                  <Checkbox size={'small'} className={'p-0'} color={'primary'} checked={props?.isSelectAll ? true : false} onChange={props.selectAll} />
+                  <button className="btn btn-lightgreen" style={{width: '90px', backgroundColor:'#20BDC9', height: '35px', margin:'2px', marginLeft:'4px'}}>
+                    Mark as Read
+                  </button>
+                  <button
+                    className="btn btn-lightgreen"
+                    data-toggle="modal"
+                    data-target="#accept"
+                    style={{width: '50px', backgroundColor:'#20BDC9', height: '35px', margin: '2px'}}
+                  >
+                    Delete
+                  </button>
+                    <PgkSelectField 
+                        name="stakeholderType"
+                        value={props?.filter?.stakeholderType}
+                        onChange={props?.handleFilterChange}
+                        label={`Stakeholder Type`}
+                        options={props?.lookUpData?.stakeholderType?.length ? props?.lookUpData?.stakeholderType?.map((item)=>{
+                          return {value: item.stakeholderTypeCode, label: item.stakeholdertypeName}
+                        }) : []}
+                        labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                        selectStyles={{fontSize: '.800rem', backgroundColor: 'white', margin: '2px'}}
+                        menuStyles={{fontSize: '.800rem'}}
+                    />
+                    <PgkSelectField 
+                      name="notificationType"
+                      value={props?.filter?.notificationType}
+                      onChange={props?.handleFilterChange}
+                      label={`Notification Type`}
+                      options={props?.lookUpData?.notificationType?.length ? props?.lookUpData?.notificationType?.map((item)=>{
+                        return {value: item.notificationTypeID, label: item.notificationType}
+                      }) : []}
+                      labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                      selectStyles={{fontSize: '.800rem', backgroundColor: 'white', margin: '2px'}}
+                      menuStyles={{fontSize: '.800rem'}}
+                    />
+
+                      <PgkSelectField 
+                        name="sortBy"
+                        value={props?.filter?.sortBy}
+                        onChange={props?.handleFilterChange}
+                        label={`Sort By`}
+                        options={props?.lookUpData?.sortBy?.length ? props?.lookUpData?.sortBy?.map((item)=>{
+                          if(['TA', 'TD'].includes(item.sortByCode)) {
+                            return {value: item.sortByCode, label: item.sortBy} 
+                          }
+                        }) : []}
+                        labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                        selectStyles={{fontSize: '.800rem', backgroundColor: 'white', margin: '2px'}}
+                        menuStyles={{fontSize: '.800rem'}}
+                      />
+              </div>
+              {props?.notificationsList &&
                   props?.notificationsList?.length > 0 ? (
                     props?.notificationsList?.map((item, i) => {
-                      if (item.notificationType!=='OtherInformation' && item.notificationType!=='CampusHiring Response'  && item.notificationType!=='UniversityOtherInformation') {
+                      if (item.notificationType!=='OtherInformation' && item.notificationType!=='CampusHiring Response' && item.notificationType!=='UniversityOtherInformation') {
                         return(
-                          <tr key={i} onClick={()=>{
-                            setActiveNotificationIndex(i);
-                          }}>
-                            <td>
+                            <div key={i} className={'d-flex align-items-center notificationMain'} onClick={()=>{
+                                if(item.notificationType==='CampusHiring Request') {
+                                  setActiveNotificationIndex(i);
+                                } else if(item.notificationType==='UniversityOtherInformation' || item.notificationType==='UniversityProfile') {
+                                  history.push('/dashboard/subscribe/newuniversity/'+item.senderID)
+                                }
+                            }}>
                               <div className="custom-control custom-checkbox">
                                 <input
                                   type="checkbox"
@@ -156,96 +167,39 @@ const NotificationsCmp = (props) => {
                                   className="custom-control-label mt-1"
                                   htmlFor={item?.notificationID}
                                 ></label>
+                            </div>
+                            <div className="row d-flex align-items-center basic-info w-full" style={{maxWidth: '300px'}}>
+                              <div className="basic-img d-flex justify-content-center align-items-center" style={{backgroundColor:'rgb(84, 115, 232)', color: 'white', height: '45px', width: '45px', borderRadius: '50%'}}>
+                                <p className="basic-name">
+                                  <i className="fas fa-building" />
+                                </p>
                               </div>
-                            </td>
-                            <td>
-                              <div className="basic-info">
-                                <div className="basic-img">
-                                  <p className="basic-name">
-                                    <i className="fas fa-building" />
-                                  </p>
-                                </div>
-                                <div className="basic-content">
-                                  <h5 className="basic-title">
-                                    {notificationHeader(item)}
-                                  </h5>
-                                  <p className="basic-subtitle">
-                                    {notificationContent(item)}
-                                  </p>
-                                </div>
+                              <div className="basic-content" style={{marginLeft: '10px'}}>
+                                <h5 className="basic-title text-ellipsis" style={{fontSize: '1rem', maxWidth: '220px', lineHeight:'12px'}}>
+                                  {notificationHeader(item)}
+                                </h5>
+                                <p className="basic-subtitle text-ellipsis" style={{maxWidth: '220px', lineHeight:'12px'}}>
+                                  {notificationContent(item)}
+                                </p>
                               </div>
-                            </td>
-                            <td>
-                              <button className="btn action" style={{backgroundColor:'#5473E8', fontWeight:'700', fontSize: '.600rem'}}>
-                                {item?.senderUserRole}
-                              </button>
-                              <button className="btn action" style={{backgroundColor:'#FE4394', fontWeight:'700', fontSize: '.600rem'}}>
-                                Action required
-                              </button>
-                            </td>
-                            <td className="time" style={{fontSize:'.600rem'}}>
+                            </div>
+                            <button className="btn action" type="button" style={{backgroundColor:'#5473E8', fontWeight:'700', fontSize: '.600rem', height: '20px', width: '80px', marginRight: '10px'}}>
+                              {item?.senderUserRole}
+                            </button>
+                            <button className="btn action" type="button" style={{backgroundColor:'#FE4394', fontWeight:'700', fontSize: '.600rem', height: '20px', width: '80px', marginRight: '10px'}}>
+                              Action required
+                            </button>
+                            <p className="time" style={{fontSize:'.600rem'}}>
                               {moment(item?.dateofNotification).fromNow()}
-                            </td>
-                          </tr>
+                            </p>
+                          </div>
                         )
                       }
                     }
                     )
                   ) : (
-                    <td colSpan="3">No data</td>
+                    <td colSpan="6">No data</td>
                   )}
-                  {/* <tr>
-                                        <td>
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                                <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="basic-info">
-                                                <div className="basic-img">
-                                                    <p className="basic-name"><i className="fas fa-building" /></p>
-                                                </div>
-                                                <div className="basic-content">
-                                                    <h5 className="basic-title">Osmania University</h5>
-                                                    <p className="basic-subtitle">has requested for Campus Hiring</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button className="btn action tb-btn-green">University</button>
-                                            <button className="btn action tb-btn-grey">Action required</button>
-                                        </td>
-                                        <td className="time">2 hrs ago</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                                <label className="custom-control-label mt-1" htmlFor="customCheck1">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="basic-info">
-                                                <div className="basic-img">
-                                                    <p className="basic-name"><i className="fas fa-building" /></p>
-                                                </div>
-                                                <div className="basic-content">
-                                                    <h5 className="basic-title">Osmania University</h5>
-                                                    <p className="basic-subtitle">has requested for Campus Hiring</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button className="btn action">University</button>
-                                            <button className="btn action tb-btn-pink">Action required</button>
-                                        </td>
-                                        <td className="time">2 hrs ago</td>
-                                    </tr> */}
-                </tbody>
-              </table>
             </div>
           </div>
           {activeNotificationIndex!==undefined && <div className="col-md-5 p-0 m-0">
@@ -258,7 +212,7 @@ const NotificationsCmp = (props) => {
               <ul className="info-data" >
                 <li>
                   <span>University Name</span>
-                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName}</span>
+                  <span className={'text-ellipsis'} style={{width:'200px'}}>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName}</span>
                 </li>
                 <li>
                   <span>Location</span>
@@ -274,164 +228,27 @@ const NotificationsCmp = (props) => {
                 </li>
                 <li>
                   <span>Accredition</span>
-                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.accredations}</span>
+                  <span className={'text-ellipsis'} style={{width:'200px'}}>{JSON.parse(JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.accredations).name}</span>
                 </li>
                 <li>
                   <span>Type of Request</span>
-                  <span>{getTypeOfRequest(props?.notificationsList[activeNotificationIndex])}</span>
+                  <span className={'text-ellipsis'} style={{width:'200px'}}>{getTypeOfRequest(props?.notificationsList[activeNotificationIndex])}</span>
                 </li>
                 <li>
                   <span>Request made on</span>
-                  <span>{moment(props?.notificationsList[activeNotificationIndex]?.dateofNotification).format('DD - MMM - YYYY')}</span>
+                  <span>{moment(props?.notificationsList[activeNotificationIndex]?.dateofNotification).format('DD-MM-YYYY')}</span>
                 </li>
               </ul>
               <div className="d-flex justify-content-center info-space">
-                <button className="btn3">View more Info</button>
-                <button
-                  className="btn3 btn-lightgreen"
-                  onClick={acceptNotification}
-                >
-                  Accept
-                </button>
-                <button className="btn3 btn-yellow">Reject</button>
+                <button type="button" onClick={()=>{
+                  history.push('/dashboard/campus-drive');
+                }} className="btn3">View more Info</button>
               </div>
               </div>
             </div>
           </div>}
         </div>
       </div>
-
-                  {/* <div className="info">
-              <h6 className="info-title">
-                Notification from <br /> Osmania University
-              </h6>
-              <hr />
-              <ul className="info-data">
-                <li>
-                  <span>University Name</span>
-                  <span>OSMANIA UNIVERSITY</span>
-                </li>
-                <li>
-                  <span>Location</span>
-                  <span>Hyderabad</span>
-                </li>
-                <li>
-                  <span>Year of Establishment</span>
-                  <span>1917</span>
-                </li>
-                <li>
-                  <span>University ID</span>
-                  <span>XXXXXXXXX</span>
-                </li>
-                <li>
-                  <span>Accredition</span>
-                  <span>NAAC 'A'</span>
-                </li>
-                <li>
-                  <span>Type of Request</span>
-                  <span>Campus Hiring from University</span>
-                </li>
-                <li>
-                  <span>Request made on</span>
-                  <span>10 - Feb - 2021</span>
-                </li>
-              </ul>
-              <div className="d-flex justify-content-around info-space">
-                <button className="btn3">View more Info</button>
-                <button className="btn3 btn-lightgreen2 txt-lightgreen btn-prevent">
-                  Accepted on 10 - Feb - 2021
-                </button>
-              </div>
-            </div>
-            <div className="info">
-              <h6 className="info-title">
-                Notification from <br /> Osmania University
-              </h6>
-              <hr />
-              <ul className="info-data">
-                <li>
-                  <span>University Name</span>
-                  <span>OSMANIA UNIVERSITY</span>
-                </li>
-                <li>
-                  <span>Location</span>
-                  <span>Hyderabad</span>
-                </li>
-                <li>
-                  <span>Year of Establishment</span>
-                  <span>1917</span>
-                </li>
-                <li>
-                  <span>University ID</span>
-                  <span>XXXXXXXXX</span>
-                </li>
-                <li>
-                  <span>Accredition</span>
-                  <span>NAAC 'A'</span>
-                </li>
-                <li>
-                  <span>Type of Request</span>
-                  <span>Campus Hiring from University</span>
-                </li>
-                <li>
-                  <span>Request made on</span>
-                  <span>10 - Feb - 2021</span>
-                </li>
-              </ul>
-              <div className="d-flex justify-content-around info-space">
-                <button className="btn3">View more Info</button>
-                <button className="btn3 btn-yellow2 txt-yellow btn-prevent">
-                  Rejected on 10 - Feb - 2021
-                </button>
-              </div>
-              <div className="d-grp">
-                <label className="rejected-reason">
-                  Reason/remarks for rejection
-                </label>
-                <input
-                  type="text"
-                  name
-                  className="d-inp"
-                  defaultValue="University is not matching to Hiring Criteria specified for Job-1"
-                />
-              </div>
-            </div>
-            <div className="info">
-              <h6 className="info-title">
-                Notification from <br /> Vasundhara(Student)
-              </h6>
-              <hr />
-              <ul className="info-data">
-                <li>
-                  <span>Student Name</span>
-                  <span>Raju</span>
-                </li>
-                <li>
-                  <span>Program</span>
-                  <span>B.Tech</span>
-                </li>
-                <li>
-                  <span>Course</span>
-                  <span>ECE</span>
-                </li>
-                <li>
-                  <span>University</span>
-                  <span>University</span>
-                </li>
-                <li>
-                  <span>Aggregate CGPA</span>
-                  <span>8.1</span>
-                </li>
-                <li>
-                  <span>Applied for </span>
-                  <span>Campus</span>
-                </li>
-                <li>
-                  <span>Applied on</span>
-                  <span>10 - Feb - 2021</span>
-                </li>
-              </ul>
-            </div> */}
     </>
   );
 };

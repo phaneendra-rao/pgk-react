@@ -224,6 +224,19 @@ const Profile = () => {
             errorMessage: undefined,
             isRequired: requiredFields.includes(key) ? true : false
           }
+        } else if(['corporateHQAddressCountry', 'corporateLocalBranchAddressCountry'].includes(key)) {
+          profileData[key] = {
+            // value: 'India',
+            value: profileInfo[key],
+            errorMessage: undefined,
+            isRequired: requiredFields.includes(key) ? true : false
+          }
+        } else if(['corporateHQAddressPhone', 'corporateLocalBranchAddressPhone', 'primaryContactPhone'].includes(key)) {
+          profileData[key] = {
+            value: profileInfo[key] ? profileInfo[key].substring(profileInfo[key].length - 10) : '',
+            errorMessage: undefined,
+            isRequired: requiredFields.includes(key) ? true : false
+          }
         } else {
           profileData[key] = {
             value: profileInfo[key],
@@ -246,7 +259,7 @@ const Profile = () => {
       getCitiesByStateName(profile?.corporateHQAddressState?.value, 'HQ');
     }
 
-  }, [profile, universalTutorialAccessToken])
+  }, [profile, universalTutorialAccessToken]);
 
   useEffect(()=>{
     if(profile?.corporateLocalBranchAddressCountry?.value && universalTutorialAccessToken && initHqAddress?.states && !initLocalAddress?.states) {
@@ -274,7 +287,7 @@ const Profile = () => {
 
     let updatedProfile = {...profile}
 
-    if((name==='corporateHQAddressCountry' || name==='corporateLocalBranchAddressCountry') && value && value?.toString()?.trim()!=='') {
+    if((name==='corporateHQAddressCountry' || name==='corporateLocalBranchAddressCountry')) {
       getStatesByCountryName(value, name==='corporateHQAddressCountry' ? 'HQ' : 'LOCAL')
       if(name==='corporateHQAddressCountry') {
         setHqStates([]);
@@ -282,7 +295,7 @@ const Profile = () => {
         setLocalStates([]);
       }
 
-      if(name==='corporateLocalBranchAddressCountry') {
+      if(name==='corporateHQAddressCountry') {
         setHqCities([]);
       } else if(name==='corporateLocalBranchAddressCountry') {
         setLocalCities([]);
@@ -319,7 +332,7 @@ const Profile = () => {
       }
     }
 
-    if((name==='corporateHQAddressState' || name==='corporateLocalBranchAddressState') && value && value?.toString()?.trim()!=='') {
+    if((name==='corporateHQAddressState' || name==='corporateLocalBranchAddressState')) {
       getCitiesByStateName(value, name==='corporateHQAddressState' ? 'HQ' : 'LOCAL')
       if(name==='corporateHQAddressState') {
         setHqCities([]);
@@ -346,6 +359,7 @@ const Profile = () => {
         }
       }
     }
+
     
     setProfile((prevProfile) => ({
       ...prevProfile,
@@ -456,6 +470,9 @@ const Profile = () => {
 
     updatedProfile = {
       ...updatedProfile,
+      corporateHQAddressPhone: updatedProfile.corporateHQAddressPhone && updatedProfile.corporateHQAddressPhone.toString().trim()!=='' ? '+91'+updatedProfile.corporateHQAddressPhone : '',
+      corporateLocalBranchAddressPhone: updatedProfile.corporateLocalBranchAddressPhone && updatedProfile.corporateLocalBranchAddressPhone.toString().trim()!=='' && updatedProfile.corporateLocalBranchAddressPhone.toString().trim().length===10 ? '+91'+updatedProfile.corporateLocalBranchAddressPhone : '',
+      primaryContactPhone: updatedProfile.primaryContactPhone && updatedProfile.primaryContactPhone.toString().trim()!=='' && updatedProfile.primaryContactPhone.toString().trim().length===10 ? '+91'+updatedProfile.primaryContactPhone : '',
       dateOfJoining: moment(updatedProfile.dateOfJoining),
     };
 

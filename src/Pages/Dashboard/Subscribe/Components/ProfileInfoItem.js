@@ -5,7 +5,7 @@ import CustomModal from "../../../../Components/CustomModal";
 
 import { actionGetCorporateSingleNotificationRequest } from '../../../../Store/Actions/SagaActions/NotificationsSagaAction';
 
-const CampusHiringItem = (props) => {
+const ProfileInfoItem = (props) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [hiringItem, setHiringItem] = useState();
@@ -31,20 +31,19 @@ const CampusHiringItem = (props) => {
         style={{padding:15}}
       >
         <div className="sub-type-container d-flex">
-          <i className="far fa-file-alt icon" />
-          <p className="sub-label" style={{fontWeight:'bold'}}>Campus Drive Request</p>
+          <i className="far fa-address-card icon" />
+          <p className="sub-label" style={{fontWeight:'bold'}}>Profile</p>
         </div>
         <div className="vertical-border" />
         <div className="name-address d-flex flex-column align-items-start">
-          <p className="title">{props?.item?.publisherName}</p>
+          <p className="title">JNTU University</p>
           {props?.item?.location?.trim()!=='' && <p className="sub-title">
-            <i className="fas fa-map-marker-alt" /> {props?.item?.location}
+            <i className="fas fa-map-marker-alt" /> Hyderabad
           </p>}
         </div>
         <div className="vertical-border" />
         <div className="sub-item-container d-flex justify-content-around align-items-center">
-          <p className="sub-title">Status</p>
-          {props?.item?.campusDriveStatus==='Accepted' ? <span className="badge badge-md" style={{backgroundColor: '#20BDC9', color:'white', padding: '6px 15px', fontWeight: '500', marginLeft: 10, borderRadius: '20px'}}>Accepted</span> : props?.item?.campusDriveStatus==='Pending' ? <span className="badge badge-md" style={{backgroundColor: '#FEAD43', color:'white', padding: '6px 15px', fontWeight: '500', marginLeft: 10, borderRadius: '20px'}}>Sent</span> : props?.item?.campusDriveStatus==='Rejected' ? <span className="badge badge-md" style={{backgroundColor: '#F70D0D', color:'white', padding: '6px 15px', fontWeight: '500', marginLeft: 10, borderRadius: '20px'}}>Rejected</span> : undefined}
+          <p className="sub-title">COE's</p>
         </div>
         <div className="vertical-border" />
         <button
@@ -69,8 +68,7 @@ const CampusHiringItem = (props) => {
 
       <div className="modal-header d-block">
         <span className="modal-title" style={{fontSize: '1.1rem', padding: 6}}>
-          Mail sent to {props?.item?.publisherName} University requesting Campus
-          Placement Drive
+          Profile Publish of Jntu University
         </span>
         <i
           className="far fa-times-circle close-icon"
@@ -80,45 +78,26 @@ const CampusHiringItem = (props) => {
           data-dismiss="modal"
         />
       </div>
-      <div className="modal-body">
-        <div className="card">
-          <span className="control-label" style={{fontSize: '1rem'}}>From&nbsp;:</span>
-          <input
-            type="email"
-            name="emailFrom"
-            style={{fontSize: '1rem'}}
-            defaultValue={hiringItem?.emailFrom}
-            readOnly
-          />
+      <div className="modal-body d-flex flex-column align-items-center pb-5">
+        <div className="circle-block d-flex justify-content-center align-items-center m-3" style={{height: '70px', width: '70px', borderRadius: '50%', backgroundColor: 'rgba(135, 139, 166, 0.31)'}}>
+            <div className="circle">
+                <i className="fas fa-university" style={{color: '#253AA3', fontSize: '2rem'}} />
+            </div>
         </div>
-        <div className="card">
-          <span className="control-label" style={{fontSize: '1rem'}}>To&nbsp;:</span>
-          <input
-            type="email"
-            name="emailTo"
-            style={{fontSize: '1rem'}}
-            defaultValue={hiringItem?.emailTo}
-            readOnly
-          />
+        <p style={{fontWeight:'bolder', fontSize: '.900rem'}} className={'mb-2'}>PUBLISH REVIEW</p>
+        <div style={{backgroundColor: 'rgba(135, 139, 166, 0.31)', padding: '10px'}} className={'w-full text-center'}>
+          <p>Branches Offered</p>
         </div>
-        <div className="card">
-          <span className="control-label" style={{fontSize: '1rem'}}>Subject&nbsp;:</span>
-          <input
-            type="text"
-            name="emailSubject"
-            style={{fontSize: '1rem'}}
-            defaultValue={hiringItem?.emailSubject}
-            readOnly
-          />
-        </div>
-        <div className="card b-none">
-          <textarea
-            name="emailBody"
-            style={{fontSize: '.850rem'}}
-            defaultValue={hiringItem?.emailBody}
-            rows={5}
-            readOnly
-          />
+        <div style={{padding: '12px'}}>
+          <div style={{padding: '6px', border:'1px solid #cacaca', borderRadius: '3px'}} className={'w-full d-flex justify-content-between flex-wrap align-items-center'}>
+            <div className="job-icon d-flex justify-content-center align-items-center" style={{backgroundColor:'#20BDC9', padding: '6px', color: 'white', borderRadius: '6px', fontSize: '1rem'}}>
+              <i className="fas fa-cube" />
+            </div>
+              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>Bachelors of Technology (B.Tech)</p>
+              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>Computer & Electornic Engineering (CEE)</p>
+              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>Start Date - 01 - Mar - 2021</p>
+              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>End Date - TBD</p>
+          </div>
         </div>
       </div>
       </div>
@@ -127,4 +106,4 @@ const CampusHiringItem = (props) => {
   );
 };
 
-export default CampusHiringItem;
+export default ProfileInfoItem;

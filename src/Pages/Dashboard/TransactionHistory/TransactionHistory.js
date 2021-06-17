@@ -5,11 +5,16 @@ import moment from 'moment';
 
 const TransactionHistory = () => {
     const [transactions, setTransactions] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
     const dispatch = useDispatch();
 
     const getResponse = (dataList) => {
       if(dataList?.transactionsHistory?.length) {
         setTransactions(dataList?.transactionsHistory);
+      }
+
+      if(dataList?.subscriptionHistory?.length) {
+        setSubscriptions(dataList?.subscriptionHistory);
       }
     }
 
@@ -17,7 +22,7 @@ const TransactionHistory = () => {
       dispatch(getTransactionHistoryRequest({
         callback: getResponse
       }))
-    }, [])
+    }, []);
 
   return ( 
     <>
@@ -27,14 +32,13 @@ const TransactionHistory = () => {
         </div>
       </div>
       <div className={'transaction-container'}>
-        {[1,1,1,1,1,1,1,1,1,1,1].map((element, index) => {
+        {subscriptions.map((element, index) => {
             return <div className={'sub-transaction-item row'} key={index}>
-            <div className={'col-md-2'}><p className={'label'}>COEs Offered</p></div>
-            <div className={'col-md-2'}><p className={'sub-label'}>Profile</p></div>
-            <div className={'col-md-2'}><p className={'sub-label'}>SRM University</p></div>
-            <div className={'col-md-2'}><p className={'tokens'}>20 Tokens</p></div>
-            <div className={'col-md-2'}><p className={'end-label'}>Date - 10/02/21 </p></div>
-            <div className={'col-md-2'}><p className={'end-label'}>Transaction ID - xxxxxxxxxxxx</p></div>
+            <div className={'col-md-2'}><p className={'label'}>COEs Offered {element?.generalNote}</p></div>
+            <div className={'col-md-2'}><p className={'sub-label'}>{element?.publisherName}</p></div>
+            <div className={'col-md-3 d-flex justify-content-between align-items-center'}><p className={'tokens'}>{element?.paidTokensTransacted} Paid Tokens</p> <p className={'tokens'} style={{backgroundColor: 'rgb(254, 173, 67)'}}>{element?.bonusTokensTransacted} Bonus Tokens</p></div>
+            <div className={'col-md-2'}><p className={'end-label'}>Date - {moment(element?.transactionDate).format('DD-MM-YYYY')} </p></div>
+            <div className={'col-md-3'}><p className={'end-label'}>Transaction ID - {element?.transactionID}</p></div>
           </div>
         })}
       </div>
@@ -48,7 +52,7 @@ const TransactionHistory = () => {
             return <div className={'main-transaction-item row'} key={index}>
             <div className={'col-md-3'}><p className={'tokens'}>{tran?.allocatedTokens!==undefined ? `${tran.allocatedTokens} Tokens` : ''}</p></div>
             <div className={'col-md-2'}><p className={'label'}>Rs. {tran?.amountPaid}</p></div>
-            <div className={'col-md-3'}><p className={'end-label'}>Time & Date - {moment(tran?.allocatedDate).format('MMMM Do YYYY, h:mm:ss a')} </p></div>
+            <div className={'col-md-3'}><p className={'end-label'}>Date & Time - {moment(tran?.allocatedDate).format('MMMM Do YYYY, h:mm:ss a')} </p></div>
             <div className={'col-md-2'}><p className={'label'}>{tran?.modeOfTokenissue}</p></div>
             <div className={'col-md-2'}><p className={'end-label'}>Transaction ID - {tran?.paymentID}</p></div>
           </div>

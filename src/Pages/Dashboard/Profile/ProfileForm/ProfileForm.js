@@ -28,6 +28,7 @@ const ProfileForm = (props) => {
                 label={"Write in brief about the company"}
                 required={props?.profileData?.companyProfile?.isRequired}
                 disabled={props?.disable!==undefined ? props?.disable : false}
+                errorMessage={props?.profileData?.companyProfile?.errorMessage}
                 onChange={props?.onChange}
                 multiline={true}
                 minRows={6}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
 import CustomModal from "../../../../Components/CustomModal";
+import PgkTextField from '../../../../Components/FormFields/PgkTextField';
 
 const OtherInformationItem = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -66,75 +67,63 @@ const OtherInformationItem = (props) => {
             <div className="row">
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Publish ID</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={props?.item?.publishID ? props?.item?.publishID : ""}
-                    disabled
-                    required
+                  <PgkTextField
+                      value={props?.item?.publishID}
+                      label={'Publish ID'}
+                      inputLabelProps={{style:{fontSize: '.800rem'}}}
+                      inputProps={{style:{fontSize: '.800rem'}}}
+                      disabled
                   />
                 </div>
               </div>
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Published Date & Time</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={
-                      props?.item?.creationDate
-                        ? `Published on ${moment(
-                            props?.item?.creationDate
-                          ).format("DD-MM-YYYY")}`
-                        : ""
-                    }
-                    disabled
-                    required
+                  <PgkTextField 
+                      value={props?.item?.creationDate ? `Published on ${moment(props?.item?.creationDate).format("DD-MM-YYYY")}`: ''}
+                      label={'Published Date & Time'}
+                      inputLabelProps={{style:{fontSize: '.800rem'}}}
+                      inputProps={{style:{fontSize: '.800rem'}}}
+                      disabled
                   />
                 </div>
               </div>
               <div className="w-100"></div>
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Title</label>
-                  <input
-                    type="text"
-                    name=""
-                    className="modal-inp"
-                    value={props?.item?.title ? props?.item?.title : ""}
-                    disabled
-                    required
+                  <PgkTextField 
+                      value={props?.item?.title ? props?.item?.title : ''}
+                      label={'Title'}
+                      inputLabelProps={{style:{fontSize: '.800rem'}}}
+                      inputProps={{style:{fontSize: '.800rem'}}}
+                      disabled
                   />
                 </div>
               </div>
               <div className="w-100"></div>
               <div className="col-md">
                 <div className="modal-grp">
-                  <label className="inp-caption">Content</label>
-                  <textarea
-                    name=""
-                    rows="6"
-                    className="modal-inp modal-textarea"
-                    placeholder="Write in brief about the company"
-                    value={
-                      props?.item?.information ? props?.item?.information : ""
-                    }
+                  <PgkTextField
+                    value={props?.item?.information ? props?.item?.information : ''}
+                    label={"Content"}
                     disabled
-                    required
-                  ></textarea>
+                    multiline={true}
+                    minRows={6}
+                    inputLabelProps={{style:{fontSize: '.800rem'}}}
+                    inputProps={{style:{fontSize: '.800rem'}}}
+                  />
                 </div>
               </div>
               <div className="w-100"></div>
-              <div className="d-flex justify-content-center align-items-center attachmentStripeContainer w-full">
+              {(props?.item?.attachment?.trim()!=='' && props?.item?.attachmentName?.trim()!=='') ?
+                <div className="d-flex justify-content-between align-items-center attachmentStripeContainer w-full">
                 <p className="label">Attachment Present (if any)</p>
-                <div className="attachmentStripe d-flex justify-content-between align-items-center">
-                  <p>New Hiring Criteria for Job-2.pdf</p>
-                  <i className="fas fa-paperclip"></i>
-                </div>
-              </div>
+                <a href={'data:application/pdf;base64,'+props?.item?.attachment} style={{textDecoration:'none', outline:'none', width:'70%'}} download>
+                  <div className="attachmentStripe d-flex justify-content-between align-items-center">
+                      <p>{props?.item?.attachmentName}</p>
+                      <i className="fas fa-paperclip"></i>
+                  </div>
+                </a>
+              </div> : null}
             </div>
           </form>
         </div>

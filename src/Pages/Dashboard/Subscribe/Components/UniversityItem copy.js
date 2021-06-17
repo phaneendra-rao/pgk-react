@@ -23,6 +23,9 @@ const UniversityItem = (props) => {
     }));
   }
 
+  console.log('showModal ', showModal);
+  console.log('subscribedUnvData ', subscribedUnvData);
+
   return (
     <>
       <div
@@ -64,12 +67,93 @@ const UniversityItem = (props) => {
         </button>
       </div>
 
+     {showModal ? <CustomModal show={showModal} modalStyles={{minWidth: '75%'}}>
+      <div className="viewInsight-modal" id="viewInsight">
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h4 className="modal-title">View Insights of '{props?.item?.publisherName}'</h4>
+                            <i className="far fa-times-circle close-icon" onClick={()=>{
+                              setShowModal(false)
+                            }} />
+                        </div>
+                        {/* Modal body */}
+                        <div className="modal-body">
+                            <div className="row">
+                                <div className="col-4">
+                                    <div className="modal-grp">
+                                        <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.averageCGPA} placeholder="Average CGPA recorded last year *" required readOnly />
+                                        <label className="inp-caption">Average CGPA recorded last year</label>
+                                    </div>
+                                </div>
+                                <div className="col-4 p-0">
+                                    <div className="modal-grp">
+                                        <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.highestCGPA} placeholder="Highest CGPA recorded last year *" required readOnly />
+                                        <label className="inp-caption">Highest CGPA recorded last year</label>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="modal-grp">
+                                        <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.highestPackage} placeholder="Highest Package received during last CH *" required readOnly />
+                                        <label className="inp-caption">Highest Package received during last CH</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-8">
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <div className="modal-grp">
+                                                <label className="textarea-caption">Top Skills offered by this University</label>
+                                                <div className="modal-inp inp-textarea" value="7.5">
+                                                    <ul>
+                                                    {subscribedUnvData?.top5Skills?.map((item, i) => <li>{item}</li>)}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-6 p-0">
+                                            <div className="modal-grp">
+                                                <label className="textarea-caption">Top Recruiting Corporates Last year</label>
+                                                <div className="modal-inp inp-textarea">
+                                                    <ul>
+                                                    {subscribedUnvData?.top5Recruiters?.map((item, i) => <li>{item}</li>)}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-4">
+                                    <div className="col-12 p-0">
+                                        <div className="modal-grp">
+                                            <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.averagePackage} placeholder="Average Package received during last CH *" required />
+                                            <label className="inp-caption">Average Package received during last CH</label>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 p-0">
+                                        <div className="modal-grp">
+                                            <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.universityConvertionRatio} placeholder="Average CGPA recorded last year *" required />
+                                            <label className="inp-caption">University Conversion Rate Last year</label>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 p-0">
+                                        <div className="modal-grp">
+                                            <input type="text" className="modal-inp" defaultValue={subscribedUnvData?.tentativeMonthOfPassing} placeholder="Average CGPA recorded last year *" required />
+                                            <label className="inp-caption">Tentative Passing Month</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+      </CustomModal> : null}
+
       {showModal ? <CustomDialogPopup 
         isOpenDialog={showModal} 
         isCancelBtnRequired={false}
         isConfirmBtnRequired={false}
         disableBackdropClick={true}
-        contentStyles={{backgroundColor:'#fff', padding:'0px', paddingBottom: '12px'}}
+        contentStyles={{backgroundColor:'rgba(135, 139, 166, 0.31)', padding:'0px', paddingBottom: '12px'}}
         dialogContent={<div className="viewInsight-modal" id="viewInsight">
         {/* Modal Header */}
         <div className="modal-header">

@@ -62,7 +62,7 @@ const AddressAndContactForm = (props) => {
                     onChange={props?.onChange}
                     value={props?.profileData?.corporateHQAddressCountry?.value ? props?.profileData?.corporateHQAddressCountry?.value : ''}
                     errorMessage={props?.profileData?.corporateHQAddressCountry?.errorMessage ? props?.profileData?.corporateHQAddressCountry?.errorMessage : ''}
-                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    disabled
                     required={props?.profileData?.corporateHQAddressCountry?.isRequired}
                     options={props?.countries}
                     label={"Country"}
@@ -152,7 +152,7 @@ const AddressAndContactForm = (props) => {
                     disabled={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
                     required={props?.profileData?.corporateHQAddressPhone?.isRequired}
-                    validations={['isNumeric']}
+                    validations={['isNumeric', 'minLength_10', 'maxLength_10']}
                   />
                 </div>
               </div>
@@ -238,7 +238,7 @@ const AddressAndContactForm = (props) => {
                     onChange={props?.onChange}
                     value={props?.profileData?.corporateLocalBranchAddressCountry?.value ? props?.profileData?.corporateLocalBranchAddressCountry?.value : ''}
                     errorMessage={props?.profileData?.corporateLocalBranchAddressCountry?.errorMessage ? props?.profileData?.corporateLocalBranchAddressCountry?.errorMessage : ''}
-                    disabled={props?.disable!==undefined ? props?.disable : false}
+                    disabled
                     options={props?.countries}
                     label={"Country"}
                     required={props?.profileData?.corporateLocalBranchAddressCountry?.isRequired}
@@ -331,6 +331,7 @@ const AddressAndContactForm = (props) => {
                     label={"Phone Number"}
                     disabled={props?.disable!==undefined ? props?.disable : false}
                     onChange={props?.onChange}
+                    validations={['isNumeric', 'minLength_10', 'maxLength_10']}
                     required={props?.profileData?.corporateLocalBranchAddressPhone?.isRequired}
                   />
                 </div>

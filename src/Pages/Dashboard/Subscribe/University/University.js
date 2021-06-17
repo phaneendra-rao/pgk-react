@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UniversityCmp from '../../../../Components/Dashboard/SubscribeCmp/UniversityCmp/UniversityCmp';
-import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import CustomModal from '../../../../Components/CustomModal';
 import {
     GetSubscribeTokensSagaAction,
@@ -18,13 +17,17 @@ import UniversitySendMail from './UniversitySendMail';
 import { toast } from 'react-toastify';
 import UniversitySendMailSuccessModal from './UniversitySendMailSuccessModal';
 
-import { actionGetDependencyLookUpsSagaAction, actionUpdateGlobalLoaderSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 
 const $ = window.$;
 
 const University = (props) => {
 
-    const [universityInfoList, setUniversityInfoList] = useState({});
+    const [universityInfoSubscriptionsList, setUniversityInfoSubscriptionsList] = useState([]);
+    const [universityInfoPublishedList, setUniversityInfoPublishedList] = useState([]);
+
+    const [universityInfo, setUniversityInfo] = useState({});
+
     const [universityHistoryInfoList, setUniversityHistoryInfoList] = useState({});
     const [isInfoModal, setisInfoModal] = useState(false);
     const [isSubscribe, setIsSubscribe] = useState(false);
@@ -44,6 +47,23 @@ const University = (props) => {
         emailBody: ''
     });
 
+    const [filter, setFilter] = useState({
+        subscriptionType: [],
+        sortBy: undefined
+    });
+
+    const [lookUpData, setLookUpData] = useState();
+
+    useEffect(() => {
+        dispatch(actionGetDependencyLookUpsSagaAction({
+            apiPayloadRequest: ['subscriptionType', 'sortBy'],
+            callback: (list) => {
+                if(list) {
+                    setLookUpData(list);
+                }
+            }
+        }));
+    }, []);
 
     const balance = useSelector(state => state.DashboardReducer.balance);
     const dispatch = useDispatch();
@@ -59,7 +79,10 @@ const University = (props) => {
     }
 
     const getUniversityList = (data) => {
-        setUniversityInfoList(data);
+        setUniversityInfoSubscriptionsList(data?.subscriptions?.length ? data.subscriptions : []);
+        setUniversityInfoPublishedList(data?.publishedData?.length ? data.publishedData : []);
+
+        setUniversityInfo(data);
     }
 
     const getUniversityHistoryList = (data) => {
@@ -167,19 +190,11 @@ const University = (props) => {
     }
 
     const sendMail = (data) => {
-        // const model = {
-        //     campusDriveID: campusDriveID,
-        //     emailFrom: email,
-        //     emailTo: 'jaswanth@gmail.com',
-        //     emailSubject: emailSubject ? emailSubject : 'Campus Hiring Request',
-        //     emailBody: emailBody
-        // };
         const model = {
             ...data,
             campusDriveID: campusDriveID,
             emailFrom: email,
         }
-        // console.log(model);
         dispatch(SendMailSagaAction({ apiPayloadRequest: model, callback: sendMailResp }));
     }
 
@@ -187,6 +202,39 @@ const University = (props) => {
         toast.success(data?.message);
         setIsSendOpen(false);
         setIsSendMailSuccess(true);
+        getUniversityById();
+    }
+
+    const handleFilterChange = (name, value, errorMessage = undefined) => {
+        setFilter((prevState)=>({
+            ...prevState,
+            [name]: value
+        }))
+    }
+
+    const applyFilter = () => {
+        if(filter?.subscriptionType?.length || filter?.sortBy) {
+            let updatedUniversityInfoSubscriptionsList = [...universityInfoSubscriptionsList];
+            if(filter?.subscriptionType) {
+                updatedUniversityInfoSubscriptionsList = universityInfoSubscriptionsList?.map((item)=>{
+                    if(filter.subscriptionType === item.subscriptionType) {
+                        return item
+                    }
+                });
+            }      
+
+            if(filter?.sortBy && updatedUniversityInfoSubscriptionsList?.length) {
+                updatedUniversityInfoSubscriptionsList.sort(function(a,b){
+                    // Turn your strings into dates, and then subtract them
+                    // to get a value that is either negative, positive, or zero.
+                    return new Date(b.dateOfSubscription) - new Date(a.dateOfSubscription);
+                  });
+            }
+            
+            setUniversityInfoSubscriptionsList(updatedUniversityInfoSubscriptionsList);
+        } else {
+            setUniversityInfoSubscriptionsList(universityInfo?.subscriptions?.length ? universityInfo?.subscriptions : []);
+        }
     }
 
     // campusDrive
@@ -194,18 +242,23 @@ const University = (props) => {
         <>
             <UniversityCmp
                 universityId={universityId}
-                universityInfoList={universityInfoList}
+                universityInfoList={universityInfo}
+                universityInfoSubscriptionsList={universityInfoSubscriptionsList}
                 goBack={goBack}
                 viewInfo={viewInfo}
                 navigateToStudent={navigateToStudent}
                 subscribeModal={subscribeModal}
+                lookUpData={lookUpData}
+                filter={filter}
+                handleFilterChange={handleFilterChange}
+                applyFilter={applyFilter}
             />
 
             {/* UNIVERSITY INSIGHT MODAL */}
             {isInfoModal &&
                 <CustomModal show={isInfoModal} modalStyles={{ minWidth: "80%" }}>
                     <ViewInfoModal
-                        universityName={universityInfoList?.universityName}
+                        universityName={universityInfo?.universityName}
                         subscribedUnvData={subscribedUnvData}
                         closeModal={closeModal}
                     />
@@ -215,7 +268,7 @@ const University = (props) => {
             {/* AVAILABLE AND BONUS TOKENS & SUBSCRIBE*/}
             {isSubscribe && <CustomModal show={isSubscribe} modalStyles={{ minWidth: "70%" }}>
                 <UniversitySubscribeModal
-                    label={ subscribeType==='unvInsight' ? universityInfoList?.universityName + ' University Insights' : subscribeType==='unvStuData' ? 'Students Data' : 'Campus Hiring Request to '+universityInfoList?.universityName+' University'}
+                    label={ subscribeType==='unvInsight' ? universityInfo?.universityName + ' University Insights' : subscribeType==='unvStuData' ? 'Students Data' : 'Campus Hiring Request to '+universityInfo?.universityName+' University'}
                     tokens={tokens}
                     balance={balance}
                     bonusTokensUsed={bonusTokensUsed}
@@ -229,8 +282,8 @@ const University = (props) => {
             {isSubUnvInfoSuccess && <CustomModal show={isSubUnvInfoSuccess} modalStyles={{ maxWidth: "60%" }}>
                 <UniversitySubscribeSuccessModal
                     subscribeType={subscribeType}
-                    universityName={universityInfoList?.universityName}
-                    universityHQAddressCity={universityInfoList?.universityHQAddressCity}
+                    universityName={universityInfo?.universityName}
+                    universityHQAddressCity={universityInfo?.universityHQAddressCity}
                     openViewInfoModal={openViewInfoModal}
                 />
             </CustomModal>}
@@ -242,7 +295,7 @@ const University = (props) => {
                     emailTo={'jaswanth@gmail.com'}
                     emailSubject={'Campus Hiring Request'}
                     emailBody={sendMailObj?.emailBody}
-                    universityName={universityInfoList?.universityName}
+                    universityName={universityInfo?.universityName}
                     handleChange={handleChange}
                     closeSendModal={closeSendModal}
                     sendMail={sendMail}
@@ -252,7 +305,7 @@ const University = (props) => {
             {/* SEND MAIL SUCCESS MAIL */}
             {isSendMailSuccess && <CustomModal show={isSendMailSuccess} modalStyles={{ minWidth: "40%", maxWidth: "40%" }}> 
             <UniversitySendMailSuccessModal
-                universityName={universityInfoList?.universityName}
+                universityName={universityInfo?.universityName}
                 closeModal={()=>{
                     setIsSendMailSuccess(false);
                 }}

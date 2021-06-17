@@ -1,6 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
 
+import PgkMultiSelectField from '../../../../Components/FormFields/PgkMultiSelectField';
+
 const UniversityStudentsCmp = (props) => {
     return (
         <>
@@ -20,7 +22,7 @@ const UniversityStudentsCmp = (props) => {
                         <div className="univ-info d-flex justify-content-between align-items-start">
                             <div className="univ-header d-flex justify-content-center align-items-center">
                                 <div className="univ-logo">
-                                    <img src="../../../images/univ.png" className="img img-fluid univ-icon" alt="univ-logo" />
+                                    <img src="/images/univ.png" className="img img-fluid univ-icon" alt="univ-logo" />
                                 </div>
                                 <div className="univ-header-name d-flex flex-column align-items-start">
                                     <p className="title">{props.universityInfoList?.universityName}</p>
@@ -64,6 +66,7 @@ const UniversityStudentsCmp = (props) => {
                 {!props.studentSearchList?.studentsData ?
                     <form onSubmit={props.searchSubmit} className="search-filter-container d-flex justify-content-between align-items-center w-full">
                         <div className="modal-grp" style={{ flex: 1 }}>
+                    
                             <label className="text-white small mb-0"> Hiring Criteria</label>
                             <Select
                                 closeMenuOnSelect={false}
@@ -233,7 +236,7 @@ const UniversityStudentsCmp = (props) => {
                                 </div> */}
                             </div>
                         </div>
-                        <button type="submit" className="item students-list-btn">Get the Students List</button>
+                        <button type="submit" className="btn item students-list-btn">Get the Students List</button>
                     </form>
                     : (null)
                 }

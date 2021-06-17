@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actionSagaGetCorporateUniversitySubscriptionRequest } from "../../../../Store/Actions/SagaActions/SubscriptionSagaAction";
+import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 
 import OtherInformationItem from '../Components/OtherInformationItem';
 import UniversityItem from '../Components/UniversityItem';
 import StudentListItem from '../Components/StudentListItem';
 import CampusHiringItem from '../Components/CampusHiringItem';
+import ProfileInfoItem from '../Components/ProfileInfoItem';
+
+import PgkTextField from '../../../../Components/FormFields/PgkTextField';
+import PgkSelectField from '../../../../Components/FormFields/PgkSelectField';
 
 const SubscriptionHistory = () => {
   const dispatch = useDispatch();
   const [subscriptionList, setSubscriptionList] = useState([]);
+  const [filter, setFilter] = useState({
+    stakeholderType: undefined,
+    subscriptionType: undefined,
+    stakeholderName: undefined
+  })
+  const [lookUpData, setLookUpData] = useState();
+
 
   const getAllSubscriptions = (response) => {
-    console.log("response ", response);
     if (response?.length) {
       setSubscriptionList(response);
     }
@@ -25,6 +36,25 @@ const SubscriptionHistory = () => {
       })
     );
   }, []);
+
+  useEffect(() => {
+    dispatch(actionGetDependencyLookUpsSagaAction({
+        apiPayloadRequest: ['subscriptionType', 'sortBy', 'stakeholderType'],
+        callback: (list) => {
+            if(list) {
+                setLookUpData(list);
+            }
+        }
+    }));
+  }, []);
+
+  const handleFilterChange = (name, value, errorMessage=undefined) => {
+
+  }
+
+  const applyFilter = () => {
+    
+  }
 
   return (
     <>
@@ -44,42 +74,74 @@ const SubscriptionHistory = () => {
           <div className={'row'}>
             <div className={'col-md-2 item'}>
               <div className={'d-grp'}>
-                <select name="stakeholderType" className="d-inp" value={""}>
-                  <option value="">Stakeholder Type</option>
-                </select>
-                <label className="inp-caption">{`Stakeholder Type`}</label>
+                <PgkSelectField 
+                    name="stakeholderType"
+                    value={filter?.stakeholderType}
+                    onChange={handleFilterChange}
+                    label={`Stakeholder Type`}
+                    options={lookUpData?.stakeholderType?.length ? lookUpData?.stakeholderType?.map((item)=>{
+                      return {value: item.stakeholderTypeCode, label: item.stakeholdertypeName}
+                    }) : []}
+                    labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                    selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                    menuStyles={{fontSize: '.800rem'}}
+                />
               </div>
             </div>
             <div className={'col-md-2 item'}>
               <div className={'d-grp'}>
-                <select name="subscriptionType" className="d-inp" value={""}>
-                  <option value="">Subscription Type</option>
-                </select>
-                <label className="inp-caption">{`Subscription Type`}</label>
+                <PgkSelectField 
+                    name="subscriptionType"
+                    value={filter?.subscriptionType}
+                    onChange={handleFilterChange}
+                    label={`Subscription Type`}
+                    options={lookUpData?.subscriptionType?.length ? lookUpData?.subscriptionType?.map((item)=>{
+                      if(['CR', 'SD', 'UI', 'UO', 'UP'].includes(item.subscriptionTypeCode)) {
+                        return {value: item.subscriptionTypeCode, label: item.subscriptionType}
+                      }
+                    }) : []}
+                    labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                    selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                    menuStyles={{fontSize: '.800rem'}}
+                />
               </div>
             </div>
             <div className={'col-md-3 item'}>
               <div className={'d-grp'}>
-              <input
-                type="text"
-                name="stakeholderName"
-                value={''}
-                onChange={()=>{}}
-                className="d-inp"
-                required
-              />
-              <label className="inp-caption">{`Name of the Stakeholder`}</label>
+                <PgkTextField
+                  name="stakeholderName"
+                  value={filter?.stakeholderName}
+                  onChange={handleFilterChange}
+                  label={"Name of the Stakeholder"}
+                  inputLabelProps={{style:{fontSize: '.800rem', backgroundColor: '#ffffff',}}}
+                  inputProps={{style:{fontSize: '.800rem', backgroundColor: '#ffffff', borderRadius: '4px'}}}
+                />
               </div>
-            </div>
-            <div className={'col-md-3 item'}>
             </div>
             <div className={'col-md-2 item'}>
               <div className={'d-grp'}>
-                <select name="sortBy" className="d-inp" value={""}>
-                  <option value="">Sort By</option>
-                </select>
-                <label className="inp-caption">{`Sort By`}</label>
+                <PgkSelectField 
+                    name="sortBy"
+                    value={filter?.sortBy}
+                    onChange={handleFilterChange}
+                    label={`Sort By`}
+                    options={lookUpData?.sortBy?.length ? lookUpData?.sortBy?.map((item)=>{
+                      if(['TA', 'TD'].includes(item.sortByCode)) {
+                        return {value: item.sortByCode, label: item.sortBy} 
+                      }
+                    }) : []}
+                    labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                    selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                    menuStyles={{fontSize: '.800rem'}}
+                />
               </div>
+            </div>
+            <div className={'col-md-1 item'}>
+            </div>
+            <div className={'col-md-2 item'}>
+              <button type="button" onClick={applyFilter} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
+                  Apply Filter
+              </button>
             </div>
           </div>
         </div>
@@ -104,6 +166,7 @@ const SubscriptionHistory = () => {
                     return undefined;
                 }
               })}
+              <ProfileInfoItem />
           </div>
         </div>
       </div>

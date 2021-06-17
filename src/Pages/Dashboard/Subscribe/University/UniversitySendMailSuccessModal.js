@@ -17,7 +17,7 @@ const UniversitySendMailSuccessModal = (props) => {
                             <i className="fas fa-university" />
                         </span>
                         <span className="univ-name">
-                            {props?.universityName} University
+                            {props?.universityName}
                         </span>
                     </div>
                 </div>

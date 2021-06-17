@@ -2024,3 +2024,9 @@ input[type=date]:required:invalid::-webkit-datetime-edit {
 input[type=date]:focus::-webkit-datetime-edit {
     color: black !important;
 }
+
+.notificationMain:hover {
+    background-color: white;
+    cursor: pointer;
+    padding-left: 6px;
+}

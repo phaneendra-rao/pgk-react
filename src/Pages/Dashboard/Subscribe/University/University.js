@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UniversityCmp from '../../../../Components/Dashboard/SubscribeCmp/UniversityCmp/UniversityCmp';
-import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import CustomModal from '../../../../Components/CustomModal';
 import {
     GetSubscribeTokensSagaAction,
@@ -191,19 +190,11 @@ const University = (props) => {
     }
 
     const sendMail = (data) => {
-        // const model = {
-        //     campusDriveID: campusDriveID,
-        //     emailFrom: email,
-        //     emailTo: 'jaswanth@gmail.com',
-        //     emailSubject: emailSubject ? emailSubject : 'Campus Hiring Request',
-        //     emailBody: emailBody
-        // };
         const model = {
             ...data,
             campusDriveID: campusDriveID,
             emailFrom: email,
         }
-        // console.log(model);
         dispatch(SendMailSagaAction({ apiPayloadRequest: model, callback: sendMailResp }));
     }
 

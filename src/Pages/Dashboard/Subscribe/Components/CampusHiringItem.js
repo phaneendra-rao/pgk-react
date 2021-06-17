@@ -69,7 +69,7 @@ const CampusHiringItem = (props) => {
 
       <div className="modal-header d-block">
         <span className="modal-title" style={{fontSize: '1.1rem', padding: 6}}>
-          New mail to {props?.item?.publisherName} University requesting Campus
+          Mail sent to {props?.item?.publisherName} University requesting Campus
           Placement Drive
         </span>
         <i

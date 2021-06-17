@@ -5,14 +5,18 @@ import { getTokensSagaAction } from '../../Store/Actions/SagaActions/DashboardSa
 import { actionGetCorporateProfileSagaAction } from '../../Store/Actions/SagaActions/CorporateProfileSagaActions';
 import { actionGetUniversalAccessToken, actionGetCountriesRequest } from '../../Store/Actions/SagaActions/CommonSagaActions';
 
+
 import CustomModal from '../CustomModal';
 import HeaderModalForm from '../Common/HeaderModalForm';
 
 // const $ = window.$;
 import moment from 'moment';
+import { useHistory } from 'react-router';
 
 const DashboardHeader = () => {
   const [showModal, setShowModal] = useState(false);
+
+  const history = useHistory();
   
   const balance = useSelector(state => state.DashboardReducer.balance);
   const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
@@ -99,7 +103,9 @@ const DashboardHeader = () => {
           </div>
         </div>
       </div>
-      <div className="profile-avatar-container">
+      <div className="profile-avatar-container" style={{cursor: 'pointer'}} onClick={()=>{
+          history.push('/dashboard/profile/')
+      }}>
         <p className="profile-name" style={{textTransform:'capitalize'}}>{profileName.join(' ')}</p>
           {(profileInfo?.profilePicture!=null && profileInfo?.profilePicture?.trim()!=='') ? <img src={"data:image/png;base64,"+profileInfo.profilePicture} className={'profile-avatar'} style={{backgroundColor:'transparent'}} /> : <div className="profile-avatar"> <i className="fas fa-user" /> </div>}
       </div>

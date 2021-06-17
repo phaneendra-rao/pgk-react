@@ -2,17 +2,79 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import NotificationsCmp from '../../../Components/Dashboard/NotificationsCmp/NotificationsCmp'
 import { GetNotificationsSagaAction } from '../../../Store/Actions/SagaActions/NotificationsSagaAction';
+import { actionGetDependencyLookUpsSagaAction } from '../../../Store/Actions/SagaActions/CommonSagaActions';
 
 const Notifications = () => {
 
+    const [actualNotificationsList, setActualNotificationsList] = useState([]);
     const [notificationsList, setNotificationsList] = useState([]);
     const [isSelectAll, setIsSelectAll] = useState(false);
 
     const dispatch = useDispatch();
 
+    const [filter, setFilter] = useState({
+        stakeholderType: '',
+        notificationType: '',
+        sortBy: ''
+    })
+
+    const [lookUpData, setLookUpData] = useState();
+
+    useEffect(() => {
+        dispatch(actionGetDependencyLookUpsSagaAction({
+            apiPayloadRequest: ['stakeholderType', 'notificationType', 'sortBy'],
+            callback: (list) => {
+                if(list) {
+                    setLookUpData(list);
+                }
+            }
+        }));
+    }, []);
+
     useEffect(() => {
         dispatch(GetNotificationsSagaAction({ callback: getNotificationsResp }));
     }, []);
+
+    const handleFilterChange = (name, value, errorMessage) => {
+        setFilter(prevState=>({
+            ...prevState,
+            [name]: value
+        }));
+    }
+
+    useEffect(()=>{
+        let updatedNotifications = actualNotificationsList;
+        if(filter.stakeholderType!=='') {
+            actualNotificationsList.forEach((item)=>{
+                if(filter.stakeholderType === item.senderUserRole) {
+                    updatedNotifications.push(item);
+                }
+            });
+        }
+
+        if(filter.notificationType!=='') {
+            actualNotificationsList.forEach((item)=>{
+                if(filter.notificationType === item.notificationTypeID) {
+                    updatedNotifications.push(item);
+                }
+            });
+        }
+
+        if(filter.sortBy!=='') {
+            console.log('filter.sortBy ', filter.sortBy);
+            console.log('before ', updatedNotifications);
+            if(filter.sortBy==='TA') {
+                updatedNotifications = updatedNotifications.sort((a, b) => new Date(a.dateofNotification).getTime() - new Date(b.dateofNotification).getTime());
+            } else {
+                updatedNotifications = updatedNotifications.sort((a, b) => new Date(b.dateofNotification).getTime() - new Date(a.dateofNotification).getTime());
+            }
+            console.log('after ', updatedNotifications);
+
+        }
+
+        setNotificationsList(updatedNotifications);
+
+    }, [filter.stakeholderType, filter.notificationType, filter.sortBy]);
 
     const getNotificationsResp = (data) => {
         const list = data.map(item => {
@@ -22,6 +84,7 @@ const Notifications = () => {
             }
         })
         setNotificationsList(data);
+        setActualNotificationsList(data);
     }
 
     const handleChange = (event) => {
@@ -50,6 +113,9 @@ const Notifications = () => {
                 isSelectAll={isSelectAll}
                 handleChange={handleChange}
                 selectAll={selectAll}
+                lookUpData={lookUpData}
+                handleFilterChange={handleFilterChange}
+                filter={filter}
             />
         </>
     )

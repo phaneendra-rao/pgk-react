@@ -25,6 +25,24 @@ const HiringCriteriaForm = (props) => {
     }
   }, [props?.lookUpData?.programCatalog]);
 
+  useEffect(()=>{
+    if(props?.hiringCriteriaData?.programID?.value && programCatalog?.length) {
+      const programObj = programCatalog?.find(
+        (program) => program.value === props?.hiringCriteriaData?.programID?.value
+      );
+      const filteredBranches = props.lookUpData?.branchCatalog?.filter(
+        (branch) => branch.programID === props?.hiringCriteriaData?.programID?.value
+      );
+      const _branchCatalog = filteredBranches.map((item) => ({
+        value: item.branchID,
+        label: item.branchName,
+        programID: item.programID,
+        programName: programObj.label,
+      }));
+      setBranchCatalog(_branchCatalog);
+    }
+  }, [props?.hiringCriteriaData?.programID?.value, programCatalog?.length]);
+
   const updateField = (name, value, errorMessage) => {
     let data = hiringData[name];
     data["value"] = value;
@@ -111,8 +129,10 @@ const HiringCriteriaForm = (props) => {
           programID: item.programID,
           programName: programObj.label,
         }));
+        console.log('_branchCatalog ', _branchCatalog);
         setBranchCatalog(_branchCatalog);
         updateField(name, value, errorMessage);
+        updateField('hcPrograms', [], errorMessage);
         break;
       case "minimumCutoffPercentage10th":
       case "minimumCutoffPercentage12th":
@@ -189,7 +209,7 @@ const HiringCriteriaForm = (props) => {
     if (hiringData["allowActiveBacklogs"].value) {
       activeBackLogKeys.forEach((item) => {
         finalHiringCriteria[item] = hiringData[item].value
-          ? parseFloat(hiringData[item].value)
+          ? parseInt(hiringData[item].value)
           : 0;
       });
     } else {
@@ -239,7 +259,7 @@ const HiringCriteriaForm = (props) => {
     <div className="hiring-modal">
       <div className="modal-header hiring-modal-header">
         <h5 className="modal-title" id="exampleModalLabel">
-          {props?.editable ? 'Create a new Hiring Criteria' : 'Hiring Criteria Info'}
+          {props?.isNew ? 'Create a new Hiring Criteria' : props?.editable ? 'Update Hiring Criteria' : 'Hiring Criteria Info'}
         </h5>
         <IconButton style={{color:'white', marginTop:'-10px'}} onClick={props?.openCloseModal} component="span">
             <Close />
@@ -251,6 +271,7 @@ const HiringCriteriaForm = (props) => {
         openCloseModal={props.openCloseModal}
         programCatalog={programCatalog}
         editable={props?.editable}
+        isNew={props?.isNew}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />

@@ -43,9 +43,17 @@ const Notifications = () => {
     }
 
     useEffect(()=>{
-        let updatedNotifications = actualNotificationsList;
+        let updatedNotifications = [];
         if(filter.stakeholderType!=='') {
-            actualNotificationsList.forEach((item)=>{
+            let newArray = [];
+
+            if(updatedNotifications.length) {
+                newArray = [...newArray, ...updatedNotifications];
+            } else {
+                newArray = actualNotificationsList;
+            }
+
+            newArray.forEach((item) => {
                 if(filter.stakeholderType === item.senderUserRole) {
                     updatedNotifications.push(item);
                 }
@@ -53,7 +61,15 @@ const Notifications = () => {
         }
 
         if(filter.notificationType!=='') {
-            actualNotificationsList.forEach((item)=>{
+            let newArray = [];
+
+            if(updatedNotifications.length) {
+                newArray = [...newArray, ...updatedNotifications];
+            } else {
+                newArray = actualNotificationsList;
+            }
+
+            newArray.map((item)=>{
                 if(filter.notificationType === item.notificationTypeID) {
                     updatedNotifications.push(item);
                 }
@@ -61,18 +77,26 @@ const Notifications = () => {
         }
 
         if(filter.sortBy!=='') {
-            console.log('filter.sortBy ', filter.sortBy);
-            console.log('before ', updatedNotifications);
-            if(filter.sortBy==='TA') {
-                updatedNotifications = updatedNotifications.sort((a, b) => new Date(a.dateofNotification).getTime() - new Date(b.dateofNotification).getTime());
-            } else {
-                updatedNotifications = updatedNotifications.sort((a, b) => new Date(b.dateofNotification).getTime() - new Date(a.dateofNotification).getTime());
-            }
-            console.log('after ', updatedNotifications);
+            let newArray = [];
 
+            if(updatedNotifications.length) {
+                newArray = [...newArray, ...updatedNotifications];
+            } else {
+                newArray = actualNotificationsList;
+            }
+
+            if(filter.sortBy==='TA') {
+                updatedNotifications = newArray.sort((a, b) => new Date(b.dateofNotification).getTime() - new Date(a.dateofNotification).getTime());
+            } else {
+                updatedNotifications = newArray.sort((a, b) => new Date(a.dateofNotification).getTime() - new Date(b.dateofNotification).getTime());
+            }
         }
 
-        setNotificationsList(updatedNotifications);
+        if(filter.stakeholderType.trim()==='' && filter.notificationType.trim()==='' && filter.sortBy.trim()==='') {
+            setNotificationsList(actualNotificationsList);
+        } else {
+            setNotificationsList(updatedNotifications);
+        }
 
     }, [filter.stakeholderType, filter.notificationType, filter.sortBy]);
 
@@ -83,6 +107,7 @@ const Notifications = () => {
                 isChecked: false
             }
         })
+        console.log('data ', data);
         setNotificationsList(data);
         setActualNotificationsList(data);
     }

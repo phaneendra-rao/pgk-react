@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HiringCriteriaCmp from '../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaCmp';
 import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
-import { AddHiringSagaAction, HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
+import { AddHiringSagaAction, HiringSagaAction, actionPatchCorporateHiringCriteriaRequest } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import HiringCriteriaForm from './HiringCriteriaForm';
 import HiringModal from './HiringModal';
 import CustomModal from '../../../../Components/CustomModal';
@@ -150,9 +150,12 @@ const Index = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [lookUpData, setLookUpData] = useState([]);
+    const [isNew, setIsNew] = useState(true);
     const [editable, setEditable] = useState(false);
     const [hiringCriteriaData, setHiringCriteriaData] = useState(hiringCriteriaInitialData);
     const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
+
+    const [hiringCriteriaId, setHiringCriteriaId] = useState();
 
     const dispatch = useDispatch();
     // const hiringCriteria = useSelector(state => state.DashboardReducer.hiringCriteria);
@@ -180,12 +183,16 @@ const Index = () => {
     const closeModel = () => {
         getHiring();
         setIsOpen(false);
+        setHiringCriteriaId();
+        setHiringCriteriaData();
     }
 
     const formModal = () => {
         setHiringCriteriaData(hiringCriteriaInitialData);
-        setEditable(true);
+        setIsNew(true);
+        setEditable(false);
         setIsOpen(!isOpen);
+        setHiringCriteriaId();
     }
 
     const detailsModal = (hiringData) => {
@@ -215,9 +222,21 @@ const Index = () => {
         let updatedHiringData = hiringCriteriaInitialData;
 
         hiringCriteriaKeys.forEach((item)=>{
-            updatedHiringData[item].value = hiringData[item];
-            updatedHiringData[item].isDisabled = true;
+          updatedHiringData[item].value = hiringData[item];
         });
+
+        hiringCriteriaKeys.forEach((item)=>{
+          if(item==='allowActiveBacklogs') {
+            updatedHiringData['numberOfAllowedBacklogs'].isDisabled = !hiringData[item];
+            updatedHiringData['numberOfAllowedBacklogs'].value = hiringData['numberOfAllowedBacklogs'].toString();
+          } else if(['eduGapsSchool', 'eduGapsGradNPG', 'eduGapsGrad', 'eduGaps12NGrad', 'eduGaps11N12'].includes(item)) {
+            updatedHiringData[item+'Allowed'].isDisabled = !hiringData[item];
+            updatedHiringData[item].isDisabled = !hiringData[item+'Allowed'];
+            updatedHiringData[item].value = hiringData[item].toString();
+          }
+        })
+
+        updatedHiringData['eduGapsAllowed'].value = ['eduGapsSchool', 'eduGapsGradNPG', 'eduGapsGrad', 'eduGaps12NGrad', 'eduGaps11N12'].some((item)=>hiringData[item+'Allowed']===true);
 
         const hcBranches = JSON.parse(hiringData['hcProgramsInString']);
 
@@ -226,24 +245,44 @@ const Index = () => {
         })
 
         updatedHiringData['hcPrograms'].value = updatedHcBranches;
-        updatedHiringData['hcPrograms'].isDisabled = true;
 
         updatedHiringData['programID'].value = hcBranches[0].programID;
-        updatedHiringData['programID'].isDisabled = true;
 
         setHiringCriteriaData(updatedHiringData);
-        setEditable(false);
+        setIsNew(false);
+        setEditable(true);
         setIsOpen(true);
+
+        setHiringCriteriaId(hiringData?.hiringCriteriaID);
     }
 
     const addHiringCriteria = (body) => {
+      if(editable && hiringCriteriaId) {
+        console.log('body ', body);
+        console.log('hiringCriteriaId ', hiringCriteriaId);
+        dispatch(actionPatchCorporateHiringCriteriaRequest({
+          apiPayloadRequest: {
+            id: hiringCriteriaId,
+            body: body,
+          },
+          callback: () => {
+            closeModel();
+            setIsNew(true);
+            setHiringCriteriaId();
+            setEditable(false);         
+          }
+        }));
+      } else {
         dispatch(AddHiringSagaAction({
             apiPayloadRequest: body,
             callback: ()=>{
                 closeModel();
+                setIsNew(true);
+                setHiringCriteriaId();
                 setEditable(false);
             }
-        }))
+        }));
+      }
     }
 
     return (
@@ -264,6 +303,7 @@ const Index = () => {
                     openCloseModal={formModal}
                     addHiringCriteria={addHiringCriteria}
                     lookUpData={lookUpData}
+                    isNew={isNew}
                     editable={editable}
                     hiringCriteriaData={hiringCriteriaData}
                 />}

@@ -63,6 +63,10 @@ const HiringCriteriaFormCmp = (props) => {
 
     const currentYear = new Date().getFullYear();
 
+    const yearOfPassingOptions = [currentYear-2, currentYear-1, currentYear, currentYear+1, currentYear+2].map((item)=>{
+        return {value: item.toString(), label: item.toString()}
+    });
+
     return (
         <form className="hiring-modal-form">
             <div className="row">
@@ -133,14 +137,15 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
                 <div className="col-md-3" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
-                        <PgkTextField 
+                        <PgkSelectField 
                             name="yearOfPassing"
                             onChange={props?.handleChange}
                             value={props?.hiringData?.yearOfPassing?.value}
                             label={'Year of Passing'}
-                            validations={['isNumeric', `min_${currentYear-2}`, `max_${currentYear+2}`]}
-                            inputLabelProps={{style:{fontSize: '.800rem'}}}
-                            inputProps={{style:{fontSize: '.800rem'}}}
+                            options={yearOfPassingOptions}
+                            labelStyles={{fontSize: '.800rem'}}
+                            selectStyles={{fontSize: '.800rem'}}
+                            menuStyles={{fontSize: '.800rem'}}
                             errorMessage={props?.hiringData?.yearOfPassing?.errorMessage}
                             required={props?.hiringData?.yearOfPassing?.isRequired}
                             disabled={props?.hiringData?.yearOfPassing?.isDisabled}
@@ -614,7 +619,7 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
             </div>
             <div className="text-center mt-4">
-                {props?.editable ? <button type="button" onClick={props.handleSubmit} disabled={!isFormValid()} className="btn mr-4">Save</button> : null}
+                <button type="button" onClick={props.handleSubmit} disabled={!isFormValid()} className="btn mr-4">Save</button>
                 <button type="button" onClick={props.openCloseModal} data-dismiss="modal" className="btn">{props?.editable ? 'Cancel' : 'Close'}</button>
             </div>
         </form>

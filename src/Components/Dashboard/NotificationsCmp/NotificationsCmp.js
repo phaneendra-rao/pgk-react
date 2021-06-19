@@ -144,15 +144,9 @@ const NotificationsCmp = (props) => {
               {props?.notificationsList &&
                   props?.notificationsList?.length > 0 ? (
                     props?.notificationsList?.map((item, i) => {
-                      if (item.notificationType!=='OtherInformation' && item.notificationType!=='CampusHiring Response' && item.notificationType!=='UniversityOtherInformation') {
+                      if (item && item?.notificationType!=='OtherInformation' && item?.notificationType!=='CampusHiring Response' && item?.notificationType!=='UniversityOtherInformation') {
                         return(
-                            <div key={i} className={'d-flex align-items-center notificationMain'} onClick={()=>{
-                                if(item.notificationType==='CampusHiring Request') {
-                                  setActiveNotificationIndex(i);
-                                } else if(item.notificationType==='UniversityOtherInformation' || item.notificationType==='UniversityProfile') {
-                                  history.push('/dashboard/subscribe/newuniversity/'+item.senderID)
-                                }
-                            }}>
+                            <div key={i} className={'d-flex align-items-center notificationMain'}>
                               <div className="custom-control custom-checkbox">
                                 <input
                                   type="checkbox"
@@ -168,7 +162,13 @@ const NotificationsCmp = (props) => {
                                   htmlFor={item?.notificationID}
                                 ></label>
                             </div>
-                            <div className="row d-flex align-items-center basic-info w-full" style={{maxWidth: '300px'}}>
+                            <div className="row d-flex align-items-center basic-info w-full" style={{maxWidth: '300px'}} onClick={()=>{
+                                if(item.notificationType==='CampusHiring Request') {
+                                  setActiveNotificationIndex(i);
+                                } else if(item.notificationType==='UniversityOtherInformation' || item.notificationType==='UniversityProfile') {
+                                  history.push('/dashboard/subscribe/newuniversity/'+item.senderID)
+                                }
+                            }}>
                               <div className="basic-img d-flex justify-content-center align-items-center" style={{backgroundColor:'rgb(84, 115, 232)', color: 'white', height: '45px', width: '45px', borderRadius: '50%'}}>
                                 <p className="basic-name">
                                   <i className="fas fa-building" />

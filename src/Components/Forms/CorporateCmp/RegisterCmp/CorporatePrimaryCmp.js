@@ -97,22 +97,11 @@ const CorporatePrimaryCmp = (props) => {
                             validations={['minLength_4', 'maxLength_4', 'isNumeric']}
                         />
                     </div>
-                    {/* <div className="login-grp">
-                        <input
-                            type="date"
-                            name="yearOfEstablishment"
-                            onChange={props.handleChange}
-                            className="login-inp"
-                            title="Year of Establishment"
-                            placeholder="Year of Establishment"
-                            required={true} />
-                        <label className="inp-caption">Year of Establishment</label>
-                    </div> */}
                 </div>
 
                 <div className="col-md-12">
                     <div className="reg-attach">
-                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile picture</span>}
+                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Upload attachment</span>}
                         <input
                             type="file"
                             onChange={props.handleChangeImg}
@@ -121,7 +110,7 @@ const CorporatePrimaryCmp = (props) => {
                             name="attachment"
                             id="attachment"
                             required={false} />
-                        <label htmlFor="attachment" className="reg-label">Attach</label>
+                        <label htmlFor="attachment" className="reg-label">Upload</label>
                     </div>
                     {/* {props.actualPath
                         ? <div className="text-center">

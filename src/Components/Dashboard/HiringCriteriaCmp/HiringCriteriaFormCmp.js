@@ -619,7 +619,7 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
             </div>
             <div className="text-center mt-4">
-                <button type="button" onClick={props.handleSubmit} disabled={!isFormValid()} className="btn mr-4">Save</button>
+                {props?.isNew || props?.editable ? <button type="button" onClick={props.handleSubmit} disabled={!isFormValid()} className="btn mr-4">Save</button> : null}
                 <button type="button" onClick={props.openCloseModal} data-dismiss="modal" className="btn">{props?.editable ? 'Cancel' : 'Close'}</button>
             </div>
         </form>

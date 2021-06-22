@@ -29,7 +29,7 @@ const NotificationsCmp = (props) => {
       case "JobPublish":
         return "Job Publish";
       case "UniversityProfile":
-        return "University Profile";
+        return item?.senderName + " University";
       case "UniversityOtherInformation":
         return item?.senderName + " University";
       case "RequestVerification":
@@ -56,9 +56,9 @@ const NotificationsCmp = (props) => {
         case "JobPublish":
           return "Job Publish";
         case "UniversityProfile":
-          return "University Profile";
+          return item?.content;
         case "UniversityOtherInformation":
-          return item?.senderName + " University";
+          return item?.content;
         case "RequestVerification":
           return "Request Verification";
         case "ProcessVerification":
@@ -66,7 +66,7 @@ const NotificationsCmp = (props) => {
         case "CampusHiring Request":
           return "has requested for Campus hiring";
         case "CampusHiring Response":
-          return "";
+          return "has responded for Campus hiring";
         default:
           break;
       }
@@ -75,7 +75,13 @@ const NotificationsCmp = (props) => {
   const getTypeOfRequest = (notification) => {
     switch (notification?.notificationType) {
       case "CampusHiring Request":
-        return "Campus Hiring From University"  
+        return "Campus Hiring From University"
+      case "CampusHiring Response":
+        return "Campus Hiring From University"
+      case "UniversityOtherInformation":
+        return "University Other Information"  
+      case "UniversityProfile":
+        return "University Profile"  
       default:
         break;
     }
@@ -107,7 +113,7 @@ const NotificationsCmp = (props) => {
                         onChange={props?.handleFilterChange}
                         label={`Stakeholder Type`}
                         options={props?.lookUpData?.stakeholderType?.length ? props?.lookUpData?.stakeholderType?.map((item)=>{
-                          return {value: item.stakeholderTypeCode, label: item.stakeholdertypeName}
+                          return {value: item.oneLtrCode, label: item.stakeholdertypeName}
                         }) : []}
                         labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
                         selectStyles={{fontSize: '.800rem', backgroundColor: 'white', margin: '2px'}}
@@ -144,7 +150,7 @@ const NotificationsCmp = (props) => {
               {props?.notificationsList &&
                   props?.notificationsList?.length > 0 ? (
                     props?.notificationsList?.map((item, i) => {
-                      if (item && item?.notificationType!=='OtherInformation' && item?.notificationType!=='CampusHiring Response' && item?.notificationType!=='UniversityOtherInformation') {
+                      if (item && ['UniversityOtherInformation', 'UniversityProfile', 'CampusHiring Request', 'CampusHiring Response'].includes(item?.notificationType)) {
                         return(
                             <div key={i} className={'d-flex align-items-center notificationMain'}>
                               <div className="custom-control custom-checkbox">
@@ -163,11 +169,7 @@ const NotificationsCmp = (props) => {
                                 ></label>
                             </div>
                             <div className="row d-flex align-items-center basic-info w-full" style={{maxWidth: '300px'}} onClick={()=>{
-                                if(item.notificationType==='CampusHiring Request') {
-                                  setActiveNotificationIndex(i);
-                                } else if(item.notificationType==='UniversityOtherInformation' || item.notificationType==='UniversityProfile') {
-                                  history.push('/dashboard/subscribe/newuniversity/'+item.senderID)
-                                }
+                              setActiveNotificationIndex(i);
                             }}>
                               <div className="basic-img d-flex justify-content-center align-items-center" style={{backgroundColor:'rgb(84, 115, 232)', color: 'white', height: '45px', width: '45px', borderRadius: '50%'}}>
                                 <p className="basic-name">
@@ -206,42 +208,46 @@ const NotificationsCmp = (props) => {
             <div className="info" style={{minHeight: '100vh', padding: 15}}>
               <div style={{border: '1px solid #cacaca', padding: '20px 40px', margin:0}}>
               <h6 className="info-title">
-                Notification from <br /> {JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName} University
+                Notification from <br /> {["UniversityOtherInformation", "UniversityProfile", "CampusHiring Request"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? props?.notificationsList[activeNotificationIndex]?.senderName : JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName} University
               </h6>
               <hr />
               <ul className="info-data" >
                 <li>
                   <span>University Name</span>
-                  <span className={'text-ellipsis'} style={{width:'200px'}}>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName}</span>
+                  <span className={'text-ellipsis'} style={{width:'200px'}}>{["UniversityOtherInformation", "UniversityProfile"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? props?.notificationsList[activeNotificationIndex]?.senderName : ["CampusHiring Response"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.requestContent?.universityDetails?.universityName : JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.universityName}</span>
                 </li>
                 <li>
                   <span>Location</span>
-                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.location}</span>
+                  <span>{["UniversityOtherInformation", "UniversityProfile"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? '-' : ["CampusHiring Response"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.requestContent?.universityDetails?.location : JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.location}</span>
                 </li>
                 <li>
                   <span>Year of Establishment</span>
-                  <span>{JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.yearOfEstablishment}</span>
+                  <span>{["UniversityOtherInformation", "UniversityProfile"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? '-' : ["CampusHiring Response"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.requestContent?.universityDetails?.yearOfEstablishment : JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.yearOfEstablishment}</span>
                 </li>
                 <li>
                   <span>University ID</span>
                   <span>{props?.notificationsList[activeNotificationIndex]?.senderID}</span>
                 </li>
-                <li>
+                {/* <li>
                   <span>Accredition</span>
-                  <span className={'text-ellipsis'} style={{width:'200px'}}>{JSON.parse(JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.accredations).name}</span>
-                </li>
+                  <span className={'text-ellipsis'} style={{width:'200px'}}>{["UniversityOtherInformation", "UniversityProfile"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? '-' : ["CampusHiring Response"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType) ? JSON.parse(JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.requestContent?.universityDetails?.accredations).name : JSON.parse(JSON.parse(props?.notificationsList[activeNotificationIndex]?.content)?.universityDetails?.accredations).name}</span>
+                </li> */}
                 <li>
                   <span>Type of Request</span>
                   <span className={'text-ellipsis'} style={{width:'200px'}}>{getTypeOfRequest(props?.notificationsList[activeNotificationIndex])}</span>
                 </li>
                 <li>
                   <span>Request made on</span>
-                  <span>{moment(props?.notificationsList[activeNotificationIndex]?.dateofNotification).format('DD-MM-YYYY')}</span>
+                  <span>{moment(props?.notificationsList[activeNotificationIndex]?.dateofNotification).format('DD-MMM-YYYY')}</span>
                 </li>
               </ul>
               <div className="d-flex justify-content-center info-space">
                 <button type="button" onClick={()=>{
-                  history.push('/dashboard/campus-drive');
+                  if(["CampusHiring Request", "CampusHiring Response"].includes(props?.notificationsList[activeNotificationIndex]?.notificationType)) {
+                    history.push('/dashboard/requests');
+                  } else {
+                    history.push('/dashboard/subscribe/newuniversity/'+props?.notificationsList[activeNotificationIndex]?.senderID)
+                  }
                 }} className="btn3">View more Info</button>
               </div>
               </div>

@@ -17,7 +17,11 @@ const CampusHiringItem = (props) => {
         notificationId: id
       },
       callback: (response) => {
-        setHiringItem(JSON.parse(response?.content));
+        console.log('response ', response);
+        console.log('hc ', JSON.parse(response?.content));
+        const content = JSON.parse(response?.content);
+        console.log('content ', content);
+        setHiringItem(content?.requestContent ? content?.requestContent : content);
         setShowModal(true);
       }
     }));
@@ -64,9 +68,8 @@ const CampusHiringItem = (props) => {
         </button>
       </div>
 
-      <CustomModal show={showModal} modalStyles={{minWidth: '70%'}}>
+     {showModal && <CustomModal show={showModal} modalStyles={{minWidth: '70%'}}>
       <div className={'mail-modal'}>
-
       <div className="modal-header d-block">
         <span className="modal-title" style={{fontSize: '1.1rem', padding: 6}}>
           Mail sent to {props?.item?.publisherName} University requesting Campus
@@ -122,7 +125,7 @@ const CampusHiringItem = (props) => {
         </div>
       </div>
       </div>
-      </CustomModal>
+      </CustomModal>} 
     </>
   );
 };

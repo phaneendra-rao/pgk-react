@@ -3,21 +3,21 @@ import { useDispatch } from 'react-redux';
 import moment from "moment";
 import CustomModal from "../../../../Components/CustomModal";
 
-import { actionGetCorporateSingleNotificationRequest } from '../../../../Store/Actions/SagaActions/NotificationsSagaAction';
+import { actionSagaGetCorporateSingleSubscriptionRequest } from '../../../../Store/Actions/SagaActions/SubscriptionSagaAction';
 
 const ProfileInfoItem = (props) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [hiringItem, setHiringItem] = useState();
+  const [profileInfo, setProfileInfo] = useState();
 
-  const getHiringItemById = (id) => {
-    dispatch(actionGetCorporateSingleNotificationRequest({
+  const getPublishedData = (id) => {
+    dispatch(actionSagaGetCorporateSingleSubscriptionRequest({
       apiPayloadRequest: {
-        type: 'NOTIFICATION',
-        notificationId: id
+        type: 'PROFILE',
+        id: id
       },
       callback: (response) => {
-        setHiringItem(JSON.parse(response?.content));
+        setProfileInfo(JSON.parse(response)?.programs);
         setShowModal(true);
       }
     }));
@@ -43,7 +43,7 @@ const ProfileInfoItem = (props) => {
         </div>
         <div className="vertical-border" />
         <div className="sub-item-container d-flex justify-content-around align-items-center">
-          <p className="sub-title">COE's</p>
+          <p className="sub-title">{props?.item?.info?.PublishedData}</p>
         </div>
         <div className="vertical-border" />
         <button
@@ -56,14 +56,23 @@ const ProfileInfoItem = (props) => {
             borderRadius: "4px",
           }}
           onClick={() => {
-            getHiringItemById(props?.item?.nftID);
+            // getHiringItemById(props?.item?.nftID);
+            if(props?.item?.isSubscribed) {
+              getPublishedData(props?.item?.publishID);
+            } else if(props?.getDetails) {
+              getPublishedData(props?.item?.publishID ? props?.item?.publishID : props?.item?.publishId);
+            } else {
+              if(props?.subscribeHandler) {
+                props.subscribeHandler();
+              }
+            }
           }}
         >
-          View More
+          Details
         </button>
       </div>
 
-      <CustomModal show={showModal} modalStyles={{minWidth: '70%'}}>
+      {showModal && <CustomModal show={showModal} modalStyles={{minWidth: '70%'}}>
       <div className={'mail-modal'}>
 
       <div className="modal-header d-block">
@@ -88,20 +97,22 @@ const ProfileInfoItem = (props) => {
         <div style={{backgroundColor: 'rgba(135, 139, 166, 0.31)', padding: '10px'}} className={'w-full text-center'}>
           <p>Branches Offered</p>
         </div>
-        <div style={{padding: '12px'}}>
-          <div style={{padding: '6px', border:'1px solid #cacaca', borderRadius: '3px'}} className={'w-full d-flex justify-content-between flex-wrap align-items-center'}>
-            <div className="job-icon d-flex justify-content-center align-items-center" style={{backgroundColor:'#20BDC9', padding: '6px', color: 'white', borderRadius: '6px', fontSize: '1rem'}}>
-              <i className="fas fa-cube" />
-            </div>
-              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>Bachelors of Technology (B.Tech)</p>
-              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>Computer & Electornic Engineering (CEE)</p>
-              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>Start Date - 01 - Mar - 2021</p>
-              <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>End Date - TBD</p>
-          </div>
-        </div>
+        {profileInfo?.length ? profileInfo.map((item)=>{
+          return <div style={{padding: '12px', width: '100%'}}>
+                  <div style={{padding: '6px', border:'1px solid #cacaca', borderRadius: '3px'}} className={'w-full d-flex justify-content-between flex-wrap align-items-center'}>
+                    <div className="job-icon d-flex justify-content-center align-items-center" style={{backgroundColor:'#20BDC9', padding: '6px', color: 'white', borderRadius: '6px', fontSize: '1rem'}}>
+                      <i className="fas fa-cube" />
+                    </div>
+                      <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>{item?.programID}</p>
+                      <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>{item?.programName}</p>
+                      <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>Start Date - {moment(item?.startDate).format("DD-MMM-YYYY")}</p>
+                      <p style={{fontSize:'.800rem', maxWidth: '200px'}} className={'text-ellipsis px-2'}>End Date - {moment(item?.endDate).format("DD-MM-YYYY")}</p>
+                  </div>
+                </div>
+        }) : 'No information found!'}
       </div>
       </div>
-      </CustomModal>
+      </CustomModal>}
     </>
   );
 };

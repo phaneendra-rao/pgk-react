@@ -50,11 +50,11 @@ const Notifications = () => {
             if(updatedNotifications.length) {
                 newArray = [...newArray, ...updatedNotifications];
             } else {
-                newArray = actualNotificationsList;
+                newArray = notificationsList?.length ? notificationsList : actualNotificationsList;
             }
 
             newArray.forEach((item) => {
-                if(filter.stakeholderType === item.senderUserRole) {
+                if(filter.stakeholderType === item.senderType && updatedNotifications.findIndex(_item=>_item.notificationID!==item.notificationID)) {
                     updatedNotifications.push(item);
                 }
             });
@@ -66,11 +66,11 @@ const Notifications = () => {
             if(updatedNotifications.length) {
                 newArray = [...newArray, ...updatedNotifications];
             } else {
-                newArray = actualNotificationsList;
+                newArray = notificationsList?.length ? notificationsList : actualNotificationsList;
             }
 
             newArray.map((item)=>{
-                if(filter.notificationType === item.notificationTypeID) {
+                if(filter.notificationType === item.notificationTypeID && updatedNotifications.findIndex(_item=>_item.notificationID!==item.notificationID)) {
                     updatedNotifications.push(item);
                 }
             });
@@ -82,13 +82,13 @@ const Notifications = () => {
             if(updatedNotifications.length) {
                 newArray = [...newArray, ...updatedNotifications];
             } else {
-                newArray = actualNotificationsList;
+                newArray = notificationsList?.length ? notificationsList : actualNotificationsList;
             }
 
             if(filter.sortBy==='TA') {
-                updatedNotifications = newArray.sort((a, b) => new Date(b.dateofNotification).getTime() - new Date(a.dateofNotification).getTime());
-            } else {
                 updatedNotifications = newArray.sort((a, b) => new Date(a.dateofNotification).getTime() - new Date(b.dateofNotification).getTime());
+            } else {
+                updatedNotifications = newArray.sort((a, b) => new Date(b.dateofNotification).getTime() - new Date(a.dateofNotification).getTime());
             }
         }
 
@@ -107,7 +107,6 @@ const Notifications = () => {
                 isChecked: false
             }
         })
-        console.log('data ', data);
         setNotificationsList(data);
         setActualNotificationsList(data);
     }

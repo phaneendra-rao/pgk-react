@@ -118,9 +118,11 @@ const PublishJobs = () => {
 
   const publishSelected = () => {
     if (selectedItems.length) {
-      const updatedSelectedItems = jobsList.map((item) => {
+    let updatedSelectedItems = [];
+
+      jobsList.forEach((item) => {
         if (selectedItems.includes(item.jobID)) {
-          return { jobID: item.jobID };
+          updatedSelectedItems.push({ jobID: item.jobID });
         }
       });
 
@@ -133,7 +135,7 @@ const PublishJobs = () => {
   const finalSubmit = (id) => {
     let updatedSelectedItems = [];
     jobsList.forEach((item) => {
-      if (item.jobID === id) {
+      if (item && item.jobID === id) {
         updatedSelectedItems.push({ jobID: item.jobID });
       } 
     });

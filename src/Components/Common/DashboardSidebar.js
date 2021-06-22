@@ -223,12 +223,12 @@ const DashboardSidebar = () => {
         </li>
         <li className="sidebar-item">
           <NavLink
-            to="/dashboard/campus-drive"
+            to="/dashboard/requests"
             exact
             activeClassName="active"
             className="sidebar-link"
           >
-            <i className="fas fa-university"></i>Campus Drive
+            <i className="fas fa-university"></i>Requests
           </NavLink>
         </li>
         <li className="sidebar-item">

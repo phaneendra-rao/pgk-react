@@ -1,15 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import PgkTextField from '../../../../Components/FormFields/PgkTextField';
 import PgkSelectField from '../../../../Components/FormFields/PgkSelectField';
 import PgkMultiSelectField from '../../../../Components/FormFields/PgkMultiSelectField';
 import moment from "moment";
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
+import { actionGetStatesByCountryNameRequest } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
 const $ = window.$;
 
 const jobFormFields = ['jobName', 'jobType', 'skills', 'hiringCriteria', 'salaryMinRange', 'salaryMaxRange', 'monthOfHiring', 'remarks', 'attachment', 'status', 'noOfPositions', 'location'];
 
 const AddJobs = (props) => {
+    const dispatch = useDispatch();
+    const [states, setStates] = useState([]);
+  const countryName = useSelector(state => state.DashboardReducer.profileInfo?.corporateHQAddressCountry);
+
+  const onStatesResponse = (response, type) => {
+    let updatedStatesOptions = [];
+
+    if (response?.length) {
+      updatedStatesOptions = response.map((item) => {
+        return { value: item?.state_name, label: item?.state_name };
+      });
+    }
+
+    setStates(updatedStatesOptions);
+  }
+
+  useEffect(()=>{
+    if(states?.length===0) {
+        dispatch(actionGetStatesByCountryNameRequest({
+            countryName: countryName,
+            callback: (response)=>{
+              onStatesResponse(response)
+            },
+        }))
+    }
+  }, [countryName]);
+
 
     const isFormValid = () => {
         let isValid = true;
@@ -132,7 +161,8 @@ const AddJobs = (props) => {
                                 value={props?.jobFormData?.location?.value}
                                 onChange={props?.handleChange}
                                 label={`Location`}
-                                options={[{value: 'Hyderabad', label: 'Hyderabad'}, {value: 'Delhi', label: 'Delhi'}, {value: 'Mumbai', label: 'Mumbai'}]}
+                                // options={[{value: 'Hyderabad', label: 'Hyderabad'}, {value: 'Delhi', label: 'Delhi'}, {value: 'Mumbai', label: 'Mumbai'}]}
+                                options={states}
                                 labelStyles={{fontSize: '.800rem'}}
                                 selectStyles={{fontSize: '.800rem'}}
                                 menuStyles={{fontSize: '.800rem'}}

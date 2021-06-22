@@ -1,10 +1,28 @@
 import React, { useState } from "react";
 import moment from "moment";
+import { useDispatch } from 'react-redux';
 import CustomModal from "../../../../Components/CustomModal";
 import PgkTextField from '../../../../Components/FormFields/PgkTextField';
+import { actionSagaGetCorporateSingleSubscriptionRequest } from '../../../../Store/Actions/SagaActions/SubscriptionSagaAction';
 
 const OtherInformationItem = (props) => {
+
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [otherInfo, setOtherInfo] = useState();
+
+  const getPublishedData = (id) => {
+    dispatch(actionSagaGetCorporateSingleSubscriptionRequest({
+      apiPayloadRequest: {
+        type: 'OTHER_INFORMATION',
+        id: id
+      },
+      callback: (response) => {
+        setOtherInfo(response);
+        setShowModal(true);
+      }
+    }));
+  }
 
   return (
     <>
@@ -25,6 +43,10 @@ const OtherInformationItem = (props) => {
           </p>}
         </div>
         <div className="vertical-border" />
+        <div className="sub-item-container d-flex flex-column align-items-center">
+          <p className="sub-title">{props?.item?.info?.Title}</p>
+        </div>
+        <div className="vertical-border" />
         <button
           type="button"
           className="view-info-btn btn d-flex justify-content-around align-items-center"
@@ -35,14 +57,23 @@ const OtherInformationItem = (props) => {
             borderRadius: "4px",
           }}
           onClick={() => {
-            setShowModal(true);
+            if(props?.item?.isSubscribed) {
+              getPublishedData(props?.item?.publishID);
+            } else if(props?.getDetails) {
+              getPublishedData(props?.item?.publishID ? props?.item?.publishID : props?.item?.publishId);
+            } else {
+              if(props?.subscribeHandler) {
+                props.subscribeHandler();
+              }
+            }
+            // setShowModal(true);
           }}
         >
-          View Information
+          Details
         </button>
       </div>
 
-      <CustomModal show={showModal}>
+      {showModal && <CustomModal show={showModal}>
         <div className="hiring-modal">
           <div className="modal-header hiring-modal-header">
             <h5
@@ -68,7 +99,7 @@ const OtherInformationItem = (props) => {
               <div className="col-md">
                 <div className="modal-grp">
                   <PgkTextField
-                      value={props?.item?.publishID}
+                      value={otherInfo?.publishID}
                       label={'Publish ID'}
                       inputLabelProps={{style:{fontSize: '.800rem'}}}
                       inputProps={{style:{fontSize: '.800rem'}}}
@@ -79,7 +110,7 @@ const OtherInformationItem = (props) => {
               <div className="col-md">
                 <div className="modal-grp">
                   <PgkTextField 
-                      value={props?.item?.creationDate ? `Published on ${moment(props?.item?.creationDate).format("DD-MM-YYYY")}`: ''}
+                      value={otherInfo?.dateOfPublish ? `Published on ${moment(otherInfo?.dateOfPublish).format("DD-MM-YYYY")}`: ''}
                       label={'Published Date & Time'}
                       inputLabelProps={{style:{fontSize: '.800rem'}}}
                       inputProps={{style:{fontSize: '.800rem'}}}
@@ -91,7 +122,7 @@ const OtherInformationItem = (props) => {
               <div className="col-md">
                 <div className="modal-grp">
                   <PgkTextField 
-                      value={props?.item?.title ? props?.item?.title : ''}
+                      value={otherInfo?.title ? otherInfo?.title : ''}
                       label={'Title'}
                       inputLabelProps={{style:{fontSize: '.800rem'}}}
                       inputProps={{style:{fontSize: '.800rem'}}}
@@ -103,7 +134,7 @@ const OtherInformationItem = (props) => {
               <div className="col-md">
                 <div className="modal-grp">
                   <PgkTextField
-                    value={props?.item?.information ? props?.item?.information : ''}
+                    value={otherInfo?.information ? otherInfo?.information : ''}
                     label={"Content"}
                     disabled
                     multiline={true}
@@ -114,12 +145,12 @@ const OtherInformationItem = (props) => {
                 </div>
               </div>
               <div className="w-100"></div>
-              {(props?.item?.attachment?.trim()!=='' && props?.item?.attachmentName?.trim()!=='') ?
+              {(otherInfo?.attachment && otherInfo?.attachment?.trim()!=='' && otherInfo?.attachmentName?.trim()!=='') ?
                 <div className="d-flex justify-content-between align-items-center attachmentStripeContainer w-full">
                 <p className="label">Attachment Present (if any)</p>
-                <a href={'data:application/pdf;base64,'+props?.item?.attachment} style={{textDecoration:'none', outline:'none', width:'70%'}} download>
+                <a href={'data:application/pdf;base64,'+otherInfo?.attachment} style={{textDecoration:'none', outline:'none', width:'70%'}} download>
                   <div className="attachmentStripe d-flex justify-content-between align-items-center">
-                      <p>{props?.item?.attachmentName}</p>
+                      <p>{otherInfo?.attachmentName}</p>
                       <i className="fas fa-paperclip"></i>
                   </div>
                 </a>
@@ -127,7 +158,7 @@ const OtherInformationItem = (props) => {
             </div>
           </form>
         </div>
-      </CustomModal>
+      </CustomModal>}
     </>
   );
 };

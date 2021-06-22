@@ -3,6 +3,7 @@ import OtherInformationItem from "../../../../Pages/Dashboard/Subscribe/Componen
 import UniversityItem from "../../../../Pages/Dashboard/Subscribe/Components/UniversityItem";
 import StudentListItem from "../../../../Pages/Dashboard/Subscribe/Components/StudentListItem";
 import CampusHiringItem from "../../../../Pages/Dashboard/Subscribe/Components/CampusHiringItem";
+import ProfileInfoItem from '../../../../Pages/Dashboard/Subscribe/Components/ProfileInfoItem';
 
 import PgkSelectField from '../../../../Components/FormFields/PgkSelectField';
 
@@ -84,7 +85,7 @@ const UniversityCmp = (props) => {
         </div>
         <div className="univ-profile-container d-flex justify-content-start align-items-center w-full">
           <div className="profile-bar" />
-          <div className="univ-profile d-flex flex-column">
+          <div className="univ-profile d-flex flex-column align-items-start">
             <p className="title">University Profile</p>
             <p className="sub-title">
               {props.universityInfoList?.universityProfile}
@@ -161,7 +162,7 @@ const UniversityCmp = (props) => {
           </div>
         </div>
         <div className="univ-subscription-history-stripe">
-          <p className="label">Subscription / Campus Drive History</p>
+          <p className="label">Publish History of {props.universityInfoList?.universityName}</p>
         </div>
         <div className={"blueHeaderStrip w-full"} style={{marginTop: '15px', paddingBottom:'0px'}}>
           <div className={"row align-items-center"}>
@@ -169,11 +170,15 @@ const UniversityCmp = (props) => {
               <div className={"mb-0"}>
                 <PgkSelectField 
                     name="subscriptionType"
-                    value={props?.filter?.subscriptionType}
-                    onChange={props?.handleFilterChange}
+                    value={props?.publishedDataFilter?.subscriptionType}
+                    onChange={(name, value, errorMessage)=>{
+                      if(props?.handleFilterChange) {
+                        props?.handleFilterChange(name, value, errorMessage, 'PUBLISHED-DATA');
+                      }
+                    }}
                     label={`Subscription Type`}
                     options={props?.lookUpData?.subscriptionType?.length ? props?.lookUpData?.subscriptionType?.map((item)=>{
-                      if(['CR', 'SD', 'UI', 'UO', 'UP'].includes(item.subscriptionTypeCode)) {
+                      if(['UO', 'UP'].includes(item.subscriptionTypeCode)) {
                         return {value: item.subscriptionTypeCode, label: item.subscriptionType}
                       }
                     }) : []}
@@ -187,8 +192,12 @@ const UniversityCmp = (props) => {
               <div className={"mb-0"}>
                 <PgkSelectField 
                     name="sortBy"
-                    value={props?.filter?.sortBy}
-                    onChange={props?.handleFilterChange}
+                    value={props?.publishedDataFilter?.sortBy}
+                    onChange={(name, value, errorMessage) => {
+                      if(props?.handleFilterChange) {
+                        props?.handleFilterChange(name, value, errorMessage, 'PUBLISHED-DATA')
+                      }
+                    }}
                     label={`Sort By`}
                     options={props?.lookUpData?.sortBy?.length ? props?.lookUpData?.sortBy?.map((item)=>{
                       if(['TA', 'TD'].includes(item.sortByCode)) {
@@ -204,15 +213,19 @@ const UniversityCmp = (props) => {
             <div className={"col-md-6 item"}>
             </div>
             <div className={'col-md-2 item'}>
-              <button type="button" onClick={props?.applyFilter} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
+              <button type="button" onClick={()=>{
+                if(props?.applyFilter) {
+                  props.applyFilter('PUBLISHED-DATA');
+                }
+              }} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
                   Apply Filter
               </button>
             </div>
           </div>
         </div>
-        <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
-          {props.universityInfoSubscriptionsList?.length &&
-            props.universityInfoSubscriptionsList.map((item, index) => {
+        <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full" style={{height: '400px', overflow:'scroll'}}>
+          {props.universityInfoPublishedList?.length ?
+            props.universityInfoPublishedList.map((item, index) => {
               switch (item?.generalNote) {
                 case "Other Information":
                   return (
@@ -222,11 +235,95 @@ const UniversityCmp = (props) => {
                         publisherName: props.universityInfoList?.universityName,
                         location: props.universityInfoList?.universityHQAddressCity
                       }}
+                      subscribeHandler={()=>{
+                        props.subscribeModal("otherInfo", item?.publishID)
+                      }}
                       index={index}
                     />
                   );
                 case "Profile":
-                  return "";
+                  return <ProfileInfoItem 
+                    item={{
+                      ...item,
+                      publisherName: props.universityInfoList?.universityName,
+                      location: props.universityInfoList?.universityHQAddressCity
+                    }}
+                    subscribeHandler={()=>{
+                      props.subscribeModal("profileInfo", item?.publishID)
+                    }}
+                    index={index}
+                  />;
+                default:
+                  return undefined;
+              }
+            }) : <p>No publishs of university</p>}
+        </div>
+        <div className="univ-subscription-history-stripe">
+          <p className="label">Your subscription of {props.universityInfoList?.universityName}</p>
+        </div>
+        <div className={"blueHeaderStrip w-full"} style={{marginTop: '15px', paddingBottom:'0px'}}>
+          <div className={"row align-items-center"}>
+            <div className={"col-md-2 item"}>
+              <div className={"mb-0"}>
+                <PgkSelectField 
+                    name="subscriptionType"
+                    value={props?.subscriptionFilter?.subscriptionType}
+                    onChange={(name, value, errorMessage)=>{
+                      if(props?.handleFilterChange) {
+                        props?.handleFilterChange(name, value, errorMessage, 'SUBSCRIPTION');
+                      }
+                    }}
+                    label={`Subscription Type`}
+                    options={props?.lookUpData?.subscriptionType?.length ? props?.lookUpData?.subscriptionType?.map((item)=>{
+                      if(['CR', 'SD', 'UI'].includes(item.subscriptionTypeCode)) {
+                        return {value: item.subscriptionTypeCode, label: item.subscriptionType}
+                      }
+                    }) : []}
+                    labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                    selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                    menuStyles={{fontSize: '.800rem'}}
+                />
+              </div>
+            </div>
+            <div className={"col-md-2 item"}>
+              <div className={"mb-0"}>
+                <PgkSelectField 
+                    name="sortBy"
+                    value={props?.subscriptionFilter?.sortBy}
+                    onChange={(name, value, errorMessage) => {
+                      if(props?.handleFilterChange) {
+                        props?.handleFilterChange(name, value, errorMessage, 'SUBSCRIPTION')
+                      }
+                    }}
+                    label={`Sort By`}
+                    options={props?.lookUpData?.sortBy?.length ? props?.lookUpData?.sortBy?.map((item)=>{
+                      if(['TA', 'TD'].includes(item.sortByCode)) {
+                        return {value: item.sortByCode, label: item.sortBy} 
+                      }
+                    }) : []}
+                    labelStyles={{fontSize: '.800rem', backgroundColor: 'white', padding: '0px 3px 0px 3px'}}
+                    selectStyles={{fontSize: '.800rem', backgroundColor: 'white'}}
+                    menuStyles={{fontSize: '.800rem'}}
+                />
+              </div>
+            </div>
+            <div className={"col-md-6 item"}>
+            </div>
+            <div className={'col-md-2 item'}>
+              <button type="button" onClick={()=>{
+                if(props?.applyFilter) {
+                  props.applyFilter('SUBCRIPTION');
+                }
+              }} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
+                  Apply Filter
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full" style={{height: '400px', overflow:'scroll'}}>
+          {props.universityInfoSubscriptionsList?.length ?
+            props.universityInfoSubscriptionsList.map((item, index) => {
+              switch (item?.generalNote) {
                 case "University Information":
                   return (
                     <UniversityItem
@@ -263,7 +360,7 @@ const UniversityCmp = (props) => {
                 default:
                   return undefined;
               }
-            })}
+            }) : <p>No Subscriptions found!</p>}
         </div>
       </div>
     </>

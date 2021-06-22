@@ -286,8 +286,8 @@ const CorporateSecondary = (props) => {
                 && corporateHQAddressEmail && companyProfile) {
                 const countryCode = countries?.find(item => item?.value === corporateSecondary?.corporateHQAddressCountry);
                 const countryCode2 = countries?.find(item => item?.value === corporateSecondary?.corporateLocalBranchAddressCountry);
-                corporateSecondary['countryCode'] = '+' + countryCode?.callingCodes[0];
-                corporateSecondary['countryCode2'] = corporateHQAddressCountry ? '+' + countryCode2?.callingCodes[0] : '';
+                corporateSecondary['countryCode'] = '';
+                corporateSecondary['countryCode2'] = '';
                 sessionStorage.setItem('secondary', JSON.stringify(corporateSecondary));
                 dispatch(SaveCoprorateData(corporateSecondary, 2));
                 props.history.push('/register/contactPersonnel');

@@ -49,7 +49,10 @@ const SubscriptionHistory = () => {
   }, []);
 
   const handleFilterChange = (name, value, errorMessage=undefined) => {
-
+    setFilter(prevState=>({
+      ...prevState,
+      [name]: value
+  }));
   }
 
   const applyFilter = () => {
@@ -146,27 +149,116 @@ const SubscriptionHistory = () => {
           </div>
         </div>
         <div className={'row'}>
-          <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
+          <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full" style={{overflow:'scroll', height: '300px'}}>
             {!subscriptionList.length && "No subscriptions subscribed yet"}
-
+            <div className="row jobs-saved-section" style={{ margin: "0px", width: '100%', }}>
+              <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                <p
+                  className="heading w-full"
+                  style={{
+                    textAlign: "left",
+                    backgroundColor: "#BCBECC",
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "normal",
+                  }}
+                >
+                  Campus Drive
+                </p>
+              </div>
+            </div>
+            {subscriptionList.length &&
+              subscriptionList.map((item, index) => {
+                if(item?.generalNote==='Campus Hiring') {
+                  return <CampusHiringItem item={item} index={index} />;
+                }
+            })}
+          </div>
+          <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full" style={{overflow:'scroll', height: '300px'}}>
+            {!subscriptionList.length && "No subscriptions subscribed yet"}
+            <div className="row jobs-saved-section" style={{ margin: "0px", width: '100%', }}>
+              <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                <p
+                  className="heading w-full"
+                  style={{
+                    textAlign: "left",
+                    backgroundColor: "#BCBECC",
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "normal",
+                  }}
+                >
+                  Other Information
+                </p>
+              </div>
+            </div>
             {subscriptionList.length &&
               subscriptionList.map((item, index) => {
                 switch (item?.generalNote) {
                   case "Other Information":
-                    return <OtherInformationItem item={item} index={index} />;
-                  case "Profile":
-                    return "";
+                    return <OtherInformationItem item={item} index={index} getDetails />;
                   case "University Information":
                     return <UniversityItem item={item} index={index} />;
-                  case "Student Database":
-                    return <StudentListItem item={item} index={index} />;
-                  case "Campus Hiring":
-                      return <CampusHiringItem item={item} index={index} />;
                   default:
                     return undefined;
                 }
               })}
-              <ProfileInfoItem />
+          </div>
+          <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full" style={{overflow:'scroll', height: '300px'}}>
+            {!subscriptionList.length && "No subscriptions subscribed yet"}
+            <div className="row jobs-saved-section" style={{ margin: "0px", width: '100%', }}>
+              <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                <p
+                  className="heading w-full"
+                  style={{
+                    textAlign: "left",
+                    backgroundColor: "#BCBECC",
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "normal",
+                  }}
+                >
+                  Student List
+                </p>
+              </div>
+            </div>
+            {subscriptionList.length &&
+              subscriptionList.map((item, index) => {
+                switch (item?.generalNote) {
+                  case "Student Database":
+                    return <StudentListItem item={item} index={index} />;
+                  default:
+                    return undefined;
+                }
+              })}
+          </div>
+          <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full" style={{overflow:'scroll', height: '300px'}}>
+            {!subscriptionList.length && "No subscriptions subscribed yet"}
+            <div className="row jobs-saved-section" style={{ margin: "0px", width: '100%', }}>
+              <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                <p
+                  className="heading w-full"
+                  style={{
+                    textAlign: "left",
+                    backgroundColor: "#BCBECC",
+                    color: "black",
+                    fontSize: "1.2rem",
+                    fontWeight: "normal",
+                  }}
+                >
+                  Profile
+                </p>
+              </div>
+            </div>
+            {subscriptionList.length &&
+              subscriptionList.map((item, index) => {
+                switch (item?.generalNote) {
+                  case "Profile":
+                    return <ProfileInfoItem item={item} getDetails />;
+                  default:
+                    return undefined;
+                }
+              })}
           </div>
         </div>
       </div>

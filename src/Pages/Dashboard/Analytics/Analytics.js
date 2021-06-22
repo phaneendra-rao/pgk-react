@@ -31,7 +31,7 @@ const Analytics = () => {
           embedConfig = {{
             type: 'report',   // Supported types: report, dashboard, tile, visual and qna
             id: reportId, 
-            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${reportId}`,
+            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${reportId}&filterPaneEnabled=false&navContentPaneEnabled=false`,
             accessToken: accessToken,    // Keep as empty string, null or undefined
             settings: {},
           }}

@@ -72,8 +72,9 @@ const CampusDrive = () => {
     setNotificationStatus(status);
     setNotification(response);
     if (status === "REJECTED") {
-      // const content = response?.content ? JSON.parse(response.content) : undefined;
-      // setNotificationContent(content?.requestContent ? JSON.parse(content?.requestContent) : undefined);
+      const content = response?.content ? JSON.parse(response.content) : undefined;
+      setNotificationContent(content?.requestContent ? content?.requestContent : undefined);
+      setShowModal(true);
     } else if (status === "REQUEST-SENT") {
       setNotificationContent(
         response?.content ? JSON.parse(response.content) : undefined
@@ -90,21 +91,24 @@ const CampusDrive = () => {
   };
 
   const getNotificationById = (id, status) => {
-    dispatch(
-      actionGetCorporateSingleNotificationRequest({
-        apiPayloadRequest: {
-          type: "NOTIFICATION",
-          notificationId: id,
-        },
-        callback: (response) => {
-          onNotificationReceived(response, status);
-        },
-      })
-    );
+    try {
+      dispatch(
+        actionGetCorporateSingleNotificationRequest({
+          apiPayloadRequest: {
+            type: "NOTIFICATION",
+            notificationId: id,
+          },
+          callback: (response) => {
+            console.log('response ', response);
+            console.log('content ', JSON.parse(response?.content));
+            onNotificationReceived(response, status);
+          },
+        })
+      );
+    } catch (error) {
+      console.log('error ', error);
+    }
   };
-
-  console.log('notificationStatus ', notificationStatus);
-  console.log('notificationContent ', notificationContent);
 
   return (
     <>
@@ -169,7 +173,8 @@ const CampusDrive = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      acceptCampusDrive(item?.campusDriveID, true, item?.nftID);
+                      getNotificationById(item?.nftID, "PRE-ACCEPT");
+                      // acceptCampusDrive(item?.campusDriveID, true, item?.nftID);
                     }}
                     className={"btn btn-accept"}
                   >
@@ -469,7 +474,9 @@ const CampusDrive = () => {
                 </div>
                 {item?.campusDriveStatus?.toLowerCase() === "rejected" ? (
                   <div className={"col-md-1"}>
-                    <button type="button" className={"btn btn-view-more"}>
+                    <button type="button" onClick={()=>{
+                      getNotificationById(item?.nftID, "REJECTED");
+                    }} className={"btn btn-view-more"}>
                       View more info
                     </button>
                   </div>
@@ -626,7 +633,7 @@ const CampusDrive = () => {
                       <td className={"keyLabel"}>University ID</td>
                       <td className={"valueLabel"}>{notification?.senderID}</td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td className={"keyLabel"}>Accredation</td>
                       <td className={"valueLabel"}>
                         {notificationContent?.universityDetails?.accredations
@@ -636,11 +643,11 @@ const CampusDrive = () => {
                             )?.name
                           : ""}
                       </td>
-                    </tr>
+                    </tr> */}
                     <tr>
                       <td className={"keyLabel"}>Type of Request</td>
                       <td className={"valueLabel"}>
-                        Campus Hiring from University
+                        {notification?.notificationType}
                       </td>
                     </tr>
                     <tr>
@@ -656,16 +663,15 @@ const CampusDrive = () => {
                   </tbody>
                 </table>
                 {notificationStatus?.toLowerCase() === "rejected" ? (
-                  <div className={"notification-body-footer inherit"}>
+                  <div className={"notification-body-footer inherit w-full"}>
                     <div className={"heading"}>
                       <p className={"label"}>Reason for Rejection</p>
                     </div>
                     <p className={"body"}>
-                      We need CSE students with an introduction to Java which
-                      does not seem to be there in curriculam{" "}
+                      {JSON.parse(notification?.content)?.responseContent?.reasonToReject}
                     </p>
                   </div>
-                ) : (
+                ) : notificationStatus?.toLowerCase() === 'pre-reject' || notificationStatus?.toLowerCase() === 'pending' ? (
                   <PgkTextField
                     name="reasonForRejection"
                     value={reasonForRejection?.value}
@@ -682,10 +688,11 @@ const CampusDrive = () => {
                     multiline={true}
                     minRows={6}
                   />
-                )}
+                ) : null}
               </div>
               {notificationStatus?.toLowerCase() === "pending" ||
-              notificationStatus?.toLowerCase() === "pre-reject" ? (
+              notificationStatus?.toLowerCase() === "pre-reject" ||
+              notificationStatus?.toLowerCase() === "pre-accept" ? (
                 <div
                   className={
                     "notification-footer d-flex justify-content-around align-items-center"
@@ -694,7 +701,7 @@ const CampusDrive = () => {
                   <button type="button" className={"btn btn-view-more-info"}>
                     View more info
                   </button>
-                  {notificationStatus?.toLowerCase() === "pending" ? (
+                  {notificationStatus?.toLowerCase() === "pending" || notificationStatus?.toLowerCase() === "pre-accept" ? (
                     <button
                       type="button"
                       onClick={() => {
@@ -709,7 +716,7 @@ const CampusDrive = () => {
                       Accept
                     </button>
                   ) : null}
-                  <button
+                  {notificationStatus?.toLowerCase()==='pending' || notificationStatus?.toLowerCase()==='pre-reject' ? <button
                     type="button"
                     disabled={
                       reasonForRejection?.value &&
@@ -727,7 +734,7 @@ const CampusDrive = () => {
                     className={"btn btn-reject"}
                   >
                     Reject
-                  </button>
+                  </button> : null}
                 </div>
               ) : null}
             </div>

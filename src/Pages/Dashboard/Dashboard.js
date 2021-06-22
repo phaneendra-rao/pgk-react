@@ -5,6 +5,8 @@ import moment from "moment";
 
 import { getCorporateProfileStats } from '../../Store/Actions/SagaActions/DashboardSagaAction';
 
+import { useHistory } from 'react-router';
+
 const Dashboard = () => {
   const profileInfo = useSelector(state => state.DashboardReducer.profileInfo);
 
@@ -20,6 +22,8 @@ const Dashboard = () => {
         callback: onReceiveStats
     }));
   }, []);
+
+  const history = useHistory();
 
   let profileName = [];
 
@@ -82,7 +86,9 @@ const Dashboard = () => {
                         <div className="d-flex flex-column justify-content-start feature-widget">
                             <div className="d-flex flex-row justify-content-between align-items-center feature-widget-header">
                                 <p className="label">Tentative Passouts &amp; Passing Month</p>
-                                <button className="btn btn-secondary" type="button">Check Analytics</button>
+                                <button className="btn btn-secondary" onClick={()=>{
+                                    history.push("/dashboard/analytics")
+                                }} type="button">Check Analytics</button>
                             </div>
                             <table className="table table-borderless">
                                 <thead className="table-header">
@@ -142,7 +148,9 @@ const Dashboard = () => {
                         <div className="d-flex flex-column justify-content-start feature-widget">
                             <div className="d-flex flex-row justify-content-between align-items-center feature-widget-header">
                                 <p className="label">Universities Conversion Ratio Last Year</p>
-                                <button className="btn btn-secondary" type="button">Check Analytics</button>
+                                <button className="btn btn-secondary" onClick={()=>{
+                                    history.push("/dashboard/analytics")
+                                }} type="button">Check Analytics</button>
                             </div>
                             <div style={{ height: '350px' }}>
                             </div>

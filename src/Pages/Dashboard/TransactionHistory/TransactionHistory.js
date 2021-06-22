@@ -37,7 +37,7 @@ const TransactionHistory = () => {
             <div className={'col-md-2'}><p className={'label'}>COEs Offered {element?.generalNote}</p></div>
             <div className={'col-md-2'}><p className={'sub-label'}>{element?.publisherName}</p></div>
             <div className={'col-md-3 d-flex justify-content-between align-items-center'}><p className={'tokens'}>{element?.paidTokensTransacted} Paid Tokens</p> <p className={'tokens'} style={{backgroundColor: 'rgb(254, 173, 67)'}}>{element?.bonusTokensTransacted} Bonus Tokens</p></div>
-            <div className={'col-md-2'}><p className={'end-label'}>Date - {moment(element?.transactionDate).format('DD-MM-YYYY')} </p></div>
+            <div className={'col-md-2'}><p className={'end-label'}>Date - {moment(element?.transactionDate).format('DD-MMM-YYYY')} </p></div>
             <div className={'col-md-3'}><p className={'end-label'}>Transaction ID - {element?.transactionID}</p></div>
           </div>
         })}

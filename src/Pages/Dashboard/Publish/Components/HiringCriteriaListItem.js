@@ -337,6 +337,7 @@ const HiringCriteriaListItem = (props) => {
                 dialogContent={<HiringCriteriaForm
                     openCloseModal={closeModel}
                     lookUpData={props?.lookUpData}
+                    isNew={false}
                     editable={false}
                     hiringCriteriaData={hiringCriteriaData}
                 />}

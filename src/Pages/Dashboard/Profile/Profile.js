@@ -531,7 +531,7 @@ const Profile = () => {
       </div>
       <div className={'d-flex welcome-widget flex-row justify-content-end align-items-center'} style={{backgroundColor: 'transparent', border: 'none', padding: 0,}}>
         <div className={'date-of-joining-widget d-flex flex-column justify-content-center'}>
-            <p className={'sub-label'}>Date of joining the Platform :</p>
+            <p className={'sub-label'}>Date of joining the Platform</p>
             <p className={'label'}>{profileInfo?.dateOfJoining ? moment(profileInfo?.dateOfJoining).format('DD-MM-YYYY') : '-'}</p>
         </div>
       </div>

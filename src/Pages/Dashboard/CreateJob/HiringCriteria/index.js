@@ -152,10 +152,9 @@ const Index = () => {
     const [lookUpData, setLookUpData] = useState([]);
     const [isNew, setIsNew] = useState(true);
     const [editable, setEditable] = useState(false);
+    const [hiringCriteriaActualData, setHiringCriteriaActualData] = useState(undefined);
     const [hiringCriteriaData, setHiringCriteriaData] = useState(hiringCriteriaInitialData);
     const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
-
-    const [hiringCriteriaId, setHiringCriteriaId] = useState();
 
     const dispatch = useDispatch();
     // const hiringCriteria = useSelector(state => state.DashboardReducer.hiringCriteria);
@@ -183,7 +182,7 @@ const Index = () => {
     const closeModel = () => {
         getHiring();
         setIsOpen(false);
-        setHiringCriteriaId();
+        setHiringCriteriaActualData();
         setHiringCriteriaData();
     }
 
@@ -192,10 +191,10 @@ const Index = () => {
         setIsNew(true);
         setEditable(false);
         setIsOpen(!isOpen);
-        setHiringCriteriaId();
+        setHiringCriteriaActualData();
     }
 
-    const detailsModal = (hiringData) => {
+    const detailsModal = (hiringData, isEditable=false) => {
         const hiringCriteriaKeys = [
             "allowActiveBacklogs",
             "eduGaps11N12Allowed",
@@ -223,15 +222,16 @@ const Index = () => {
 
         hiringCriteriaKeys.forEach((item)=>{
           updatedHiringData[item].value = hiringData[item];
+          updatedHiringData[item].isDisabled = isEditable ? false : true;
         });
 
         hiringCriteriaKeys.forEach((item)=>{
           if(item==='allowActiveBacklogs') {
-            updatedHiringData['numberOfAllowedBacklogs'].isDisabled = !hiringData[item];
+            updatedHiringData['numberOfAllowedBacklogs'].isDisabled = isEditable ? !hiringData[item] : true;
             updatedHiringData['numberOfAllowedBacklogs'].value = hiringData['numberOfAllowedBacklogs'].toString();
           } else if(['eduGapsSchool', 'eduGapsGradNPG', 'eduGapsGrad', 'eduGaps12NGrad', 'eduGaps11N12'].includes(item)) {
-            updatedHiringData[item+'Allowed'].isDisabled = !hiringData[item];
-            updatedHiringData[item].isDisabled = !hiringData[item+'Allowed'];
+            updatedHiringData[item+'Allowed'].isDisabled = isEditable ? !hiringData[item] : true;
+            updatedHiringData[item].isDisabled = isEditable ? !hiringData[item+'Allowed'] : true;
             updatedHiringData[item].value = hiringData[item].toString();
           }
         })
@@ -245,30 +245,30 @@ const Index = () => {
         })
 
         updatedHiringData['hcPrograms'].value = updatedHcBranches;
+        updatedHiringData['hcPrograms'].isDisabled = isEditable ? false : true;
 
         updatedHiringData['programID'].value = hcBranches[0].programID;
+        updatedHiringData['programID'].isDisabled = isEditable ? false : true;
 
         setHiringCriteriaData(updatedHiringData);
         setIsNew(false);
-        setEditable(true);
+        setEditable(isEditable);
         setIsOpen(true);
 
-        setHiringCriteriaId(hiringData?.hiringCriteriaID);
+        setHiringCriteriaActualData(hiringData);
     }
 
     const addHiringCriteria = (body) => {
-      if(editable && hiringCriteriaId) {
-        console.log('body ', body);
-        console.log('hiringCriteriaId ', hiringCriteriaId);
+      if(editable && hiringCriteriaActualData?.hiringCriteriaID) {
         dispatch(actionPatchCorporateHiringCriteriaRequest({
           apiPayloadRequest: {
-            id: hiringCriteriaId,
+            id: hiringCriteriaActualData?.hiringCriteriaID,
             body: body,
           },
           callback: () => {
             closeModel();
             setIsNew(true);
-            setHiringCriteriaId();
+            setHiringCriteriaActualData();
             setEditable(false);         
           }
         }));
@@ -278,7 +278,7 @@ const Index = () => {
             callback: ()=>{
                 closeModel();
                 setIsNew(true);
-                setHiringCriteriaId();
+                setHiringCriteriaActualData();
                 setEditable(false);
             }
         }));
@@ -289,7 +289,9 @@ const Index = () => {
         <>
             <HiringCriteriaCmp
                 openCloseModal={formModal}
-                detailsModal={detailsModal}
+                detailsModal={(item)=>{
+                  detailsModal(item)
+                }}
                 // hiringCriteria={hiringCriteria?.filter(item=>item?.publishedFlag===false)}
                 hiringCriteria={hiringCriteriaList}
             />
@@ -302,6 +304,9 @@ const Index = () => {
                 dialogContent={<HiringCriteriaForm
                     openCloseModal={formModal}
                     addHiringCriteria={addHiringCriteria}
+                    editHc={()=>{
+                      detailsModal(hiringCriteriaActualData, true);
+                    }}
                     lookUpData={lookUpData}
                     isNew={isNew}
                     editable={editable}

@@ -21,7 +21,7 @@ const HiringCriteriaCmp = (props) => {
                     {props.hiringCriteria?.length
                         ?
                         props.hiringCriteria?.map((item, i) =>
-                            <div className="row align-items-center jobs-list-item w-full p-0" key={i} style={{height: '80px'}}>
+                            <div className="row align-items-center jobs-list-item w-full p-0" key={i}>
                                 <div className="col-md-2 row align-items-center p-0">
                                     <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
                                         <i className="fas fa-cube" />
@@ -65,7 +65,7 @@ const HiringCriteriaCmp = (props) => {
                                 </div>
                             </div>) : apiStatus ? 'Loading...' : 'No hiring criteria records found, Please add to continue.'}
                     <button type="button" onClick={props.openCloseModal} className="btn add-job-btn" style={{height: '20px'}}>
-                        Add new Hiring Criteria
+                        Add New Hiring Criteria
                     </button>
                 </div>
             </div>

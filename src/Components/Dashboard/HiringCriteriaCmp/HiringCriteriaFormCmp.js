@@ -85,7 +85,7 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-3" style={{padding: '0px 4px'}}>
+                <div className="col-md-6" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
                         <PgkSelectField 
                             name="programID"
@@ -102,7 +102,7 @@ const HiringCriteriaFormCmp = (props) => {
                         />
                     </div>
                 </div>
-                <div className="col-md-3" style={{padding: '0px 4px'}}>
+                <div className="col-md-6" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
                         <PgkMultiSelectField 
                             name={'hcPrograms'}
@@ -119,6 +119,80 @@ const HiringCriteriaFormCmp = (props) => {
                         />
                     </div>
                 </div>
+                <div className="modal-grp d-flex justify-content-start align-items-center col-md-2" style={{padding: '0px 4px'}}>
+                    <span style={{fontSize:'.800rem'}}>Active Backlogs <sup>*</sup></span>
+                </div>
+                <div className="modal-grp d-flex justify-content-center align-items-center col-md-2">
+                    <div className="custom-control custom-radio custom-control-inline align-self-center">
+                        <input
+                            type="radio"
+                            id="backlogs1"
+                            name="allowActiveBacklogs"
+                            onChange={(e)=>{
+                                if(props.handleChange) {
+                                    props.handleChange('allowActiveBacklogs', true)
+                                }
+                            }}
+                            value={true}
+                            className="custom-control-input"
+                            checked={props?.hiringData?.allowActiveBacklogs?.value ? true : false}
+                            disabled={props?.hiringData?.allowActiveBacklogs?.isDisabled}
+                        />
+                        <label className="custom-control-label" style={{fontSize:'.800rem'}} htmlFor="backlogs1">Yes</label>
+                    </div>
+                    <div className="custom-control custom-radio custom-control-inline align-self-center">
+                        <input
+                            type="radio"
+                            id="backlogs2"
+                            name="allowActiveBacklogs"
+                            onChange={(e)=>{
+                                if(props.handleChange) {
+                                    props.handleChange('allowActiveBacklogs', false)
+                                }
+                            }}
+                            value={false}
+                            className="custom-control-input"
+                            checked={!props?.hiringData?.allowActiveBacklogs?.value ? true : false}
+                            disabled={props?.hiringData?.allowActiveBacklogs?.isDisabled}
+                            />
+                        <label className="custom-control-label" style={{fontSize:'.800rem'}} htmlFor="backlogs2">No</label>
+                    </div>
+                </div>
+                <div className="col-md-4" style={{padding: '0px 4px'}}>
+                    <div className="mb-15">
+                        <PgkTextField 
+                            name="numberOfAllowedBacklogs"
+                            onChange={props?.handleChange}
+                            disabled={props.hiringData?.numberOfAllowedBacklogs?.isDisabled}
+                            value={props.hiringData?.numberOfAllowedBacklogs?.value}
+                            label={'How many Backlogs ?'}
+                            validations={['isNumeric']}
+                            inputLabelProps={{style:{fontSize: '.800rem'}}}
+                            inputProps={{style:{fontSize: '.800rem'}}}
+                            errorMessage={props?.hiringData?.numberOfAllowedBacklogs?.errorMessage}
+                            required={props.hiringData?.numberOfAllowedBacklogs?.isRequired}
+                        />
+                    </div>
+                </div>
+                <div className="col-md-4" style={{padding: '0px 4px'}}>
+                    <div className="mb-15">
+                        <PgkSelectField 
+                            name="yearOfPassing"
+                            onChange={props?.handleChange}
+                            value={props?.hiringData?.yearOfPassing?.value}
+                            label={'Year of Passing'}
+                            options={yearOfPassingOptions}
+                            labelStyles={{fontSize: '.800rem'}}
+                            selectStyles={{fontSize: '.800rem'}}
+                            menuStyles={{fontSize: '.800rem'}}
+                            errorMessage={props?.hiringData?.yearOfPassing?.errorMessage}
+                            required={props?.hiringData?.yearOfPassing?.isRequired}
+                            disabled={props?.hiringData?.yearOfPassing?.isDisabled}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className={'row'}>
                 <div className="col-md-3" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
                         <PgkTextField 
@@ -137,77 +211,6 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
                 <div className="col-md-3" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
-                        <PgkSelectField 
-                            name="yearOfPassing"
-                            onChange={props?.handleChange}
-                            value={props?.hiringData?.yearOfPassing?.value}
-                            label={'Year of Passing'}
-                            options={yearOfPassingOptions}
-                            labelStyles={{fontSize: '.800rem'}}
-                            selectStyles={{fontSize: '.800rem'}}
-                            menuStyles={{fontSize: '.800rem'}}
-                            errorMessage={props?.hiringData?.yearOfPassing?.errorMessage}
-                            required={props?.hiringData?.yearOfPassing?.isRequired}
-                            disabled={props?.hiringData?.yearOfPassing?.isDisabled}
-                        />
-                    </div>
-                </div>
-                <div className="modal-grp d-flex justify-content-start align-items-center col-md-4" style={{padding: '0px 4px', maxWidth:'240px'}}>
-                    <span style={{fontSize:'.800rem'}}>Active Backlogs <sup>*</sup></span>
-                    <div className="custom-control custom-radio custom-control-inline">
-                        <input
-                            type="radio"
-                            id="backlogs1"
-                            name="allowActiveBacklogs"
-                            onChange={(e)=>{
-                                if(props.handleChange) {
-                                    props.handleChange('allowActiveBacklogs', true)
-                                }
-                            }}
-                            value={true}
-                            className="custom-control-input"
-                            checked={props?.hiringData?.allowActiveBacklogs?.value ? true : false}
-                            disabled={props?.hiringData?.allowActiveBacklogs?.isDisabled}
-                        />
-                        <label className="custom-control-label" style={{fontSize:'.800rem'}} htmlFor="backlogs1">Yes</label>
-                    </div>
-                    <div className="custom-control custom-radio custom-control-inline">
-                        <input
-                            type="radio"
-                            id="backlogs2"
-                            name="allowActiveBacklogs"
-                            onChange={(e)=>{
-                                if(props.handleChange) {
-                                    props.handleChange('allowActiveBacklogs', false)
-                                }
-                            }}
-                            value={false}
-                            className="custom-control-input"
-                            checked={!props?.hiringData?.allowActiveBacklogs?.value ? true : false}
-                            disabled={props?.hiringData?.allowActiveBacklogs?.isDisabled}
-                            />
-                        <label className="custom-control-label" style={{fontSize:'.800rem'}} htmlFor="backlogs2">No</label>
-                    </div>
-                </div>
-                <div className="col-md-3" style={{padding: '0px 4px', maxWidth:'207px'}}>
-                    <div className="mb-15">
-                        <PgkTextField 
-                            name="numberOfAllowedBacklogs"
-                            onChange={props?.handleChange}
-                            disabled={props.hiringData?.numberOfAllowedBacklogs?.isDisabled}
-                            value={props.hiringData?.numberOfAllowedBacklogs?.value}
-                            label={'How many Backlogs ?'}
-                            validations={['isNumeric']}
-                            inputLabelProps={{style:{fontSize: '.800rem'}}}
-                            inputProps={{style:{fontSize: '.800rem'}}}
-                            errorMessage={props?.hiringData?.numberOfAllowedBacklogs?.errorMessage}
-                            required={props.hiringData?.numberOfAllowedBacklogs?.isRequired}
-                        />
-                    </div>
-                </div>
-
-                <div className="col-md-3" style={{padding: '0px 4px'}}>
-                    <div className="mb-15">
                         <PgkTextField 
                             name="minimumCutoffPercentage12th"
                             onChange={props?.handleChange}
@@ -221,12 +224,6 @@ const HiringCriteriaFormCmp = (props) => {
                             required={props.hiringData?.minimumCutoffPercentage12th?.isRequired}
                         />
                     </div>
-                </div>
-            </div>
-            <div className={'row'}>
-                <div className="col-md-3">
-                </div>
-                <div className="col-md-3">
                 </div>
                 <div className="col-md-3" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
@@ -243,12 +240,6 @@ const HiringCriteriaFormCmp = (props) => {
                             required={props?.hiringData?.minimumCutoffCGPAGrad?.isRequired}
                         />
                     </div>
-                </div>
-            </div>
-            <div className={'row'}>
-                <div className="col-md-3">
-                </div>
-                <div className="col-md-3">
                 </div>
                 <div className="col-md-3" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
@@ -267,51 +258,8 @@ const HiringCriteriaFormCmp = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md-6">
-                </div>
-                <div className="col-md-6">
-                    <div className="modal-grp">
-                        <span>Educational Gaps if any *</span>
-                        <div className="custom-control custom-radio custom-control-inline">
-                            <input
-                                type="radio"
-                                id="gaps1"
-                                onChange={(e)=>{
-                                    if(props.handleChange) {
-                                        props.handleChange('eduGapsAllowed', true, undefined)
-                                    }
-                                }}
-                                name="eduGapsAllowed"
-                                value={true}
-                                className="custom-control-input"
-                                checked={props?.hiringData?.eduGapsAllowed?.value}
-                                disabled={props?.hiringData?.eduGapsAllowed?.isDisabled}
-                            />
-                            <label className="custom-control-label" htmlFor="gaps1">Yes</label>
-                        </div>
-                        <div className="custom-control custom-radio custom-control-inline">
-                            <input
-                                type="radio"
-                                id="gaps2"
-                                name="eduGapsAllowed"
-                                onChange={(e)=>{
-                                    if(props.handleChange) {
-                                        props.handleChange('eduGapsAllowed', false, undefined)
-                                    }
-                                }}
-                                value={false}
-                                className="custom-control-input"
-                                checked={!props?.hiringData?.eduGapsAllowed?.value}
-                                disabled={props?.hiringData?.eduGapsAllowed?.isDisabled}
-                            />
-                            <label className="custom-control-label" htmlFor="gaps2">No</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div className="row d-flex justify-content-center align-items-start">
-                <div className="col-md-6">
+                <div className="col-md-6" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
                         <PgkTextField
                             name="remarks"
@@ -328,20 +276,55 @@ const HiringCriteriaFormCmp = (props) => {
                         />
                     </div>
                 </div>
-                <div className="col">
+                <div className="col" style={{padding: '0px 4px'}}>
                     <div className="gaps">
-                            <div className={'row'} style={{paddingBottom:'0px'}}>
-                                <div className={'col-md-7'}>
+                                {/* <div className={'col-md-7'}>
                                     <div className="gaps-item d-flex justify-content-start align-items-center" style={{width:'100%', marginBottom: '0px', paddingBottom:'0px'}}>
                                         <h3 className="gaps-title" style={{fontWeight:'bolder', marginBottom: '0px', paddingBottom:'0px'}}>GAPS DURING</h3><h6 style={{color:'#a3a3a3', marginBottom: '0px', paddingBottom:'0px', textDecoration: 'none', fontWeight:'normal'}}>(In Months)</h6>
                                     </div>
                                 </div>
-                                <div className={'col'}></div>
-                            </div>
-                            <div className="gaps-item">
+                                <div className={'col'}></div> */}
+                                <div className="modal-grp" style={{backgroundColor:'#f0f0f0', padding: '10px', borderRadius: '4px'}}>
+                                    <span style={{fontWeight:'bold'}}>Educational Gaps if any *</span>
+                                    <div className="custom-control custom-radio custom-control-inline">
+                                        <input
+                                            type="radio"
+                                            id="gaps1"
+                                            onChange={(e)=>{
+                                                if(props.handleChange) {
+                                                    props.handleChange('eduGapsAllowed', true, undefined)
+                                                }
+                                            }}
+                                            name="eduGapsAllowed"
+                                            value={true}
+                                            className="custom-control-input"
+                                            checked={props?.hiringData?.eduGapsAllowed?.value}
+                                            disabled={props?.hiringData?.eduGapsAllowed?.isDisabled}
+                                        />
+                                        <label className="custom-control-label" htmlFor="gaps1">Yes</label>
+                                    </div>
+                                    <div className="custom-control custom-radio custom-control-inline">
+                                        <input
+                                            type="radio"
+                                            id="gaps2"
+                                            name="eduGapsAllowed"
+                                            onChange={(e)=>{
+                                                if(props.handleChange) {
+                                                    props.handleChange('eduGapsAllowed', false, undefined)
+                                                }
+                                            }}
+                                            value={false}
+                                            className="custom-control-input"
+                                            checked={!props?.hiringData?.eduGapsAllowed?.value}
+                                            disabled={props?.hiringData?.eduGapsAllowed?.isDisabled}
+                                        />
+                                        <label className="custom-control-label" htmlFor="gaps2">No</label>
+                                    </div>
+                                </div>
+                            <div className="gaps-item" style={{margin: '1rem 0px'}}>
                                 <p className="gaps-name">Schooling</p>
                                 <div className="gaps-content">
-                                    <div className="modal-grp" style={{margin: '1rem 0px'}}>
+                                    <div className="modal-grp">
                                         <div className="custom-control custom-radio custom-control-inline">
                                             <input
                                                 type="radio"
@@ -619,8 +602,9 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
             </div>
             <div className="text-center mt-4">
-                {props?.isNew || props?.editable ? <button type="button" onClick={props.handleSubmit} disabled={!isFormValid()} className="btn mr-4">Save</button> : null}
+                {props?.isNew || props?.editable ? <button type="button" onClick={props.handleSubmit} className="btn mr-4">Save</button> : null}
                 <button type="button" onClick={props.openCloseModal} data-dismiss="modal" className="btn">{props?.editable ? 'Cancel' : 'Close'}</button>
+                {!props?.editable && props?.editHc ? <button type="button" onClick={props?.editHc} className="btn ml-4">Edit</button> : null}
             </div>
         </form>
     )

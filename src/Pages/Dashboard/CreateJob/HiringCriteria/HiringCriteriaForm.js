@@ -129,7 +129,6 @@ const HiringCriteriaForm = (props) => {
           programID: item.programID,
           programName: programObj.label,
         }));
-        console.log('_branchCatalog ', _branchCatalog);
         setBranchCatalog(_branchCatalog);
         updateField(name, value, errorMessage);
         updateField('hcPrograms', [], errorMessage);
@@ -171,87 +170,142 @@ const HiringCriteriaForm = (props) => {
     }
   };
 
+  const isValid = () => {
+    const keys = [
+        'hiringCriteriaName', 
+        'programID', 
+        'hcPrograms',
+        'allowActiveBacklogs',
+        'numberOfAllowedBacklogs',
+        'yearOfPassing',
+        'minimumCutoffPercentage10th', 
+        'minimumCutoffPercentage12th', 
+        'minimumCutoffCGPAGrad', 
+        'minimumCutoffPercentageGrad',
+        'eduGapsAllowed',
+        'eduGapsSchoolAllowed',
+        'eduGapsSchool',
+        'eduGaps11N12Allowed',
+        'eduGaps11N12',
+        'eduGaps12NGradAllowed',
+        'eduGaps12NGrad',
+        'eduGapsGradAllowed',
+        'eduGapsGrad',
+        'eduGapsGradNPGAllowed',   
+        'eduGapsGradNPG',
+        'remarks',
+    ];
+
+    let _isValid = true;
+
+    keys.forEach((item)=>{
+        if(_isValid) {
+            if(hiringData[item] && !hiringData[item].isDisabled) {
+
+                if(hiringData[item].isRequired && hiringData[item].errorMessage) {
+                    _isValid = false;
+                    updateField(item, hiringData[item].value, 'Required');
+                } else if(hiringData[item].isRequired && (typeof hiringData[item].value === 'string' ||  typeof hiringData[item].value === 'number' || typeof hiringData[item].value === 'undefined')) {
+                    if(hiringData[item].value === undefined || hiringData[item].value?.toString().trim()==='') {
+                        _isValid = false;
+                        updateField(item, hiringData[item].value, 'Required');
+                    }
+                } else if(hiringData[item].isRequired && typeof hiringData[item].value === 'object') {
+                    if(hiringData[item].value === undefined || hiringData[item].value?.length===0) {
+                        _isValid = false;
+                        updateField(item, hiringData[item].value, 'Required');
+                    }
+                }
+            }
+        }
+    });
+
+    return _isValid
+  }
+
   const handleSubmit = (event) => {
-    const hiringCriteriaKeys = [
-      "allowActiveBacklogs",
-      "eduGaps11N12Allowed",
-      "eduGaps12NGradAllowed",
-      "eduGapsAllowed",
-      "eduGapsGradAllowed",
-      "eduGapsGradNPGAllowed",
-      "eduGapsSchoolAllowed",
-      "hiringCriteriaName",
-      "remarks",
-    ];
-
-    const cutOffKeys = [
-      "minimumCutoffCGPAGrad",
-      "minimumCutoffPercentage10th",
-      "minimumCutoffPercentage12th",
-      "minimumCutoffPercentageGrad",
-      "yearOfPassing",
-    ];
-
-    let finalHiringCriteria = {};
-
-    hiringCriteriaKeys.forEach((item) => {
-      finalHiringCriteria[item] = hiringData[item].value;
-    });
-
-    cutOffKeys.forEach((item) => {
-      finalHiringCriteria[item] = hiringData[item].value
-        ? parseFloat(hiringData[item].value)
-        : 0;
-    });
-
-    const activeBackLogKeys = ["numberOfAllowedBacklogs"];
-
-    if (hiringData["allowActiveBacklogs"].value) {
-      activeBackLogKeys.forEach((item) => {
+    if(isValid()) {
+      const hiringCriteriaKeys = [
+        "allowActiveBacklogs",
+        "eduGaps11N12Allowed",
+        "eduGaps12NGradAllowed",
+        "eduGapsAllowed",
+        "eduGapsGradAllowed",
+        "eduGapsGradNPGAllowed",
+        "eduGapsSchoolAllowed",
+        "hiringCriteriaName",
+        "remarks",
+      ];
+  
+      const cutOffKeys = [
+        "minimumCutoffCGPAGrad",
+        "minimumCutoffPercentage10th",
+        "minimumCutoffPercentage12th",
+        "minimumCutoffPercentageGrad",
+        "yearOfPassing",
+      ];
+  
+      let finalHiringCriteria = {};
+  
+      hiringCriteriaKeys.forEach((item) => {
+        finalHiringCriteria[item] = hiringData[item].value;
+      });
+  
+      cutOffKeys.forEach((item) => {
         finalHiringCriteria[item] = hiringData[item].value
-          ? parseInt(hiringData[item].value)
+          ? parseFloat(hiringData[item].value)
           : 0;
       });
-    } else {
-      activeBackLogKeys.forEach((item) => {
-        finalHiringCriteria[item] = 0;
-      });
-    }
-
-    const eduGapsKeys = [
-      "eduGaps11N12",
-      "eduGaps12NGrad",
-      "eduGapsGrad",
-      "eduGapsGradNPG",
-      "eduGapsSchool",
-    ];
-
-    if (hiringData["eduGapsAllowed"].value) {
-      eduGapsKeys.forEach((item) => {
-        finalHiringCriteria[item] = hiringData[item + "Allowed"].value
-          ? hiringData[item].value
-            ? parseFloat(hiringData[item].value)
-            : 0
-          : 0;
-      });
-    } else {
-      eduGapsKeys.forEach((item) => {
-        finalHiringCriteria[item] = 0;
-      });
-    }
-
-    let updatedHcPropgrams = [];
-
-    if(hiringData["hcPrograms"].value?.length) {
-      updatedHcPropgrams = hiringData["hcPrograms"].value.map((item)=>{
-        return {branchID: item.value, branchName: item.label, programID: item.programID, programName: item.programName}
-      });
-    }
-
-    finalHiringCriteria['hcPrograms'] = updatedHcPropgrams;
-
-    if(props?.addHiringCriteria) {
-        props.addHiringCriteria(finalHiringCriteria)
+  
+      const activeBackLogKeys = ["numberOfAllowedBacklogs"];
+  
+      if (hiringData["allowActiveBacklogs"].value) {
+        activeBackLogKeys.forEach((item) => {
+          finalHiringCriteria[item] = hiringData[item].value
+            ? parseInt(hiringData[item].value)
+            : 0;
+        });
+      } else {
+        activeBackLogKeys.forEach((item) => {
+          finalHiringCriteria[item] = 0;
+        });
+      }
+  
+      const eduGapsKeys = [
+        "eduGaps11N12",
+        "eduGaps12NGrad",
+        "eduGapsGrad",
+        "eduGapsGradNPG",
+        "eduGapsSchool",
+      ];
+  
+      if (hiringData["eduGapsAllowed"].value) {
+        eduGapsKeys.forEach((item) => {
+          finalHiringCriteria[item] = hiringData[item + "Allowed"].value
+            ? hiringData[item].value
+              ? parseFloat(hiringData[item].value)
+              : 0
+            : 0;
+        });
+      } else {
+        eduGapsKeys.forEach((item) => {
+          finalHiringCriteria[item] = 0;
+        });
+      }
+  
+      let updatedHcPropgrams = [];
+  
+      if(hiringData["hcPrograms"].value?.length) {
+        updatedHcPropgrams = hiringData["hcPrograms"].value.map((item)=>{
+          return {branchID: item.value, branchName: item.label, programID: item.programID, programName: item.programName}
+        });
+      }
+  
+      finalHiringCriteria['hcPrograms'] = updatedHcPropgrams;
+  
+      if(props?.addHiringCriteria) {
+          props.addHiringCriteria(finalHiringCriteria)
+      }
     }
   };
 
@@ -272,6 +326,7 @@ const HiringCriteriaForm = (props) => {
         programCatalog={programCatalog}
         editable={props?.editable}
         isNew={props?.isNew}
+        editHc={props?.editHc}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />

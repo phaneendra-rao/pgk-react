@@ -9,7 +9,7 @@ import Close from '@material-ui/icons/Close';
 import { actionGetStatesByCountryNameRequest } from "../../../../Store/Actions/SagaActions/CommonSagaActions";
 const $ = window.$;
 
-const jobFormFields = ['jobName', 'jobType', 'skills', 'hiringCriteria', 'salaryMinRange', 'salaryMaxRange', 'monthOfHiring', 'remarks', 'attachment', 'status', 'noOfPositions', 'location'];
+const jobFormFields = ['jobName', 'jobType', 'skills', 'salaryMinRange', 'hiringCriteria', 'noOfPositions', 'salaryMaxRange', 'monthOfHiring', 'location', 'status', 'remarks', 'attachment'];
 
 const AddJobs = (props) => {
     const dispatch = useDispatch();
@@ -45,15 +45,24 @@ const AddJobs = (props) => {
         if(props?.jobFormData) {
             jobFormFields.forEach((item)=>{
                 if(isValid) {
+
+                    if(item==='attachment' && props.jobFormData[item].isRequired && (props.jobFormData[item].value === undefined || props.jobFormData[item].value.attachment === undefined || props.jobFormData[item].value.attachmentName===undefined)) {
+                        props?.fileHandler(item, undefined, 'Required')
+                        isValid = false;
+                    }
+
                     if(props.jobFormData[item].isRequired && props.jobFormData[item].errorMessage) {
                         isValid = false;
+                        props?.handleChange(item, props.jobFormData[item].value, 'Required');
                     } else if(props.jobFormData[item].isRequired && (typeof props.jobFormData[item].value === 'string' ||  typeof props.jobFormData[item].value === 'number' || typeof props.jobFormData[item].value === 'undefined')) {
                         if(props.jobFormData[item].value === undefined || props.jobFormData[item].value?.toString().trim()==='') {
                             isValid = false;
+                            props?.handleChange(item, props.jobFormData[item].value, 'Required');
                         }
                     } else if(props.jobFormData[item].isRequired && typeof props.jobFormData[item].value === 'object') {
                         if(props.jobFormData[item].value === undefined || props.jobFormData[item].value?.length===0) {
                             isValid = false;
+                            props?.handleChange(item, props.jobFormData[item].value, 'Required');
                         }
                     }
                 }
@@ -65,12 +74,20 @@ const AddJobs = (props) => {
         return isValid;
     }
 
+    const handleSubmit = () => {
+        if(isFormValid()) {
+            if(props?.submitJobForm) {
+                props?.submitJobForm();
+            }
+        }
+    }
+
     return (
         <form>
             <div className="add-new-jobs-section">
             <div className="d-flex justify-content-between align-items-center w-full" style={{backgroundColor:'#253AA3'}}>
                 <p></p>
-                <p className="heading" style={{color:'white'}}>{props?.mode==='ADD' ? 'Create Job' : props?.mode==='EDIT' ? 'Edit Job' : 'Job'}</p>
+                <p className="heading" style={{color:'white'}}>{props?.mode==='ADD' ? 'Create Job' : props?.mode==='EDIT' ? 'Edit '+props?.jobFormData?.jobName?.value : props?.jobFormData?.jobName?.value}</p>
                 <IconButton style={{color:'white'}} onClick={props?.handleCloseModal} component="span">
                     <Close />
                 </IconButton>
@@ -113,12 +130,12 @@ const AddJobs = (props) => {
                                 name="monthOfHiring"
                                 onChange={props?.handleChange}
                                 value={props?.jobFormData?.monthOfHiring?.value ? moment(props?.jobFormData?.monthOfHiring?.value).format('YYYY-MM-DD') : null}
-                                label={'Month of hiring'}
+                                label={'Date of hiring'}
                                 inputLabelProps={{style:{fontSize: '.800rem'}}}
                                 inputProps={{style:{fontSize: '.800rem'}, min: moment().format('YYYY-MM-DD')}}
                                 errorMessage={props?.jobFormData?.monthOfHiring?.errorMessage}
                                 required={props?.jobFormData?.monthOfHiring?.isRequired}
-                                disable={true}
+                                disabled={props?.jobFormData?.monthOfHiring?.isDisabled}
                                 type={'date'}
                             />
                         </div>
@@ -197,7 +214,7 @@ const AddJobs = (props) => {
                                 name="salaryMinRange"
                                 onChange={props?.handleChange}
                                 value={props?.jobFormData?.salaryMinRange?.value}
-                                label={'Min Salary'}
+                                label={'Minimum Salary'}
                                 validations={['isNumericWithDecimal', 'min_1']}
                                 inputLabelProps={{style:{fontSize: '.800rem'}}}
                                 inputProps={{style:{fontSize: '.800rem'}}}
@@ -211,7 +228,7 @@ const AddJobs = (props) => {
                                 name="salaryMaxRange"
                                 onChange={props?.handleChange}
                                 value={props?.jobFormData?.salaryMaxRange?.value}
-                                label={'Max Salary'}
+                                label={'Maximum Salary'}
                                 validations={['isNumericWithDecimal']}
                                 inputLabelProps={{style:{fontSize: '.800rem'}}}
                                 inputProps={{style:{fontSize: '.800rem'}}}
@@ -260,14 +277,14 @@ const AddJobs = (props) => {
                                     <div className="d-attach">
                                         {props?.jobFormData?.attachment?.value?.attachmentName ? <div className={'d-flex justify-content-between align-items-center'} style={{width:'84%'}}>
                                             <p className="float-left" style={{padding: '8px', fontSize: '.800rem', flex: '1'}}>{props?.jobFormData?.attachment?.value?.attachmentName}</p>
-                                            <Close style={{fontSize:'20px', float:'right'}} onClick={()=>{
+                                            {(props?.mode==='DETAILS' && props?.editJob===undefined) || props?.mode==='EDIT' || props?.mode==='ADD' ? <Close style={{fontSize:'20px', float:'right'}} onClick={()=>{
                                                 if(props?.resetFile) {
                                                     var $el = $('#attachment');
                                                     $el.wrap('<form>').closest('form').get(0).reset();
                                                     $el.unwrap();
                                                     props.resetFile('attachment');
                                                 }
-                                            }} style={{cursor:'pointer', color:'#878BA6'}} />                                    
+                                            }} style={{cursor:'pointer', color:'#878BA6'}} /> : null}
                                         </div> : null}
                                         <label htmlFor="attachment" className="d-label">
                                             {" "}
@@ -303,7 +320,8 @@ const AddJobs = (props) => {
             </div>
             <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
                 <button type="buttpn" onClick={props?.handleCloseModal}  style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Cancel</button>
-                {props?.mode!=='DETAILS' ? <button type="button" onClick={props?.submitJobForm} disabled={!isFormValid()} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Save Job</button> : null}
+                {props?.mode==='DETAILS' && props?.editJob ? <button type="button" onClick={props?.editJob} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Edit Job</button> : null}
+                {props?.mode!=='DETAILS' ? <button type="button" onClick={handleSubmit} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Save Job</button> : null}
             </div>
         </div>
         </form>

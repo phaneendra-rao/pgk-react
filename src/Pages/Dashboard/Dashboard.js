@@ -52,8 +52,8 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className={'date-of-joining-widget d-flex flex-column justify-content-center'}>
-                            <p className={'sub-label'}>Date of joining the Platform :</p>
-                            <p className={'label'}>{profileInfo?.dateOfJoining ? moment(profileInfo?.dateOfJoining).format('DD-MM-YYYY') : '-'}</p>
+                            <p className={'sub-label'}>Date of joining the Platform</p>
+                            <p className={'label'} style={{fontWeight: '600', fontSize: '1.2rem'}}>{profileInfo?.dateOfJoining ? moment(profileInfo?.dateOfJoining).format('DD-MMM-YYYY') : '-'}</p>
                         </div>
                     </div>
                     <div className="row d-flex justify-content-between">
@@ -62,24 +62,24 @@ const Dashboard = () => {
                                 <i className="fas fa-share" />
                                 <p>Jobs Published</p>
                             </div>
-                            <p className="quick-widget-value">34</p>
-                            <p className="quick-widget-label">{profileStats?.jobsPublished} Published in the recent month</p>
+                            <p className="quick-widget-value" style={{fontWeight: 'bolder'}}>34</p>
+                            <p className="quick-widget-label" style={{fontWeight: '600'}}><span style={{fontWeight: 'bolder'}}>{profileStats?.jobsPublished}</span> Published in the recent month</p>
                         </div>
                         <div className="d-flex flex-column justify-content-between align-items-center quick-widget">
                             <div className="d-flex flex-row justify-content-center align-items-center quick-widget-2">
                                 <i className="fas fa-file" />
                                 <p>Applications Received</p>
                             </div>
-                            <p className="quick-widget-value">{profileStats?.applicationsReceived!==undefined ? profileStats?.applicationsReceived : '-'}</p>
-                            <p className="quick-widget-label">{profileStats?.applicationsReceivedInTwoDays} Received in the last 2 days</p>
+                            <p className="quick-widget-value" style={{fontWeight: 'bolder'}}>{profileStats?.applicationsReceived!==undefined ? profileStats?.applicationsReceived : '-'}</p>
+                            <p className="quick-widget-label" style={{fontWeight: '600'}}><span style={{fontWeight: 'bolder'}}>{profileStats?.applicationsReceivedInTwoDays}</span> Received in the last 1 week</p>
                         </div>
                         <div className="d-flex flex-column justify-content-between align-items-center quick-widget">
                             <div className="d-flex flex-row justify-content-center align-items-center quick-widget-3">
                                 <i className="fas fa-briefcase" />
                                 <p>Job Offers Made</p>
                             </div>
-                            <p className="quick-widget-value">{profileStats?.jobOffersMade!==undefined ? profileStats?.jobOffersMade : '-'}</p>
-                            <p className="quick-widget-label">{profileStats?.jobOffersMadeInLastMonth} Made in the recent month</p>
+                            <p className="quick-widget-value" style={{fontWeight: 'bolder'}}>{profileStats?.jobOffersMade!==undefined ? profileStats?.jobOffersMade : '-'}</p>
+                            <p className="quick-widget-label" style={{fontWeight: '600'}}><span style={{fontWeight: 'bolder'}}>{profileStats?.jobOffersMadeInLastMonth}</span> Made in the recent month</p>
                         </div>
                     </div>
                     <div className="row">
@@ -313,7 +313,7 @@ const Dashboard = () => {
                         <p className="statNo">{profileStats?.joinedLastWeek!==undefined ? profileStats?.joinedLastWeek : '-'}</p>
                         <div className="d-flex flex-column justify-content-center align-items-center stat-content">
                             <p className="sub-title-1">Joined In</p>
-                            <p className="sub-title-1">Last Hour</p>
+                            <p className="sub-title-1">Last One Week</p>
                         </div>
                     </div>
                     <div className="d-flex flex-row justify-content-center align-items-center flex-fill stat-widget">

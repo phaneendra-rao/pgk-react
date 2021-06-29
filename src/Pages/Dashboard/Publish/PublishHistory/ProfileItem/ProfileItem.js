@@ -78,14 +78,14 @@ const ProfileItem = (props) => {
 
   return (<>
       <div className="w-full d-flex justify-content-center align-items-center">
-      <div className="row align-items-center jobs-list-item w-full p-0" style={{height: '80px'}}>
+      <div className="row align-items-center jobs-list-item w-full p-0">
         <div className="col-md-2 row align-items-center p-0">
           <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center m-0">
-            <i className="fas fa-file-alt" style={{ color: "#ffffff" }}></i>
+            <i className="fas fa-building" style={{ color: "#ffffff" }}></i>
           </div>
           <p
             className="job-label text-ellipsis"
-            style={{ marginLeft: "14px", textTransform: "capitalize" }}
+            style={{ marginLeft: "14px", textTransform: "capitalize", fontWeight: 'bold' }}
           >
               {"Profile"}
           </p>
@@ -94,10 +94,15 @@ const ProfileItem = (props) => {
           <p className="job-published-date text-ellipsis" style={{maxWidth: '350px', fontSize: '.850rem'}}>{getProfileItemTagLine(props?.item)}</p>
         </div>
         <div className="col-md-2 item align-items-center">
+        <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
+          {props?.parentItem?.dateOfPublish
+              ? `Published on`
+              : "-"}
+          </p>
           <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
           {props?.parentItem?.dateOfPublish
-              ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
-                  "DD-MM-YYYY"
+              ? `${moment(props?.parentItem?.dateOfPublish).format(
+                  "DD-MMM-YYYY"
                 )}`
               : "-"}
           </p>

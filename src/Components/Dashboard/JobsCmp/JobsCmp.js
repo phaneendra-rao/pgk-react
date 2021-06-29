@@ -10,14 +10,14 @@ const JobsCmp = (props) => {
             <div className="d-flex flex-column justify-content-start align-items-center w-full">
                 <p className="heading">Jobs Created</p>
                 {props.allJobs && props.allJobs?.length 
-                    ? props.allJobs?.map((item, i) => <div className="row align-items-center jobs-list-item w-full" key={i}  style={{height: '80px'}}>
+                    ? props.allJobs?.map((item, i) => <div className="row align-items-center jobs-list-item w-full" key={i}>
                         <div className="col-md-2 row align-items-center p-0">
                                     <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
-                                        <i className="fas fa-cube" />
+                                        <i className="fas fa-briefcase" />
                                     </div>
-                                    <p className="job-label text-ellipsis" style={{marginLeft: '14px', maxWidth: '120px', textTransform:'capitalize'}}>{item.jobName}</p>
+                                    <p className="job-label text-ellipsis" style={{marginLeft: '14px', maxWidth: '120px', textTransform:'capitalize', fontWeight: 'bold'}}>{item.jobName}</p>
                                 </div>
-                                <div className="col-md-2">
+                                <div className="col-md-3">
                                     <div style={{border: '1px solid #454545', borderRadius: '4px', padding: '8px 4px',}}>
                                         <p className="text-ellipsis" style={{marginLeft: '10px', textTransform:'capitalize', fontSize: '.800rem'}}>{item.hiringCriteriaName}</p>
                                     </div>
@@ -30,11 +30,14 @@ const JobsCmp = (props) => {
                                 <div className="col-md-1">
                                 </div>
 
-                        <div className="col-md-3 item align-items-center">
+                                <div className="col-md-3 item align-items-center">
+                                    <p className="job-published-date" style={{color: '#454545'}}>
+                                        Created on
+                                    </p>
                                     <p className="job-published-date" style={{color: '#454545'}}>
                                         {item?.creationDate
-                                        ? `Created on ${moment(item?.creationDate).format(
-                                            "DD-MM-YYYY"
+                                        ? `${moment(item?.creationDate).format(
+                                            "DD-MMM-YYYY"
                                         )}`
                                         : "-"}
                                     </p>

@@ -1698,8 +1698,7 @@ body .main-body .page-body .welcome-widget {
 * Transaction page css
 */
 .transaction-container {
-    height: 250px; 
-    overflow: scroll;
+    height: 'auto'; 
 }
 
 .transaction-container .sub-transaction-item, .transaction-container .main-transaction-item {

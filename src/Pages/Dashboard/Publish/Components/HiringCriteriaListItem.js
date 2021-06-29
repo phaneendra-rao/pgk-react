@@ -241,14 +241,14 @@ const HiringCriteriaListItem = (props) => {
           }}
         />
       )}
-      <div className="row align-items-center jobs-list-item w-full p-0" style={{height: '80px'}}>
+      <div className="row align-items-center jobs-list-item w-full p-0">
         <div className="col-md-2 row align-items-center p-0">
           <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center m-0">
-            <i className="fas fa-cube" />
+            <i className="fas fa-file-alt" />
           </div>
           <p
             className="job-label text-ellipsis"
-            style={{ marginLeft: "14px", textTransform: "capitalize" }}
+            style={{ marginLeft: "14px", textTransform: "capitalize", fontWeight: 'bold' }}
           >
             {props?.item?.hiringCriteriaName
               ? props?.item?.hiringCriteriaName
@@ -261,8 +261,8 @@ const HiringCriteriaListItem = (props) => {
           </button>
         </div>
         <div
-          className={`col-md-${props?.checkHandler ? '2' : '5'} item align-items-center`}
-          style={{ minWidth: `${props?.checkHandler ? '320px' : '480px'}` }}
+          className={`col-md-5 item align-items-center`}
+          style={{ minWidth: `320px` }}
         >
           <p
             className="job-published-date text-ellipsis"
@@ -272,20 +272,26 @@ const HiringCriteriaListItem = (props) => {
           </p>
         </div>
         <div className={`col-md-2 item align-items-center`}>
+        <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
+            {props?.item?.creationDate
+              ? props?.item?.publishedFlag
+                ? `Published on`
+                : `Created on`
+              : "-"}
+          </p>
           <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
             {props?.item?.creationDate
               ? props?.item?.publishedFlag
-                ? `Published on ${moment(props?.item?.creationDate).format(
-                    "DD-MM-YYYY"
+                ? `${moment(props?.item?.creationDate).format(
+                    "DD-MMM-YYYY"
                   )}`
-                : `Created on ${moment(props?.item?.creationDate).format(
-                    "DD-MM-YYYY"
+                : `${moment(props?.item?.creationDate).format(
+                    "DD-MMM-YYYY"
                   )}`
               : "-"}
           </p>
         </div>
-        <div className={`col-md-${props?.checkHandler ? '2' : '4'} row item p-0 d-flex justify-content-between align-items-center w-full`}>
-          <div></div>
+        <div className={`col-md-4 row item p-0 d-flex justify-content-around align-items-center w-full`}>
           <div className="vertical-divider" />
           <button
             type="button"
@@ -307,26 +313,6 @@ const HiringCriteriaListItem = (props) => {
             <i className="fas fa-chevron-right"></i>
           </button>
         </div>
-        {props?.checkHandler && (
-          <div className="col-md-2 row item p-0 d-flex justify-content-between align-items-center w-full">
-            <button
-              type="button"
-              className="btn d-flex justify-content-around align-items-center"
-              style={{
-                height: "30px",
-                width: "100px",
-                fontSize: ".600rem",
-                borderRadius: "4px",
-              }}
-              disabled={!props?.isCheck}
-              onClick={() => {
-                props?.onPublish(props?.item?.hiringCriteriaID);
-              }}
-            >
-              <p>Publish</p>
-            </button>
-          </div>
-        )}
       </div>
       {isOpen && <CustomDialogPopup 
                 isOpenDialog={isOpen}

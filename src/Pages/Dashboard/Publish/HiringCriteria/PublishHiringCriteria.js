@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import HiringCriteriaListItem from "../Components/HiringCriteriaListItem";
 
@@ -117,10 +119,28 @@ const PublishHiringCriteria = (props) => {
     publishSelectedItems([id]);
   }
 
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <>
       <div className="page-body" style={{ marginTop: 30 }}>
-        <div
+        <p className="heading text-center" style={{fontWeight: "bold"}}>Publish Hiring Criteria</p>
+        <div className="row">
+          <Tabs
+            value={tabValue}
+            onChange={handleChange}
+            indicatorColor={'primary'}
+            style={{backgroundColor: 'white', width: '100%'}}
+          >
+            <Tab label="Publish Hiring Criteria" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+            <Tab label="Hiring Criteria History" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+          </Tabs>
+        </div>
+        {tabValue===0 && <div
           className="row published-jobs-section"
           style={{ marginTop: 0, paddingTop: 0 }}
         >
@@ -128,9 +148,6 @@ const PublishHiringCriteria = (props) => {
             className="d-flex flex-column justify-content-start align-items-center w-full"
             style={{ marginTop: 0, paddingTop: 0 }}
           >
-            <p className="heading" style={{ fontWeight: "bold" }}>
-              Publish Hiring Criteria
-            </p>
             {hiringCriteriaList?.length ? <div className="align-self-start d-flex justify-content-center align-items-center mb-3">
               <Checkbox size={'small'} color={'primary'} checked={selectAll} onChange={(e)=>{
                   onSelect("ALL");
@@ -161,47 +178,43 @@ const PublishHiringCriteria = (props) => {
                   />
                 );
               }) : ''}
-              {hiringCriteriaList?.length === 0 && <div className="row jobs-saved-section-list">
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p className="no-list-message w-full">
-            Nothing to display here
-          </p>
-        </div>
-      </div>}
+              {tabValue===0 && hiringCriteriaList?.length === 0 && <div className="row jobs-saved-section-list">
+                <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                  <p className="no-list-message w-full">
+                    Nothing to display here
+                  </p>
+                </div>
+              </div>}
           </div>
-        </div>
+        </div>}
+        {tabValue===1 ? publishedHiringCriteriaList.length ?
+                <div className="p-2">
+                  {publishedHiringCriteriaList.map((item, index) => {
+                  return (
+                    <HiringCriteriaListItem
+                      key={index}
+                      item={item}
+                      lookUpData={lookUpData}
+                    />
+                  );
+                })}
+                </div> :<div className="row jobs-saved-section-list">
+          <div className="d-flex flex-column justify-content-start align-items-center w-full">
+            <p className="no-list-message w-full">
+              Nothing to display here
+            </p>
+          </div>
+        </div> : null}
       </div>
-      <div className="row jobs-saved-section" style={{margin:0}}>
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p className="heading w-full">Published Hiring Criteria History</p>
-        </div>
-      </div>
-      {publishedHiringCriteriaList.length ?
-              <div className="p-2">
-                {publishedHiringCriteriaList.map((item, index) => {
-                return (
-                  <HiringCriteriaListItem
-                    key={index}
-                    item={item}
-                    lookUpData={lookUpData}
-                  />
-                );
-              })}
-              </div> :<div className="row jobs-saved-section-list">
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p className="no-list-message w-full">
-            Nothing to display here
-          </p>
-        </div>
-      </div>}
-      <CustomToastModal
+      
+      {showModal && <CustomToastModal
         onClose={() => {
           setShowModal(false);
         }}
         show={showModal}
         iconNameClass={"fa-file"}
-        message={"Selected Hiring Criteria Have been Published Successfully"}
-      />
+        message={"Selected Hiring Criteria(s) Published Successfully"}
+      />}
     </>
   );
 };

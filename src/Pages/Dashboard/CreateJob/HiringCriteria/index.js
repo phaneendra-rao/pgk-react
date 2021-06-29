@@ -7,6 +7,7 @@ import { AddHiringSagaAction, HiringSagaAction, actionPatchCorporateHiringCriter
 import HiringCriteriaForm from './HiringCriteriaForm';
 import HiringModal from './HiringModal';
 import CustomModal from '../../../../Components/CustomModal';
+import CustomToastModal from "../../../../Components/CustomToastModal";
 import CustomDialogPopup from '../../../../Components/CustomDialogPopup';
 
 // import getHiringCriteriaSaga from '../../../../Store/Sagas/HiringWatcherSaga';
@@ -149,6 +150,7 @@ const Index = () => {
   };
 
     const [isOpen, setIsOpen] = useState(false);
+    const [toastModal, setToastModal] = useState();
     const [lookUpData, setLookUpData] = useState([]);
     const [isNew, setIsNew] = useState(true);
     const [editable, setEditable] = useState(false);
@@ -269,7 +271,13 @@ const Index = () => {
             closeModel();
             setIsNew(true);
             setHiringCriteriaActualData();
-            setEditable(false);         
+            setEditable(false);        
+            
+            if(isNew) {
+              setToastModal('NEW')
+            } else {
+              setToastModal('UPDATE')
+            }
           }
         }));
       } else {
@@ -280,6 +288,12 @@ const Index = () => {
                 setIsNew(true);
                 setHiringCriteriaActualData();
                 setEditable(false);
+
+                if(isNew) {
+                  setToastModal('NEW')
+                } else {
+                  setToastModal('UPDATE')
+                }
             }
         }));
       }
@@ -312,6 +326,14 @@ const Index = () => {
                     editable={editable}
                     hiringCriteriaData={hiringCriteriaData}
                 />}
+            />}
+            {toastModal && <CustomToastModal
+              onClose={() => {
+                setToastModal();
+              }}
+              show={toastModal ? true : false}
+              iconNameClass={"fa-briefcase"}
+              message={toastModal === 'NEW' ? "Hiring Criteria Saved Successfully!" : "Hiring Criteria Updated Successfully!"}
             />}
         </>
     )

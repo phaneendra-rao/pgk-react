@@ -213,13 +213,7 @@ const UniversityCmp = (props) => {
             <div className={"col-md-6 item"}>
             </div>
             <div className={'col-md-2 item'}>
-              <button type="button" onClick={()=>{
-                if(props?.applyFilter) {
-                  props.applyFilter('PUBLISHED-DATA');
-                }
-              }} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
-                  Apply Filter
-              </button>
+
             </div>
           </div>
         </div>
@@ -310,13 +304,7 @@ const UniversityCmp = (props) => {
             <div className={"col-md-6 item"}>
             </div>
             <div className={'col-md-2 item'}>
-              <button type="button" onClick={()=>{
-                if(props?.applyFilter) {
-                  props.applyFilter('SUBCRIPTION');
-                }
-              }} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
-                  Apply Filter
-              </button>
+
             </div>
           </div>
         </div>

@@ -176,11 +176,10 @@ const viewDetails = (id) => {
       )}
       <div
         className="row align-items-center jobs-list-item w-full"
-        style={{ height: "80px" }}
       >
         <div className="col-md-2 row align-items-center p-0">
           <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
-            <i className="fas fa-cube" />
+            <i className="fas fa-briefcase" />
           </div>
           <p
             className="job-label text-ellipsis"
@@ -188,12 +187,13 @@ const viewDetails = (id) => {
               marginLeft: "14px",
               maxWidth: "120px",
               textTransform: "capitalize",
+              fontWeight: 'bold'
             }}
           >
             {props?.item?.jobName ? props?.item?.jobName : "-"}
           </p>
         </div>
-        <div className="col-md-2">
+        <div className="col-md-3">
           <div
             style={{
               border: "1px solid #454545",
@@ -233,21 +233,29 @@ const viewDetails = (id) => {
             </p>
           </div>
         </div>
-
-        <div className={`col-md-${props?.checkHandler ? '4' : '5'} item align-items-center`}>
-          <p className="job-published-date" style={{ color: "#454545", textAlign:'center', float:'right' }}>
+        <div className="col-md-1">
+        </div>
+        <div className={`col-md-3 item align-items-center`}>
+          <p className="job-published-date" style={{ color: "#454545", textAlign:'center' }}>
             {props?.item?.creationDate
               ? (props?.parentItem?.dateOfPublish || props?.item?.publishedFlag)
-                ? `Published on ${moment(props?.item?.dateOfPublish).format(
-                    "DD-MM-YYYY"
+                ? `Published on`
+                : `Created on`
+              : "-"}
+          </p>
+          <p className="job-published-date" style={{ color: "#454545", textAlign:'center'}}>
+            {props?.item?.creationDate
+              ? (props?.parentItem?.dateOfPublish || props?.item?.publishedFlag)
+                ? `${moment(props?.item?.dateOfPublish).format(
+                    "DD-MMM-YYYY"
                   )}`
-                : `Created on ${moment(props?.item?.creationDate).format(
-                    "DD-MM-YYYY"
+                : `${moment(props?.item?.creationDate).format(
+                    "DD-MMM-YYYY"
                   )}`
               : "-"}
           </p>
         </div>
-        <div className={`col-md-${props?.checkHandler ? '4' : '2'} row item p-0 d-flex justify-content-between align-items-center w-full`}>
+        <div className={`col-md-2 row item p-0 d-flex justify-content-between align-items-center w-full`}>
           <div className="vertical-divider" />
           <button
             type="button"
@@ -266,24 +274,6 @@ const viewDetails = (id) => {
             <p>Details</p>
             <i className="fas fa-chevron-right"></i>
           </button>
-          {props?.checkHandler && (
-            <button
-              type="button"
-              className="btn d-flex justify-content-around align-items-center"
-              style={{
-                height: "30px",
-                width: "100px",
-                fontSize: ".600rem",
-                borderRadius: "4px",
-              }}
-              disabled={!props?.isCheck}
-              onClick={() => {
-                props?.onPublish(props?.item?.jobID);
-              }}
-            >
-              <p>Publish</p>
-            </button>
-          )}
         </div>
       </div>
 
@@ -293,7 +283,7 @@ const viewDetails = (id) => {
           isCancelBtnRequired={false}
           isConfirmBtnRequired={false}
           disableBackdropClick={true}
-          contentStyles={{backgroundColor:'rgba(135, 139, 166, 0.31)', padding:'0px', paddingBottom: '12px'}}
+          contentStyles={{backgroundColor:'#F8F9FE', padding:'0px', paddingBottom: '12px'}}
           dialogContent={<AddJobs
               lookUpData={props?.lookUpData}
               hiringCriteria={props?.hiringCriteriaList}
@@ -304,73 +294,6 @@ const viewDetails = (id) => {
               }}
           />}
       />}
-
-      {/* <div className="d-flex flex-row justify-content-between align-items-center jobs-list-item w-full">
-        <div className="item d-flex flex-row justify-content-between align-items-center w-full">
-          <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
-            <i className="fas fa-cube"></i>
-          </div>
-          <p className="job-label">{props?.item?.jobName ? props?.item?.jobName : '-'}</p>
-          <select name="" onChange={()=>{}} className="form-control job-dropdown" value={props?.item?.hiringCriteriaID}>
-            <option value="">Select Hiring Criteria</option>
-            {props?.hiringCriteriaList?.map((item, index)=>{
-                return <option value={item?.hiringCriteriaID} key={index}>{item?.hiringCriteriaName}</option>
-            })}
-          </select>
-          <select name="" className="form-control job-dropdown">
-            <option value="">Open</option>
-          </select>
-          <p className="job-published-date">
-          {props?.item?.creationDate
-              ? props?.item?.publishedFlag ? `Published on ${moment(props?.item?.creationDate).format(
-                "DD-MM-YYYY"
-              )}` : `Created on ${moment(props?.item?.creationDate).format(
-                "DD-MM-YYYY"
-              )}`
-              : "-"}
-          </p>
-        </div>
-        <div className="vertical-divider"></div>
-        <div className="job-list-item-details-container d-flex flex-row justify-content-center align-items-center">
-        {props?.checkHandler && (
-            <button
-              type="button"
-              className="btn d-flex justify-content-around align-items-center"
-              style={{
-                height: "30px",
-                width: "100px",
-                fontSize: ".600rem",
-                borderRadius: "4px",
-              }}
-              disabled={!props?.isCheck}
-              onClick={() => {
-                props?.onPublish(props?.item?.jobID);
-              }}
-            >
-              <p>Publish</p>
-            </button>
-          )}
-
-        {props?.item?.publishedFlag && (
-            <button
-              type="button"
-              className="btn d-flex justify-content-around align-items-center"
-              style={{
-                height: "30px",
-                width: "100px",
-                fontSize: ".600rem",
-                borderRadius: "4px",
-              }}
-              onClick={() => {
-                props?.onJobView(props?.item?.jobID);
-              }}
-            >
-              <p>Details</p>
-              <i className="fas fa-chevron-right"></i>
-            </button>
-          )}
-        </div>
-      </div> */}
     </div>
   );
 };

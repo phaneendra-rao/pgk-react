@@ -63,7 +63,7 @@ function PgkTextField(props) {
             size={size}
             name={name}
             onChange={inputHandler}
-            value={value ? value.toString().trim() : ''}
+            value={value || ''}
             disabled={disabled}
             multiline={multiline}
             rows={minRows}

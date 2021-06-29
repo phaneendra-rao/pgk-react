@@ -604,7 +604,7 @@ const HiringCriteriaFormCmp = (props) => {
             <div className="text-center mt-4">
                 {props?.isNew || props?.editable ? <button type="button" onClick={props.handleSubmit} className="btn mr-4">Save</button> : null}
                 <button type="button" onClick={props.openCloseModal} data-dismiss="modal" className="btn">{props?.editable ? 'Cancel' : 'Close'}</button>
-                {!props?.editable && props?.editHc ? <button type="button" onClick={props?.editHc} className="btn ml-4">Edit</button> : null}
+                {!props?.editable && !props?.isNew && props?.editHc ? <button type="button" onClick={props?.editHc} className="btn ml-4">Edit</button> : null}
             </div>
         </form>
     )

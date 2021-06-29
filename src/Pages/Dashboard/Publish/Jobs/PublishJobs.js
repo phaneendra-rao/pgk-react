@@ -13,6 +13,8 @@ import moment from "moment";
 import CustomToastModal from "../../../../Components/CustomToastModal";
 import Checkbox from '@material-ui/core/Checkbox';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const PublishJobs = () => {
   const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
@@ -163,63 +165,73 @@ const PublishJobs = () => {
     }
   };
 
-  console.log('lookUpData ', lookUpData);
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
 
   return (
     <>
-    <div className="row published-jobs-section">
-      <div className="d-flex flex-column justify-content-start align-items-center w-full">
-        <p className="heading">Publish Jobs</p>
-        {(jobsList?.length && jobsList.some((item)=>!item.publishedFlag)) ? (
-          <div className="w-full d-flex justify-content-start align-content-center publish-selected-btn-container">
-            <Checkbox size={'small'} color={'primary'} checked={selectAll} onChange={(e)=>{
-                onSelect("ALL");
-            }} />
-            <button
-              type="button"
-              className="btn"
-              style={{ height: "35px", width: "100px", fontSize: ".700rem" }}
-              onClick={publishSelected}
-            >
-              Publish Selected
-            </button>
+      <div className="page-body" style={{ marginTop: 30 }}>
+      <p className="heading text-center" style={{fontWeight: "bold"}}>Publish Jobs</p>
+      <div className="row">
+        <Tabs
+          value={tabValue}
+          onChange={handleChange}
+          indicatorColor={'primary'}
+          style={{backgroundColor: 'white', width: '100%'}}
+        >
+          <Tab label="Publish Jobs" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+          <Tab label="Publish Jobs History" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+        </Tabs>
+      </div>
+      {tabValue===0 && <div className="row published-jobs-section">
+        <div className="d-flex flex-column justify-content-start align-items-center w-full">
+          {(jobsList?.length && jobsList.some((item)=>!item.publishedFlag)) ? (
+            <div className="w-full d-flex justify-content-start align-content-center publish-selected-btn-container">
+              <Checkbox size={'small'} color={'primary'} checked={selectAll} onChange={(e)=>{
+                  onSelect("ALL");
+              }} />
+              <button
+                type="button"
+                className="btn"
+                style={{ height: "35px", width: "100px", fontSize: ".700rem" }}
+                onClick={publishSelected}
+              >
+                Publish Selected
+              </button>
+            </div>
+          ) : (<div className="row jobs-saved-section-list">
+          <div className="d-flex flex-column justify-content-start align-items-center w-full">
+            <p className="no-list-message w-full">
+              Create a new job to publish
+            </p>
           </div>
-        ) : (<div className="row jobs-saved-section-list">
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p className="no-list-message w-full">
-            Create a new job to publish
-          </p>
+        </div>)
+        }
+          {jobsList?.length &&
+            jobsList.map((item, index) => {
+              if(!item.publishedFlag) {
+                return (
+                  <JobsListItem
+                    key={index}
+                    item={item}
+                    hiringCriteriaList={hiringCriteriaList}
+                    lookUpData={lookUpData}
+                    checkHandler={onCheckHandler}
+                    onPublish={() => {
+                      finalSubmit(item.jobID);
+                    }}
+                    isCheck={selectedItems.includes(item?.jobID) ? true : false}
+                  />
+                );
+              }
+            })}
         </div>
-      </div>)
-      }
+      </div>}
+      {tabValue===1 && <div style={{padding: '12px'}}>
         {jobsList?.length &&
-          jobsList.map((item, index) => {
-            if(!item.publishedFlag) {
-              return (
-                <JobsListItem
-                  key={index}
-                  item={item}
-                  hiringCriteriaList={hiringCriteriaList}
-                  lookUpData={lookUpData}
-                  checkHandler={onCheckHandler}
-                  onPublish={() => {
-                    finalSubmit(item.jobID);
-                  }}
-                  isCheck={selectedItems.includes(item?.jobID) ? true : false}
-                />
-              );
-            }
-          })}
-      </div>
-    </div>
-
-      <div className="row jobs-saved-section" style={{margin:0}}>
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p className="heading w-full">Published Jobs History</p>
-        </div>
-      </div>
-     <div style={{padding: '12px'}}>
-     {jobsList?.length &&
           jobsList.map((item, index) => {
             if(item.publishedFlag) {
               return (
@@ -232,7 +244,8 @@ const PublishJobs = () => {
               );
             }
           })}
-     </div>
+     </div>}
+
       {<CustomToastModal
         onClose={() => {
             setShowToastModal(false);
@@ -241,6 +254,7 @@ const PublishJobs = () => {
         iconNameClass={"fa-briefcase"}
         message={"Selected Job/Jobs Have been Published Successfully"}
       />}
+      </div>
     </>
   );
 };

@@ -10,6 +10,9 @@ import moment from "moment";
 import CustomModal from "../../../Components/CustomModal";
 import PgkTextField from "../../../Components/FormFields/PgkTextField";
 
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
 const CampusDrive = () => {
   const dispatch = useDispatch();
 
@@ -110,30 +113,34 @@ const CampusDrive = () => {
     }
   };
 
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <>
       <div className="main" style={{ marginTop: "10px", marginBottom: "0px" }}>
-        <h3 className="main-title" style={{ color: "#878BA6" }}>
-          CAMPUS DRIVE
+        <h3 className="main-title">
+          Requests
         </h3>
       </div>
-      <div className="row jobs-saved-section" style={{ margin: "0px" }}>
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p
-            className="heading w-full"
-            style={{
-              textAlign: "left",
-              backgroundColor: "#BCBECC",
-              color: "black",
-              fontSize: "1.2rem",
-              fontWeight: "bolder",
-            }}
+      <div className="row w-full">
+          <Tabs
+            value={tabValue}
+            onChange={handleChange}
+            indicatorColor={'primary'}
+            style={{backgroundColor: 'white', width: '100%'}}
           >
-            Requests Received
-          </p>
+            <Tab label="Requests Received" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+            <Tab label="Requests Received History" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+            <Tab label="Requests Sent" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+            <Tab label="Requests Sent History" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+          </Tabs>
         </div>
-      </div>
-      <div style={{ height: "200px", overflow: "scroll" }}>
+      {tabValue===0 && <div>
+        {!requests?.some(item => item.campusDriveStatus?.toLowerCase() === 'pending') && <p className="text-center">No new requests received!</p>}
         {requests.map((item) => {
           if (item?.campusDriveStatus?.toLowerCase() === "pending") {
             return (
@@ -205,20 +212,9 @@ const CampusDrive = () => {
             );
           }
         })}
-      </div>
-      <div className="main" style={{ margin: "0px", padding: "10px" }}>
-        <h3
-          style={{
-            color: "#878BA6",
-            fontWeight: "600",
-            fontSize: "1.6rem",
-            textAlign: "center",
-          }}
-        >
-          History
-        </h3>
-      </div>
-      <div style={{ height: "200px", overflow: "scroll" }}>
+      </div>}
+      {tabValue === 1 && <div>
+        {!requests?.some(item =>  ['accepted', 'rejected'].includes(item?.campusDriveStatus?.toLowerCase())) && <p className="text-center">No received requests history!</p>}
         {requests.map((item) => {
           if (
             item?.campusDriveStatus?.toLowerCase() === "accepted" ||
@@ -307,24 +303,10 @@ const CampusDrive = () => {
             );
           }
         })}
-      </div>
-      <div className="row jobs-saved-section" style={{ margin: "0px" }}>
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p
-            className="heading w-full"
-            style={{
-              textAlign: "left",
-              backgroundColor: "#BCBECC",
-              color: "black",
-              fontSize: "1.2rem",
-              fontWeight: "bolder",
-            }}
-          >
-            Requests Sent
-          </p>
-        </div>
-      </div>
-      <div style={{ height: "200px", overflow: "scroll" }}>
+      </div>}
+      {tabValue===2 && <div>
+      {!sentRequests?.some(item => item.campusDriveStatus?.toLowerCase() === 'pending') && <p className="text-center">No new requests sent!</p>}
+
         {sentRequests.map((item) => {
           if (item?.campusDriveStatus?.toLowerCase() === "pending") {
             return (
@@ -376,20 +358,10 @@ const CampusDrive = () => {
             );
           }
         })}
-      </div>
-      <div className="main" style={{ margin: "0px", padding: "10px" }}>
-        <h3
-          style={{
-            color: "#878BA6",
-            fontWeight: "600",
-            fontSize: "1.6rem",
-            textAlign: "center",
-          }}
-        >
-          History
-        </h3>
-      </div>
-      <div style={{ height: "200px", overflow: "scroll" }}>
+      </div>}
+      
+      {tabValue===3 && <div>
+        {!sentRequests?.some(item =>  ['accepted', 'rejected'].includes(item?.campusDriveStatus?.toLowerCase())) && <p className="text-center">No sent requests history!</p>}
         {sentRequests.map((item) => {
           if (
             item?.campusDriveStatus?.toLowerCase() === "accepted" ||
@@ -487,7 +459,7 @@ const CampusDrive = () => {
             );
           }
         })}
-      </div>
+      </div>}
 
       {showModal ? (
         <CustomModal show={showModal} modalStyles={{ maxWidth: `${notificationStatus==='REQUEST-SENT' ? '70%' : '35%'}` }}>

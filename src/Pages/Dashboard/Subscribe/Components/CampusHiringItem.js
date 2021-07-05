@@ -17,10 +17,7 @@ const CampusHiringItem = (props) => {
         notificationId: id
       },
       callback: (response) => {
-        console.log('response ', response);
-        console.log('hc ', JSON.parse(response?.content));
         const content = JSON.parse(response?.content);
-        console.log('content ', content);
         setHiringItem(content?.requestContent ? content?.requestContent : content);
         setShowModal(true);
       }
@@ -70,8 +67,8 @@ const CampusHiringItem = (props) => {
 
      {showModal && <CustomModal show={showModal} modalStyles={{minWidth: '70%'}}>
       <div className={'mail-modal'}>
-      <div className="modal-header d-block">
-        <span className="modal-title" style={{fontSize: '1.1rem', padding: 6}}>
+      <div className="modal-header d-block" style={{padding: '26px'}}>
+        <span className="modal-title" style={{fontSize: '1.1rem', padding: 0}}>
           Mail sent to {props?.item?.publisherName} University requesting Campus
           Placement Drive
         </span>
@@ -84,7 +81,7 @@ const CampusHiringItem = (props) => {
         />
       </div>
       <div className="modal-body">
-        <div className="card">
+        <div className="card d-none">
           <span className="control-label" style={{fontSize: '1rem'}}>From&nbsp;:</span>
           <input
             type="email"
@@ -94,7 +91,7 @@ const CampusHiringItem = (props) => {
             readOnly
           />
         </div>
-        <div className="card">
+        <div className="card d-none">
           <span className="control-label" style={{fontSize: '1rem'}}>To&nbsp;:</span>
           <input
             type="email"
@@ -104,7 +101,7 @@ const CampusHiringItem = (props) => {
             readOnly
           />
         </div>
-        <div className="card">
+        <div className="card" style={{padding: '12px 20px'}}>
           <span className="control-label" style={{fontSize: '1rem'}}>Subject&nbsp;:</span>
           <input
             type="text"
@@ -114,12 +111,11 @@ const CampusHiringItem = (props) => {
             readOnly
           />
         </div>
-        <div className="card b-none">
+        <div className="card" style={{minWidth: '100%', padding: '20px'}}>
           <textarea
             name="emailBody"
-            style={{fontSize: '.850rem'}}
+            style={{ fontSize: '.850rem', minWidth: '100%', minHeight: '400px' }}
             defaultValue={hiringItem?.emailBody}
-            rows={5}
             readOnly
           />
         </div>

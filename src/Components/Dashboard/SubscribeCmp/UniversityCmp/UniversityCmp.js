@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import OtherInformationItem from "../../../../Pages/Dashboard/Subscribe/Components/OtherInformationItem";
 import UniversityItem from "../../../../Pages/Dashboard/Subscribe/Components/UniversityItem";
 import StudentListItem from "../../../../Pages/Dashboard/Subscribe/Components/StudentListItem";
@@ -6,8 +6,22 @@ import CampusHiringItem from "../../../../Pages/Dashboard/Subscribe/Components/C
 import ProfileInfoItem from '../../../../Pages/Dashboard/Subscribe/Components/ProfileInfoItem';
 
 import PgkSelectField from '../../../../Components/FormFields/PgkSelectField';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const UniversityCmp = (props) => {
+
+  const [publishTabValue, setPublishTabValue] = useState(0);
+  const [subscriptionTabValue, setSubscriptionTabValue] = useState(0);
+
+  const handlePublishChange = (event, newValue) => {
+    setPublishTabValue(newValue);
+  };
+
+  const handleSubscriptionChange = (event, newValue) => {
+    setSubscriptionTabValue(newValue);
+  };
+
   return (
     <>
       <div className="row single-university-section">
@@ -166,7 +180,7 @@ const UniversityCmp = (props) => {
         </div>
         <div className={"blueHeaderStrip w-full"} style={{marginTop: '15px', paddingBottom:'0px'}}>
           <div className={"row align-items-center"}>
-            <div className={"col-md-2 item"}>
+            <div className={"col-md-2 item d-none"}>
               <div className={"mb-0"}>
                 <PgkSelectField 
                     name="subscriptionType"
@@ -257,7 +271,7 @@ const UniversityCmp = (props) => {
         </div>
         <div className={"blueHeaderStrip w-full"} style={{marginTop: '15px', paddingBottom:'0px'}}>
           <div className={"row align-items-center"}>
-            <div className={"col-md-2 item"}>
+            <div className={"col-md-2 item d-none"}>
               <div className={"mb-0"}>
                 <PgkSelectField 
                     name="subscriptionType"

@@ -90,10 +90,10 @@ const ProfileItem = (props) => {
               {"Profile"}
           </p>
         </div>
-        <div className="col-md-6 align-items-center">
-          <p className="job-published-date text-ellipsis" style={{maxWidth: '350px', fontSize: '.850rem'}}>{getProfileItemTagLine(props?.item)}</p>
+        <div className="col-md-5 align-items-center">
+          <p className="job-published-date text-ellipsis" style={{maxWidth: '450px', fontSize: '.850rem'}}>{getProfileItemTagLine(props?.item)}</p>
         </div>
-        <div className="col-md-2 item align-items-center">
+        <div className="col-md-3 item align-items-center">
         <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
           {props?.parentItem?.dateOfPublish
               ? `Published on`

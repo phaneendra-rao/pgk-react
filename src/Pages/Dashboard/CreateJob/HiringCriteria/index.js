@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HiringCriteriaCmp from '../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaCmp';
 import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
-import { AddHiringSagaAction, HiringSagaAction, actionPatchCorporateHiringCriteriaRequest } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
+import { AddHiringSagaAction, HiringSagaAction, actionPatchCorporateHiringCriteriaRequest, actionCloneHiringCriteriaRequest } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import HiringCriteriaForm from './HiringCriteriaForm';
 import HiringModal from './HiringModal';
 import CustomModal from '../../../../Components/CustomModal';
@@ -299,6 +299,18 @@ const Index = () => {
       }
     }
 
+    const cloneHiringCriteria = (id) => {
+      dispatch(actionCloneHiringCriteriaRequest({
+        apiPayloadRequest:{
+          hiringCriteriaId: id
+        },
+        callback: (response) => {
+          console.log('response ', response);
+          getHiring();
+        }
+      }))
+    }
+
     return (
         <>
             <HiringCriteriaCmp
@@ -306,6 +318,7 @@ const Index = () => {
                 detailsModal={(item)=>{
                   detailsModal(item)
                 }}
+                cloneHiringCriteria={cloneHiringCriteria}
                 // hiringCriteria={hiringCriteria?.filter(item=>item?.publishedFlag===false)}
                 hiringCriteria={hiringCriteriaList}
             />

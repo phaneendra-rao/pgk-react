@@ -96,7 +96,7 @@ const SubscriptionHistory = () => {
                 />
               </div>
             </div>
-            <div className={'col-md-2 item'}>
+            <div className={'col-md-2 item d-none'}>
               <div className={'d-grp'}>
                 <PgkSelectField 
                     name="subscriptionType"

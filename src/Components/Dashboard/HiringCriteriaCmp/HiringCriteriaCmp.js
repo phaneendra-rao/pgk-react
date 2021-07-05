@@ -1,6 +1,8 @@
 import React from 'react'
 import moment from "moment";
 import { useSelector } from 'react-redux';
+import IconButton from '@material-ui/core/IconButton';
+import FileCopy from '@material-ui/icons/FileCopy';
 
 const HiringCriteriaCmp = (props) => {
     const apiStatus = useSelector(state => state.DashboardReducer.apiStatus);
@@ -66,6 +68,9 @@ const HiringCriteriaCmp = (props) => {
                                         <p>Details</p>
                                         <i className="fas fa-chevron-right"></i>
                                     </button>
+                                    <IconButton aria-label="copy" onClick={()=>{props.cloneHiringCriteria(item?.hiringCriteriaID)}}>
+                                        <FileCopy fontSize="small" color={'primary'} />
+                                    </IconButton>
                                 </div>
                             </div>) : apiStatus ? 'Loading...' : 'No hiring criteria records found, Please add to continue.'}
                     <button type="button" onClick={props.openCloseModal} className="btn add-job-btn" style={{height: '20px'}}>

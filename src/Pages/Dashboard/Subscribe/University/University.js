@@ -50,7 +50,7 @@ const University = (props) => {
     const [otherInfo, setOtherInfo] = useState();
 
     const [sendMailObj, setSendMailObj] = useState({
-        emailTo: '',
+        emailTo: 'jaswanth@gmail.com',
         emailSubject: '',
         emailBody: ''
     });
@@ -96,6 +96,11 @@ const University = (props) => {
         setUniversityInfoPublishedList(data?.publishedData?.length ? data.publishedData : []);
 
         setUniversityInfo(data);
+        setSendMailObj(prevState => ({
+            ...prevState,
+            emailSubject: `Request for Campus Drive : ${data?.universityName}`,
+            emailBody: `Dear Sir/Madam,\n\nThis is with regards to the subject line, we <<Company_Name>> <<Company_Address>> would be interested in conducting a recruitment drive in your organization to recruit the final / pre-final year students.\n\nAppreciate if you could revert with your interest to take the process forward using the below link:\n<<link of Campus Drive page of university module>>\n\nYours Sincerely,\n\n<<Primary_contact_org>>\n<<Designation>>\n<<Company_Name>>\n\nNote: Please do not reply to this eamil as this is an unattended mail box.\n\n`
+        }));
     }
 
     const getUniversityHistoryList = (data) => {
@@ -231,7 +236,7 @@ const University = (props) => {
 
     const sendMail = (data) => {
         const model = {
-            ...data,
+            ...sendMailObj,
             campusDriveID: campusDriveID,
             emailFrom: email,
         }
@@ -251,11 +256,13 @@ const University = (props) => {
                 ...prevState,
                 [name]: value
             }))
+            applyFilter('SUBSCRIPTION')
         } else {
             setPublishedDataFilter((prevState)=>({
                 ...prevState,
                 [name]: value
             }))
+            applyFilter('PUBLISHED-DATA')
         }
     }
 
@@ -362,11 +369,11 @@ const University = (props) => {
             </CustomModal>}
 
             {/* SEND MAIL TO UNVIERSITY */}
-            {isSendOpen && <CustomModal show={isSendOpen} modalStyles={{ minWidth: "80%" }}>
+            {isSendOpen && <CustomModal show={isSendOpen} modalStyles={{ minWidth: "65%" }}>
                 <UniversitySendMail
                     email={email}
-                    emailTo={'jaswanth@gmail.com'}
-                    emailSubject={'Campus Hiring Request'}
+                    emailTo={sendMailObj?.emailTo}
+                    emailSubject={sendMailObj?.emailSubject}
                     emailBody={sendMailObj?.emailBody}
                     universityName={universityInfo?.universityName}
                     handleChange={handleChange}

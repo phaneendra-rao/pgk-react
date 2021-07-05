@@ -81,7 +81,7 @@ const OtherInformationItem = (props) => {
               style={{ fontSize: "1rem" }}
               id="exampleModalLabel"
             >
-              Published Information Details
+              Other Information : {props?.item?.publisherName}
             </h5>
             <button
               type="button"

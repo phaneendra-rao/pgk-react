@@ -7,7 +7,8 @@ import {
     ACTION_POST_CORPORATE_HIRING_REQUEST,
     ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST,
     ACTION_GET_CORPORATE_HIRING_BYID_REQUEST,
-    ACTION_PATCH_CORPORATE_HIRING_REQUEST
+    ACTION_PATCH_CORPORATE_HIRING_REQUEST,
+    ACTION_CLONE_CORPORATE_HIRING_REQUEST
 } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
@@ -138,10 +139,39 @@ function* patchPublishCorporateHiringRequest(action) {
     }
 }
 
+// CLONE HIRING CRITERIA
+function cloneHiringCriteriaRequest (hiringCriteriaId) {
+    const URL = '/p/crp/hiringCriteria/clone/'+hiringCriteriaId;
+    return Axios.get(URL).then(resp => resp.data);
+}
+
+function* cloneHiringCriteriaRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        if(action.payload.apiPayloadRequest?.hiringCriteriaId) {
+            const response = yield call(cloneHiringCriteriaRequest, action.payload.apiPayloadRequest?.hiringCriteriaId);
+
+            if(action.payload.callback) {
+                action.payload.callback(response);
+            }
+        }
+    } catch (err) {
+        if (err.response) {
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
 export default function* HiringWatcherSaga() {
     yield takeLatest(ACTION_GET_CORPORATE_HIRING_REQUEST, getHiringCriteriaSaga);
     yield takeLatest(ACTION_POST_CORPORATE_HIRING_REQUEST, addHiringCriteriaSaga);
     yield takeLatest(ACTION_POST_PUBLISH_CORPORATE_HIRING_REQUEST, postPublishCorporateHiringRequest);
     yield takeLatest(ACTION_GET_CORPORATE_HIRING_BYID_REQUEST, getCorporateHiringByIdRequestSaga);
     yield takeLatest(ACTION_PATCH_CORPORATE_HIRING_REQUEST, patchPublishCorporateHiringRequest);
+    yield takeLatest(ACTION_CLONE_CORPORATE_HIRING_REQUEST, cloneHiringCriteriaRequestSaga);
 }

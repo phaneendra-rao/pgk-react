@@ -26,19 +26,19 @@ const Support = () => {
       value: undefined,
       errorMessage: undefined,
       isRequired: true,
-      isDisabled: false
+      isDisabled: true
     },
     contactEmail: {
       value: undefined,
       errorMessage: undefined,
       isRequired: true,
-      isDisabled: false
+      isDisabled: true
     },
     contactPhone: {
       value: undefined,
       errorMessage: undefined,
       isRequired: true,
-      isDisabled: false
+      isDisabled: true
     },
     queryOrIssue: {
       value: undefined,
@@ -61,6 +61,18 @@ const Support = () => {
         stakeholderID: {
           ...prevState.stakeholderID,
           value: profileInfo.stakeholderID
+        },
+        contactPerson: {
+          ...prevState.contactPerson,
+          value: profileInfo.primaryContactFirstName.trim()+' '+profileInfo.primaryContactMiddleName.trim()+' '+profileInfo.primaryContactLastName
+        },
+        contactEmail: {
+          ...prevState.contactEmail,
+          value: profileInfo.primaryContactEmail
+        },
+        contactPhone: {
+          ...prevState.contactPhone,
+          value: parseInt(profileInfo.primaryContactPhone)
         }
       }));
     }
@@ -125,7 +137,7 @@ const Support = () => {
                 </p>
             <div className="row">
               <div className="col-md">
-                <div className="d-grp">
+                <div className="mb-20">
                   <PgkTextField
                     name="stakeholderID"
                     value={formData?.stakeholderID?.value}
@@ -137,7 +149,7 @@ const Support = () => {
                 </div>
               </div>
               <div className="col-md">
-                <div className="d-grp">
+                <div className="mb-20">
                   <PgkTextField
                     name="contactPerson"
                     value={formData?.contactPerson?.value}
@@ -151,7 +163,7 @@ const Support = () => {
               </div>
               <div className="w-100"></div>
               <div className="col-md">
-                <div className="d-grp">
+                <div className="mb-20">
                   <PgkTextField
                     name="contactEmail"
                     value={formData?.contactEmail?.value}
@@ -165,7 +177,7 @@ const Support = () => {
                 </div>
               </div>
               <div className="col-md">
-                <div className="d-grp">
+                <div className="mb-20">
                   <PgkTextField
                     name="contactPhone"
                     value={formData?.contactPhone?.value}
@@ -180,7 +192,7 @@ const Support = () => {
               </div>
               <div className="w-100"></div>
               <div className="col-md">
-                <div className="d-grp">
+                <div className="mb-20">
                   <PgkTextField
                     name="queryOrIssue"
                     value={formData?.queryOrIssue?.value}

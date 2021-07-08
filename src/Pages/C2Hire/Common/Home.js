@@ -1,43 +1,37 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { homeStatsData } from '../Services';
+import { homeStatsData } from "../Services";
 
 function C2hireHome() {
-
-const [homeStats, setHomeStats] = useState({});
-const [count, setCount] = useState(0);
+  const [homeStats, setHomeStats] = useState({});
+  const [count, setCount] = useState(0);
 
   const getHomeStats = async () => {
     const result = await homeStatsData();
 
-    if(result.data){
+    if (result.data) {
       setHomeStats(result.data);
     }
+  };
 
-  }
+  useEffect(()=>{getHomeStats();},[])
 
-
-
-  useEffect(()=>{
-    getHomeStats();
+  useEffect(() => {
     setTimeout(() => {
-      setCount(1+count%flashTexts.length)
+      setCount(1 + (count % flashTexts.length));
     }, 2000);
-  },[count]
-  
-  )
-
+  }, [count]);
 
   const flashTexts = [
     "A marketplace to collaborateand hire.",
     "Earn credits as you Register and Publish.",
     "Token Payments.",
     "Futuristic Model : On demand subscription.",
-    "In-built analytics engine."
-];
+    "In-built analytics engine.",
+  ];
 
   const settings = {
     dots: true,
@@ -47,23 +41,25 @@ const [count, setCount] = useState(0);
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 478,
+        breakpoint: 620,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
+        },
+      },
+      {
+        breakpoint: 1020,
+        settings: {
+          slidesToShow: 2,
         },
       },
     ],
   };
 
-
   return (
     <section className="c2hirePage-body landing-page">
       <img
         className="landing-bg-img2"
-        src="../../../images/c2hire/img/Group 591.svg"
+        src="../../../images/c2hire/img/Group 591.png"
         alt=""
         height="240px"
         width="230px"
@@ -103,17 +99,16 @@ const [count, setCount] = useState(0);
                       className="c2hire-platform"
                       playing={true}
                       controls={true}
+                      responsive={true}
                       light={true}
+                      //light="../images/c2hire/img/platform-thumbnail.png"
                       url="https://player.vimeo.com/video/562748881?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                     />
                   </div>
                 </div>
                 <p className="vidBtm-text">
                   {flashTexts[count] || "Validated and Verified profiles."}
-                </p>                                
-                                    
-
-
+                </p>
               </div>
             </div>
           </div>
@@ -145,7 +140,10 @@ const [count, setCount] = useState(0);
               <div>
                 <div className="comments-detail-block light-slider-box">
                   <div className="d-flex flex-column">
-                    <i className="fas fa-quote-left quote-icon"></i>
+                    <img
+                      className="quote-icon"
+                      src="../../../images/c2hire/icon/quotes.png"
+                    />
                     <div className="d-flex justify-content-center">
                       <span className="circle"></span>
                     </div>
@@ -162,7 +160,10 @@ const [count, setCount] = useState(0);
               <div>
                 <div className="comments-detail-block light-slider-box">
                   <div className="d-flex flex-column">
-                    <i className="fas fa-quote-left quote-icon"></i>
+                    <img
+                      className="quote-icon"
+                      src="../../../images/c2hire/icon/quotes.png"
+                    />
                     <div className="d-flex justify-content-center">
                       <span className="circle"></span>
                     </div>
@@ -178,7 +179,10 @@ const [count, setCount] = useState(0);
               </div>
               <div>
                 <div className="comments-detail-block light-slider-box">
-                  <i className="fas fa-quote-left quote-icon"></i>
+                  <img
+                    className="quote-icon"
+                    src="../../../images/c2hire/icon/quotes.png"
+                  />
                   <div className="d-flex flex-column">
                     <div className="d-flex justify-content-center">
                       <span className="circle"></span>
@@ -264,7 +268,9 @@ const [count, setCount] = useState(0);
         </div>
         <div className="row Stats">
           <div className="col-lg-4 col-sm-12 col-md-6 stat-widget">
-            <p className="statNo">{homeStats.studentsRegisteredInLastWeek || 0}</p>
+            <p className="statNo">
+              {homeStats.studentsRegisteredInLastWeek || 0}
+            </p>
             <div className="d-flex align-items-center stat-content">
               <p className="title">
                 Student Registered <br /> in The Last week
@@ -299,7 +305,9 @@ const [count, setCount] = useState(0);
                   width="64px"
                   alt=""
                 />
-                <p className="text-center value">{homeStats.studentsRegistered || 0}</p>
+                <p className="text-center value">
+                  {homeStats.studentsRegistered || 0}
+                </p>
                 <p className="text">STUDENTS REGISTERED TILL DATE</p>
               </div>
             </div>
@@ -313,7 +321,9 @@ const [count, setCount] = useState(0);
                   width="64px"
                   alt=""
                 />
-                <p className="text-center value">{homeStats.candidatesHiredSoFar || 0}</p>
+                <p className="text-center value">
+                  {homeStats.candidatesHiredSoFar || 0}
+                </p>
                 <p className="text">CANDIDATES GOT HIRED SO FAR</p>
               </div>
             </div>
@@ -327,7 +337,9 @@ const [count, setCount] = useState(0);
                   width="64px"
                   alt=""
                 />
-                <p className="text-center value">{homeStats.jobsPostedTillDate || 0}</p>
+                <p className="text-center value">
+                  {homeStats.jobsPostedTillDate || 0}
+                </p>
                 <p className="text">JOBS POSTED TILL DATE</p>
               </div>
             </div>
@@ -339,7 +351,9 @@ const [count, setCount] = useState(0);
               <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                 <p className="title">Corporates</p>
                 <p className="sub-title">Registered</p>
-                <p className="stat-info-no">{homeStats.corporatesRegistered || 0}</p>
+                <p className="stat-info-no">
+                  {homeStats.corporatesRegistered || 0}
+                </p>
               </div>
               <i className="fas fa-briefcase stat-icons"></i>
             </div>
@@ -349,7 +363,9 @@ const [count, setCount] = useState(0);
               <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                 <p className="title">Universities</p>
                 <p className="sub-title">Registered</p>
-                <p className="stat-info-no">{homeStats.universitiesRegistered || 0}</p>
+                <p className="stat-info-no">
+                  {homeStats.universitiesRegistered || 0}
+                </p>
               </div>
               <i className="fas fa-university stat-icons"></i>
             </div>
@@ -359,7 +375,9 @@ const [count, setCount] = useState(0);
               <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                 <p className="title">Students</p>
                 <p className="sub-title">Registered</p>
-                <p className="stat-info-no">{homeStats.studentsRegistered || 0}</p>
+                <p className="stat-info-no">
+                  {homeStats.studentsRegistered || 0}
+                </p>
               </div>
               <i className="fas fa-user-circle stat-icons"></i>
             </div>

@@ -5,7 +5,7 @@ function PrivacyPolicy() {
     <section className="c2hirePage-body policy-terms">
       <img
         className="landing-bg-img2"
-        src="../../../images/c2hire/img/Group 591.svg"
+        src="../../../images/c2hire/img/Group 591.png"
         alt=""
         height="240px"
         width="230px"

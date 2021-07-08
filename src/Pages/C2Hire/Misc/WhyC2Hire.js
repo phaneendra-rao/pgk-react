@@ -6,7 +6,7 @@ function WhyC2Hire() {
     <section className="c2hirePage-body policy-terms whyC2hire">
       <img
         className="landing-bg-img2"
-        src="../../../images/c2hire/img/Group 591.svg"
+        src="../../../images/c2hire/img/Group 591.png"
         alt=""
         height="240px"
         width="230px"
@@ -71,11 +71,13 @@ function WhyC2Hire() {
             </p>
             <p>
               We have bundle of features in store for each one of you that will
-              unbox as you take the path <br /> - Let's
+              unbox as you take the path <br /> - Let's &nbsp;
               <label>JOIN. COLLABORATE. SUCCEED.</label>
             </p>
             <p> Team C2Hire.</p>
-            <label><a href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a></label>
+            <label>
+              <a href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a>
+            </label>
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
 import React from "react";
 import Map from "../Components/Map";
-import { C2HIRE_EMAIL, CONTACT_LOCATION } from "../constants";
+import { ADDRESS, C2HIRE_EMAIL, CONTACT_LOCATION } from "../constants";
 
 function ContactUs() {
   return (
     <section className="c2hirePage-body policy-terms contact-Us">
       <img
         className="landing-bg-img2"
-        src="../../../images/c2hire/img/Group 591.svg"
+        src="../../../images/c2hire/img/Group 591.png"
         alt=""
         height="240px"
         width="230px"
@@ -38,15 +38,21 @@ function ContactUs() {
                 <div className="circle">
                   <img src="../../../images/c2hire/icon/email.svg" alt="" />
                 </div>
-                <p><a style={{color:"white"}} href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a></p>
+                <p>
+                  <a
+                    style={{ color: "white" }}
+                    href="mailto:contact@c2hire.com"
+                  >
+                    {C2HIRE_EMAIL}
+                  </a>
+                </p>
               </div>
               <div className="contact-info">
                 <div className="circle">
                   <img src="../../../images/c2hire/icon/location.svg" alt="" />
                 </div>
                 <p>
-                  Plot no 32, Jayabheri Enclave Phase-2, Gachibowli, Hyderabad -
-                  500032.
+                  {ADDRESS}
                 </p>
               </div>
             </div>
@@ -79,12 +85,6 @@ function ContactUs() {
                 </div>
                 <div className="row form-group">
                   <div className="col-12 input-field">
-                    <label></label>
-                    <input type="text" />
-                  </div>
-                </div>
-                <div className="row form-group">
-                  <div className="col-12 input-field">
                     <label>Company name (optional)</label>
                     <input type="text" />
                   </div>
@@ -106,7 +106,7 @@ function ContactUs() {
               </form>
             </div>
           </div>
-          <Map location={CONTACT_LOCATION}/>
+          <Map location={CONTACT_LOCATION} />
         </div>
       </div>
     </section>

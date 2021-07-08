@@ -2,6 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 function C2hireHeader() {
+  // $("#navbarSupportedContent").on("show.bs.collapse", function () {
+  //   $("a.nav-link").click(function () {
+  //     $("#navbarSupportedContent").collapse("hide");
+  //   });
+  // });
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container">
@@ -17,7 +22,8 @@ function C2hireHeader() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <i className="fas fa-bars"></i>
+          <span></span>
+          <span></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContentXL">
           <ul className="navbar-nav ml-auto">

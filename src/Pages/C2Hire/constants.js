@@ -16,3 +16,5 @@ export const CONTACT_LOCATION = "https://www.google.com/maps/embed?pb=!1m18!1m12
 
 export const C2HIRE_EMAIL = "contact@c2hire.com";
 export const C2HIRE_URL = "https://c2hire.com";
+
+export const ADDRESS = "Plot no 33, Jayabheri Enclave Phase-2, Gachibowli, Hyderabad - 500032."

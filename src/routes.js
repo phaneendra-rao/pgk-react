@@ -70,6 +70,9 @@ const Notifications = React.lazy(() =>
 );
 const Analytics = React.lazy(()=> import("./Pages/Dashboard/Analytics/Analytics"));
 const Requests = React.lazy(()=>import("./Pages/Dashboard/Requests/Requests"));
+const CampusDriveList = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/CampusDriveList"));
+const CampusDrive = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/CampusDrive"));
+const DefineJobs = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/DefineJobs/DefineJobs"));
 const TransactionHistory = React.lazy(()=> import("./Pages/Dashboard/TransactionHistory/TransactionHistory"));
 const Support = React.lazy(() => import("./Pages/Dashboard/Support/Support"));
 const UniversityStudents = React.lazy(() => import("./Pages/Dashboard/Subscribe/University/UniversityStudents/UniversityStudents"));
@@ -312,6 +315,30 @@ const routes = [
     role: "dashboard",
     name: "Requests",
     component: Requests,
+  },
+  {
+    path: "/dashboard/campus-drive",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "CampusDriveList",
+    component: CampusDriveList,
+  },
+  {
+    path: "/dashboard/campus-drive/:campusDriveId/home",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "CampusDrive",
+    component: CampusDrive,
+  },
+  {
+    path: "/dashboard/campus-drive/:campusDriveId/define-jobs",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "DefineJobs",
+    component: DefineJobs,
   },
   {
     path: "/dashboard/analytics",

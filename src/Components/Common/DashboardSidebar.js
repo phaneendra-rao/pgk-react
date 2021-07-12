@@ -233,6 +233,15 @@ const DashboardSidebar = () => {
         </li>
         <li className="sidebar-item">
           <NavLink
+            to="/dashboard/campus-drive"
+            activeClassName="active"
+            className="sidebar-link"
+          >
+            <i className="fas fa-graduation-cap"></i>Campus Drive
+          </NavLink>
+        </li>
+        <li className="sidebar-item">
+          <NavLink
             to="/dashboard/analytics"
             exact
             activeClassName="active"

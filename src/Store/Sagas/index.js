@@ -14,6 +14,7 @@ import SupportWatcherSaga from './SupportWatcherSaga';
 import AnalyticsWatcherSaga from './AnalyticsWatcherSaga';
 import TransactionHistoryWatcherSaga from './TransactionHistoryWatcherSaga';
 import CampusDriveWatcherSaga from './CampusDriveWatcherSaga';
+import DefineJobsWatcherSaga from './CampusDriveWorkflowWatchers/DefineJobsWatcherSaga';
 
 export function* webportalAppRootSaga() {
 	yield all([
@@ -30,6 +31,7 @@ export function* webportalAppRootSaga() {
 		SupportWatcherSaga(),
 		AnalyticsWatcherSaga(),
 		TransactionHistoryWatcherSaga(),
-		CampusDriveWatcherSaga()
+		CampusDriveWatcherSaga(),
+		DefineJobsWatcherSaga()
 	]);
 }

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import HiringCriteriaCmp from '../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaCmp';
-import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { AddHiringSagaAction, HiringSagaAction, actionPatchCorporateHiringCriteriaRequest, actionCloneHiringCriteriaRequest } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import HiringCriteriaForm from './HiringCriteriaForm';
-import HiringModal from './HiringModal';
-import CustomModal from '../../../../Components/CustomModal';
 import CustomToastModal from "../../../../Components/CustomToastModal";
 import CustomDialogPopup from '../../../../Components/CustomDialogPopup';
 

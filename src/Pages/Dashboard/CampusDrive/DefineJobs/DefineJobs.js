@@ -9,11 +9,11 @@ import DefineJobApplicationWindowSection from './Sections/DefineJobApplicationWi
 const DefineJobs = (props) => {
     const dispatch = useDispatch();
     const onTabClick = (tabIndex) => {
-        const newTabs = tabs.map((item, index)=>{
-            if(index <= tabIndex) {
-                return {...item, isActive: true}
+        const newTabs = tabs.map((item, index) => {
+            if (index <= tabIndex) {
+                return { ...item, isActive: true }
             } else {
-                return {...item, isActive: false}
+                return { ...item, isActive: false }
             }
         })
         setTabs(newTabs);
@@ -57,23 +57,23 @@ const DefineJobs = (props) => {
     const prevBtn = () => {
         let currentIndex = 1;
 
-        tabs.forEach((item, index)=>{
-            if(item.isActive) {
+        tabs.forEach((item, index) => {
+            if (item.isActive) {
                 currentIndex = index
             }
         })
 
-        onTabClick(currentIndex-1);
+        onTabClick(currentIndex - 1);
     }
 
-    const nextBtn = () => {}
+    const nextBtn = () => { }
 
     const isPrevBtnDisbaled = () => {
-        return !tabs.some((item, index)=> index ? item.isActive : false)
+        return !tabs.some((item, index) => index ? item.isActive : false)
     }
 
     const isNextBtnDisbaled = () => {
-        return !tabs.every((item)=> item.isActive === true)
+        return !tabs.every((item) => item.isActive === true)
     }
 
     // http://{{hostip}}:{{hostport}}/lut/?ignoreCache=true&lutList=reportName

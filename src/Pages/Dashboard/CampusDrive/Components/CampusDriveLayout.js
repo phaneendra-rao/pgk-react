@@ -6,6 +6,21 @@ import ArrowRightAlt from '@material-ui/icons/ArrowRightAlt';
 const CampusDriveLayout = (props) => {
   const dispatch = useDispatch();
 
+  const getTabSection = () => {
+      if(props?.tabs?.length && props.tabs.some((item) => item.isActive === true)) {
+        let currentIndex = 0;
+        props?.tabs.forEach((item, index)=>{
+            if(item.isActive) {
+                currentIndex = index
+            }
+        });
+
+        if(props?.tabs[currentIndex].section) {
+            return props?.tabs[currentIndex].section;
+        }
+      }
+  }
+
   return (
     <div className="bgWhite h-full">
         <div className={"row align-items-center campusDriveNavStripe"}>
@@ -74,7 +89,10 @@ const CampusDriveLayout = (props) => {
                     {props?.nextBtn ? <button type="button" disabled={props?.nextBtn?.isDisabled} onClick={props.nextBtn.onClick} className="btn campus-drive-sidebar-btn"><p>Next</p><ArrowRightAlt /></button> : undefined}
                 </div>
             </div>
-            <div className="col-md-9" style={{border: '1px solid #cacaca', overflow: 'scroll'}}>{props?.children}</div>
+            <div className="col-md-9" style={{border: '1px solid #cacaca', overflow: 'scroll'}}>
+                {!props?.tabs.some((item) => item.isActive===true) ? <div className="center"><p className="text-center" style={{fontSize: '.850rem', color: '#a1a1a1'}}>Select any option to preview the content here</p></div>  : undefined}
+                {getTabSection()}
+            </div>
         </div>
     </div>
   );

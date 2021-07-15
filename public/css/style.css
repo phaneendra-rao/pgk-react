@@ -2367,3 +2367,45 @@ input[type=date]:focus::-webkit-datetime-edit {
     align-items: center;
     height: 100%;
 }
+
+.text-primary {
+    color: #253AA3 !important;
+}
+
+/* Define Jobs Section */
+.CD-define-jobs-list {
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+    overflow: scroll;
+}
+
+.define-job-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #cacaca;
+    padding-bottom: 12px;
+}
+
+.define-job-header {
+    background-color: #253AA3;
+    padding: 12px 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-list-label {
+    font-size: 1rem;
+    color:rgb(124, 124, 124);
+}

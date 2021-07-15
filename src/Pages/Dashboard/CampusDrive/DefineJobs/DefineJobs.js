@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CampusDriveLayout from "../Components/CampusDriveLayout";
 
+import DefineJobsSection from './Sections/DefineJobsSection/DefineJobsSection';
+import ShareJobDetailsSection from './Sections/ShareJobDetailsSection/ShareJobDetailsSection';
+import DefineJobApplicationWindowSection from './Sections/DefineJobApplicationWindowSection/DefineJobApplicationWindowSection';
+
 const DefineJobs = (props) => {
     const dispatch = useDispatch();
     const onTabClick = (tabIndex) => {
@@ -21,28 +25,32 @@ const DefineJobs = (props) => {
             iconName: 'fa-calendar-alt',
             isActive: false,
             isDisabled: false,
-            onClick: onTabClick
+            onClick: onTabClick,
+            section: undefined
         },
         {
             label: 'Define Jobs',
             iconName: 'fa-file-alt',
             isActive: false,
             isDisabled: false,
-            onClick: onTabClick
+            onClick: onTabClick,
+            section: <DefineJobsSection campusDriveId={props?.match?.params?.campusDriveId} />
         },
         {
             label: 'Share Job Details',
             iconName: 'fa-briefcase',
             isActive: false,
             isDisabled: false,
-            onClick: onTabClick
+            onClick: onTabClick,
+            section: <ShareJobDetailsSection campusDriveId={props?.match?.params?.campusDriveId} />
         },
         {
             label: 'Define Job Application Window',
             iconName: 'fa-window-restore',
             isActive: false,
             isDisabled: false,
-            onClick: onTabClick
+            onClick: onTabClick,
+            section: <DefineJobApplicationWindowSection campusDriveId={props?.match?.params?.campusDriveId} />
         }
     ])
 
@@ -68,6 +76,7 @@ const DefineJobs = (props) => {
         return !tabs.every((item)=> item.isActive === true)
     }
 
+    // http://{{hostip}}:{{hostport}}/lut/?ignoreCache=true&lutList=reportName
   return (
     <div className="bgWhite h-full">
         <CampusDriveLayout
@@ -81,9 +90,7 @@ const DefineJobs = (props) => {
                 isDisabled: isNextBtnDisbaled(),
                 onClick: nextBtn
             }}
-        >
-            {!tabs.some((item) => item.isActive===true) ? <div className="center"><p className="text-center" style={{fontSize: '.850rem', color: '#a1a1a1'}}>Select any option to preview the content here</p></div>  : undefined}
-        </CampusDriveLayout>
+        />
     </div>
   );
 };

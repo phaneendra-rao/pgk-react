@@ -85,13 +85,13 @@ const AddJobs = (props) => {
     return (
         <form>
             <div className="add-new-jobs-section">
-            <div className="d-flex justify-content-between align-items-center w-full" style={{backgroundColor:'#253AA3'}}>
+            {props?.noHeading ? undefined : <div className="d-flex justify-content-between align-items-center w-full" style={{backgroundColor:'#253AA3'}}>
                 <p></p>
                 <p className="heading" style={{color:'white'}}>{props?.mode==='ADD' ? 'Create Job' : props?.mode==='EDIT' ? 'Edit '+props?.jobFormData?.jobName?.value : props?.jobFormData?.jobName?.value}</p>
                 <IconButton style={{color:'white'}} onClick={props?.handleCloseModal} component="span">
                     <Close />
                 </IconButton>
-            </div>
+            </div>}
             <div className=" py-4">
                 <div className="row m-0">
                     <div className="col-md-3">

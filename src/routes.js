@@ -73,6 +73,8 @@ const Requests = React.lazy(()=>import("./Pages/Dashboard/Requests/Requests"));
 const CampusDriveList = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/CampusDriveList"));
 const CampusDrive = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/CampusDrive"));
 const DefineJobs = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/DefineJobs/DefineJobs"));
+const Communication = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/Communication/Communication"));
+const CampusInterviews = React.lazy(()=>import("./Pages/Dashboard/CampusDrive/CampusInterviews/CampusInterviews"));
 const TransactionHistory = React.lazy(()=> import("./Pages/Dashboard/TransactionHistory/TransactionHistory"));
 const Support = React.lazy(() => import("./Pages/Dashboard/Support/Support"));
 const UniversityStudents = React.lazy(() => import("./Pages/Dashboard/Subscribe/University/UniversityStudents/UniversityStudents"));
@@ -339,6 +341,22 @@ const routes = [
     role: "dashboard",
     name: "DefineJobs",
     component: DefineJobs,
+  },
+  {
+    path: "/dashboard/campus-drive/:campusDriveId/communication",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "Communication",
+    component: Communication,
+  },
+  {
+    path: "/dashboard/campus-drive/:campusDriveId/campus-interviews",
+    strict: true,
+    exact: true,
+    role: "dashboard",
+    name: "CampusInterviews",
+    component: CampusInterviews,
   },
   {
     path: "/dashboard/analytics",

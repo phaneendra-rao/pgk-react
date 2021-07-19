@@ -92,8 +92,8 @@ const AddJobs = (props) => {
                     <Close />
                 </IconButton>
             </div>}
-            <div className=" py-4">
-                <div className="row m-0">
+            <div className={`py-4 ${props?.cdJob ? ' w-full m-0 row' : ''}`}>
+                <div className={`row m-0 ${props?.cdJob ? ' w-full' : ''}`}>
                     <div className="col-md-3">
                         <div className="mb-20">
                             <PgkTextField 
@@ -216,7 +216,7 @@ const AddJobs = (props) => {
                                 value={props?.jobFormData?.salaryMinRange?.value}
                                 label={'Minimum Salary'}
                                 validations={['isNumericWithDecimal', 'min_1']}
-                                inputLabelProps={{style:{fontSize: '.800rem'}}}
+                                inputLabelProps={{style:{fontSize: `${props?.cdJob ? '.700rem' : '.800rem'}`}}}
                                 inputProps={{style:{fontSize: '.800rem'}}}
                                 errorMessage={props?.jobFormData?.salaryMinRange?.errorMessage}
                                 required={props?.jobFormData?.salaryMinRange?.isRequired}
@@ -230,7 +230,7 @@ const AddJobs = (props) => {
                                 value={props?.jobFormData?.salaryMaxRange?.value}
                                 label={'Maximum Salary'}
                                 validations={['isNumericWithDecimal']}
-                                inputLabelProps={{style:{fontSize: '.800rem'}}}
+                                inputLabelProps={{style:{fontSize: `${props?.cdJob ? '.700rem' : '.800rem'}`}}}
                                 inputProps={{style:{fontSize: '.800rem'}}}
                                 errorMessage={props?.jobFormData?.salaryMaxRange?.errorMessage}
                                 required={props?.jobFormData?.salaryMaxRange?.isRequired}
@@ -254,7 +254,7 @@ const AddJobs = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="row m-0">
+                <div className={`row m-0 ${props?.cdJob ? ' w-full' : ''}`}>
                     <div className={'flex flex-column w-full'}>
                         <div className={'col-md'}>
                             <PgkTextField
@@ -319,9 +319,9 @@ const AddJobs = (props) => {
                 </div>
             </div>
             <div className="d-flex flex-row justify-content-center align-items-center w-full mt-4">
-                <button type="buttpn" onClick={props?.handleCloseModal}  style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Cancel</button>
+                {props?.noEditBtn ? undefined : <button type="button" onClick={props?.handleCloseModal}  style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">{props?.editLabel ? props?.editLabel : 'Cancel'}</button>}
                 {props?.mode==='DETAILS' && props?.editJob ? <button type="button" onClick={props?.editJob} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Edit Job</button> : null}
-                {props?.mode!=='DETAILS' ? <button type="button" onClick={handleSubmit} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">Save Job</button> : null}
+                {props?.mode!=='DETAILS' ? <button type="button" onClick={handleSubmit} style={{height: '18px', maxWidth: '160px'}} className="btn job-btn">{props?.saveLabel ? props?.saveLabel : 'Save Job'}</button> : null}
             </div>
         </div>
         </form>

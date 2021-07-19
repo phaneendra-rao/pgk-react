@@ -10,7 +10,7 @@ import JobDetailsModal from './JobDetailsModal';
 import CustomModal from '../../../../Components/CustomModal';
 import CustomDialogPopup from '../../../../Components/CustomDialogPopup';
 import CustomToastModal from "../../../../Components/CustomToastModal";
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import moment from 'moment';
 
 const jobFormFields = ['jobName', 'jobType', 'skills', 'hiringCriteria', 'salaryMinRange', 'salaryMaxRange', 'monthOfHiring', 'remarks', 'attachment', 'status', 'noOfPositions', 'location'];
@@ -221,8 +221,7 @@ const Jobs = () => {
             }
         } }));
     }
-
-
+    
     const getAllHirings = (data) => {
         setHiringCriteria(data);
     }

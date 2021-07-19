@@ -327,6 +327,7 @@ const HiringCriteriaForm = (props) => {
         editable={props?.editable}
         isNew={props?.isNew}
         editHc={props?.editHc}
+        noEditBtn={props?.noEditBtn}
         saveLabel={props?.saveLabel}
         editLabel={props?.editLabel}
         handleChange={handleChange}

@@ -1,7 +1,8 @@
 import {
     ACTION_GET_CAMPUS_DRIVE_EMAIL_TEMPLATES_LIST_REQUEST,
     ACTION_POST_CAMPUS_DRIVE_NEW_EMAIL_TEMPLATE_REQUEST,
-    ACTION_GET_CAMPUS_DRIVE_INDUCTION_INFO_REQUEST
+    ACTION_GET_CAMPUS_DRIVE_INDUCTION_INFO_REQUEST,
+    ACTION_POST_CAMPUS_DRIVE_INTERVIEW_ROUNDS_REQUEST
 } from "../SagaActionTypes"
 
 // GET EMAIL TEMPLATES LIST - CAMPUS DRIVE
@@ -24,6 +25,14 @@ export const actionPostNewEmailTemplateRequestSaga = (payload) => {
 export const actionGetInductionInfoRequestSaga = (payload) => {
     return {
         type: ACTION_GET_CAMPUS_DRIVE_INDUCTION_INFO_REQUEST,
+        payload: payload
+    }
+}
+
+// POST INTERVIEW ROUNDS FOR A JOB - CAMPUS DRIVE
+export const actionPostInterviewRoundsSaga = (payload) => {
+    return {
+        type: ACTION_POST_CAMPUS_DRIVE_INTERVIEW_ROUNDS_REQUEST,
         payload: payload
     }
 }

@@ -28,7 +28,7 @@ const ReleaseOfferLetters = (props) => {
             <br />
             <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
                 <TextField
-                    label="Number of Students ShortListed"
+                    label="ShortListed Students"
                     type="number"
                     name="rank"
                     // onChange={props.handleChange}
@@ -42,7 +42,7 @@ const ReleaseOfferLetters = (props) => {
                     }}
                     variant="outlined"
                     margin="dense"
-                    style={{ maxWidth: "30%" }}
+                    style={{ maxWidth: "60%" }}
                     value={3} //{props.addRanking.rank}
                 // helperText={props.rankNumberErr}
                 // error={props.rankNumberErr ? true : false}
@@ -72,9 +72,9 @@ const ReleaseOfferLetters = (props) => {
                         <td>11UQ1A0501</td>
                         <td>vishyanand@gmail.com</td>
                         <td>Trainer</td>
-                        <td>Hyderabad</td>
-                        <td>20-Jul-2021</td>
-                        <td>Sample Pdf</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -107,9 +107,9 @@ const ReleaseOfferLetters = (props) => {
             <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
                 <TextField
                     select
-                    label="Email Template for   Student"
+                    label="Email Template for Student"
                     variant="outlined"
-                    style={{ width: "30%" }}
+                    style={{ width: "45%" }}
                     InputLabelProps={{
                         shrink: true,
                         style: { fontFamily: "Poppins-Regular", display: "block" }
@@ -139,7 +139,7 @@ const ReleaseOfferLetters = (props) => {
                     // value={props.addProgram.programName}
                     // onChange={props.handleChange}
                     variant="outlined"
-                    style={{ width: "30%" }}
+                    style={{ width: "45%" }}
                     InputLabelProps={{
                         shrink: true,
                         style: { fontFamily: "Poppins-Regular", display: "block" }

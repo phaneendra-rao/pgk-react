@@ -91,7 +91,7 @@ const CreateEmailTemplate = (props) => {
                     </div>
                     <div className="d-flex flex-row justify-content-center align-items-center job-details-form w-full"
                         style={{ background: "white" }}>
-                        <button type="button" className="btn" onClick={() => { props.onCancel() }}>Cancel</button>
+                        <button type="button" className="btn mr-4" onClick={() => { props.onCancel() }}>Cancel</button>
                         <button type="submit" className="btn" >Save</button>
                     </div>
                 </form>

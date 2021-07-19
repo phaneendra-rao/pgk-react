@@ -327,7 +327,7 @@ const ShareInterviewRounds = (props) => {
                             >
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -355,7 +355,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 1 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -384,7 +384,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 2 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -414,7 +414,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 3 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -443,7 +443,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 4 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -472,7 +472,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 5 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -500,7 +500,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 6 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -528,7 +528,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 7 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -556,7 +556,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 8 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>
@@ -584,7 +584,7 @@ const ShareInterviewRounds = (props) => {
                                 required={addRounds.noOfRounds > 9 ? true : false}>
                                 <option value="">Select Round Type</option>
                                 <option value="Written Test"> Written Test </option>
-                                <option value="Coding"> Written </option>
+                                <option value="Coding"> Coding </option>
                                 <option value="Personal Interview"> Personal Interview </option>
                             </select></td>
                         </tr>

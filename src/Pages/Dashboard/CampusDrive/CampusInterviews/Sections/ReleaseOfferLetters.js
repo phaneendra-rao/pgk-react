@@ -12,7 +12,7 @@ const ReleaseOfferLetters = (props) => {
     }
 
     return (
-        <div className="bgWhite h-full">
+        <div className="bgWhite h-full" style={{ width: "600px", height:"700px" }}>
             <CSVLink
                 data={"DummyData"}
                 filename='ShortListedStudents.csv'
@@ -26,7 +26,7 @@ const ReleaseOfferLetters = (props) => {
                 </p>
             </div>
             <br />
-            <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
+            <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full mr-4" style={{ background: "white", width: "500px" }}>
                 <TextField
                     label="ShortListed Students"
                     type="number"
@@ -72,10 +72,19 @@ const ReleaseOfferLetters = (props) => {
                         <td>11UQ1A0501</td>
                         <td>vishyanand@gmail.com</td>
                         <td>Trainer</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <select
+                                name="round1Type"
+                            >
+                                <option value="">Select Location</option>
+                                <option value="Banglore"> Banglore </option>
+                                <option value="Chennai"> Chennai </option>
+                                <option value="Hyderabad"> Hyderabad </option>
+                            </select>
+                        </td>
+                        <td><input type="date" /></td>
+                        <td><input type="file" /></td>
+                        <td><input type="text" /></td>
                     </tr>
                     <tr>
                         <th scope="row">2</th>
@@ -83,10 +92,17 @@ const ReleaseOfferLetters = (props) => {
                         <td>11UQ1A0502</td>
                         <td>magcarl@gmail.com</td>
                         <td>Associate Trainer</td>
-                        <td>Norway</td>
-                        <td>20-Jul-2021</td>
-                        <td>Sample Pdf</td>
-                        <td></td>
+                        <td> <select
+                            name="round1Type"
+                        >
+                            <option value="">Select Location</option>
+                            <option value="Banglore"> Banglore </option>
+                            <option value="Chennai"> Chennai </option>
+                            <option value="Hyderabad"> Hyderabad </option>
+                        </select></td>
+                        <td><input type="date" /></td>
+                        <td><input type="file" /></td>
+                        <td><input type="text" /></td>
                     </tr>
                     <tr>
                         <th scope="row">3</th>
@@ -94,15 +110,20 @@ const ReleaseOfferLetters = (props) => {
                         <td>11UQ1A0503</td>
                         <td>MagicianOfRiga@gmail.com</td>
                         <td>Lead Manager</td>
-                        <td>Russia</td>
-                        <td>20-Jul-2021</td>
-                        <td>Sample Pdf</td>
-                        <td></td>
+                        <td> <select
+                            name="round1Type"
+                        >
+                            <option value="">Select Location</option>
+                            <option value="Banglore"> Banglore </option>
+                            <option value="Chennai"> Chennai </option>
+                            <option value="Hyderabad"> Hyderabad </option>
+                        </select></td>
+                        <td><input type="date" /></td>
+                        <td><input type="file" /></td>
+                        <td><input type="text" /></td>
                     </tr>
                 </tbody>
             </table>
-            <br />
-            <div style={{ borderTop: "1px solid black", width: "100%", marginLeft: 20, marginRight: 20 }}></div>
             <br />
             <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
                 <TextField
@@ -116,12 +137,11 @@ const ReleaseOfferLetters = (props) => {
                     }}
                     inputProps={{
                         name: 'programType',
-                        style: { fontFamily: "Poppins-Regular", display: "block" }
+                        style: { fontFamily: "Poppins-Regular", display: "block", paddingRight: "10px" }
                     }}
                     SelectProps={{
                         native: true,
                     }}
-                    select
                     required={true}
                 >
                     <option value="">Select a Template</option>
@@ -151,7 +171,6 @@ const ReleaseOfferLetters = (props) => {
                     SelectProps={{
                         native: true,
                     }}
-                    select
                     required={true}
                 >
                     <option value="">Select a Template</option>
@@ -165,7 +184,7 @@ const ReleaseOfferLetters = (props) => {
                 </TextField>
             </div>
             <br />
-            <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
+            <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white", width: "600px" }}>
                 <button type="button" className="btn" onClick={onDownloadData}><p>Download</p></button>
                 <button type="button" className="btn"><p>Release Letters</p></button>
             </div>

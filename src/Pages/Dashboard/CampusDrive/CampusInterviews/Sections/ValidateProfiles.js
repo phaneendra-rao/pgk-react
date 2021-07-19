@@ -30,61 +30,39 @@ const ValidateProfiles = (props) => {
                 <TextField
                     select
                     label="Job Name"
-                    variant="outlined"
-                    style={{ width: "45%" }}
+                    // name="startDate"
+                    // onChange={props.handleChange}
                     InputLabelProps={{
                         shrink: true,
                         style: { fontFamily: "Poppins-Regular", display: "block" }
                     }}
                     inputProps={{
-                        name: 'programType',
                         style: { fontFamily: "Poppins-Regular", display: "block" }
                     }}
-                    SelectProps={{
-                        native: true,
-                    }}
-                    select
+                    variant="outlined"
+                    margin="dense"
+                    style={{ width: "45%" }}
                     required={true}
-                >
-                    <option value="">Select a Job</option>
-                    {/* {props.programTypes?.length && (
-                            props.programTypes.map((item) => {
-                                return <option value={item.programType}
-                                    key={item.programType}
-                                    selected={props.addProgram.programType === item.programType ? true : false}>{item.programType}</option>
-                            })
-                        )} */}
-                </TextField>
+                // value={props.addProgram.startDate}
+                />
                 <TextField
                     select
                     label="Round Name"
-                    // value={props.addProgram.programName}
+                    // name="startDate"
                     // onChange={props.handleChange}
-                    variant="outlined"
-                    style={{ width: "45%" }}
                     InputLabelProps={{
                         shrink: true,
                         style: { fontFamily: "Poppins-Regular", display: "block" }
                     }}
                     inputProps={{
-                        name: 'programName',
                         style: { fontFamily: "Poppins-Regular", display: "block" }
                     }}
-                    SelectProps={{
-                        native: true,
-                    }}
-                    select
+                    variant="outlined"
+                    margin="dense"
+                    style={{ width: "45%" }}
                     required={true}
-                >
-                    <option value="">Select a Round</option>
-                    {/* {props.programNames?.length && (
-                            props.programNames.map((item) => {
-                                return <option value={item.programName}
-                                    key={item.programName}
-                                    selected={props.addProgram.programName === item.programName ? true : false}>{item.programName}({item.programCode})</option>
-                            })
-                        )} */}
-                </TextField>
+                // value={props.addProgram.startDate}
+                />
             </div>
             <br />
             <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
@@ -127,7 +105,7 @@ const ValidateProfiles = (props) => {
                 // value={props.addProgram.endDate}
                 />
                 <TextField
-                    label="Number of Students ShortListed"
+                    label="ShortListed Students"
                     type="number"
                     name="rank"
                     // onChange={props.handleChange}
@@ -146,6 +124,9 @@ const ValidateProfiles = (props) => {
                 // helperText={props.rankNumberErr}
                 // error={props.rankNumberErr ? true : false}
                 />
+            </div>
+            <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
+                <button type="button" className="btn"><p>Fetch Students</p></button>
             </div>
             <br />
             <div style={{ borderTop: "1px solid black", width: "100%", marginLeft: 20, marginRight: 20 }}></div>

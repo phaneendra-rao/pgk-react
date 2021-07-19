@@ -25,7 +25,7 @@ const CampusInterviews = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: <RoundWiseResults />
+            section: <RoundWiseResults  campusDriveId={props?.match?.params?.campusDriveId} />
         },
         {
             label: 'View & Validate Final List of Students',
@@ -33,7 +33,7 @@ const CampusInterviews = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: <ValidateProfiles />
+            section: <ValidateProfiles  campusDriveId={props?.match?.params?.campusDriveId} />
         },
         {
             label: 'Release Offer Letters',
@@ -41,7 +41,7 @@ const CampusInterviews = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: <ReleaseOfferLetters />
+            section: <ReleaseOfferLetters  campusDriveId={props?.match?.params?.campusDriveId} />
         }
     ])
 

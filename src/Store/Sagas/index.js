@@ -15,6 +15,8 @@ import AnalyticsWatcherSaga from './AnalyticsWatcherSaga';
 import TransactionHistoryWatcherSaga from './TransactionHistoryWatcherSaga';
 import CampusDriveWatcherSaga from './CampusDriveWatcherSaga';
 import DefineJobsWatcherSaga from './CampusDriveWorkflowWatchers/DefineJobsWatcherSaga';
+import CommunicationWatcherSaga from './CampusDriveWorkflowWatchers/CommunicationWatcherSaga';
+import CampusInterviewWatcherSaga from './CampusDriveWorkflowWatchers/CampusInterviewWatcherSaga';
 
 export function* webportalAppRootSaga() {
 	yield all([
@@ -32,6 +34,8 @@ export function* webportalAppRootSaga() {
 		AnalyticsWatcherSaga(),
 		TransactionHistoryWatcherSaga(),
 		CampusDriveWatcherSaga(),
-		DefineJobsWatcherSaga()
+		DefineJobsWatcherSaga(),
+		CommunicationWatcherSaga(),
+		CampusInterviewWatcherSaga()
 	]);
 }

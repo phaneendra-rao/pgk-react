@@ -4,7 +4,8 @@ import Axios from '../../utils/axios';
 // import { HiringSagaAction } from '../Actions/SagaActions/HiringSagaAction';
 import {
     ACTION_GET_CAMPUS_DRIVE_INVITES_REQUEST,
-    ACTION_POST_RESPOND_TO_CAMPUS_DRIVE_REQUEST_REQUEST
+    ACTION_POST_RESPOND_TO_CAMPUS_DRIVE_REQUEST_REQUEST,
+    ACTION_GET_CAMPUS_DRIVE_ACCEPTED_INVITES_LIST_REQUEST
 } from '../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 
@@ -64,7 +65,35 @@ function* getCampusDriveInvitesRequestSaga(action) {
     }
 }
 
+// FETCH CAMPUS DRIVE ACCEPTED INVITES LIST FOR CAMPUS DRIVE WORKFLOW
+const getCampusDriveAcceptedInvitesList = () => {
+    const URL = 's/campusInvites/Accepted';
+    return Axios.get(URL).then(resp => resp.data);
+}
+
+function* getCampusDriveAcceptedInvitesListRequest(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const response = yield call(getCampusDriveAcceptedInvitesList);
+
+        if(action?.payload?.callback) {
+            action.payload.callback(response);
+        }
+
+    } catch (err) {
+        if (err.response) {
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
 export default function* CampusDriveWatcherSaga() {
     yield takeLatest(ACTION_GET_CAMPUS_DRIVE_INVITES_REQUEST, getCampusDriveInvitesRequestSaga);
     yield takeLatest(ACTION_POST_RESPOND_TO_CAMPUS_DRIVE_REQUEST_REQUEST, postRespondToCampusDriveRequestRequest);
+    yield takeLatest(ACTION_GET_CAMPUS_DRIVE_ACCEPTED_INVITES_LIST_REQUEST, getCampusDriveAcceptedInvitesListRequest);
 }

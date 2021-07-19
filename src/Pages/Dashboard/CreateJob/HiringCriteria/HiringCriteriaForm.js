@@ -310,15 +310,15 @@ const HiringCriteriaForm = (props) => {
   };
 
   return (
-    <div className="hiring-modal">
-      <div className="modal-header hiring-modal-header">
+    <div className="hiring-modal" style={{backgroundColor:'white'}}>
+      {props?.noHeading ? undefined : <div className="modal-header hiring-modal-header">
         <h5 className="modal-title" id="exampleModalLabel">
           {props?.isNew ? 'Create a new Hiring Criteria' : props?.editable ? 'Update Hiring Criteria' : 'Hiring Criteria Info'}
         </h5>
         <IconButton style={{color:'white', marginTop:'-10px'}} onClick={props?.openCloseModal} component="span">
             <Close />
         </IconButton>
-      </div>
+      </div>}
       <HiringCriteriaFormCmp
         hiringData={hiringData}
         branchCatalog={branchCatalog}
@@ -327,8 +327,12 @@ const HiringCriteriaForm = (props) => {
         editable={props?.editable}
         isNew={props?.isNew}
         editHc={props?.editHc}
+        noEditBtn={props?.noEditBtn}
+        saveLabel={props?.saveLabel}
+        editLabel={props?.editLabel}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        hiringCriteriaFormStyles={props?.hiringCriteriaFormStyles}
       />
     </div>
   );

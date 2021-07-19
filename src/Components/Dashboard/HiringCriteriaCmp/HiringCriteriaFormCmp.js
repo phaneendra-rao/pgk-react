@@ -7,60 +7,6 @@ import PgkMultiSelectField from '../../FormFields/PgkMultiSelectField';
 
 const HiringCriteriaFormCmp = (props) => {
 
-    const isFormValid = () => {
-        if(props?.hiringData) {
-            const keys = [
-                'programID', 
-                'hiringCriteriaName', 
-                'minimumCutoffPercentage10th', 
-                'minimumCutoffPercentage12th', 
-                'minimumCutoffCGPAGrad', 
-                'minimumCutoffPercentageGrad',
-                'eduGapsAllowed',
-                'eduGapsSchoolAllowed',
-                'eduGaps11N12Allowed',
-                'eduGapsGradAllowed',
-                'eduGapsGradNPGAllowed',   
-                'allowActiveBacklogs',
-                'numberOfAllowedBacklogs',
-                'eduGapsSchool',
-                'eduGaps11N12',
-                'eduGaps12NGrad',
-                'eduGapsGrad',
-                'eduGapsGradNPG',
-                'yearOfPassing',
-                'remarks',
-                'hcPrograms'
-            ];
-
-            let isValid = true;
-
-            keys.forEach((item)=>{
-                if(isValid) {
-                    if(props.hiringData[item] && !props.hiringData[item].isDisabled) {
-
-                        if(props.hiringData[item].isRequired && props.hiringData[item].errorMessage) {
-                            isValid = false;
-                        } else if(props.hiringData[item].isRequired && (typeof props.hiringData[item].value === 'string' ||  typeof props.hiringData[item].value === 'number' || typeof props.hiringData[item].value === 'undefined')) {
-                            if(props.hiringData[item].value === undefined || props.hiringData[item].value?.toString().trim()==='') {
-                                isValid = false;
-                            }
-                        } else if(props.hiringData[item].isRequired && typeof props.hiringData[item].value === 'object') {
-                            if(props.hiringData[item].value === undefined || props.hiringData[item].value?.length===0) {
-                                isValid = false;
-                            }
-                        }
-                    }
-                }
-            })
-
-            return isValid;
-
-        } else {
-            return true
-        }
-    }
-
     const currentYear = new Date().getFullYear();
 
     const yearOfPassingOptions = [currentYear-2, currentYear-1, currentYear, currentYear+1, currentYear+2].map((item)=>{
@@ -68,7 +14,7 @@ const HiringCriteriaFormCmp = (props) => {
     });
 
     return (
-        <form className="hiring-modal-form">
+        <form className="hiring-modal-form" style={props?.hiringCriteriaFormStyles}>
             <div className="row">
                 <div className="w-full"style={{margin: '0px 4px 15px 4px'}}>
                     <PgkTextField 
@@ -259,7 +205,7 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
             </div>
             <div className="row d-flex justify-content-center align-items-start">
-                <div className="col-md-6" style={{padding: '0px 4px'}}>
+                <div className="col-md-5" style={{padding: '0px 4px'}}>
                     <div className="mb-15">
                         <PgkTextField
                             name="remarks"
@@ -473,7 +419,6 @@ const HiringCriteriaFormCmp = (props) => {
                                     </div>
                                     <div className="modal-grp" style={{maxWidth:'140px'}}>
                                         <PgkTextField 
-                                            
                                             name="eduGaps12NGrad"
                                             onChange={props?.handleChange}
                                             value={props.hiringData?.eduGaps12NGrad?.value}
@@ -583,7 +528,6 @@ const HiringCriteriaFormCmp = (props) => {
                                     </div>
                                     <div className="modal-grp" style={{maxWidth:'140px'}}>
                                         <PgkTextField 
-                                            
                                             name="eduGapsGradNPG"
                                             onChange={props?.handleChange}
                                             value={props.hiringData?.eduGapsGradNPG?.value}
@@ -602,9 +546,9 @@ const HiringCriteriaFormCmp = (props) => {
                 </div>
             </div>
             <div className="text-center mt-4">
-                {props?.isNew || props?.editable ? <button type="button" onClick={props.handleSubmit} className="btn mr-4">Save</button> : null}
-                <button type="button" onClick={props.openCloseModal} data-dismiss="modal" className="btn">{props?.editable ? 'Cancel' : 'Close'}</button>
-                {!props?.editable && !props?.isNew && props?.editHc ? <button type="button" onClick={props?.editHc} className="btn ml-4">Edit</button> : null}
+                {props?.noEditBtn ? undefined : <button type="button" onClick={props?.openCloseModal} data-dismiss="modal" className="btn mr-4">{props?.editLabel ? props?.editLabel : props?.editable ? 'Cancel' : 'Close'}</button>}
+                {!props?.editable && !props?.isNew && props?.editHc ? <button type="button" onClick={props?.editHc} className="btn ml-4">{props?.editLabel ? props?.editLabel : 'Edit'}</button> : null}
+                {props?.isNew || props?.editable ? <button type="button" onClick={props?.handleSubmit} className="btn mr-4">{props?.saveLabel ? props?.saveLabel : 'Save'}</button> : null}
             </div>
         </form>
     )

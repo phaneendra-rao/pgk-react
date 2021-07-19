@@ -13,7 +13,7 @@ import PgkTextField from "../../../Components/FormFields/PgkTextField";
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-const CampusDrive = () => {
+const Requests = () => {
   const dispatch = useDispatch();
 
   const [requests, setRequests] = useState([]);
@@ -717,4 +717,4 @@ const CampusDrive = () => {
   );
 };
 
-export default CampusDrive;
+export default Requests;

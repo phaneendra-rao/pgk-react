@@ -67,7 +67,14 @@ const CampusDriveList = () => {
                         </div>
                     </div>
                     <div className="col-md-2">
-                        <div className="vertical-divider"></div>
+                        <div className="row align-items-center m-0">
+                            <div className="vertical-divider"></div>
+                            <IconButton style={{backgroundColor: '#253AA3', marginLeft: '20px'}} onClick={()=>{
+                                navigateToCampusDrive(item?.campusDriveID)
+                            }}>
+                                <ChevronRight fontSize="large" style={{color: 'white'}} />
+                            </IconButton>
+                        </div>
                     </div>
                 </div>
             })}

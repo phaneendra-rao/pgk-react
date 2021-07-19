@@ -2378,6 +2378,7 @@ input[type=date]:focus::-webkit-datetime-edit {
     flex-direction: column;
     height: 480px;
     overflow: scroll;
+    justify-content: flex-start;
 }
 
 .define-job-modal {
@@ -2408,4 +2409,11 @@ input[type=date]:focus::-webkit-datetime-edit {
 .no-list-label {
     font-size: 1rem;
     color:rgb(124, 124, 124);
+}
+
+.cd-job-list-item {
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+    padding: 6px 10px;
+    align-items: center;
 }

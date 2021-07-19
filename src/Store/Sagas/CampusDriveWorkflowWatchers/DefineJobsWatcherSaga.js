@@ -1,7 +1,7 @@
 import { call, takeLatest, put } from 'redux-saga/effects';
 import Axios from "../../../utils/axios";
 import { toast } from "react-toastify";
-import { ACTION_GET_CAMPUS_DRIVE_DEFINE_JOBS_LIST_REQUEST, ACTION_GET_CAMPUS_DRIVE_HIRING_CRITERIA_LIST_REQUEST, ACTION_POST_OR_PATCH_CAMPUS_DRIVE_HIRING_CRITERIA_REQUEST } from '../../Actions/SagaActions/SagaActionTypes';
+import { ACTION_GET_CAMPUS_DRIVE_DEFINE_JOBS_LIST_REQUEST, ACTION_GET_CAMPUS_DRIVE_HIRING_CRITERIA_LIST_REQUEST, ACTION_POST_OR_PATCH_CAMPUS_DRIVE_HIRING_CRITERIA_REQUEST, ACTION_POST_OR_PATCH_CAMPUS_DRIVE_JOB_REQUEST, ACTION_DELETE_CAMPUS_DRIVE_JOB_REQUEST, ACTION_PUBLISH_CAMPUS_DRIVE_PUBLISH_JOBS_REQUEST, ACTION_GET_CAMPUS_DRIVE_STUDENTS_LIST_BY_JOB_ID_REQUEST } from '../../Actions/SagaActions/SagaActionTypes';
 import { actionUpdateGlobalLoaderSagaAction } from '../../Actions/SagaActions/CommonSagaActions';
 
 // GET DEFINE JOBS - CAMPUS DRIVE
@@ -84,8 +84,116 @@ function* postOrPatchCampusDriveHiringCriteriaRequestSaga(action) {
     }
 }
 
+// POST OR PATCH JOB - CAMPUS DRIVE
+const postOrPatchCampusDriveJobRequest = (apiPayloadRequest) => {
+    if (apiPayloadRequest?.jobID) {
+        const URL = '/cdj/job';
+        return Axios.patch(URL, apiPayloadRequest).then(resp => resp.data);
+    } else {
+        const URL = '/cdj/job';
+        return Axios.post(URL, apiPayloadRequest).then(resp => resp.data);
+    }
+}
+
+function* postOrPatchCampusDriveJobRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const data = yield call(postOrPatchCampusDriveJobRequest, action.payload.apiPayloadRequest);
+        if(action.payload.callback) {
+            action.payload.callback(data);
+        }
+    } catch (err) {
+        if (err.response) {
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
+// DELETE JOB - CAMPUS DRIVE
+const deleteCampusDriveJobRequest = (apiPayloadRequest) => {
+    const URL = '/cdj/job/'+apiPayloadRequest.jobID;
+    return Axios.delete(URL).then(resp => resp.data);
+}
+function* deleteCampusDriveJobRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const data = yield call(deleteCampusDriveJobRequest, action.payload.apiPayloadRequest);
+        if(action.payload.callback) {
+            action.payload.callback(data);
+        }
+    } catch (err) {
+        if (err.response) {
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
+// PUBLISH JOBS - CAMPUS DRIVE
+const publishCampusDriveJobsRequest = (apiPayloadRequest) => {
+    const URL = '/cdj/job/publish';
+    return Axios.post(URL, apiPayloadRequest).then(resp => resp.data);
+}
+
+function* publishCampusDriveJobsRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const data = yield call(publishCampusDriveJobsRequest, action.payload.apiPayloadRequest);
+        if(action.payload.callback) {
+            action.payload.callback(data);
+        }
+    } catch (err) {
+        if (err.response) {
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
+// GET STUDENTS LIST BY JOB ID - CAMPUS DRIVE
+const getCampusDriveStudentsListByJobId = (apiPayloadRequest) => {
+    const URL = '/cdj/sl/'+apiPayloadRequest.JobId+'/'+apiPayloadRequest.campusDriveId;
+    return Axios.get(URL).then(resp => resp.data);
+}
+
+function* getCampusDriveStudentsListByJobIdRequest(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const data = yield call(getCampusDriveStudentsListByJobId, action.payload.apiPayloadRequest);
+        if(action.payload.callback) {
+            action.payload.callback(data);
+        }
+    } catch (err) {
+        if (err.response) {
+            toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+        } else {
+            toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
 export default function* DefineJobsWatcherSaga() {
     yield takeLatest(ACTION_GET_CAMPUS_DRIVE_DEFINE_JOBS_LIST_REQUEST, getDefineJobsListRequestSaga);
     yield takeLatest(ACTION_GET_CAMPUS_DRIVE_HIRING_CRITERIA_LIST_REQUEST, getCampusDriveHiringCriteriaListRequestSaga);
     yield takeLatest(ACTION_POST_OR_PATCH_CAMPUS_DRIVE_HIRING_CRITERIA_REQUEST, postOrPatchCampusDriveHiringCriteriaRequestSaga);
+    yield takeLatest(ACTION_POST_OR_PATCH_CAMPUS_DRIVE_JOB_REQUEST, postOrPatchCampusDriveJobRequestSaga);
+    yield takeLatest(ACTION_DELETE_CAMPUS_DRIVE_JOB_REQUEST, deleteCampusDriveJobRequestSaga);
+    yield takeLatest(ACTION_PUBLISH_CAMPUS_DRIVE_PUBLISH_JOBS_REQUEST, publishCampusDriveJobsRequestSaga);
+    yield takeLatest(ACTION_GET_CAMPUS_DRIVE_STUDENTS_LIST_BY_JOB_ID_REQUEST, getCampusDriveStudentsListByJobIdRequest);
 }

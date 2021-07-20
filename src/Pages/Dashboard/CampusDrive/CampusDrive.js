@@ -22,7 +22,6 @@ const CustomToolTip = withStyles((theme) => ({
 
 
 const CampusDrive = (props) => {
-    console.log('props ', props);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -54,7 +53,7 @@ const CampusDrive = (props) => {
     }
 
     const navigateTo = (routePath) => {
-        history.push('/dashboard/campus-drive/' + props?.match?.params?.campusDriveId + routePath)
+        history.push('/dashboard/campus-drive/' + props?.match?.params?.campusDriveId + routePath + '/' + props?.match?.params?.universityId)
     }
 
     return (

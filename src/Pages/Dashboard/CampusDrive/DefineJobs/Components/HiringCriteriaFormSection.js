@@ -198,6 +198,7 @@ const HiringCriteriaFormSection = (props) => {
           });
     
           if(selectedHiringCriteriaData?.length) {
+            selectHiringCriteriaHandler('hiringCriteria', selectedHiringCriteriaData[0].hiringCriteriaID);
             prepareHiringCriteria(selectedHiringCriteriaData[0], props?.mode==='VIEW' ? false : true);
           }
         }

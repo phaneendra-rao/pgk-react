@@ -62,7 +62,7 @@ function PgkSelectField(props) {
                 <MenuItem style={menuStyles} value={''}>{`Select ${label}`}</MenuItem>
                 {options?.length ? options.map((option)=>{
                     if(option && option.value && option.label) {
-                        return <MenuItem style={menuStyles} value={option?.value}>{option?.label}</MenuItem>
+                        return <MenuItem style={menuStyles} value={option?.value}>{option?.iconName ? <span style={{marginRight: '12px'}}><i className={'fas '+option.iconName}></i></span> : undefined}{option?.label}</MenuItem>
                     }
                 }) : null}
             </Select>

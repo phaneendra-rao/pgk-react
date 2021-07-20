@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionGetDependencyLookUpsSagaAction } from '../../../../../../../Store/Actions/SagaActions/CommonSagaActions';
-import HiringCriteriaForm from '../../../../../CreateJob/HiringCriteria/HiringCriteriaForm';
-import PgkSelectField from '../../../../../../../Components/FormFields/PgkSelectField';
+import { actionGetDependencyLookUpsSagaAction } from '../../../../../Store/Actions/SagaActions/CommonSagaActions';
+import HiringCriteriaForm from '../../../CreateJob/HiringCriteria/HiringCriteriaForm';
+import PgkSelectField from '../../../../../Components/FormFields/PgkSelectField';
 
 
 const HiringCriteriaFormSection = (props) => {
@@ -185,8 +185,24 @@ const HiringCriteriaFormSection = (props) => {
     useEffect(() => {
       if(props?.hiringCriteriaList?.length) {
         setHiringCriteriaList(props?.hiringCriteriaList)
+
+        if(props?.hcId) {
+          setSection({
+            firstSection: false,
+            secondSection: true
+          });
+          const selectedHiringCriteriaData = props?.hiringCriteriaList.filter((item)=>{
+            if (item.hiringCriteriaID === props?.hcId) {
+              return {...item}
+            }
+          });
+    
+          if(selectedHiringCriteriaData?.length) {
+            prepareHiringCriteria(selectedHiringCriteriaData[0], props?.mode==='VIEW' ? false : true);
+          }
+        }
       }
-    }, [props?.hiringCriteriaList]);
+    }, [props?.hiringCriteriaList, props?.hcId, props?.mode]);
 
     const dropdowns = (data) => {
         setLookUpData(data);
@@ -340,7 +356,7 @@ const HiringCriteriaFormSection = (props) => {
                   onChange={selectHiringCriteriaHandler}
                   label={`Select Hiring Criteria`}
                   options={hiringCriteriaList?.length ? hiringCriteriaList.map((item)=>{
-                    return {value: item.hiringCriteriaID, label: item.hiringCriteriaName}
+                    return {value: item.hiringCriteriaID, label: item.hiringCriteriaName, iconName: item?.iconName}
                   }) : []}
                   labelStyles={{fontSize: '.800rem'}}
                   selectStyles={{fontSize: '.800rem'}}
@@ -358,11 +374,16 @@ const HiringCriteriaFormSection = (props) => {
                   lookUpData={lookUpData}
                   noHeading
                   isNew
-                  openCloseModal={props?.cancelHandler}
+                  openCloseModal={props?.mode === 'VIEW' ? ()=>{
+                    if(props?.updateMode) {
+                      props.updateMode('EDIT');
+                    }
+                  } : props?.cancelHandler}
                   hiringCriteriaFormStyles={{backgroundColor: 'white', padding: 0}}
                   hiringCriteriaData={hiringCriteriaData}
-                  editLabel={'Cancel'}
-                  saveLabel={'Save & Next'}
+                  noEditBtn={props?.noEditBtn}
+                  editLabel={props?.mode === 'VIEW' ? 'EDIT' : ['EDIT', 'ADD'].includes(props?.mode) ? 'CANCEL' : ''}
+                  saveLabel={props?.mode === 'VIEW' ? props?.saveLabel ? props?.saveLabel : 'Next' : ['EDIT', 'ADD'].includes(props?.mode) ? 'Save & Next' : ''}
               /> : undefined}
         </>
     )

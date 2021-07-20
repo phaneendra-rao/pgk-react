@@ -10,7 +10,6 @@ import Close from '@material-ui/icons/Close';
 import CustomToastModal from "../../../../../../Components/CustomToastModal";
 
 const DefineJobsSection = (props) => {
-
   const dispatch = useDispatch();
   const [section, setSection] = useState({
     firstSection: false,
@@ -93,7 +92,6 @@ const DefineJobsSection = (props) => {
           cdID: props?.campusDriveId
         },
         callback: (jobResponse) => {
-          console.log('jobResponse ', jobResponse);
           setToastModal(true);
           closeWindow();
           getAllJobs();
@@ -108,7 +106,10 @@ const DefineJobsSection = (props) => {
     setSection({
       firstSection: false,
       secondSection: false
-    })
+    });
+    setSelectedHcId();
+    setSelectedJob();
+    setMode('ADD');
   }
 
   const deleteJob = (jobId) => {
@@ -117,7 +118,6 @@ const DefineJobsSection = (props) => {
         jobID: jobId
       },
       callback: (deleteJobResponse) => {
-        console.log('deleteJobResponse ', deleteJobResponse);
         getAllJobs();
       }
     }))

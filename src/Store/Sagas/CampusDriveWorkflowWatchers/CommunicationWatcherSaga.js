@@ -87,22 +87,20 @@ function* createEmailTemplateSaga(action) {
     }
 }
 
-const addInterViewRounds = (payload, corporateName) => {
-    const URL = '/ci/ir/?corporateName=' + corporateName;
+const addInterViewRounds = (payload) => {
+    const URL = '/ci/ir/';
     return Axios.post(URL, payload).then(res => res.data);
 }
 
 function* addInterViewRoundsSaga(action) {
     try {
         const model = action.payload.apiPayloadRequest;
-        const corporateName = action.payload.params;
+        console.log(model);
         let formData = new FormData();
         for (const key in model) {
             formData.append(key, model[key]);
         }
-
-        console.log(formData);
-        const resp = yield call(addInterViewRounds, formData, corporateName);
+        const resp = yield call(addInterViewRounds, formData);
         action.payload.callback(resp);
     } catch (err) {
         if (err?.response) {

@@ -5,6 +5,14 @@ import { useDispatch } from "react-redux";
 const CaptureResults = (props) => {
     const dispatch = useDispatch();
 
+    function getFormattedDate(date) {
+        var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+            'Nov', 'Dec'];
+        var d = new Date(date);
+
+        return d.getDate() + '-' + month[d.getMonth()] + '-' + d.getFullYear();
+    }
+
     return (
         <div className="bgWhite h-full">
             <div className="bgWhite h-full">
@@ -19,8 +27,7 @@ const CaptureResults = (props) => {
                         label="Job Name"
                         variant="outlined"
                         type="text"
-                        // name="startDate"
-                        // onChange={props.handleChange}
+                        value={props.captureResultsModel.jobName}
                         InputLabelProps={{
                             shrink: true,
                             style: { fontFamily: "Poppins-Regular", display: "block" }
@@ -35,8 +42,7 @@ const CaptureResults = (props) => {
                         label="Round Name"
                         variant="outlined"
                         type="text"
-                        // name="startDate"
-                        // onChange={props.handleChange}
+                        value={props.captureResultsModel.roundName}
                         InputLabelProps={{
                             shrink: true,
                             style: { fontFamily: "Poppins-Regular", display: "block" }
@@ -52,7 +58,7 @@ const CaptureResults = (props) => {
                 <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
                     <TextField
                         label="From Date"
-                        type="date"
+                        type="text"
                         // name="startDate"
                         // onChange={props.handleChange}
                         InputLabelProps={{
@@ -65,12 +71,11 @@ const CaptureResults = (props) => {
                         variant="outlined"
                         margin="dense"
                         style={{ width: "30%" }}
-                        placeholder="dd-mon-yyyy"
-                    // value={props.addProgram.startDate}
+                        value={getFormattedDate(props.captureResultsModel.startDate)}
                     />
                     <TextField
                         label="To Date"
-                        type="date"
+                        type="text"
                         name="endDate"
                         // onChange={props.handleChange}
                         InputLabelProps={{
@@ -85,7 +90,7 @@ const CaptureResults = (props) => {
                         variant="outlined"
                         margin="dense"
                         style={{ width: "30%" }}
-                    // value={props.addProgram.endDate}
+                        value={getFormattedDate(props.captureResultsModel.endDate)}
                     />
                     <TextField
                         label="ShortListed Students"

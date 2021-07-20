@@ -9,49 +9,49 @@ const ShareInterviewRounds = (props) => {
     const dispatch = useDispatch();
     const [jobsList, setJobsList] = useState([]);
     const initialData = {
-        "cdID": props.jobId,
+        "cdID": props.campusDriveId,
         "noOfRounds": 1,
-        "jobID": props.campusDriveId,
+        "jobID": props.jobId,
         "interviewRoundID": 0,
         "round1": "Round 1",
-        "round1StartDate": "0001-01-01T00:00:00Z",
-        "round1EndDate": "0001-01-01T00:00:00Z",
+        "round1StartDate": "",
+        "round1EndDate": "",
         "round1Type": "",
         "round2": "",
-        "round2StartDate": "0001-01-01T00:00:00Z",
-        "round2EndDate": "0001-01-01T00:00:00Z",
+        "round2StartDate": "",
+        "round2EndDate": "",
         "round2Type": "",
         "round3": "",
-        "round3StartDate": "0001-01-01T00:00:00Z",
-        "round3EndDate": "0001-01-01T00:00:00Z",
+        "round3StartDate": "",
+        "round3EndDate": "",
         "round3Type": "",
         "round4": "",
-        "round4StartDate": "0001-01-01T00:00:00Z",
-        "round4EndDate": "0001-01-01T00:00:00Z",
+        "round4StartDate": "",
+        "round4EndDate": "",
         "round4Type": "",
         "round5": "",
-        "round5StartDate": "0001-01-01T00:00:00Z",
-        "round5EndDate": "0001-01-01T00:00:00Z",
+        "round5StartDate": "",
+        "round5EndDate": "",
         "round5Type": "",
         "round6": "",
-        "round6StartDate": "0001-01-01T00:00:00Z",
-        "round6EndDate": "0001-01-01T00:00:00Z",
+        "round6StartDate": "",
+        "round6EndDate": "",
         "round6Type": "",
         "round7": "",
-        "round7StartDate": "0001-01-01T00:00:00Z",
-        "round7EndDate": "0001-01-01T00:00:00Z",
+        "round7StartDate": "",
+        "round7EndDate": "",
         "round7Type": "",
         "round8": "",
-        "round8StartDate": "0001-01-01T00:00:00Z",
-        "round8EndDate": "0001-01-01T00:00:00Z",
+        "round8StartDate": "",
+        "round8EndDate": "",
         "round8Type": "",
         "round9": "",
-        "round9StartDate": "0001-01-01T00:00:00Z",
-        "round9EndDate": "0001-01-01T00:00:00Z",
+        "round9StartDate": "",
+        "round9EndDate": "",
         "round9Type": "",
         "round10": "",
-        "round10StartDate": "0001-01-01T00:00:00Z",
-        "round10EndDate": "0001-01-01T00:00:00Z",
+        "round10StartDate": "",
+        "round10EndDate": "",
         "round10Type": ""
     };
 
@@ -237,12 +237,11 @@ const ShareInterviewRounds = (props) => {
             ...addRounds
         }
 
-        // dispatch(actionPostInterviewRoundsSaga({
-        //     apiPayloadRequest: model,
-        //     params: "pgk",
-        //     callback: onSuccess
-        // }));
-        onSuccess();
+        dispatch(actionPostInterviewRoundsSaga({
+            apiPayloadRequest: model,
+            callback: onSuccess
+        }));
+       // onSuccess();
     }
 
     const onSuccess = () => {

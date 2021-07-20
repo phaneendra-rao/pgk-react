@@ -36,8 +36,8 @@ const CampusDriveList = () => {
       setTabValue(newValue);
     };
 
-    const navigateToCampusDrive = (campusDriveId) => {
-        history.push('/dashboard/campus-drive/'+campusDriveId+'/home')
+    const navigateToCampusDrive = (campusDriveId, universityId) => {
+        history.push('/dashboard/campus-drive/'+campusDriveId+'/home/'+universityId)
     }
 
   return ( 
@@ -61,8 +61,8 @@ const CampusDriveList = () => {
                         <div className="invite-info">
                             <div className="invite-info-icon"><i className="fas fa-university"></i></div>
                             <div className="invite-info-info">
-                                <p className="invite-info-title">{item?.initiatorName}</p>
-                                <p className="invite-info-sub-title">{item?.initiatorLocation}</p>
+                                <p className="info-title">{item?.receiverName}</p>
+                                <p className="info-sub-title"><span><i className="fas fa-map-marker-alt"></i></span> {item?.receiverLocation}</p>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ const CampusDriveList = () => {
                         <div className="row align-items-center m-0">
                             <div className="vertical-divider"></div>
                             <IconButton style={{backgroundColor: '#253AA3', marginLeft: '20px'}} onClick={()=>{
-                                navigateToCampusDrive(item?.campusDriveID)
+                                navigateToCampusDrive(item?.campusDriveID, item?.receiverID)
                             }}>
                                 <ChevronRight fontSize="large" style={{color: 'white'}} />
                             </IconButton>
@@ -95,7 +95,7 @@ const CampusDriveList = () => {
                     <div className="row align-items-center m-0">
                         <div className="vertical-divider"></div>
                         <IconButton style={{backgroundColor: '#253AA3', marginLeft: '20px'}} onClick={()=>{
-                            navigateToCampusDrive(item?.campusDriveID)
+                            navigateToCampusDrive(item?.campusDriveID, item?.initiatorID)
                         }}>
                             <ChevronRight fontSize="large" style={{color: 'white'}} />
                         </IconButton>

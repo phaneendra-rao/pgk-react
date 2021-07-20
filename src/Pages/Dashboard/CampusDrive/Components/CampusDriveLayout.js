@@ -26,7 +26,7 @@ const CampusDriveLayout = (props) => {
             <div className={"row align-items-center campusDriveNavStripe"}>
                 <div className="col-md-3">
                     <NavLink
-                        to={"/dashboard/campus-drive/" + props?.campusDriveId + "/home"}
+                        to={"/dashboard/campus-drive/" + props?.campusDriveId + "/home/" + props?.universityId}
                         replace
                         exact
                         activeClassName="campusDriveBtnActive"
@@ -39,7 +39,7 @@ const CampusDriveLayout = (props) => {
                     <div className="row align-items-center">
                         <div className="col-md-9">
                             <NavLink
-                                to={"/dashboard/campus-drive/" + props?.campusDriveId + "/define-jobs"}
+                                to={"/dashboard/campus-drive/" + props?.campusDriveId + "/define-jobs/" + props?.universityId}
                                 exact
                                 activeClassName="campusDriveBtnActive"
                                 className="campusDriveBtn"
@@ -47,7 +47,7 @@ const CampusDriveLayout = (props) => {
                                 Define Jobs
                             </NavLink>
                             <NavLink
-                                to={"/dashboard/campus-drive/" + props?.campusDriveId + "/communication"}
+                                to={"/dashboard/campus-drive/" + props?.campusDriveId + "/communication/" + props?.universityId}
                                 exact
                                 activeClassName="campusDriveBtnActive"
                                 className="campusDriveBtn"
@@ -55,7 +55,7 @@ const CampusDriveLayout = (props) => {
                                 Communication
                             </NavLink>
                             <NavLink
-                                to={"/dashboard/campus-drive/" + props?.campusDriveId + "/campus-interviews"}
+                                to={"/dashboard/campus-drive/" + props?.campusDriveId + "/campus-interviews/" + props?.universityId}
                                 exact
                                 activeClassName="campusDriveBtnActive"
                                 className="campusDriveBtn"

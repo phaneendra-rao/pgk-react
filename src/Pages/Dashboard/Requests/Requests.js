@@ -482,7 +482,7 @@ const Requests = () => {
                 />
               </div>
               <div className="modal-body">
-                <div className="card">
+                <div className="card d-none">
                   <span className="control-label" style={{ fontSize: "1rem" }}>
                     From&nbsp;:
                   </span>
@@ -494,7 +494,7 @@ const Requests = () => {
                     readOnly
                   />
                 </div>
-                <div className="card">
+                <div className="card d-none">
                   <span className="control-label" style={{ fontSize: "1rem" }}>
                     To&nbsp;:
                   </span>
@@ -521,7 +521,7 @@ const Requests = () => {
                 <div className="card b-none">
                   <textarea
                     name="emailBody"
-                    style={{ fontSize: ".850rem" }}
+                    style={{ fontSize: '.850rem', minWidth: '100%', minHeight: '400px' }}
                     defaultValue={notificationContent?.emailBody}
                     rows={5}
                     readOnly

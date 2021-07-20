@@ -327,7 +327,7 @@ const routes = [
     component: CampusDriveList,
   },
   {
-    path: "/dashboard/campus-drive/:campusDriveId/home",
+    path: "/dashboard/campus-drive/:campusDriveId/home/:universityId",
     strict: true,
     exact: true,
     role: "dashboard",
@@ -335,7 +335,7 @@ const routes = [
     component: CampusDrive,
   },
   {
-    path: "/dashboard/campus-drive/:campusDriveId/define-jobs",
+    path: "/dashboard/campus-drive/:campusDriveId/define-jobs/:universityId",
     strict: true,
     exact: true,
     role: "dashboard",
@@ -343,7 +343,7 @@ const routes = [
     component: DefineJobs,
   },
   {
-    path: "/dashboard/campus-drive/:campusDriveId/communication",
+    path: "/dashboard/campus-drive/:campusDriveId/communication/:universityId",
     strict: true,
     exact: true,
     role: "dashboard",
@@ -351,7 +351,7 @@ const routes = [
     component: Communication,
   },
   {
-    path: "/dashboard/campus-drive/:campusDriveId/campus-interviews",
+    path: "/dashboard/campus-drive/:campusDriveId/campus-interviews/:universityId",
     strict: true,
     exact: true,
     role: "dashboard",

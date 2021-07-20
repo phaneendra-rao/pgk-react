@@ -82,6 +82,7 @@ const DefineJobs = (props) => {
         <CampusDriveLayout
             tabs={tabs}
             campusDriveId={props?.match?.params?.campusDriveId}
+            universityId={props?.match?.params?.universityId}
             prevBtn={{
                 isDisabled: isPrevBtnDisbaled(),
                 onClick: prevBtn 

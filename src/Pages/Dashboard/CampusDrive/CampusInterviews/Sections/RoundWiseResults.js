@@ -27,6 +27,14 @@ const RoundWiseResults = (props) => {
         getinteviewRoundsInformation(value);
     }
 
+    function getFormattedDate(date) {
+        var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+            'Nov', 'Dec'];
+        var d = new Date(date);
+
+        return d.getDate() + '-' + month[d.getMonth()] + '-' + d.getFullYear();
+    }
+
     const toggleCaptureResults = () => {
         setEnableCaptureResults(!enableCaptureResults);
     }
@@ -84,6 +92,7 @@ const RoundWiseResults = (props) => {
     }
 
     const getRoundsInformation = (data) => {
+        console.log(data);
         setInterviewRoundsInfo(data);
     }
 
@@ -104,7 +113,10 @@ const RoundWiseResults = (props) => {
             {
                 enableCaptureResults ?
                     <>
-                        <CaptureResults />
+                        <CaptureResults
+                            captureResultsModel={captureResultsModel}
+                            studentsListForRound={studentsListForRound}
+                        />
                     </>
                     :
                     <div className="container">
@@ -149,30 +161,8 @@ const RoundWiseResults = (props) => {
                         <div style={{ borderTop: "1px solid black", width: "100%", marginLeft: 20, marginRight: 20 }}></div>
                         <br />
                         {
-                            interviewRoundsInfo?.noOfRounds ?
+                            interviewRoundsInfo?.noOfRounds > 0 ?
                                 <>
-                                    <table className="table table-striped table-bordered">
-                                        <thead style={{ backgroundColor: "#253AA3", color: "white" }}>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Round Name</th>
-                                                <th scope="col">From Date</th>
-                                                <th scope="col">To Date</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </>
-                                :
-                                <>
-                                    {/* <div className="d-flex flex-column justify-content-start align-items-center w-full">
-                    <p className="heading" style={{ color: "#253AA3", fontWeight: "bold", fontFamily: "Poppins-Regular", display: "block" }}>
-                        Please select Job to capture results
-                    </p>
-                </div> */}
                                     <table className="table table-striped table-bordered">
                                         <thead style={{ backgroundColor: "#253AA3", color: "white" }}>
                                             <tr>
@@ -190,35 +180,254 @@ const RoundWiseResults = (props) => {
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>{interviewRoundsInfo?.round1} </td>
-                                                        <td>{interviewRoundsInfo?.round1StartDate}</td>
-                                                        <td>{interviewRoundsInfo?.round1EndDate}</td>
+                                                        <td> {getFormattedDate(interviewRoundsInfo?.round1StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round1EndDate)}</td>
                                                         <td>{interviewRoundsInfo?.round1Type}</td>
-                                                        <td> <button type="button" className="btn" onClick={onCaptureResults(
-                                                            interviewRoundsInfo?.round1,
-                                                            interviewRoundsInfo?.round1StartDate,
-                                                            interviewRoundsInfo?.round1EndDate,
-                                                            interviewRoundsInfo?.round1Type
-                                                        )} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round1,
+                                                                interviewRoundsInfo?.round1StartDate,
+                                                                interviewRoundsInfo?.round1EndDate,
+                                                                interviewRoundsInfo?.round1Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
                                                     </tr>
-                                                    :                                                    
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Round 1 </td>
-                                                            <td>01-Jul-2021</td>
-                                                            <td>01-Jul-2021</td>
-                                                            <td>Written Test</td>
-                                                            <td> <button type="button" className="btn" onClick={ () => {onCaptureResults(
-                                                                "Round1",
-                                                                "2021-07-01T00:00:00Z",
-                                                                "2021-07-01T00:00:00Z",
-                                                                "string"
-                                                            )}} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
-                                                        </tr>
-                                                    
+                                                    :
+                                                    <>
+                                                    </>
                                             }
-
+                                            {
+                                                interviewRoundsInfo?.round2 ?
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>{interviewRoundsInfo?.round2} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round2StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round2EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round2Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round2,
+                                                                interviewRoundsInfo?.round2StartDate,
+                                                                interviewRoundsInfo?.round2EndDate,
+                                                                interviewRoundsInfo?.round2Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round3 ?
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>{interviewRoundsInfo?.round3} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round3StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round3EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round3Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round3,
+                                                                interviewRoundsInfo?.round3StartDate,
+                                                                interviewRoundsInfo?.round3EndDate,
+                                                                interviewRoundsInfo?.round3Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round4 ?
+                                                    <tr>
+                                                        <th scope="row">4</th>
+                                                        <td>{interviewRoundsInfo?.round4} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round4StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round4EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round4Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round4,
+                                                                interviewRoundsInfo?.round4StartDate,
+                                                                interviewRoundsInfo?.round4EndDate,
+                                                                interviewRoundsInfo?.round4Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round5 ?
+                                                    <tr>
+                                                        <th scope="row">5</th>
+                                                        <td>{interviewRoundsInfo?.round5} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round5StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round5EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round5Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round5,
+                                                                interviewRoundsInfo?.round5StartDate,
+                                                                interviewRoundsInfo?.round5EndDate,
+                                                                interviewRoundsInfo?.round5Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round6 ?
+                                                    <tr>
+                                                        <th scope="row">6</th>
+                                                        <td>{interviewRoundsInfo?.round6} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round6StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round6EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round6Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round6,
+                                                                interviewRoundsInfo?.round6StartDate,
+                                                                interviewRoundsInfo?.round6EndDate,
+                                                                interviewRoundsInfo?.round6Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round6 ?
+                                                    <tr>
+                                                        <th scope="row">6</th>
+                                                        <td>{interviewRoundsInfo?.round6} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round6StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round6EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round6Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round6,
+                                                                interviewRoundsInfo?.round6StartDate,
+                                                                interviewRoundsInfo?.round6EndDate,
+                                                                interviewRoundsInfo?.round6Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round7 ?
+                                                    <tr>
+                                                        <th scope="row">7</th>
+                                                        <td>{interviewRoundsInfo?.round7} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round7StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round7EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round7Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round7,
+                                                                interviewRoundsInfo?.round7StartDate,
+                                                                interviewRoundsInfo?.round7EndDate,
+                                                                interviewRoundsInfo?.round7Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round8 ?
+                                                    <tr>
+                                                        <th scope="row">8</th>
+                                                        <td>{interviewRoundsInfo?.round8} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round8StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round8EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round8Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round8,
+                                                                interviewRoundsInfo?.round8StartDate,
+                                                                interviewRoundsInfo?.round8EndDate,
+                                                                interviewRoundsInfo?.round8Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            {
+                                                interviewRoundsInfo?.round9 ?
+                                                    <tr>
+                                                        <th scope="row">9</th>
+                                                        <td>{interviewRoundsInfo?.round9} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round9StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round9EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round9Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round9,
+                                                                interviewRoundsInfo?.round9StartDate,
+                                                                interviewRoundsInfo?.round9EndDate,
+                                                                interviewRoundsInfo?.round9Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
+                                            
+                                            {
+                                                interviewRoundsInfo?.round10 ?
+                                                    <tr>
+                                                        <th scope="row">10</th>
+                                                        <td>{interviewRoundsInfo?.round10} </td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round10StartDate)}</td>
+                                                        <td>{getFormattedDate(interviewRoundsInfo?.round10EndDate)}</td>
+                                                        <td>{interviewRoundsInfo?.round10Type}</td>
+                                                        <td> <button type="button" className="btn" onClick={() => {
+                                                            onCaptureResults(
+                                                                interviewRoundsInfo?.round10,
+                                                                interviewRoundsInfo?.round10StartDate,
+                                                                interviewRoundsInfo?.round10EndDate,
+                                                                interviewRoundsInfo?.round10Type
+                                                            )
+                                                        }} style={{ backgroundColor: "gray" }}><p>Capture Results</p></button></td>
+                                                    </tr>
+                                                    :
+                                                    <>
+                                                    </>
+                                            }
                                         </tbody>
                                     </table>
+                                </>
+                                :
+                                <>``
+                                    {
+                                        interviewRoundsInfo?.noOfRounds === 0
+                                            ?
+                                            <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                                                <p className="heading" style={{ color: "#253AA3", fontWeight: "bold", fontFamily: "Poppins-Regular", display: "block" }}>
+                                                    Please add rounds to selected job to capture results
+                                                </p>
+                                            </div>
+                                            :
+                                            <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                                                <p className="heading" style={{ color: "#253AA3", fontWeight: "bold", fontFamily: "Poppins-Regular", display: "block" }}>
+                                                    Please select Job to capture results
+                                                </p>
+                                            </div>
+                                    }
+
                                 </>
                         }
                     </div>

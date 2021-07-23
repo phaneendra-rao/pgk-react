@@ -5,7 +5,9 @@ import {
     ACTION_POST_OR_PATCH_CAMPUS_DRIVE_JOB_REQUEST,
     ACTION_DELETE_CAMPUS_DRIVE_JOB_REQUEST,
     ACTION_PUBLISH_CAMPUS_DRIVE_PUBLISH_JOBS_REQUEST,
-    ACTION_GET_CAMPUS_DRIVE_STUDENTS_LIST_BY_JOB_ID_REQUEST
+    ACTION_GET_CAMPUS_DRIVE_STUDENTS_LIST_BY_JOB_ID_REQUEST,
+    ACTION_GET_CAMPUS_DRIVE_APP_WINDOW_JOB_BY_ID_REQUEST,
+    ACTION_POST_CAMPUS_DRIVE_APP_WINDOW_JOB_REQUEST,
 } from "../SagaActionTypes"
 
 // GET DEFINE JOBS LIST - CAMPUS DRIVE
@@ -60,6 +62,21 @@ export const actionPublishJobsCampusDriveRequestSaga = (payload) => {
 export const actionGetStudentsListCampusDriveRequestSaga = (payload) => {
     return {
         type: ACTION_GET_CAMPUS_DRIVE_STUDENTS_LIST_BY_JOB_ID_REQUEST,
+        payload: payload
+    }
+}
+
+// GET DEFINE JOB APPLICATION WINDOW LIST - CAMPUS DRIVE
+export const actionGetDefineJobApplicationWindowById = (payload) => {
+    return {
+        type: ACTION_GET_CAMPUS_DRIVE_APP_WINDOW_JOB_BY_ID_REQUEST,
+        payload: payload
+    }
+}
+
+export const actionPostDefineJobApplicationWindow = (payload) => {
+    return {
+        type: ACTION_POST_CAMPUS_DRIVE_APP_WINDOW_JOB_REQUEST,
         payload: payload
     }
 }

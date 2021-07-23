@@ -57,6 +57,7 @@ const CampusDrive = (props) => {
     }
 
     return (
+        <>
         <div className="bgWhite h-full main-triangle-container">
             <div className="custom-row">
                 <CustomToolTip
@@ -83,9 +84,11 @@ const CampusDrive = (props) => {
                         <h4 className="mainCircleTitle">Communication</h4>
                     </div>
                 </CustomToolTip>
-
             </div>
-
+            <div className="dotted-rows">
+                    <div className="slant-dotted-row"></div>
+                    <div className="slant-dotted-row"></div>
+            </div>
             <div className="custom-row">
                 <CustomToolTip
                     title={getToolTipOptions(['Campus Drive Dates Finalization', 'Define Jobs', 'Share Job Details', 'Define Job Application Window'])}
@@ -138,6 +141,10 @@ const CampusDrive = (props) => {
                 </CustomToolTip>
             </div>
         </div>
+        <div className="row" style={{position: 'absolute', marginTop: '-150px'}}>
+            <img src='/images/campus-drive-footer.png' style={{width: '100%'}}/>
+        </div>
+        </>
     );
 };
 

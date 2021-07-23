@@ -5,7 +5,7 @@ import { CSVLink } from 'react-csv';
 import { actionGetCampusDriveDefineJobsListRequestSaga } from '../../../../../Store/Actions/SagaActions/CampusDriveWorkflowActions/DefineJobsSagaActions';
 import { actionGetInterviewRoundsRequestSaga, actionGetStudentsListSaga } from '../../../../../Store/Actions/SagaActions/CampusDriveWorkflowActions/CampusInterviewSagaAction';
 
-const ValidateProfiles = (props) => {
+const ShareRoundResults = (props) => {
     const dispatch = useDispatch();
     const [jobsList, setJobsList] = useState([]);
     const [selectedJobID, setSelectedJobID] = useState("");
@@ -88,7 +88,7 @@ const ValidateProfiles = (props) => {
     return (
         <div className="bgWhite h-full">
             <CSVLink
-                data={studentsListForRound?.studentsList && studentsListForRound?.studentsList.length > 0 ? studentsListForRound.studentsList : "DummyData"}
+                data={"DummyData"}
                 filename='StudentsData.csv'
                 className='hidden'
                 ref={csvLink}
@@ -360,7 +360,8 @@ const ValidateProfiles = (props) => {
             <div style={{ borderTop: "1px solid black", width: "100%", marginLeft: 20, marginRight: 20 }}></div>
             <br />
             <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
-                <button type="button" className="btn" onClick={onDownloadData}><p>Download</p></button>
+               
+                <button type="button" className="btn" ><p>Share</p></button>
             </div>
             <br />
             <br />
@@ -368,4 +369,4 @@ const ValidateProfiles = (props) => {
     );
 };
 
-export default ValidateProfiles;
+export default ShareRoundResults;

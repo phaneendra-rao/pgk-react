@@ -3,8 +3,9 @@ import { TextField } from '@material-ui/core';
 import { useDispatch } from "react-redux";
 import { Modal, ModalBody } from 'reactstrap'
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import { actionGetInterviewRoundsRequestSaga } from '../../../../../Store/Actions/SagaActions/CampusDriveWorkflowActions/CampusInterviewSagaAction';
 import { actionGetCampusDriveDefineJobsListRequestSaga } from '../../../../../Store/Actions/SagaActions/CampusDriveWorkflowActions/DefineJobsSagaActions';
-import ShareInterviewRounds from './ShareInterviewRounds';
+import SaveInterviewRounds from './SaveInterviewRounds';
 
 const DefineInterviewRounds = (props) => {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const DefineInterviewRounds = (props) => {
     const [enableSuccessModal, setEnableSuccessModal] = useState(false);
     const [selectedJobID, setSelectedJobID] = useState("");
     const [selectedJobName, setSelectedJobName] = useState("");
+    const [addRounds, setAddRounds] = useState("");
 
     const getJobData = (data) => {
         setJobsList(data);
@@ -56,12 +58,13 @@ const DefineInterviewRounds = (props) => {
                     enableRoundDetails
                         ?
                         <>
-                            <ShareInterviewRounds
+                            <SaveInterviewRounds
                                 campusDriveId={props?.campusDriveId}
                                 jobId={selectedJobID}
                                 jobName={selectedJobName}
                                 onCancel={onCancel}
                                 onSuccess={onSuccess}
+                                addRoundsInfo={addRounds}
                             />
                         </>
                         :
@@ -95,7 +98,7 @@ const DefineInterviewRounds = (props) => {
                                             <p className="job-label" style={{ float: "left", fontFamily: "Poppins-Regular" }}>{item.status === "o" ? "Open" : "Closed"} </p>
                                         </div>
                                         <div className="col-sm-4">
-                                            <button className="btn" onClick={() => { onDefineRounds(item.jobID, item.jobName) }}>Interview Rounds </button>
+                                            <button className="btn" onClick={() => { onDefineRounds(item.jobID, item.jobName) }}>Job Interview Rounds </button>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +121,7 @@ const DefineInterviewRounds = (props) => {
                                         </div>
                                     </div>
                                     <p style={{ textAlign: "center" }} className="paragraph">Inteview rounds</p>
-                                    <p style={{ textAlign: "center" }} className="paragraph2">added Successfully</p>
+                                    <p style={{ textAlign: "center" }} className="paragraph2">saved Successfully</p>
                                 </ModalBody>
                             </Modal>
                         </div>

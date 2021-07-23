@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from '@material-ui/core';
 import { useDispatch } from "react-redux";
+import { actionPostStudentsListForRoundSaga }
+    from '../../../../../Store/Actions/SagaActions/CampusDriveWorkflowActions/CampusInterviewSagaAction';
+
 
 const CaptureResults = (props) => {
+
     const dispatch = useDispatch();
 
     function getFormattedDate(date) {
@@ -11,6 +15,46 @@ const CaptureResults = (props) => {
         var d = new Date(date);
 
         return d.getDate() + '-' + month[d.getMonth()] + '-' + d.getFullYear();
+    }
+
+    const initialStudentResults = {
+        "cdID": props.captureResultsModel.campusDriveId,
+        "totalInterviewRounds": props.captureResultsModel.totalRounds,
+        "interviewRoundID": props.captureResultsModel.roundNumber,
+        "jobID": props.captureResultsModel.jobId,
+        "selectedApplicantIDs": [],
+        "rejectedApplicantIDs": []
+    }
+
+    const [captureResults, setCaptureResults] = useState(initialStudentResults);
+
+    const onChange = (event) => {
+        var currentSelectedList = captureResults.selectedApplicantIDs;
+        if (event.target.checked) {
+            if (!currentSelectedList.includes(event.target.name)) {
+                currentSelectedList.push(event.target.name);
+
+            }
+        }
+        else {
+            const index = currentSelectedList.indexOf(event.target.name);
+            if (index > -1) {
+                currentSelectedList.splice(index, 1);
+            }
+        }
+
+        setCaptureResults((prevOtherInfo) => ({
+            ...prevOtherInfo,
+            selectedApplicantIDs: currentSelectedList
+        }));
+    }
+
+    const onSubmit = () => {
+        dispatch(actionPostStudentsListForRoundSaga({ apiPayloadRequest: captureResults, callback: onSucess }));
+    }
+
+    const onSucess = () => {
+        props.onSucess();
     }
 
     return (
@@ -108,7 +152,7 @@ const CaptureResults = (props) => {
                         variant="outlined"
                         margin="dense"
                         style={{ maxWidth: "30%" }}
-                        value={3} //{props.addRanking.rank}
+                        value={props.studentsListForRound.noOfStudentsSelected} //{props.addRanking.rank}
                     // helperText={props.rankNumberErr}
                     // error={props.rankNumberErr ? true : false}
                     />
@@ -123,38 +167,42 @@ const CaptureResults = (props) => {
                             <th scope="col">Student Name</th>
                             <th scope="col">College Roll No.</th>
                             <th scope="col">Email ID</th>
-                            <th scope="col">Remarks</th>
+                            <th scope="col">Resume</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row"><input type="checkbox" /></th>
-                            <td>Vishwanathan Anand</td>
-                            <td>11UQ1A0501</td>
-                            <td>vishyanand@gmail.com</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"> <input type="checkbox" /></th>
-                            <td>Magnus Carlsen</td>
-                            <td>11UQ1A0502</td>
-                            <td>magcarl@gmail.com</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><input type="checkbox" /> </th>
-                            <td>Mikhal Tal</td>
-                            <td>11UQ1A0503</td>
-                            <td>MagicianOfRiga@gmail.com</td>
-                            <td></td>
-                        </tr>
+                        {
+                            props.studentsListForRound?.studentsList && props.studentsListForRound?.studentsList?.length > 0
+                                ?
+                                <>
+                                    {
+                                        props.studentsListForRound.studentsList.map((studentInfo) => (
+                                            <tr>
+                                                <th scope="row"><input
+                                                    type="checkbox"
+                                                    name={studentInfo.applicantID}
+                                                    onChange={onChange} /></th>
+                                                <td>{studentInfo.name}</td>
+                                                <td>{studentInfo.collegeRollNo}</td>
+                                                <td>{studentInfo.email}</td>
+                                                <td></td>
+                                            </tr>
+                                        ))
+                                    }
+
+                                </>
+                                :
+                                <>
+                                </>
+                        }
                     </tbody>
                 </table>
                 <br />
                 <div style={{ borderTop: "1px solid black", width: "100%", marginLeft: 20, marginRight: 20 }}></div>
                 <br />
                 <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }}>
-                    <button type="button" className="btn"><p>Share</p></button>
+                    <button type="button" className="btn mr-4" onClick={() => { props.onCancel() }}><p>Cancel</p></button>
+                    <button type="button" className="btn" onClick={() => { onSubmit() }}><p>Save</p></button>
                 </div>
                 <br />
                 <br />

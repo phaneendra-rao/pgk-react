@@ -32,18 +32,14 @@ function Modal(props) {
             </div>
             <div className="modal-footer">
               <div className="socials">
-                <span className="linkedin">
-                  <img
-                    height="40px"
-                    src="../../../images/c2hire/icon/linkedin.png"
-                    alt=""
-                  />
-                </span>
-                <span className="twitter">
-                  <i className="fab fa-twitter"></i>
-                </span>
-                <span className="facebook">
-                  <i className="fab fa-facebook-f"></i>
+              <span className="linkedin">
+                  <a href={data.linkedinUrl} target="_blank">
+                    <img
+                      height="40px"
+                      src="../../../images/c2hire/icon/linkedin.png"
+                      alt=""
+                    />
+                  </a>
                 </span>
               </div>
             </div>

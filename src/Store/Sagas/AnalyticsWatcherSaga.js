@@ -2,7 +2,8 @@ import { call, takeLatest, put } from 'redux-saga/effects';
 import Axios from "../../utils/axios";
 import { toast } from "react-toastify";
 import {
-    ACTION_GET_ANALYTICS_BI_ACCESS_TOKEN_REQUEST
+    ACTION_GET_ANALYTICS_BI_ACCESS_TOKEN_REQUEST,
+    ACTION_GET_ANALYTICS_BI_REPORT_IDS_REQUEST,
 } from "../Actions/SagaActions/SagaActionTypes";
 
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
@@ -37,6 +38,37 @@ function* getAnalyticsBiAccessTokenRequestSaga(action) {
     }
 }
 
+
+// GET REPORT IDS
+const getReportIdsRequest = (apiPayloadRequest) => {
+    const URL = "/lut/reportInfo/C/"+apiPayloadRequest.reportName;
+    return Axios.get(URL).then((res) => {
+      return res.data;
+    });
+}
+
+function* getReportIdsRequestSaga(action) {
+    yield put(actionUpdateGlobalLoaderSagaAction(true));
+
+    try {
+        const response = yield call(getReportIdsRequest, action.payload.apiPayloadRequest);
+        if(response) {
+            action.payload.callback(response);
+        } else {
+            toast.error("Something went wrong!");
+        }
+        } catch (err) {
+            if (err.response) {
+                toast.error(err?.response?.data?.errors?.length && err?.response?.data?.errors[0]?.message);
+            } else {
+                toast.error("Something Wrong!", err.message);
+        }
+    } finally {
+        yield put(actionUpdateGlobalLoaderSagaAction(false));
+    }
+}
+
 export default function* AnalyticsWatcherSaga() {
     yield takeLatest(ACTION_GET_ANALYTICS_BI_ACCESS_TOKEN_REQUEST, getAnalyticsBiAccessTokenRequestSaga);
+    yield takeLatest(ACTION_GET_ANALYTICS_BI_REPORT_IDS_REQUEST, getReportIdsRequestSaga);
 }

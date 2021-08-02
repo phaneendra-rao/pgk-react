@@ -181,10 +181,12 @@ const CampusDriveDatesFinalizationSection = (props) => {
     }
 
     return (
-        <div className="hiring-modal" style={{backgroundColor:'white', border: '1px solid #cacaca'}}>
+        <div className={'d-flex flex-column justify-content-center align-items-center'}>
+        <p className="text-center text-primary p-2">Dates Finalization</p>
+        <div className="hiring-modal" style={{backgroundColor:'white', border: '1px solid #cacaca', width: '90%'}}>
             <div className="modal-header hiring-modal-header" style={{padding: '12px', alignSelf: 'center'}}>
-                <h5 className="modal-title" style={{fontSize: '12px', alignSelf: 'center'}}>
-                    Campus Drive Dates Finalization
+                <h5 className="modal-title" style={{fontSize: '14px', alignSelf: 'center'}}>
+                    Campus Drive - Tentative Dates
                 </h5>
                 <IconButton style={{color:'white'}} size={'small'} onClick={props?.openClose} component="span">
                     <Close />
@@ -224,11 +226,32 @@ const CampusDriveDatesFinalizationSection = (props) => {
                     }]}
                 />
             </div>
+            <div className={'row'}>
+                <div className={'d-attach'} style={{border: '1px solid #cacaca'}}>
+                <div className={'d-flex justify-content-between align-items-center'}>
+                                                        
+                                                        </div>
+                                                        <label htmlFor="attachment" className="d-label">
+                                                          <i className="fas fa-paperclip mr-2"></i>
+                                                          Attach File
+                                                        </label>
+                                                        <input
+                                                          type="file"
+                                                          className="d-inp d-none"
+                                                          name="attachment"
+                                                          id="attachment"
+                                                          accept=".pdf"
+                                                          onChange={(e)=>{}}
+                                                        />
+                                      
+                </div>
+            </div>
             
             <div className="d-flex flex-row justify-content-center align-items-center w-full mb-2 mt-4">
                 {/* <button type="button" onClick={cancelHandler} style={{height: '40px', maxWidth: '130px', marginRight: '12px'}} className="btn job-btn">{['ADD', 'EDIT'].includes(props?.mode) ? 'Cancel' : 'Edit'}</button> */}
                 <button type="button" onClick={submitHandler} style={{height: '40px', maxWidth: '130px'}} className="btn job-btn">{props?.mode==='ADD' ? 'Confirm' : props?.mode==='EDIT' ? 'Save' : 'Save'}</button>
             </div>
+        </div>
         </div>
     )
 }

@@ -94,6 +94,9 @@ const CampusDriveLayout = (props) => {
                     {getTabSection()}
                 </div>
             </div>
+            <div className="row" style={{marginTop: '-100px'}}>
+                <img src='/images/campus-drive-footer.png' className="img img-fluid logo" />
+            </div>
         </div>
     );
 };

@@ -118,6 +118,7 @@ const fieldValidations = (value, validations) => {
                     }
                 } else if(typeof validationsListItem==='function') {
                     error = validationsListItem(value)
+                    console.log('error ', error);
                 }
 
                 if (error !== undefined) {

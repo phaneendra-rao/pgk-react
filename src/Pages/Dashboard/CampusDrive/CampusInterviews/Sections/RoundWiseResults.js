@@ -3,6 +3,8 @@ import { TextField } from '@material-ui/core';
 import { useDispatch } from "react-redux";
 import { actionGetCampusDriveDefineJobsListRequestSaga } from '../../../../../Store/Actions/SagaActions/CampusDriveWorkflowActions/DefineJobsSagaActions';
 import { actionGetInterviewRoundsRequestSaga, actionGetStudentsListSaga } from '../../../../../Store/Actions/SagaActions/CampusDriveWorkflowActions/CampusInterviewSagaAction';
+import { Modal, ModalBody } from 'reactstrap'
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 
 import CaptureResults from './CaptureResults';
 
@@ -13,6 +15,7 @@ const RoundWiseResults = (props) => {
     const [selectedJobName, setSelectedJobName] = useState("");
     const [interviewRoundsInfo, setInterviewRoundsInfo] = useState({});
     const [enableCaptureResults, setEnableCaptureResults] = useState(false);
+    const [enableSuccessModal, setEnableSuccessModal] = useState(false);
     const [captureResultsModel, setCaptureResultsModel] = useState({});
     const [studentsListForRound, setStudentsListForRound] = useState([]);
 
@@ -26,12 +29,19 @@ const RoundWiseResults = (props) => {
         });
         getinteviewRoundsInformation(value);
     }
+    const toggleSuccessModal = () => {
+        setEnableSuccessModal(!enableSuccessModal);
+    }
+
+    const onSucess = () => {
+        onCancel();
+        toggleSuccessModal();
+    }
 
     function getFormattedDate(date) {
         var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
             'Nov', 'Dec'];
         var d = new Date(date);
-
         return d.getDate() + '-' + month[d.getMonth()] + '-' + d.getFullYear();
     }
 
@@ -39,40 +49,40 @@ const RoundWiseResults = (props) => {
         setEnableCaptureResults(!enableCaptureResults);
     }
 
-    const onCaptureResults = (roundName, startDate, endDate, roundType) => {
+    const onCaptureResults = (roundNumber, roundName, startDate, endDate, roundType) => {
         setCaptureResultsModel({
             jobName: selectedJobName,
             roundName: roundName,
             startDate: startDate,
             endDate: endDate,
-            roundType: roundType
+            roundType: roundType,
+            totalRounds: interviewRoundsInfo.noOfRounds,
+            campusDriveId: props.campusDriveId,
+            roundNumber: roundNumber,
+            jobId: interviewRoundsInfo.jobID
         });
-        getStudentsList();
+
+        getStudentsList(roundNumber);
     }
 
-    const getStudentsList = () => {
-        // const inputModel = {
-        //     cdID: props.campusDriveId,
-        //     jobID: selectedJobID,
-        //     interviewRoundID: interviewRoundsInfo.interviewRoundID
-        // };
-
+    const getStudentsList = (roundNumber) => {
         const inputModel = {
-            cdID: "CCDI20000007",
-            jobID: "JB20000002",
-            interviewRoundID: "0"
+            cdID: props.campusDriveId,
+            jobID: selectedJobID,
+            interviewRoundID: roundNumber
         };
 
         const params = Object.keys(inputModel).map(item => {
-            if (inputModel[item]) {
-                return `${item}=${inputModel[item]}&`
-            }
+            // if (inputModel[item]) {
+            return `${item}=${inputModel[item]}&`
+            //}
         }).join('').replace(/&$/, "");
 
         dispatch(actionGetStudentsListSaga({
             apiPayloadRequest: params,
             callback: getStudentsListForRound
         }));
+
         toggleCaptureResults();
     }
 
@@ -92,8 +102,11 @@ const RoundWiseResults = (props) => {
     }
 
     const getRoundsInformation = (data) => {
-        console.log(data);
         setInterviewRoundsInfo(data);
+    }
+
+    const onCancel = () => {
+        setEnableCaptureResults(false);
     }
 
     const getJobData = (data) => {
@@ -116,6 +129,8 @@ const RoundWiseResults = (props) => {
                         <CaptureResults
                             captureResultsModel={captureResultsModel}
                             studentsListForRound={studentsListForRound}
+                            onCancel={onCancel}
+                            onSucess={onSucess}
                         />
                     </>
                     :
@@ -152,6 +167,7 @@ const RoundWiseResults = (props) => {
                                     jobsList.map((item) => {
                                         return <option value={item.jobID}
                                             key={item.jobID}
+                                            selected={selectedJobID === item.jobID ? true : false}
                                         >{item.jobName}</option>
                                     })
                                 )}
@@ -185,6 +201,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round1Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                1,
                                                                 interviewRoundsInfo?.round1,
                                                                 interviewRoundsInfo?.round1StartDate,
                                                                 interviewRoundsInfo?.round1EndDate,
@@ -206,6 +223,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round2Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                2,
                                                                 interviewRoundsInfo?.round2,
                                                                 interviewRoundsInfo?.round2StartDate,
                                                                 interviewRoundsInfo?.round2EndDate,
@@ -227,6 +245,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round3Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                3,
                                                                 interviewRoundsInfo?.round3,
                                                                 interviewRoundsInfo?.round3StartDate,
                                                                 interviewRoundsInfo?.round3EndDate,
@@ -248,6 +267,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round4Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                4,
                                                                 interviewRoundsInfo?.round4,
                                                                 interviewRoundsInfo?.round4StartDate,
                                                                 interviewRoundsInfo?.round4EndDate,
@@ -269,6 +289,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round5Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                5,
                                                                 interviewRoundsInfo?.round5,
                                                                 interviewRoundsInfo?.round5StartDate,
                                                                 interviewRoundsInfo?.round5EndDate,
@@ -290,6 +311,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round6Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                6,
                                                                 interviewRoundsInfo?.round6,
                                                                 interviewRoundsInfo?.round6StartDate,
                                                                 interviewRoundsInfo?.round6EndDate,
@@ -311,6 +333,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round6Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                6,
                                                                 interviewRoundsInfo?.round6,
                                                                 interviewRoundsInfo?.round6StartDate,
                                                                 interviewRoundsInfo?.round6EndDate,
@@ -332,6 +355,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round7Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                7,
                                                                 interviewRoundsInfo?.round7,
                                                                 interviewRoundsInfo?.round7StartDate,
                                                                 interviewRoundsInfo?.round7EndDate,
@@ -353,6 +377,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round8Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                8,
                                                                 interviewRoundsInfo?.round8,
                                                                 interviewRoundsInfo?.round8StartDate,
                                                                 interviewRoundsInfo?.round8EndDate,
@@ -374,6 +399,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round9Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                9,
                                                                 interviewRoundsInfo?.round9,
                                                                 interviewRoundsInfo?.round9StartDate,
                                                                 interviewRoundsInfo?.round9EndDate,
@@ -385,7 +411,7 @@ const RoundWiseResults = (props) => {
                                                     <>
                                                     </>
                                             }
-                                            
+
                                             {
                                                 interviewRoundsInfo?.round10 ?
                                                     <tr>
@@ -396,6 +422,7 @@ const RoundWiseResults = (props) => {
                                                         <td>{interviewRoundsInfo?.round10Type}</td>
                                                         <td> <button type="button" className="btn" onClick={() => {
                                                             onCaptureResults(
+                                                                10,
                                                                 interviewRoundsInfo?.round10,
                                                                 interviewRoundsInfo?.round10StartDate,
                                                                 interviewRoundsInfo?.round10EndDate,
@@ -411,7 +438,7 @@ const RoundWiseResults = (props) => {
                                     </table>
                                 </>
                                 :
-                                <>``
+                                <>
                                     {
                                         interviewRoundsInfo?.noOfRounds === 0
                                             ?
@@ -433,6 +460,29 @@ const RoundWiseResults = (props) => {
                     </div>
             }
 
+            {
+                enableSuccessModal
+                    ?
+                    <>
+                        <div>
+                            <Modal isOpen={enableSuccessModal} toggle={toggleSuccessModal}>
+                                <ModalBody style={{ textAlign: "center" }} >
+                                    <CancelOutlinedIcon className="cancelbtn" onClick={toggleSuccessModal} />
+                                    <div className="notification-icon d-flex flex-column justify-content-center align-items-center">
+                                        <div style={{ color: "#253AA3", background: "lightblue", borderRadius: "50%", width: "100px", height: "100px", textAlign: "center", display: "inline-block" }}>
+                                            <i className="fa fa-envelope fa-4x" style={{ marginTop: "10px" }} />
+                                        </div>
+                                    </div>
+                                    <p style={{ textAlign: "center" }} className="paragraph">Capture Results</p>
+                                    <p style={{ textAlign: "center" }} className="paragraph2">saved successfully</p>
+                                </ModalBody>
+                            </Modal>
+                        </div>
+                    </>
+                    :
+                    <>
+                    </>
+            }
         </div>
     );
 };

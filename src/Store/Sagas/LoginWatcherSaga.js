@@ -6,6 +6,31 @@ import history from '../../@history';
 import { actionUpdateGlobalLoaderSagaAction } from '../Actions/SagaActions/CommonSagaActions';
 import { actionGetCorporateProfileSagaAction } from '../Actions/SagaActions/CorporateProfileSagaActions';
 
+const validateReferralCodeRequest = (model) => {
+  const URL = "/o/validateRefCode/" + model;
+  return Axios.get(URL).then(res => res.data);
+}
+
+function* validateReferralCodeRequestSaga(action) {
+  yield put(actionUpdateGlobalLoaderSagaAction(true));
+  try {
+    const model = action.payload.apiPayloadRequest;
+    const response = yield call(validateReferralCodeRequest, model);
+    action.payload.callback(response);
+  } catch (err) {
+    if (err?.response) {
+      action.payload.callback(err?.response?.data?.errors[0]?.message);
+      //toast.error(err?.response?.data?.errors[0]?.message);
+    } else {
+      toast.error("Something Wrong!", err?.message);
+    }
+
+  } finally {
+    yield put(actionUpdateGlobalLoaderSagaAction(false));
+  }
+}
+
+
 const loginRequest = (model) => {
   const URL = "/o/login";
   let formData = new FormData();
@@ -71,4 +96,5 @@ function* logoutRequestSaga(action) {
 export default function* LoginWatcherSaga() {
   yield takeLatest("LOGIN-REQUEST", loginRequestSaga);
   yield takeLatest('LOGOUT-REQUEST', logoutRequestSaga);
+  yield takeLatest('VALIDATE-REFERRAL-CODE-REQUEST', validateReferralCodeRequestSaga);
 }

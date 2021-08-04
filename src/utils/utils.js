@@ -1,3 +1,5 @@
+import moment from 'moment/moment';
+
 export const ucwords = (str) => {
     if (str == null) { // test for null or undefined
         return "";
@@ -21,4 +23,24 @@ export const checkObjectProperties = (obj) => {
         }
     }
     return false;
+}
+
+export const isFirstDateSameOrBefore = (startDate, endDate) => {
+    if(startDate === undefined) {
+        return false
+    }
+
+    if(endDate === undefined) {
+        return false
+    }
+
+
+
+	var mStart = moment(startDate);
+	var mEnd = moment(endDate);
+
+    console.log('mStart ', mStart);
+    console.log('mEnd ', mEnd);
+    console.log('mStart.isSame(mEnd) || mStart.isBefore(mEnd) ', mStart.isSame(mEnd) || mStart.isBefore(mEnd));
+	return mStart.isSame(mEnd) || mStart.isBefore(mEnd);
 }

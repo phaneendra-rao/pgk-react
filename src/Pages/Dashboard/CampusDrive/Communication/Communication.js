@@ -34,7 +34,9 @@ const Communication = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: <DefineInduction campusDriveId={props?.match?.params?.campusDriveId} />
+            section: <DefineInduction campusDriveId={props?.match?.params?.campusDriveId}
+                universityId={props?.match?.params?.universityId}
+            />
         },
         {
             label: 'Define Interview Rounds',
@@ -43,15 +45,15 @@ const Communication = (props) => {
             isDisabled: false,
             onClick: onTabClick,
             section: <DefineInterviewRounds campusDriveId={props?.match?.params?.campusDriveId} />
+        },
+        {
+            label: 'Share Round Details',
+            iconName: 'fa-window-restore',
+            isActive: false,
+            isDisabled: false,
+            onClick: onTabClick,
+            section: <ShareInterviewRounds campusDriveId={props?.match?.params?.campusDriveId} />
         }
-        // {
-        //     label: 'Share Round Details',
-        //     iconName: 'fa-window-restore',
-        //     isActive: false,
-        //     isDisabled: false,
-        //     onClick: onTabClick,
-        //     section: <> </>
-        // // }
     ])
 
     const prevBtn = () => {

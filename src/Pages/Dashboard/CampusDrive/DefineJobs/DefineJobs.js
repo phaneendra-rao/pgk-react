@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CampusDriveLayout from "../Components/CampusDriveLayout";
 
+import CampusDriveDatesFinalizationSection from './Sections/CampusDriveDatesFinalization/CampusDriveDatesFinalizationSection';
 import DefineJobsSection from './Sections/DefineJobsSection/DefineJobsSection';
 import ShareJobDetailsSection from './Sections/ShareJobDetailsSection/ShareJobDetailsSection';
 import DefineJobApplicationWindowSection from './Sections/DefineJobApplicationWindowSection/DefineJobApplicationWindowSection';
@@ -26,7 +27,7 @@ const DefineJobs = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: undefined
+            section: <CampusDriveDatesFinalizationSection />
         },
         {
             label: 'Define Jobs',

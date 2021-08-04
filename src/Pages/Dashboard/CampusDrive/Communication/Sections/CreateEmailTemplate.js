@@ -25,12 +25,12 @@ const CreateEmailTemplate = (props) => {
                             variant="outlined"
                             margin="dense"
                             style={{ maxWidth: "40%" }}
-                            value={props.addEmailTemplate.id}
+                            value={props.addEmailTemplate.emailTemplateID}
                         />
                         <TextField
                             label="Email Template Name"
                             type="text"
-                            name="name"
+                            name="emailTemplateName"
                             onChange={props.handleChange}
                             className="form-control"
                             InputLabelProps={{
@@ -44,14 +44,14 @@ const CreateEmailTemplate = (props) => {
                             variant="outlined"
                             margin="dense"
                             style={{ maxWidth: "40%" }}
-                            value={props.addEmailTemplate.name}
+                            value={props.addEmailTemplate.emailTemplateName}
                         />
                     </div>
                     <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }} >
                         <TextField
                             label="Email Subject"
                             type="text"
-                            name="subject"
+                            name="emailSubject"
                             onChange={props.handleChange}
                             InputLabelProps={{
                                 shrink: true,
@@ -64,14 +64,14 @@ const CreateEmailTemplate = (props) => {
                             margin="dense"
                             style={{ width: "90%" }}
                             required={true}
-                            value={props.addEmailTemplate.subject}
+                            value={props.addEmailTemplate.emailSubject}
                         />
                     </div>
                     <div className="d-flex flex-row justify-content-around align-items-center job-details-form w-full" style={{ background: "white" }} >
                         <TextField
                             label="Email Body"
                             type="text"
-                            name="body"
+                            name="emailBody"
                             onChange={props.handleChange}
                             InputLabelProps={{
                                 shrink: true,
@@ -86,7 +86,7 @@ const CreateEmailTemplate = (props) => {
                             multiline={true}
                             style={{ width: "90%" }}
                             required={true}
-                            value={props.addEmailTemplate.body}
+                            value={props.addEmailTemplate.emailBody}
                         />
                     </div>
                     <div className="d-flex flex-row justify-content-center align-items-center job-details-form w-full"

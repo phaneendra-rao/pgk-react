@@ -10,8 +10,9 @@ const ValidateProfiles = (props) => {
     const [jobsList, setJobsList] = useState([]);
     const [selectedJobID, setSelectedJobID] = useState("");
     const [selectedJobName, setSelectedJobName] = useState("");
-    const [roundStartDate, setStartDate]= useState("");
+    const [roundStartDate, setStartDate] = useState("");
     const [interviewRoundsInfo, setInterviewRoundsInfo] = useState({});
+    const [studentsListForRound, setStudentsListForRound] = useState([]);
     const csvLink = useRef();
 
     const onJobChange = (event) => {
@@ -26,7 +27,6 @@ const ValidateProfiles = (props) => {
     }
 
     const getRoundsInformation = (data) => {
-        console.log(data);
         setInterviewRoundsInfo(data);
     }
 
@@ -41,12 +41,36 @@ const ValidateProfiles = (props) => {
         }));
     }
 
+    const getStudentsList = (roundNumber) => {
+        const inputModel = {
+            cdID: props.campusDriveId,
+            jobID: selectedJobID,
+            interviewRoundID: roundNumber
+        };
+
+        const params = Object.keys(inputModel).map(item => {
+            // if (inputModel[item]) {
+            return `${item}=${inputModel[item]}&`
+            //}
+        }).join('').replace(/&$/, "");
+
+        dispatch(actionGetStudentsListSaga({
+            apiPayloadRequest: params,
+            callback: getStudentsListForRound
+        }));
+    }
+
+    const getStudentsListForRound = (data) => {
+        setStudentsListForRound(data);
+    }
+
     const onDownloadData = () => {
         csvLink.current.link.click();
     }
 
     const onRoundChange = (event) => {
         const { name, value } = event.target;
+        getStudentsList(value);
     }
 
     const getJobData = (data) => {
@@ -64,7 +88,7 @@ const ValidateProfiles = (props) => {
     return (
         <div className="bgWhite h-full">
             <CSVLink
-                data={"DummyData"}
+                data={studentsListForRound?.studentsList && studentsListForRound?.studentsList.length > 0 ? studentsListForRound.studentsList : "DummyData"}
                 filename='StudentsData.csv'
                 className='hidden'
                 ref={csvLink}
@@ -72,7 +96,7 @@ const ValidateProfiles = (props) => {
             />
             <div className="d-flex flex-column justify-content-start align-items-center w-full">
                 <p className="heading" style={{ color: "#253AA3", fontWeight: "bold", fontFamily: "Poppins-Regular", display: "block" }}>
-                    View & Validate Profiles
+                    Share Captured Results
                 </p>
             </div>
             <br />
@@ -136,7 +160,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round1
                             ?
-                            <option value={"round1"}
+                            <option value={1}
                                 key={"round1"}
                             >{"Round 1"}</option>
                             :
@@ -146,7 +170,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round2
                             ?
-                            <option value={"round2"}
+                            <option value={2}
                                 key={"round2"}
                             >{"Round 2"}</option>
                             :
@@ -156,7 +180,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round3
                             ?
-                            <option value={"round3"}
+                            <option value={3}
                                 key={"round3"}
                             >{"Round 3"}</option>
                             :
@@ -166,7 +190,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round4
                             ?
-                            <option value={"round4"}
+                            <option value={4}
                                 key={"round4"}
                             >{"Round 4"}</option>
                             :
@@ -176,7 +200,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round5
                             ?
-                            <option value={"round5"}
+                            <option value={5}
                                 key={"round5"}
                             >{"Round 5"}</option>
                             :
@@ -186,7 +210,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round6
                             ?
-                            <option value={"round6"}
+                            <option value={6}
                                 key={"round6"}
                             >{"Round 6"}</option>
                             :
@@ -196,7 +220,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round7
                             ?
-                            <option value={"round7"}
+                            <option value={7}
                                 key={"round7"}
                             >{"Round 7"}</option>
                             :
@@ -206,7 +230,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round8
                             ?
-                            <option value={"round8"}
+                            <option value={8}
                                 key={"round8"}
                             >{"Round 8"}</option>
                             :
@@ -216,7 +240,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round9
                             ?
-                            <option value={"round9"}
+                            <option value={9}
                                 key={"round9"}
                             >{"Round 9"}</option>
                             :
@@ -226,7 +250,7 @@ const ValidateProfiles = (props) => {
                     {
                         interviewRoundsInfo?.round10
                             ?
-                            <option value={"round10"}
+                            <option value={10}
                                 key={"round10"}
                             >{"Round 10"}</option>
                             :
@@ -253,7 +277,7 @@ const ValidateProfiles = (props) => {
                     variant="outlined"
                     margin="dense"
                     style={{ width: "30%" }}
-                // value={props.addProgram.startDate}
+                    value={studentsListForRound.roundStartDate}
                 />
 
 
@@ -274,7 +298,7 @@ const ValidateProfiles = (props) => {
                     variant="outlined"
                     margin="dense"
                     style={{ width: "30%" }}
-                // value={props.addProgram.endDate}
+                    value={studentsListForRound.roundEndDate}
                 />
                 <TextField
                     label="ShortListed Students"
@@ -292,7 +316,7 @@ const ValidateProfiles = (props) => {
                     variant="outlined"
                     margin="dense"
                     style={{ maxWidth: "30%" }}
-                    value={3} //{props.addRanking.rank}
+                    value={studentsListForRound.noOfStudentsSelected} //{props.addRanking.rank}
                 // helperText={props.rankNumberErr}
                 // error={props.rankNumberErr ? true : false}
                 />
@@ -303,35 +327,33 @@ const ValidateProfiles = (props) => {
             <table class="table table-striped table-bordered">
                 <thead style={{ backgroundColor: "#253AA3", color: "white" }}>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Student Name</th>
                         <th scope="col">College Roll No.</th>
                         <th scope="col">Email ID</th>
-                        <th scope="col">Remarks</th>
+                        <th scope="col">Resume</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Vishwanathan Anand</td>
-                        <td>11UQ1A0501</td>
-                        <td>vishyanand@gmail.com</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Magnus Carlsen</td>
-                        <td>11UQ1A0502</td>
-                        <td>magcarl@gmail.com</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Mikhal Tal</td>
-                        <td>11UQ1A0503</td>
-                        <td>MagicianOfRiga@gmail.com</td>
-                        <td></td>
-                    </tr>
+                    {
+                        studentsListForRound?.studentsList && studentsListForRound?.studentsList?.length > 0
+                            ?
+                            <>
+                                {
+                                    studentsListForRound.studentsList.map((studentInfo) => (
+                                        <tr>
+                                            <td>{studentInfo.name}</td>
+                                            <td>{studentInfo.collegeRollNo}</td>
+                                            <td>{studentInfo.email}</td>
+                                            <td></td>
+                                        </tr>
+                                    ))
+                                }
+
+                            </>
+                            :
+                            <>
+                            </>
+                    }
                 </tbody>
             </table>
             <br />

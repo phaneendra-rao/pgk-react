@@ -2089,8 +2089,12 @@ input[type=date]:focus::-webkit-datetime-edit {
     margin-bottom: 100px;
     width: 750px;
   }
+
+  .custom-row:first-child {
+    margin-bottom: 0px;
+  }
   .dottedLine {
-    border: 1px dashed #cacaca;
+    border-top: 1px dashed #cacaca;
     width: 75%;
   /*   margin-bottom: -50px; */
   }
@@ -2416,4 +2420,22 @@ input[type=date]:focus::-webkit-datetime-edit {
     border-radius: 5px;
     padding: 6px 10px;
     align-items: center;
+}
+
+.dotted-rows {
+    display: flex;
+    justify-content: space-around;
+    width: 650px;
+}
+
+.dotted-rows .slant-dotted-row {
+    border-right: 1px dashed #cacaca;
+    height: 300px;
+    transform: rotate(45deg);
+    margin-top: -95px;
+    margin-bottom: -50px;
+}
+
+.dotted-rows .slant-dotted-row:last-child {
+    transform: rotate(-45deg);
 }

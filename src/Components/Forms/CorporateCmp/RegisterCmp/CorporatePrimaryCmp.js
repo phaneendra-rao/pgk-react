@@ -128,7 +128,7 @@ const CorporatePrimaryCmp = (props) => {
                 <div className="col-md-6">
                     <div className="mb-15">
                         <PgkTextField
-                            type={'number'}
+                            type={'text'}
                             name="referral"
                             onChange={props?.handleChange}
                             value={props?.corporatePrimaryData?.referral}

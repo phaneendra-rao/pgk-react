@@ -4,6 +4,7 @@ import CampusDriveLayout from "../Components/CampusDriveLayout";
 import RoundWiseResults from "./Sections/RoundWiseResults";
 import ReleaseOfferLetters from "./Sections/ReleaseOfferLetters";
 import ValidateProfiles from "./Sections/ValidateProfiles";
+import ShareRoundResults from "./Sections/ShareRoundResults";
 
 const CampusInterviews = (props) => {
     const dispatch = useDispatch();
@@ -25,7 +26,15 @@ const CampusInterviews = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: <RoundWiseResults  campusDriveId={props?.match?.params?.campusDriveId} />
+            section: <RoundWiseResults campusDriveId={props?.match?.params?.campusDriveId} />
+        },
+        {
+            label: 'Share Round Results',
+            iconName: 'fa-calendar-alt',
+            isActive: false,
+            isDisabled: false,
+            onClick: onTabClick,
+            section: <ShareRoundResults campusDriveId={props?.match?.params?.campusDriveId} />
         },
         {
             label: 'View & Validate Final List of Students',
@@ -33,7 +42,7 @@ const CampusInterviews = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: <ValidateProfiles  campusDriveId={props?.match?.params?.campusDriveId} />
+            section: <ValidateProfiles campusDriveId={props?.match?.params?.campusDriveId} />
         },
         {
             label: 'Release Offer Letters',
@@ -41,7 +50,7 @@ const CampusInterviews = (props) => {
             isActive: false,
             isDisabled: false,
             onClick: onTabClick,
-            section: <ReleaseOfferLetters  campusDriveId={props?.match?.params?.campusDriveId} />
+            section: <ReleaseOfferLetters campusDriveId={props?.match?.params?.campusDriveId} />
         }
     ])
 

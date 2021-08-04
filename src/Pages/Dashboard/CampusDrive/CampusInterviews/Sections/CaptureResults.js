@@ -17,6 +17,21 @@ const CaptureResults = (props) => {
         return d.getDate() + '-' + month[d.getMonth()] + '-' + d.getFullYear();
     }
 
+    const openFileInBrowser = (data, fileName) => {
+        var objbuilder = '';
+        objbuilder += ('<object width="100%" height="100%" data = "data:application/pdf;base64,');
+        objbuilder += (data);
+        objbuilder += ('" type="application/pdf" class="internal">');
+        objbuilder += ('<embed src="data:application/pdf;base64,');
+        objbuilder += (data);
+        objbuilder += ('" type="application/pdf"  />');
+        objbuilder += ('</object>');
+        var windo = window.open("#", "_blank");
+        windo.document.write('<html><title>' + fileName + '</title><body style="margin-top: 0px; margin - left: 0px; margin - right: 0px; margin - bottom: 0px; ">');
+        windo.document.write(objbuilder);
+        windo.document.write('</body></html>');
+    }
+    
     const initialStudentResults = {
         "cdID": props.captureResultsModel.campusDriveId,
         "totalInterviewRounds": props.captureResultsModel.totalRounds,
@@ -160,6 +175,7 @@ const CaptureResults = (props) => {
                 <br />
                 <div style={{ borderTop: "1px solid black", width: "100%", marginLeft: 20, marginRight: 20 }}></div>
                 <br />
+                <button className="btn mr-2" style={{ float: "right" }} type="button">+ Import Students</button>
                 <table class="table table-striped table-bordered">
                     <thead style={{ backgroundColor: "#253AA3", color: "white" }}>
                         <tr>

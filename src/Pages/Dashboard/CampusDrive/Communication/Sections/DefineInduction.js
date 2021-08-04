@@ -3,6 +3,7 @@ import { Row, Col } from 'reactstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { FormControl, Grid, TextField } from '@material-ui/core';
 import { Modal, ModalBody } from 'reactstrap';
+//import { jsPDF } from 'jspdf-react';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import {
     actionGetCampusDriveEmailTemplatesListRequestSaga,
@@ -74,6 +75,10 @@ const DefineInduction = (props) => {
 
     const onCreateEmailTemplate = () => {
         setCreateEmailTemplate(true);
+    }
+
+    const convertIntoPdf = () => {
+       // var doc = new jsPDF();
     }
 
     const onCancelEmailTemplate = () => {
@@ -477,9 +482,9 @@ const DefineInduction = (props) => {
                                             </Grid>
                                         </div>
                                         <div className="card-footer">
-
-                                            <button className="btn mr-4" disabled={inductionInfo.inductionID > 0 ? false : true} onClick={onDelete}>Delete Current Induction</button>
-                                            <button className="btn" type="submit">Save</button>
+                                            <button className="btn mr-2" type="submit">Save</button>
+                                            <button className="btn mr-2" type="button">Share</button>
+                                            <button className="btn mr-2" disabled={inductionInfo.inductionID > 0 ? false : true}>Disable</button>
                                         </div>
                                     </form>
 

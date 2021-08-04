@@ -10,3 +10,10 @@ export const actionLogoutRequestSaga = () => {
 		type: 'LOGOUT-REQUEST'
 	};
 };
+
+export const actionValidateReferralRequestSaga = (request) =>{
+	return {
+		type: 'VALIDATE-REFERRAL-CODE-REQUEST',
+		payload: request
+	};
+}

@@ -412,7 +412,9 @@ const ShareInterviewRounds = (props) => {
                         <tbody>
                             <tr style={{ display: addRounds.noOfRounds > 0 ? "" : "none" }}>
                                 <td scope="row">
-                                    1
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 1</td>
                                 <td>
@@ -427,7 +429,9 @@ const ShareInterviewRounds = (props) => {
                             </tr>
                             <tr style={{ display: addRounds.noOfRounds > 1 ? "" : "none" }}>
                                 <td scope="row">
-                                    2
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 2</td>
                                 <td>
@@ -443,7 +447,9 @@ const ShareInterviewRounds = (props) => {
 
                             <tr style={{ display: addRounds.noOfRounds > 2 ? "" : "none" }}>
                                 <td scope="row">
-                                    3
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 3</td>
                                 <td>
@@ -459,7 +465,9 @@ const ShareInterviewRounds = (props) => {
 
                             <tr style={{ display: addRounds.noOfRounds > 3 ? "" : "none" }}>
                                 <td scope="row">
-                                    4
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 4</td>
                                 <td>
@@ -475,7 +483,9 @@ const ShareInterviewRounds = (props) => {
 
                             <tr style={{ display: addRounds.noOfRounds > 4 ? "" : "none" }}>
                                 <td scope="row">
-                                    5
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 5</td>
                                 <td>
@@ -491,7 +501,9 @@ const ShareInterviewRounds = (props) => {
 
                             <tr style={{ display: addRounds.noOfRounds > 5 ? "" : "none" }}>
                                 <td scope="row">
-                                    6
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 6</td>
                                 <td>
@@ -506,7 +518,9 @@ const ShareInterviewRounds = (props) => {
                             </tr>
                             <tr style={{ display: addRounds.noOfRounds > 6 ? "" : "none" }}>
                                 <td scope="row">
-                                    7
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 7</td>
                                 <td>
@@ -521,7 +535,9 @@ const ShareInterviewRounds = (props) => {
                             </tr>
                             <tr style={{ display: addRounds.noOfRounds > 7 ? "" : "none" }}>
                                 <td scope="row">
-                                    8
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 8</td>
                                 <td>
@@ -536,7 +552,9 @@ const ShareInterviewRounds = (props) => {
                             </tr>
                             <tr style={{ display: addRounds.noOfRounds > 8 ? "" : "none" }}>
                                 <td scope="row">
-                                    9
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 9</td>
                                 <td>
@@ -551,7 +569,9 @@ const ShareInterviewRounds = (props) => {
                             </tr>
                             <tr style={{ display: addRounds.noOfRounds > 9 ? "" : "none" }}>
                                 <td scope="row">
-                                    10
+                                    <input
+                                        type="checkbox"
+                                    />
                                 </td>
                                 <td>Round 10</td>
                                 <td>

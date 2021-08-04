@@ -918,7 +918,7 @@ body .main-body .page-body .welcome-widget {
 .jobs-list-item .job-icon {
     border-radius: 6px;
     color: white;
-    padding: 12px;
+    padding: 8px;
     font-size: 1.4rem;
 }
 
@@ -1687,7 +1687,7 @@ body .main-body .page-body .welcome-widget {
 .portalModalChildren {
     position: fixed;
     background-color: rgba(0,0,0,0.5);
-    z-index: 1000000;
+    z-index: 100000;
 }
 
 .analytics-reports-style {
@@ -1698,8 +1698,7 @@ body .main-body .page-body .welcome-widget {
 * Transaction page css
 */
 .transaction-container {
-    height: 250px; 
-    overflow: scroll;
+    height: 'auto'; 
 }
 
 .transaction-container .sub-transaction-item, .transaction-container .main-transaction-item {
@@ -2006,4 +2005,437 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+.disabled {
+    background-color: rgba('249, 249, 249, 0.5') !important;
+}
+
+.text-ellipsis {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
+.notificationMain:hover {
+    background-color: white;
+    cursor: pointer;
+    padding-left: 6px;
+}
+
+/* Campus drive List */
+.campus-drive-invite-list-container {
+    height: 100%;
+}
+.campus-drive-invite-list {
+    border: 1px solid #cacaca;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: white;
+    height: 80px;
+}
+.invite-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.invite-info .invite-info-icon {
+    font-size: 1.6rem;
+    padding: 12px;
+}
+.invite-info .invite-info-info {
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.invite-info .invite-info-info .info-title {
+    font-size: .900rem;
+}
+.invite-info .invite-info-info .info-sub-title {
+    font-size: 0.750rem;
+    color: #a0a0a0;
+}
+/* Campus drive main */
+.bgWhite {
+    background-color:white;
+}
+
+.h-full {
+    height: 88vh;
+}
+
+.main-triangle-container {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 100px;
+    width: 750px;
+  }
+
+  .custom-row:first-child {
+    margin-bottom: 0px;
+  }
+  .dottedLine {
+    border-top: 1px dashed #cacaca;
+    width: 75%;
+  /*   margin-bottom: -50px; */
+  }
+  .mainCircle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    cursor: pointer;
+  }
+  .mainCircleTitle {
+      margin-top: 160px;
+      font-size: 1.2rem;
+      color: #bbbbbb;
+  }
+  .mainCircle:hover .baseCircle {
+      background-color: #253AA3;
+  }
+  .mainCircle:hover .number-title {
+    color: #253AA3;
+}
+.mainCircle:hover .innerCircleIcon {
+    color: #253AA3;
+}
+
+.mainCircle:hover .mainCircleTitle {
+    color: #253AA3;
+}
+
+  .outerCircle {
+    width: 160px;
+      height: 100px;
+    background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.15));
+      -moz-border-radius: 100px / 50px;
+      -webkit-border-radius: 100px / 50px;
+      border-radius: 100px / 50px;
+    box-shadow: 20px 25px 28px rgba(0,0,0,0.25), 0px -5px 10px rgba(0,0,0,0.22);  
+    position: absolute;  
+    margin-top: 50px;
+    margin-top: -15px;
+  }
+  .circle {
+    margin-top: -12px; 
+    width: 160px;
+      height: 80px;
+      background: #fff;
+      -moz-border-radius: 100px / 50px;
+      -webkit-border-radius: 100px / 50px;
+      border-radius: 100px / 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .baseCircle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+      background: #cacaca;
+    width: 150px;
+      height: 75px;
+        -moz-border-radius: 100px / 50px;
+      -webkit-border-radius: 100px / 50px;
+      border-radius: 100px / 50px;
+    position: absolute;
+  }
+  .mainBaseCircle {
+      display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid #cacaca;
+    width: 195px;
+      height: 100px;
+        -moz-border-radius: 100px / 50px;
+      -webkit-border-radius: 100px / 50px;
+      border-radius: 100px / 50px;
+    position: absolute;
+  }
+  .innerOuterCircle {
+    width: 100px;
+      height: 50px;
+    background-image: linear-gradient(to right, rgba(249,249,249,0.5), rgba(0,0,0,0.12));
+      -moz-border-radius: 100px / 50px;
+      -webkit-border-radius: 100px / 50px;
+      border-radius: 100px / 50px;
+    box-shadow: 5px 10px 18px rgba(0,0,0,0.25), 0px 5px 6px rgba(0,0,0,0.22);
+    position: absolute;
+   
+  }
+  .innerCircle {
+    margin-top: -5px; 
+    width: 100px;
+      height: 50px;
+    background-image: linear-gradient(to right, rgba(249,249,249,0.8), rgba(249,249,249,1));
+      -moz-border-radius: 100px / 50px;
+      -webkit-border-radius: 100px / 50px;
+      border-radius: 100px / 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .innerCircleIcon {
+      color: #cacaca;
+      margin-top: -20px;
+  }
+  .number-title {
+    font-size: 1.8rem;
+    position: absolute;
+    margin-top: -6px;
+    text-align: center;
+    width: 160px;
+    color: #a1a1a1;
+  }
+  .toolTipContainer {
+    /* background-color: #cacaca; */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 430px;
+  }
+  .defaultToolTipContainer {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+  }
+  .customToolTipRow {
+      display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+  }
+  .toolTipOption {
+    display: flex;
+        align-items: center;
+      padding: 10px;
+      width: 200px;
+  }
+  .toolTipOptionLabel{
+      font-size: .750rem;
+      flex: 1;
+      flex-wrap: wrap;
+  }
+  .divider {
+      width: 90%;
+      border-top: .5px solid #cacaca;
+  }
+
+  .campusDriveNavStripe {
+      background-color: #253AA3;
+      width: 100%;
+      margin: 0px !important;
+      padding: 12px;
+      font-size: .750rem;
+  }
+
+  .campusDriveBtn {
+    background-color: #253AA3;
+    color: white;
+    border: 1px solid white;
+    padding: 8px 12px;
+    margin: 0px 3px;
+    outline: none !important;
+    text-decoration: none !important;
+  }
+
+  .campusDriveBtn:hover {
+    background-color: white;
+    color: #253AA3;
+    border: 1px solid white;
+    padding: 8px 12px;
+    margin: 0px 3px;
+    font-weight: bolder;
+    outline: none !important;
+    text-decoration: none !important;
+  }
+
+  .campusDriveBtnActive {
+    background-color: white;
+    color: #253AA3;
+    font-weight: bolder;
+    padding: 8px 12px;
+    margin: 0px 3px;
+  }
+
+  .campus-drive-sidebar-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      align-items: flex-end;
+  }
+
+  .campus-drive-sidebar-btn {
+      background-color: #253AA3;
+      color: white;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 120px;
+      min-height: 40px;
+      max-width: 120px;
+      max-height: 40px;
+      margin-bottom: 10px;
+      border-radius: 0px !important;
+  }
+
+  .campus-drive-sidebar-btn p {
+      padding: 0px 12px;
+  }
+
+  .campus-drive-sidebar-container .tabSection {
+      display: flex;
+      align-items: center;
+      padding: 0px;
+      margin: 0px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      /* height: 120px; */
+  }
+
+  .campus-drive-sidebar-container .tabSection .tabSectionLabel {
+      font-size: .850rem;
+      color: #707070;
+      text-align: right;
+  }
+
+  .campus-drive-sidebar-container .tabSection .tabSectionMainCircleContainer {
+      margin: 0px;
+  }
+
+  .campus-drive-sidebar-container .tabSection .tabSectionMainCircle {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a7a7a7;
+    margin: 6px;
+}
+
+.campus-drive-sidebar-container .tabSection .tabSectionMainCircleActive {
+    background-color: #253AA3;
+}
+
+.campus-drive-sidebar-container .tabSection .tabSectionLabelActive {
+    color: #253AA3;
+}
+
+  .campus-drive-sidebar-container .tabSection .tabSectionInnerCircle {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 5px 0px 18px rgba(0,0,0,0.25), 10px 8px 12px rgba(0,0,0,0.22);
+  }
+
+  .campus-drive-sidebar-container .tabSection .tabSectionInnerCircle .fas {
+      font-size: 1.8rem;
+      color: #707070;
+  }
+  .campus-drive-sidebar-container .tabSection .tabSectionMainCircleActive .fas {
+    color: #253AA3;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.text-primary {
+    color: #253AA3 !important;
+}
+
+/* Define Jobs Section */
+.CD-define-jobs-list {
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+    overflow: scroll;
+    justify-content: flex-start;
+}
+
+.define-job-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #cacaca;
+    padding-bottom: 12px;
+}
+
+.define-job-header {
+    background-color: #253AA3;
+    padding: 12px 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-list-label {
+    font-size: 1rem;
+    color:rgb(124, 124, 124);
+}
+
+.cd-job-list-item {
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+    padding: 6px 10px;
+    align-items: center;
+}
+
+.dotted-rows {
+    display: flex;
+    justify-content: space-around;
+    width: 650px;
+}
+
+.dotted-rows .slant-dotted-row {
+    border-right: 1px dashed #cacaca;
+    height: 300px;
+    transform: rotate(45deg);
+    margin-top: -95px;
+    margin-bottom: -50px;
+}
+
+.dotted-rows .slant-dotted-row:last-child {
+    transform: rotate(-45deg);
 }

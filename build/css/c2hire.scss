@@ -10,11 +10,6 @@ p {
 .primary-color {
   color: $Primary-Color;
 }
-// body {
-//   background-color: #ffffff;
-//   overflow-x: hidden;
-//   /* width */
-// }
 
 // **************navbar*****************
 .navbar {
@@ -60,7 +55,6 @@ p {
   .dropdown {
     cursor: pointer;
     .dropdown-menu {
-      font-family: "Euclid Circular A";
       margin-top: 5px;
       border: 1px solid #d3d3d3;
       background-color: #ffffff;
@@ -68,6 +62,7 @@ p {
       //   0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
       box-shadow: 0px 3px 6px #00000029;
       a {
+        font-family: "Euclid Circular A";
         &:hover {
           background-color: $Primary-Color;
           color: #ffffff;
@@ -78,8 +73,6 @@ p {
 }
 
 .c2hirePage-body {
-  // padding-top: 3rem;
-  // padding-bottom: 3rem;
   background-color: #ffffff;
 }
 
@@ -244,30 +237,37 @@ p {
         .c2hire-platform {
           height: 300px !important;
           width: 560px !important;
-          .react-player__preview{
-            background-color: #00000062 ;
+          &:hover {
+            .react-player__preview {
+              background-color: #00000031 !important;
+            }
+            .react-player__shadow {
+              background-color: #033380 !important;
+              &::before {
+                content: "";
+                position: absolute !important;
+                z-index: 0;
+                left: 50%;
+                top: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                display: block;
+                width: 95px;
+                height: 95px;
+                background: $Primary-Color;
+                border-radius: 50%;
+                animation: pulse-border 1500ms ease-out infinite;
+              }
+            }
+          }
+          .react-player__preview {
+            background-color: #00000062;
           }
           .react-player__shadow {
             background: $Primary-Color !important;
           }
         }
-        .playBtn {
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          height: 120px;
-          width: 120px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: absolute;
-          background-color: $Primary-Color;
-          border-radius: 50%;
-          i {
-            font-size: 44px;
-          }
-        }
       }
+
       .vidBtm-text {
         font-family: "Euclid Circular A";
         font-weight: 600;
@@ -299,23 +299,6 @@ p {
   .reviewComments {
     padding: 1rem 0 1rem 0;
     background-color: #f8f9fd;
-    .carousel {
-      .carousel-indicators {
-        bottom: -45px;
-        li {
-          height: 15px;
-          width: 15px;
-          border-radius: 50%;
-          background-color: #d3d3d3;
-        }
-        .active {
-          background-color: #00000050;
-        }
-      }
-    }
-    #autoWidth {
-      height: 300px !important;
-    }
   }
   .corporates-slides {
     margin: 5rem 0 3rem 0;
@@ -762,15 +745,6 @@ p {
       }
       .card-carousel {
         padding: 2rem 0;
-        // .lSNext {
-        //   font-family: "Font Awesome 5 Pro";
-        //   font-weight: 900;
-        //   font-size: 32px;
-        //   right: 26px;
-        //   &::before {
-        //     content: "\f0a9";
-        //   }
-        // }
         .slick-next {
           background-color: #00000056;
           border-radius: 50%;
@@ -1007,7 +981,7 @@ p {
           position: relative;
           padding: 4rem 1rem 1rem 1rem;
           box-shadow: 0px 3px 60px #0000000f;
-        
+
           .title-block {
             position: absolute;
             display: flex;
@@ -1040,7 +1014,6 @@ p {
               z-index: -1;
               left: -12px;
               span {
-                
                 font-family: "Euclid Circular A";
                 color: #ffffff;
                 &:first-child {
@@ -1296,7 +1269,7 @@ p {
 }
 // ******container ends*******
 
-.poster_button {
+.react-player__shadow {
   position: absolute !important;
   z-index: 10;
   top: 50%;
@@ -1304,38 +1277,14 @@ p {
   transform: translateX(-50%) translateY(-50%);
   box-sizing: content-box;
   display: block;
-  width: 32px;
-  height: 44px;
+  width: 40px !important;
+  height: 52px !important;
   /* background: #fa183d; */
   border-radius: 50%;
   padding: 18px 20px 18px 28px;
-  &::before {
-    content: "";
-    position: absolute !important;
-    z-index: 0;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    display: block;
-    width: 100px;
-    height: 100px;
-    background: $Primary-Color;
-    border-radius: 50%;
-    animation: pulse-border 1500ms ease-out infinite;
-  }
-  &::after {
-    content: "";
-    position: absolute !important;
-    z-index: 1;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    display: block;
-    width: 100px;
-    height: 100px;
-    background: $Primary-Color;
-    border-radius: 50%;
-    transition: all 200ms;
+  .react-player__play-icon {
+    margin-left: 0px !important;
+    border-width: 18px 0px 18px 28px !important;
   }
   img {
     position: relative;
@@ -1358,7 +1307,7 @@ p {
   }
 }
 
-.poster_button:hover:after {
+.react-player__shadow:hover:after {
   background-color: darken($Primary-Color, 10%);
 }
 
@@ -1509,13 +1458,19 @@ p {
   .FAQs-page .Faqs-container .left-links .table-content {
     padding: 2rem 1rem;
   }
-  .team-modal .modal-dialog .modal-content .modal-body .description .title-block .title{
+  .team-modal
+    .modal-dialog
+    .modal-content
+    .modal-body
+    .description
+    .title-block
+    .title {
     width: 178px;
-    span{
-      &:first-child{
+    span {
+      &:first-child {
         font-size: 14px;
       }
-      &:nth-child(2){
+      &:nth-child(2) {
         font-size: 12px;
       }
     }
@@ -1590,7 +1545,7 @@ p {
       .vid {
         .videoBlock {
           width: 680px !important;
-            height: 386px !important;
+          height: 386px !important;
           .c2hire-platform {
             width: 680px !important;
             height: 386px !important;

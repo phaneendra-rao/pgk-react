@@ -12,6 +12,9 @@ import ProfileInfoItem from '../Components/ProfileInfoItem';
 import PgkTextField from '../../../../Components/FormFields/PgkTextField';
 import PgkSelectField from '../../../../Components/FormFields/PgkSelectField';
 
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
 const SubscriptionHistory = () => {
   const dispatch = useDispatch();
   const [subscriptionList, setSubscriptionList] = useState([]);
@@ -49,12 +52,17 @@ const SubscriptionHistory = () => {
   }, []);
 
   const handleFilterChange = (name, value, errorMessage=undefined) => {
-
+    setFilter(prevState=>({
+      ...prevState,
+      [name]: value
+  }));
   }
 
-  const applyFilter = () => {
-    
-  }
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
 
   return (
     <>
@@ -88,7 +96,7 @@ const SubscriptionHistory = () => {
                 />
               </div>
             </div>
-            <div className={'col-md-2 item'}>
+            <div className={'col-md-2 item d-none'}>
               <div className={'d-grp'}>
                 <PgkSelectField 
                     name="subscriptionType"
@@ -139,35 +147,70 @@ const SubscriptionHistory = () => {
             <div className={'col-md-1 item'}>
             </div>
             <div className={'col-md-2 item'}>
-              <button type="button" onClick={applyFilter} style={{height: '35px', maxWidth: '100px', backgroundColor: '#20BDC9', textAlign: 'center', borderRadius: '2px', float: 'right'}} className="btn d-flex justify-content-center align-items-center">
-                  Apply Filter
-              </button>
             </div>
           </div>
         </div>
+        <div className="row w-full">
+          <Tabs
+            value={tabValue}
+            onChange={handleChange}
+            indicatorColor={'primary'}
+            style={{backgroundColor: 'white', width: '100%'}}
+          >
+            <Tab label="Campus Drive" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+            <Tab label="Other Information" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+            <Tab label="Student List" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+            <Tab label="Profile" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+          </Tabs>
+        </div>
         <div className={'row'}>
-          <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
-            {!subscriptionList.length && "No subscriptions subscribed yet"}
-
+          {tabValue===0 && <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
+            {!subscriptionList?.some(item => item?.generalNote==='Campus Hiring') && "No subscriptions subscribed yet"}
+            {subscriptionList.length &&
+              subscriptionList.map((item, index) => {
+                if(item?.generalNote==='Campus Hiring') {
+                  return <CampusHiringItem item={item} index={index} />;
+                }
+            })}
+          </div>}
+          {tabValue===1 && <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
+            {!subscriptionList?.some(item => !['Other Information', 'University Information'].includes(item?.generalNote)) && "No subscriptions subscribed yet"}
             {subscriptionList.length &&
               subscriptionList.map((item, index) => {
                 switch (item?.generalNote) {
                   case "Other Information":
-                    return <OtherInformationItem item={item} index={index} />;
-                  case "Profile":
-                    return "";
+                    return <OtherInformationItem item={item} index={index} getDetails />;
                   case "University Information":
                     return <UniversityItem item={item} index={index} />;
-                  case "Student Database":
-                    return <StudentListItem item={item} index={index} />;
-                  case "Campus Hiring":
-                      return <CampusHiringItem item={item} index={index} />;
                   default:
                     return undefined;
                 }
               })}
-              <ProfileInfoItem />
-          </div>
+          </div>}
+          {tabValue===2 && <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
+            {!subscriptionList?.some(item => item?.generalNote==='Student Database') && "No subscriptions subscribed yet"}
+            {subscriptionList.length &&
+              subscriptionList.map((item, index) => {
+                switch (item?.generalNote) {
+                  case "Student Database":
+                    return <StudentListItem item={item} index={index} />;
+                  default:
+                    return undefined;
+                }
+              })}
+          </div>}
+          {tabValue===3 && <div className="univ-subscription-list-container d-flex flex-column align-items-center w-full">
+            {!subscriptionList?.some(item => item?.generalNote==='Profile') && "No subscriptions subscribed yet"}
+            {subscriptionList.length &&
+              subscriptionList.map((item, index) => {
+                switch (item?.generalNote) {
+                  case "Profile":
+                    return <ProfileInfoItem item={item} getDetails />;
+                  default:
+                    return undefined;
+                }
+              })}
+          </div>}
         </div>
       </div>
     </>

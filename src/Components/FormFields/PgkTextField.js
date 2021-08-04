@@ -22,7 +22,8 @@ function PgkTextField(props) {
         inputProps={},
         validations=[],
         inputLabelProps={},
-        InputLabelProps={}
+        InputLabelProps={},
+        InputProps={}
     } = props
 
     const inputHandler = (event) => {
@@ -73,6 +74,7 @@ function PgkTextField(props) {
             style={styles}
             inputProps={inputProps}
             InputLabelProps={inputLabelProps}
+            InputProps={InputProps}
             autoComplete={'off'}
         />
     );
@@ -116,6 +118,7 @@ const fieldValidations = (value, validations) => {
                     }
                 } else if(typeof validationsListItem==='function') {
                     error = validationsListItem(value)
+                    console.log('error ', error);
                 }
 
                 if (error !== undefined) {

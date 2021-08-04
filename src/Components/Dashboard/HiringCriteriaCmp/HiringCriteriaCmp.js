@@ -1,6 +1,8 @@
 import React from 'react'
 import moment from "moment";
 import { useSelector } from 'react-redux';
+import IconButton from '@material-ui/core/IconButton';
+import FileCopy from '@material-ui/icons/FileCopy';
 
 const HiringCriteriaCmp = (props) => {
     const apiStatus = useSelector(state => state.DashboardReducer.apiStatus);
@@ -17,16 +19,17 @@ const HiringCriteriaCmp = (props) => {
         <>
             <div className="row published-jobs-section">
                 <div className="d-flex flex-column justify-content-start align-items-center w-full">
+                    {/* <p className="heading">Hiring Criteria Created</p> */}
                     <p className="heading">Hiring Criteria Created</p>
                     {props.hiringCriteria?.length
                         ?
                         props.hiringCriteria?.map((item, i) =>
-                            <div className="row align-items-center jobs-list-item w-full p-0" key={i} style={{height: '80px'}}>
+                            <div className="row align-items-center jobs-list-item w-full p-0" key={i}>
                                 <div className="col-md-2 row align-items-center p-0">
                                     <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
-                                        <i className="fas fa-cube" />
+                                        <i className="fas fa-file-alt" />
                                     </div>
-                                    <p className="job-label text-ellipsis" style={{marginLeft: '14px', textTransform:'capitalize'}}>{item.hiringCriteriaName}</p>
+                                    <p className="job-label text-ellipsis" style={{marginLeft: '14px', textTransform:'capitalize', fontWeight: 'bold'}}>{item.hiringCriteriaName}</p>
                                 </div>
                                 <div className="col-md-1 align-items-center">
                                     <button className="btn2 text-ellipsis" style={{width:'100%'}}>{getValueByType(item.hcProgramsInString, 'programID')}</button>
@@ -36,9 +39,12 @@ const HiringCriteriaCmp = (props) => {
                                 </div>
                                 <div className="col-md-3 item align-items-center">
                                     <p className="job-published-date" style={{color: '#454545'}}>
+                                        Created On
+                                    </p>
+                                    <p className="job-published-date" style={{color: '#454545'}}>
                                         {item?.creationDate
-                                        ? `Created on ${moment(item?.creationDate).format(
-                                            "DD-MM-YYYY"
+                                        ? `${moment(item?.creationDate).format(
+                                            "DD-MMM-YYYY"
                                         )}`
                                         : "-"}
                                     </p>
@@ -62,10 +68,13 @@ const HiringCriteriaCmp = (props) => {
                                         <p>Details</p>
                                         <i className="fas fa-chevron-right"></i>
                                     </button>
+                                    <IconButton aria-label="copy" onClick={()=>{props.cloneHiringCriteria(item?.hiringCriteriaID)}}>
+                                        <FileCopy fontSize="small" color={'primary'} />
+                                    </IconButton>
                                 </div>
                             </div>) : apiStatus ? 'Loading...' : 'No hiring criteria records found, Please add to continue.'}
                     <button type="button" onClick={props.openCloseModal} className="btn add-job-btn" style={{height: '20px'}}>
-                        Add new Hiring Criteria
+                        Add New Hiring Criteria
                     </button>
                 </div>
             </div>

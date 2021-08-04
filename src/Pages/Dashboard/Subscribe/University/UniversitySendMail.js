@@ -41,12 +41,11 @@ const UniversitySendMail = (props) => {
   }
 
   return (
-    <div className={'mail-modal'}>
+    <div className={'mail-modal'} style={{minHeight: '100%'}}>
       <form onSubmit={sendMail}>
-        <div className="modal-header d-block">
-          <span className="modal-title" style={{ fontSize: '1.1rem', padding: 6 }}>
-            New mail to {props.universityName} University requesting Campus
-          Placement Drive
+        <div className="modal-header d-block" style={{padding: '26px'}}>
+          <span className="modal-title" style={{ fontSize: '1.1rem', padding: 0 }}>
+            Request for Campus Drive : {props.universityName}
         </span>
           <i
             className="far fa-times-circle close-icon"
@@ -55,7 +54,7 @@ const UniversitySendMail = (props) => {
           />
         </div>
         <div className="modal-body">
-          <div className="card">
+          <div className="card d-none">
             <span className="control-label" style={{ fontSize: '1rem' }}>From&nbsp;:</span>
             <input
               type="email"
@@ -67,38 +66,39 @@ const UniversitySendMail = (props) => {
               readOnly
             />
           </div>
-          <div className="card">
+          <div className="card d-none">
             <span className="control-label" style={{ fontSize: '1rem' }}>To&nbsp;:</span>
             <input
               type="email"
               name="emailTo"
               style={{ fontSize: '1rem' }}
               defaultValue={props.emailTo}
-              onChange={handleChange}
+              // onChange={handleChange}
               required
             />
           </div>
-          <div className="card">
+          <div className="card" style={{padding: '12px 20px'}}>
             <span className="control-label" style={{ fontSize: '1rem' }}>Subject&nbsp;:</span>
             <input
               type="text"
               name="emailSubject"
               style={{ fontSize: '1rem' }}
               defaultValue={props.emailSubject}
-              onChange={handleChange}
+              // onChange={handleChange}
               required
             />
           </div>
-          <div className="card b-none">
+          <div className="card" style={{minWidth: '100%', padding: '20px'}}>
             <textarea
               name="emailBody"
               defaultValue={props.emailBody}
-              style={{ fontSize: '.850rem' }}
-              onChange={handleChange}
-              rows={5}
+              // readOnly
+              style={{ fontSize: '.850rem', minWidth: '100%', minHeight: '400px' }}
+              // onChange={handleChange}
+              rows={20}
             />
           </div>
-          <div className="card ">
+          <div className="card d-none">
             <div className="attachment">
               <i className="fas fa-paperclip" />
               <span>Selected Students list for Campus Hiring (Attachment)</span>

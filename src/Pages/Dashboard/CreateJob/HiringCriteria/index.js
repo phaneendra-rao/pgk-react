@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import HiringCriteriaCmp from '../../../../Components/Dashboard/HiringCriteriaCmp/HiringCriteriaCmp';
-import PortalHiringModal from '../../../../Portals/PortalHiringModal';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
-import { AddHiringSagaAction, HiringSagaAction } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
+import { AddHiringSagaAction, HiringSagaAction, actionPatchCorporateHiringCriteriaRequest, actionCloneHiringCriteriaRequest } from '../../../../Store/Actions/SagaActions/HiringSagaAction';
 import HiringCriteriaForm from './HiringCriteriaForm';
-import HiringModal from './HiringModal';
-import CustomModal from '../../../../Components/CustomModal';
+import CustomToastModal from "../../../../Components/CustomToastModal";
 import CustomDialogPopup from '../../../../Components/CustomDialogPopup';
 
 // import getHiringCriteriaSaga from '../../../../Store/Sagas/HiringWatcherSaga';
@@ -149,8 +147,11 @@ const Index = () => {
   };
 
     const [isOpen, setIsOpen] = useState(false);
+    const [toastModal, setToastModal] = useState();
     const [lookUpData, setLookUpData] = useState([]);
+    const [isNew, setIsNew] = useState(true);
     const [editable, setEditable] = useState(false);
+    const [hiringCriteriaActualData, setHiringCriteriaActualData] = useState(undefined);
     const [hiringCriteriaData, setHiringCriteriaData] = useState(hiringCriteriaInitialData);
     const [hiringCriteriaList, setHiringCriteriaList] = useState([]);
 
@@ -180,15 +181,19 @@ const Index = () => {
     const closeModel = () => {
         getHiring();
         setIsOpen(false);
+        setHiringCriteriaActualData();
+        setHiringCriteriaData();
     }
 
     const formModal = () => {
         setHiringCriteriaData(hiringCriteriaInitialData);
-        setEditable(true);
+        setIsNew(true);
+        setEditable(false);
         setIsOpen(!isOpen);
+        setHiringCriteriaActualData();
     }
 
-    const detailsModal = (hiringData) => {
+    const detailsModal = (hiringData, isEditable=false) => {
         const hiringCriteriaKeys = [
             "allowActiveBacklogs",
             "eduGaps11N12Allowed",
@@ -215,9 +220,22 @@ const Index = () => {
         let updatedHiringData = hiringCriteriaInitialData;
 
         hiringCriteriaKeys.forEach((item)=>{
-            updatedHiringData[item].value = hiringData[item];
-            updatedHiringData[item].isDisabled = true;
+          updatedHiringData[item].value = hiringData[item];
+          updatedHiringData[item].isDisabled = isEditable ? false : true;
         });
+
+        hiringCriteriaKeys.forEach((item)=>{
+          if(item==='allowActiveBacklogs') {
+            updatedHiringData['numberOfAllowedBacklogs'].isDisabled = isEditable ? !hiringData[item] : true;
+            updatedHiringData['numberOfAllowedBacklogs'].value = hiringData['numberOfAllowedBacklogs'].toString();
+          } else if(['eduGapsSchool', 'eduGapsGradNPG', 'eduGapsGrad', 'eduGaps12NGrad', 'eduGaps11N12'].includes(item)) {
+            updatedHiringData[item+'Allowed'].isDisabled = isEditable ? !hiringData[item] : true;
+            updatedHiringData[item].isDisabled = isEditable ? !hiringData[item+'Allowed'] : true;
+            updatedHiringData[item].value = hiringData[item].toString();
+          }
+        })
+
+        updatedHiringData['eduGapsAllowed'].value = ['eduGapsSchool', 'eduGapsGradNPG', 'eduGapsGrad', 'eduGaps12NGrad', 'eduGaps11N12'].some((item)=>hiringData[item+'Allowed']===true);
 
         const hcBranches = JSON.parse(hiringData['hcProgramsInString']);
 
@@ -226,31 +244,78 @@ const Index = () => {
         })
 
         updatedHiringData['hcPrograms'].value = updatedHcBranches;
-        updatedHiringData['hcPrograms'].isDisabled = true;
+        updatedHiringData['hcPrograms'].isDisabled = isEditable ? false : true;
 
         updatedHiringData['programID'].value = hcBranches[0].programID;
-        updatedHiringData['programID'].isDisabled = true;
+        updatedHiringData['programID'].isDisabled = isEditable ? false : true;
 
         setHiringCriteriaData(updatedHiringData);
-        setEditable(false);
+        setIsNew(false);
+        setEditable(isEditable);
         setIsOpen(true);
+
+        setHiringCriteriaActualData(hiringData);
     }
 
     const addHiringCriteria = (body) => {
+      if(editable && hiringCriteriaActualData?.hiringCriteriaID) {
+        dispatch(actionPatchCorporateHiringCriteriaRequest({
+          apiPayloadRequest: {
+            id: hiringCriteriaActualData?.hiringCriteriaID,
+            body: body,
+          },
+          callback: () => {
+            closeModel();
+            setIsNew(true);
+            setHiringCriteriaActualData();
+            setEditable(false);        
+            
+            if(isNew) {
+              setToastModal('NEW')
+            } else {
+              setToastModal('UPDATE')
+            }
+          }
+        }));
+      } else {
         dispatch(AddHiringSagaAction({
             apiPayloadRequest: body,
             callback: ()=>{
                 closeModel();
+                setIsNew(true);
+                setHiringCriteriaActualData();
                 setEditable(false);
+
+                if(isNew) {
+                  setToastModal('NEW')
+                } else {
+                  setToastModal('UPDATE')
+                }
             }
-        }))
+        }));
+      }
+    }
+
+    const cloneHiringCriteria = (id) => {
+      dispatch(actionCloneHiringCriteriaRequest({
+        apiPayloadRequest:{
+          hiringCriteriaId: id
+        },
+        callback: (response) => {
+          console.log('response ', response);
+          getHiring();
+        }
+      }))
     }
 
     return (
         <>
             <HiringCriteriaCmp
                 openCloseModal={formModal}
-                detailsModal={detailsModal}
+                detailsModal={(item)=>{
+                  detailsModal(item)
+                }}
+                cloneHiringCriteria={cloneHiringCriteria}
                 // hiringCriteria={hiringCriteria?.filter(item=>item?.publishedFlag===false)}
                 hiringCriteria={hiringCriteriaList}
             />
@@ -263,10 +328,22 @@ const Index = () => {
                 dialogContent={<HiringCriteriaForm
                     openCloseModal={formModal}
                     addHiringCriteria={addHiringCriteria}
+                    editHc={()=>{
+                      detailsModal(hiringCriteriaActualData, true);
+                    }}
                     lookUpData={lookUpData}
+                    isNew={isNew}
                     editable={editable}
                     hiringCriteriaData={hiringCriteriaData}
                 />}
+            />}
+            {toastModal && <CustomToastModal
+              onClose={() => {
+                setToastModal();
+              }}
+              show={toastModal ? true : false}
+              iconNameClass={"fa-briefcase"}
+              message={toastModal === 'NEW' ? "Hiring Criteria Saved Successfully!" : "Hiring Criteria Updated Successfully!"}
             />}
         </>
     )

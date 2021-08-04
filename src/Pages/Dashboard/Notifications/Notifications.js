@@ -43,36 +43,60 @@ const Notifications = () => {
     }
 
     useEffect(()=>{
-        let updatedNotifications = actualNotificationsList;
+        let updatedNotifications = [];
         if(filter.stakeholderType!=='') {
-            actualNotificationsList.forEach((item)=>{
-                if(filter.stakeholderType === item.senderUserRole) {
+            let newArray = [];
+
+            if(updatedNotifications.length) {
+                newArray = [...newArray, ...updatedNotifications];
+            } else {
+                newArray = notificationsList?.length ? notificationsList : actualNotificationsList;
+            }
+
+            newArray.forEach((item) => {
+                if(filter.stakeholderType === item.senderType && updatedNotifications.findIndex(_item=>_item.notificationID!==item.notificationID)) {
                     updatedNotifications.push(item);
                 }
             });
         }
 
         if(filter.notificationType!=='') {
-            actualNotificationsList.forEach((item)=>{
-                if(filter.notificationType === item.notificationTypeID) {
+            let newArray = [];
+
+            if(updatedNotifications.length) {
+                newArray = [...newArray, ...updatedNotifications];
+            } else {
+                newArray = notificationsList?.length ? notificationsList : actualNotificationsList;
+            }
+
+            newArray.map((item)=>{
+                if(filter.notificationType === item.notificationTypeID && updatedNotifications.findIndex(_item=>_item.notificationID!==item.notificationID)) {
                     updatedNotifications.push(item);
                 }
             });
         }
 
         if(filter.sortBy!=='') {
-            console.log('filter.sortBy ', filter.sortBy);
-            console.log('before ', updatedNotifications);
-            if(filter.sortBy==='TA') {
-                updatedNotifications = updatedNotifications.sort((a, b) => new Date(a.dateofNotification).getTime() - new Date(b.dateofNotification).getTime());
-            } else {
-                updatedNotifications = updatedNotifications.sort((a, b) => new Date(b.dateofNotification).getTime() - new Date(a.dateofNotification).getTime());
-            }
-            console.log('after ', updatedNotifications);
+            let newArray = [];
 
+            if(updatedNotifications.length) {
+                newArray = [...newArray, ...updatedNotifications];
+            } else {
+                newArray = notificationsList?.length ? notificationsList : actualNotificationsList;
+            }
+
+            if(filter.sortBy==='TA') {
+                updatedNotifications = newArray.sort((a, b) => new Date(a.dateofNotification).getTime() - new Date(b.dateofNotification).getTime());
+            } else {
+                updatedNotifications = newArray.sort((a, b) => new Date(b.dateofNotification).getTime() - new Date(a.dateofNotification).getTime());
+            }
         }
 
-        setNotificationsList(updatedNotifications);
+        if(filter.stakeholderType.trim()==='' && filter.notificationType.trim()==='' && filter.sortBy.trim()==='') {
+            setNotificationsList(actualNotificationsList);
+        } else {
+            setNotificationsList(updatedNotifications);
+        }
 
     }, [filter.stakeholderType, filter.notificationType, filter.sortBy]);
 

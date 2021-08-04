@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import BasicForm from "./ProfileForm/BasicForm";
 import AddressAndContactForm from "./ProfileForm/AddressAndContactForm";
 import ProfileForm from "./ProfileForm/ProfileForm";
+import ReferralForm from "./ProfileForm/ReferralForm";
 import AccountSettingsForm from "./ProfileForm/AccountSettingsForm";
 import { toast } from "react-toastify";
 import moment from "moment";
 import CustomToastModal from "../../../Components/CustomToastModal";
+import CustomModal from "../../../Components/CustomModal";
 import {
   actionGetCorporateProfileSagaAction,
   actionPatchCorporateProfileSagaAction,
@@ -83,6 +85,7 @@ const Profile = () => {
   const [profile, setProfile] = useState();
   const [checkStatus, setCheckStatus] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showTermsAndConditions, setShowTermsAndConditions] = useState(false);
   const [profilePicture, setProfilePicture] = useState();
   const [attachment, setAttachment] = useState({
     attachment: undefined,
@@ -531,7 +534,7 @@ const Profile = () => {
       </div>
       <div className={'d-flex welcome-widget flex-row justify-content-end align-items-center'} style={{backgroundColor: 'transparent', border: 'none', padding: 0,}}>
         <div className={'date-of-joining-widget d-flex flex-column justify-content-center'}>
-            <p className={'sub-label'}>Date of joining the Platform :</p>
+            <p className={'sub-label'}>Date of joining the Platform</p>
             <p className={'label'}>{profileInfo?.dateOfJoining ? moment(profileInfo?.dateOfJoining).format('DD-MM-YYYY') : '-'}</p>
         </div>
       </div>
@@ -554,6 +557,7 @@ const Profile = () => {
         fileHandler={fileHandler}
       />
       <AccountSettingsForm profileData={profile} onChange={updateProfileData} />
+      <ReferralForm />
       <div className="d-grp">
         <div className="custom-control custom-checkbox">
           <input
@@ -567,7 +571,9 @@ const Profile = () => {
             required
           />
           <label className="custom-control-label" htmlFor="accept">
-            I hereby accept the Terms & Conditions of the Platform
+            I hereby accept the <span onClick={()=>{
+              setShowTermsAndConditions(true);
+            }} style={{textDecoration: 'underline', color: '#646464', fontWeight: 'bold', cursor: 'pointer'}}><i>Terms & Conditions</i></span> of the Platform
           </label>
         </div>
       </div>
@@ -582,14 +588,40 @@ const Profile = () => {
           Save
         </button>
       </div>
-      <CustomToastModal
+      {showModal && <CustomToastModal
         onClose={() => {
           setShowModal(false);
         }}
         show={showModal}
         iconNameClass={"fa-building"}
         message={"Your profile has been updated successfully"}
-      />
+      />}
+      {showTermsAndConditions && <CustomModal
+        show={showTermsAndConditions}
+      >
+        <div className="hiring-modal">
+          <div className="modal-header hiring-modal-header">
+            <h5 className="modal-title" style={{fontSize: '1rem'}} id="exampleModalLabel">
+              Terms and Conditions
+            </h5>
+            <button
+              type="button"
+              className="close"
+              style={{fontSize: '1rem', color: 'white'}}
+              onClick={()=>{
+                setShowTermsAndConditions(false);
+              }}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <p style={{padding: '12px'}}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          <br/>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+      </CustomModal>}
     </div>
   );
 };

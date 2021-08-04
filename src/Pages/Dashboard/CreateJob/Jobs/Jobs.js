@@ -9,7 +9,8 @@ import AddJobs from './AddJobs';
 import JobDetailsModal from './JobDetailsModal';
 import CustomModal from '../../../../Components/CustomModal';
 import CustomDialogPopup from '../../../../Components/CustomDialogPopup';
-import { toast } from 'react-toastify'
+import CustomToastModal from "../../../../Components/CustomToastModal";
+import { toast } from 'react-toastify';
 import moment from 'moment';
 
 const jobFormFields = ['jobName', 'jobType', 'skills', 'hiringCriteria', 'salaryMinRange', 'salaryMaxRange', 'monthOfHiring', 'remarks', 'attachment', 'status', 'noOfPositions', 'location'];
@@ -96,6 +97,7 @@ const Jobs = () => {
     const [lookUpData, setLookUpData] = useState([]);
     const [mode, setMode] = useState('ADD');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [toastModal, setToastModal] = useState();
 
     const dispatch = useDispatch();
 
@@ -145,16 +147,18 @@ const Jobs = () => {
             dispatch(EditJobsSagaAction({ apiPayloadRequest: {id: jobFormData.jobID, req: updatedJobData}, callback: (addJobsResp)=>{
                 getJobs();
                 openCloseJobModal();
+                setToastModal('EDIT');
             } }));
         } else {
             dispatch(AddJobsSagaAction({ apiPayloadRequest: updatedJobData, callback: (addJobsResp)=>{
                 getJobs();
                 openCloseJobModal();
+                setToastModal('NEW');
             } }));
         }
     }
 
-    const viewDetails = (id) => {
+    const viewDetails = (id, isEditable=false) => {
         dispatch(GetJobByIdSagaAction({ apiPayloadRequest: id, callback: (jobDetailsResponse)=>{
 
             let updatedJobData = initialJobFormData;
@@ -164,6 +168,7 @@ const Jobs = () => {
                     if(item==='attachment') {
                         updatedJobData[item] = {
                             ...initialJobFormData[item],
+                            isDisabled: isEditable ? initialJobFormData[item].isDisabled : true,
                             value: {
                                 attachment: jobDetailsResponse['attachment'],
                                 attachmentName: jobDetailsResponse['attachmentName']
@@ -172,18 +177,20 @@ const Jobs = () => {
                     } else if(item==='hiringCriteria') {
                         updatedJobData[item] = {
                             ...initialJobFormData[item],
+                            isDisabled: isEditable ? initialJobFormData[item].isDisabled : true,
                             value: jobDetailsResponse['hiringCriteriaID']
                         }
                     } else if(item==='status') {
                         updatedJobData[item] = {
                             ...initialJobFormData[item],
                             value: jobDetailsResponse['status'],
-                            isDisabled: false
+                            isDisabled: isEditable ? initialJobFormData[item].isDisabled : false,
                         }
                     } else if(item==='monthOfHiring') {
                         updatedJobData[item] = {
                             ...initialJobFormData[item],
-                            value: moment(jobDetailsResponse[item].value).format('YYYY-MM-DD')
+                            value: moment(jobDetailsResponse[item].value).format('YYYY-MM-DD'),
+                            isDisabled: isEditable ? initialJobFormData[item].isDisabled : true,
                         }
                     } else if(item==='skills') {
                         const newSkills = JSON.parse(jobDetailsResponse['skillsInString']);
@@ -192,12 +199,14 @@ const Jobs = () => {
                             ...initialJobFormData[item],
                             value: newSkills?.length ? newSkills.map((item)=>{
                                 return {value: item.skillID, label: item.skillName}
-                            }) : []
+                            }) : [],
+                            isDisabled: isEditable ? initialJobFormData[item].isDisabled : true,
                         }
                     } else {
                         updatedJobData[item] = {
                             ...initialJobFormData[item],
                             value: jobDetailsResponse[item],
+                            isDisabled: isEditable ? initialJobFormData[item].isDisabled : true,
                         }
                     }
                 })
@@ -205,11 +214,14 @@ const Jobs = () => {
                 setJobFormData({...updatedJobData, jobID: jobDetailsResponse.jobID});
             }
 
-            openCloseJobModal('EDIT');
+            if(isEditable) {
+                openCloseJobModal('EDIT', true);
+            } else {
+                openCloseJobModal('DETAILS');
+            }
         } }));
     }
-
-
+    
     const getAllHirings = (data) => {
         setHiringCriteria(data);
     }
@@ -222,14 +234,14 @@ const Jobs = () => {
         setLookUpData(data);
     }
 
-    const openCloseJobModal = (_mode = 'CLOSE') => {
+    const openCloseJobModal = (_mode = 'CLOSE', modalOpen = !isModalOpen) => {
         if(_mode==='CLOSE') {
             setJobFormData(initialJobFormData);
             setMode();
         } else {
             setMode(_mode);
         }
-        setIsModalOpen(!isModalOpen);
+        setIsModalOpen(modalOpen);
     }
 
     const updateField = (name, value, errorMessage=undefined) => {
@@ -286,7 +298,20 @@ const Jobs = () => {
         }
     } 
 
-    const fileHandler = (name, e) => {
+    const fileHandler = (name, e, _errorMessage = undefined) => {
+        if(_errorMessage) {
+            let data = jobFormData[name];
+            data["value"] = undefined;
+            data["errorMessage"] = _errorMessage;
+        
+            setJobFormData((prevState) => ({
+              ...prevState,
+              ...data,
+            }));
+
+            return
+        }
+
         const file = e.target.files[0];
         if (!file) {
             return;
@@ -350,12 +375,15 @@ const Jobs = () => {
                 isCancelBtnRequired={false}
                 isConfirmBtnRequired={false}
                 disableBackdropClick={true}
-                contentStyles={{backgroundColor:'rgba(135, 139, 166, 0.31)', padding:'0px', paddingBottom: '12px'}}
+                contentStyles={{backgroundColor:'#F8F9FE', padding:'0px', paddingBottom: '12px'}}
                 dialogContent={<AddJobs
                     lookUpData={lookUpData}
                     hiringCriteria={hiringCriteria}
                     jobFormData={jobFormData}
                     mode={mode}
+                    editJob={()=>{
+                        viewDetails(jobFormData?.jobID, true);
+                    }}
                     handleChange={handleChange}
                     fileHandler={fileHandler}
                     resetFile={resetFile}
@@ -364,6 +392,15 @@ const Jobs = () => {
                         openCloseJobModal('CLOSE')
                     }}
                 />}
+            />}
+
+            {toastModal && <CustomToastModal
+                onClose={() => {
+                    setToastModal();
+                }}
+                show={toastModal ? true : false}
+                iconNameClass={"fa-briefcase"}
+                message={toastModal === 'NEW' ? "Job Saved Successfully!" : "Job Updated Successfully!"}
             />}
         </>
     )

@@ -34,7 +34,7 @@ const DashboardLayout = () => {
     return (
         <>
             {apiStatus ?
-                <div className="loader">
+                <div className="loader" style={{position: 'fixed'}}>
                     <svg width="100px" height="100px" version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enableBackground="new 0 0 0 0" xmlSpace="preserve">
                         <circle fill="none" stroke="red" strokeWidth={4} cx={50} cy={50} r={44} style={{ opacity: '0.5' }} />
                         <circle fill="#fff" stroke="#e74c3c" strokeWidth={3} cx={8} cy={54} r={6}>

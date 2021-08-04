@@ -159,11 +159,11 @@ const CorporateContactPersonnel = (props) => {
             // const file = image1?.name?.split('.').slice(0, -1).join('.')
             // const convertToFile = new File([file], image1?.name, { type: image1?.type, lastModified: image1?.lastModified });
             // finalData.attachment = convertToFile;
-            finalData.corporateHQAddressPhone = storeData?.countryCode + storeData?.corporateHQAddressPhone?.toString();
+            finalData.corporateHQAddressPhone = '+91' + storeData?.corporateHQAddressPhone?.toString();
             finalData.corporateLocalBranchAddressPhone = storeData?.corporateLocalBranchAddressPhone ? storeData?.countryCode2 + storeData?.corporateLocalBranchAddressPhone?.toString() : '';
             finalData.stakeholder = selectedName;
-            finalData.primaryContactPhone = storeData?.countryCode + contactPersonnel?.primaryContactPhone?.toString();
-            finalData.secondaryContactPhone = contactPersonnel?.secondaryContactPhone ? storeData?.countryCode + contactPersonnel?.secondaryContactPhone?.toString() : '';
+            finalData.primaryContactPhone = '+91' + contactPersonnel?.primaryContactPhone?.toString();
+            finalData.secondaryContactPhone = contactPersonnel?.secondaryContactPhone ? '+91' + contactPersonnel?.secondaryContactPhone?.toString() : '';
             // finalData.attachment = convertToFile;
             delete finalData.countryCode;
             delete finalData.countryCode2;

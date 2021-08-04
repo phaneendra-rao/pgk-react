@@ -6,6 +6,8 @@ import CustomToastModal from "../../../../Components/CustomToastModal";
 import PgkTextField from '../../../../Components/FormFields/PgkTextField';
 import Close from '@material-ui/icons/Close';
 import { toast } from 'react-toastify'
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const $ = window.$;
 
@@ -141,22 +143,38 @@ const PublishProfile = () => {
   }
 
   const isFormValid = () => {
-    let isValid = false;
+    let isValid = true;
 
-    if((otherInfo?.title?.isRequired && otherInfo?.title?.errorMessage) || (otherInfo?.information?.isRequired && otherInfo?.information?.errorMessage)) {
-      isValid = false
-    } else {
-      isValid = true
+    if(isValid) {
+      if((otherInfo?.title?.isRequired && otherInfo?.title?.errorMessage) || (otherInfo?.information?.isRequired && otherInfo?.information?.errorMessage)) {
+        isValid = false
+      } else {
+        isValid = true
+      }
     }
 
-    if((otherInfo?.title?.isRequired && otherInfo?.title?.value && otherInfo?.title?.value?.trim()!=='') || (otherInfo?.information?.isRequired && otherInfo?.information?.value && otherInfo?.information?.value?.trim()!=='')) {
-      isValid = true
-    } else {
-      isValid = false
+    if(isValid) {
+      if((otherInfo?.title?.isRequired && otherInfo?.title?.value && otherInfo?.title?.value?.trim()!=='')) {
+        isValid = true
+      } else {
+        isValid = false
+        updateField('title', otherInfo?.title?.value, 'Required')
+      }
     }
 
-    if(otherInfo?.attachment?.isRequired && otherInfo?.attachment?.errorMessage) {
-      isValid = false
+    if(isValid) {
+      if((otherInfo?.information?.isRequired && otherInfo?.information?.value && otherInfo?.information?.value?.trim()!=='')) {
+        isValid = true
+      } else {
+        isValid = false
+        updateField('information', otherInfo?.information?.value, 'Required')
+      }
+    }
+
+    if(isValid) {
+      if(otherInfo?.attachment?.isRequired && otherInfo?.attachment?.errorMessage) {
+        isValid = false
+      }
     }
 
     return isValid;
@@ -179,24 +197,42 @@ const PublishProfile = () => {
   }
 
   const addOtherInformation = () => {
-    console.log('otherInfo ', otherInfo);
-    const updatedOtherInformation = {
-      title: otherInfo?.title?.value,
-      information: otherInfo?.information?.value,
-      attachment: otherInfo?.attachment?.value?.attachment
+    if(isFormValid()) {
+      const updatedOtherInformation = {
+        title: otherInfo?.title?.value,
+        information: otherInfo?.information?.value,
+        attachment: otherInfo?.attachment?.value?.attachment
+      }
+        dispatch(actionPostAddOtherInformationRequest({
+          apiPayloadRequest: updatedOtherInformation,
+          callback: onAddOtherInformation
+        }));
     }
-      dispatch(actionPostAddOtherInformationRequest({
-        apiPayloadRequest: updatedOtherInformation,
-        callback: onAddOtherInformation
-      }));
   }
 
-  return (
-    <div className="main" style={{ marginTop: 0 }}>
-      <h3 className="main-title">Other Information</h3>
+  const [tabValue, setTabValue] = useState(0);
 
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
+  return (
+    <div className="page-body" style={{ marginTop: 30 }}>
+      <p className="heading text-center" style={{fontWeight: "bold"}}>Other Information</p>
+      <div className="row">
+        <Tabs
+          value={tabValue}
+          onChange={handleChange}
+          indicatorColor={'primary'}
+          style={{backgroundColor: 'white', width: '100%'}}
+        >
+          <Tab label="Publish Other Information" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+          <Tab label="Other Information History" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+        </Tabs>
+      </div>
+      {tabValue===0 && <div className="" style={{ marginTop: 0, padding: '0px 12px' }}>
       <form>
-      <div className="gbl-profile-set other-info">
+        <div className="gbl-profile-set other-info">
           <div className="row">
             <div className="col-md">
               <div className="mb-20">
@@ -206,7 +242,7 @@ const PublishProfile = () => {
                   onChange={onChangeHandler}
                   label={"Title"}
                   disabled={otherInfo?.title?.isDisabled}
-                  errorMessage={otherInfo?.title?.errorMessage?.value}
+                  errorMessage={otherInfo?.title?.errorMessage}
                   required={otherInfo?.title?.isRequired}
                 />
               </div>
@@ -217,6 +253,7 @@ const PublishProfile = () => {
                   label={"Information/Text"}
                   required={otherInfo?.information?.isRequired}
                   disabled={otherInfo?.information?.isDisabled}
+                  errorMessage={otherInfo?.information?.errorMessage}
                   onChange={onChangeHandler}
                   multiline={true}
                   minRows={6}
@@ -267,7 +304,6 @@ const PublishProfile = () => {
             <button
               type="button"
               className="btn ml-1"
-              disabled={!isFormValid()}
               onClick={addOtherInformation}
             >
               Publish
@@ -275,21 +311,18 @@ const PublishProfile = () => {
           </div>
       </div>
       </form>
-
-      <div className="row jobs-saved-section">
-        <div className="d-flex flex-column justify-content-start align-items-center w-full">
-          <p className="heading w-full">Information Publish History</p>
-        </div>
-      </div>
+    </div>}
+    {tabValue===1 && <div style={{padding: '0px 12px'}}>
       <OtherInformationList otherInformationList={otherInformationList} />
-      <CustomToastModal
+    </div>}
+    {showModal && <CustomToastModal
         onClose={() => {
           setShowModal(false);
         }}
         show={showModal}
         iconNameClass={"fa-file"}
         message={"Selected Information has been Published Successfully"}
-      />
+      />}
     </div>
   );
 };

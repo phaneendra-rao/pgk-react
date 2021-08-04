@@ -43,6 +43,7 @@ const UniversitySubscribeSuccessModal = (props) => {
         data-toggle="modal"
         data-target="#viewInsight"
         onClick={props.openViewInfoModal}
+        style={{cursor: 'pointer'}}
       >
         Access the Information
       </button>

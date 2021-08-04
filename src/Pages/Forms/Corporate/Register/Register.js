@@ -5,6 +5,7 @@ import CorporatePrimaryCmp from '../../../../Components/Forms/CorporateCmp/Regis
 import { GetCountryCodeAction, SaveCoprorateData } from '../../../../Store/Actions/CorporateActions/CorporateAction';
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import { checkObjectProperties } from '../../../../utils/utils';
+import { actionValidateReferralRequestSaga } from '../../../../Store/Actions/SagaActions/DashboardSaga/LoginSagaActions';
 
 const Register = (props) => {
     // =========***Main Object***=========
@@ -142,17 +143,39 @@ const Register = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const { corporateName, CIN, corporateType, corporateCategory, corporateIndustry,
-            attachment, yearOfEstablishment } = corporatePrimaryData;
-        if (corporateName && CIN && corporateType && corporateCategory && corporateIndustry
-            && attachment && yearOfEstablishment) {
-            // sessionStorage.setItem('image1', JSON.stringify(imageObj))
-            sessionStorage.setItem('primary', JSON.stringify(corporatePrimaryData))
-            setShowError(false)
+        if (corporatePrimaryData.referral.length > 0) {
+            validateRefCode(corporatePrimaryData.referral);
+        }
+        else {
+            const { corporateName, CIN, corporateType, corporateCategory, corporateIndustry,
+                attachment, yearOfEstablishment } = corporatePrimaryData;
+            if (corporateName && CIN && corporateType && corporateCategory && corporateIndustry
+                && attachment && yearOfEstablishment) {
+                // sessionStorage.setItem('image1', JSON.stringify(imageObj))
+                sessionStorage.setItem('primary', JSON.stringify(corporatePrimaryData))
+                setShowError(false)
+                dispatch(SaveCoprorateData(corporatePrimaryData, 1));
+                props.history.push('/register/CorporateSecondary');
+            } else {
+                setShowError(true)
+            }
+        }
+    }
+
+    const validateRefCode = (model) => {
+        dispatch(actionValidateReferralRequestSaga({ apiPayloadRequest: model, callback: onValidationResponse }));
+    }
+
+    const onValidationResponse = (data) => {
+        if (data.length > 0) {
+            setErrors(preState => ({
+                ...preState,
+                referral: data
+            }));
+        }
+        else {
             dispatch(SaveCoprorateData(corporatePrimaryData, 1));
             props.history.push('/register/CorporateSecondary');
-        } else {
-            setShowError(true)
         }
     }
 

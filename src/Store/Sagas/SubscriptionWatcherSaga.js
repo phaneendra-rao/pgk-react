@@ -138,8 +138,13 @@ function* getSubscribeTokensSaga(action) {
 }
 
 const subscribeUnvInfo = (payload, type) => {
-    const URL = '/s/subscribe/' + type;
-    return Axios.post(URL, payload).then(res => res.data);
+    if(type==='profileInfo' || type==='otherInfo') {
+        const URL = '/s/subscribe';
+        return Axios.post(URL, payload).then(res => res.data);
+    } else {
+        const URL = '/s/subscribe/' + type;
+        return Axios.post(URL, payload).then(res => res.data);
+    }
 }
 
 function* subscribeUnvInfoSaga(action) {
@@ -254,6 +259,11 @@ const getSubscribedUniversityStudents = (id) => {
     return Axios.get(URL).then(res => res.data);
 }
 
+const getUniversityPublishedInfo = (id) => {
+    const URL = '/p/subData/publishedData/'+id;
+    return Axios.get(URL).then(res => res.data);
+}
+
 function* getSingleSubscriptionRequest(action) {
   yield put(actionUpdateGlobalLoaderSagaAction(true));
 
@@ -264,6 +274,8 @@ function* getSingleSubscriptionRequest(action) {
             resp = yield call(getSubscribedUniversityInfo, action.payload.apiPayloadRequest.id);
         } else if(action.payload.apiPayloadRequest.type==='STUDENTS_LIST') {
             resp = yield call(getSubscribedUniversityStudents, action.payload.apiPayloadRequest.id);
+        } else if(['PROFILE', 'OTHER_INFORMATION'].includes(action.payload.apiPayloadRequest.type)) {
+            resp = yield call(getUniversityPublishedInfo, action.payload.apiPayloadRequest.id);
         }
         action.payload.callback(resp);
     } catch (err) {

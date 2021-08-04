@@ -7,34 +7,39 @@ const OtherInformationItem = (props) => {
     const [showModal, setShowModal] = useState(false);
 
     return (<>
-    <div className="w-full d-flex justify-content-center align-items-center" >
-
-      <div className="row align-items-center jobs-list-item w-full p-0" style={{height: '80px'}}>
+          <div
+        className="row align-items-center jobs-list-item w-full"
+      >
         <div className="col-md-2 row align-items-center p-0">
-          <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center m-0">
-            <i className="fas fa-cube" />
+          <div className="job-icon job-blue-icon d-flex justify-content-center align-items-center">
+            <i className="fas fa-file"></i>
           </div>
-          <p
+          <p 
             className="job-label text-ellipsis"
-            style={{ marginLeft: "14px", textTransform: "capitalize" }}
-          >
-            {"Other Information"}
+            style={{
+              marginLeft: "14px",
+              maxWidth: "200px",
+              textTransform: "capitalize",
+              fontWeight: 'bold'
+            }}
+          >{props?.parentItem?.publishID ? props?.parentItem?.publishID : "-"}</p>
+        </div>
+        <div className="col-md-3">
+          <p className="job-published-date" style={{textOverflow:'ellipsis', fontWeight: 'bold'}}>{props?.item?.title}</p>
+        </div>
+        <div className="col-md-1">
+        </div>
+        <div className="col-md-3">
+          <p className="job-published-date"style={{ color: "#454545", textAlign:'center', fontSize: '13px', fontWeight: 'bold'}}>
+              {props?.parentItem?.dateOfPublish &&
+              `Published on`}
+          </p>
+          <p className="job-published-date"style={{ color: "#454545", textAlign:'center', fontSize: '13px', fontWeight: 'bold'}}>
+              {props?.parentItem?.dateOfPublish &&
+              `${moment(props?.parentItem?.dateOfPublish).format("DD-MMM-YYYY")}`}
           </p>
         </div>
-        <div className="col-md-5 align-items-center">
-          <p className="job-published-date text-ellipsis" style={{maxWidth: '300px', textAlign:'left'}}>{props?.item?.title}</p>
-        </div>
-        <div className={`col-md-2 item align-items-center`}>
-          <p className="job-published-date" style={{ color: "#454545", fontSize: '.750rem' }}>
-          {props?.parentItem?.dateOfPublish
-                ? `Published on ${moment(props?.parentItem?.dateOfPublish).format(
-                    "DD-MM-YYYY"
-                  )}`
-                : "-"}
-          </p>
-        </div>
-        <div className={`col-md-3 row item p-0 d-flex justify-content-between align-items-center w-full`}>
-          <div></div>
+        <div className={`col-md-2 row item p-0 d-flex justify-content-between align-items-center`}>
           <div className="vertical-divider" />
           <button
             type="button"
@@ -57,12 +62,9 @@ const OtherInformationItem = (props) => {
           </button>
         </div>
       </div>
+    
 
-
-
-      </div>
-
-      <CustomModal
+      {showModal && <CustomModal
         show={showModal}
       >
         <div className="hiring-modal">
@@ -146,7 +148,7 @@ const OtherInformationItem = (props) => {
             </div>
           </form>
         </div>
-      </CustomModal>  
+      </CustomModal>}  
     </>);
 }
 

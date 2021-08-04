@@ -5,7 +5,8 @@ import { HiringSagaAction } from "../../../../Store/Actions/SagaActions/HiringSa
 import { actionGetDependencyLookUpsSagaAction } from '../../../../Store/Actions/SagaActions/CommonSagaActions';
 import HiringCriteriaListItem from '../Components/HiringCriteriaListItem';
 import JobListItem from '../Components/JobsListItem';
-
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // import HiringCriteriaItem from './HiringCriteriaItem';
 import ProfileItem from './ProfileItem/ProfileItem';
 import OtherInformation from './OtherInformationItem';
@@ -70,6 +71,12 @@ const PublishHistory = (props) => {
     }
   };
 
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <>
       <div className="page-body" style={{ marginTop: 30 }}>
@@ -80,17 +87,25 @@ const PublishHistory = (props) => {
           >
             <p
               className="heading"
-              style={{ fontWeight: "bold", marginBottom: 30 }}
+              style={{ fontWeight: "bold"}}
             >
               Publish History
             </p>
-            <div className="row jobs-saved-section w-full" style={{margin:'0px'}}>
-              <div className="d-flex flex-column justify-content-start align-items-center w-full">
-                <p className="heading w-full" style={{textAlign:'left', backgroundColor:'#BCBECC', color: 'black', fontSize: '1.2rem'}}>Hiring Criteria</p>
-              </div>
+            <div className="row w-full">
+              <Tabs
+                value={tabValue}
+                onChange={handleChange}
+                indicatorColor={'primary'}
+                style={{backgroundColor: 'white', width: '100%'}}
+              >
+                <Tab label="Hiring Criteria" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+                <Tab label="Jobs" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+                <Tab label="Other Information" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+                <Tab label="Profile" disableRipple style={{outline: 'none', textTransform: 'capitalize'}} />
+              </Tabs>
             </div>
 
-            <div className={'w-full'} style={{height:'300px', overflow: 'scroll'}}>
+            {tabValue === 0 && <div className={'w-full'}>
               {historyList?.length ? (
                 historyList.map((listItem, index) => getListItem(listItem, index, 'HC'))
               ) : (
@@ -102,15 +117,9 @@ const PublishHistory = (props) => {
                   </div>
                 </div>
               )}
-            </div>
+            </div>}
 
-            <div className="row jobs-saved-section w-full" style={{margin:'0px'}}>
-              <div className="d-flex flex-column justify-content-start align-items-center w-full">
-                <p className="heading w-full" style={{textAlign:'left', backgroundColor:'#BCBECC', color: 'black', fontSize: '1.2rem'}}>Jobs</p>
-              </div>
-            </div>
-
-            <div className={'w-full'} style={{height:'300px', overflow: 'scroll'}}>
+            {tabValue === 1 && <div className={'w-full'}>
               {historyList?.length ? (
                 historyList.map((listItem, index) => getListItem(listItem, index, 'JOBS'))
               ) : (
@@ -122,15 +131,9 @@ const PublishHistory = (props) => {
                   </div>
                 </div>
               )}
-            </div>
+            </div>}
 
-            <div className="row jobs-saved-section w-full" style={{margin:'0px'}}>
-              <div className="d-flex flex-column justify-content-start align-items-center w-full">
-                <p className="heading w-full" style={{textAlign:'left', backgroundColor:'#BCBECC', color: 'black', fontSize: '1.2rem'}}>Other Info</p>
-              </div>
-            </div>
-
-            <div className={'w-full'} style={{height:'300px', overflow: 'scroll'}}>
+            {tabValue === 2 && <div className={'w-full'}>
               {historyList?.length ? (
                 historyList.map((listItem, index) => getListItem(listItem, index, 'OI'))
               ) : (
@@ -142,15 +145,9 @@ const PublishHistory = (props) => {
                   </div>
                 </div>
               )}
-            </div>
+            </div>}
 
-            <div className="row jobs-saved-section w-full" style={{margin:'0px'}}>
-              <div className="d-flex flex-column justify-content-start align-items-center w-full">
-                <p className="heading w-full" style={{textAlign:'left', backgroundColor:'#BCBECC', color: 'black', fontSize: '1.2rem'}}>Profile</p>
-              </div>
-            </div>
-
-            <div className={'w-full'} style={{height:'300px', overflow: 'scroll'}}>
+            {tabValue === 3 && <div className={'w-full'}>
               {historyList?.length ? (
                 historyList.map((listItem, index) => getListItem(listItem, index, 'PROFILE'))
               ) : (
@@ -162,7 +159,7 @@ const PublishHistory = (props) => {
                   </div>
                 </div>
               )}
-            </div>
+            </div>}
 
           </div>
         </div>

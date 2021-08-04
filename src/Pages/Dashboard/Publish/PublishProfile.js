@@ -10,6 +10,7 @@ import {
   actionPostPublishCorporateProfileSagaAction,
 } from "../../../Store/Actions/SagaActions/CorporateProfileSagaActions";
 import CustomToastModal from "../../../Components/CustomToastModal";
+import CustomModal from "../../../Components/CustomModal";
 import { actionGetStatesByCountryNameRequest, actionGetCitiesByStateNameRequest, actionGetUniversalAccessToken } from "../../../Store/Actions/SagaActions/CommonSagaActions";
 
 const requiredFields = [
@@ -98,6 +99,8 @@ const PublishProfile = () => {
     isTermsAndConditionsChecked,
     setIsTermsAndConditionsChecked,
   ] = useState(false);
+
+  const [showTermsAndConditions, setShowTermsAndConditions] = useState(false);
 
   const [initHqAddress, setInitHqAddress] = useState({
     states: false,
@@ -416,7 +419,9 @@ const PublishProfile = () => {
             required
           />
           <label className="custom-control-label" htmlFor="accept">
-            I hereby accept the Terms & Conditions of the Platform
+            I hereby accept the <span onClick={()=>{
+              setShowTermsAndConditions(true);
+            }} style={{textDecoration: 'underline', color: '#646464', fontWeight: 'bold', cursor: 'pointer'}}><i>Terms & Conditions</i></span> of the Platform
           </label>
         </div>
       </div>
@@ -434,14 +439,40 @@ const PublishProfile = () => {
           Publish
         </button>
       </div>
-      <CustomToastModal
+      {showModal && <CustomToastModal
         onClose={() => {
           setShowModal(false);
         }}
         show={showModal}
         iconNameClass={"fa-building"}
         message={"Your profile (selected information) has been published successfully"}
-      />
+      />}
+    {showTermsAndConditions && <CustomModal
+        show={showTermsAndConditions}
+      >
+        <div className="hiring-modal">
+          <div className="modal-header hiring-modal-header">
+            <h5 className="modal-title" style={{fontSize: '1rem'}} id="exampleModalLabel">
+              Terms and Conditions
+            </h5>
+            <button
+              type="button"
+              className="close"
+              style={{fontSize: '1rem', color: 'white'}}
+              onClick={()=>{
+                setShowTermsAndConditions(false);
+              }}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <p style={{padding: '12px'}}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          <br/>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+      </CustomModal>}
     </div>
   );
 };

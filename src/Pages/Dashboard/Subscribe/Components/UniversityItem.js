@@ -73,7 +73,7 @@ const UniversityItem = (props) => {
         dialogContent={<div className="viewInsight-modal" id="viewInsight">
         {/* Modal Header */}
         <div className="modal-header">
-            <h4 className="modal-title">View Insights of '{props?.item?.publisherName}'</h4>
+            <h4 className="modal-title">Insights : {props?.item?.publisherName}</h4>
             <i className="far fa-times-circle close-icon" onClick={()=>{
               setShowModal(false)
             }} data-dismiss="modal" />

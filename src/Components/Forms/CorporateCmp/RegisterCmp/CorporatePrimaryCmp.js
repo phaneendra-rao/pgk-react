@@ -36,7 +36,7 @@ const CorporatePrimaryCmp = (props) => {
                 <div className="col-md-6">
                     <div className="mb-15">
                         <PgkTextField
-                            type={'number'}
+                            type={'text'}
                             name="CIN"
                             onChange={props?.handleChange}
                             value={props?.corporatePrimaryData?.CIN}
@@ -101,7 +101,7 @@ const CorporatePrimaryCmp = (props) => {
 
                 <div className="col-md-12">
                     <div className="reg-attach">
-                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Upload attachment</span>}
+                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Upload attachment about Corporate (only pdf) </span>}
                         <input
                             type="file"
                             onChange={props.handleChangeImg}
@@ -120,8 +120,6 @@ const CorporatePrimaryCmp = (props) => {
                     } */}
                 </div>
             </div>
-
-
 
             <RegisterHeader title="Referral Code" />
             <div className="row">

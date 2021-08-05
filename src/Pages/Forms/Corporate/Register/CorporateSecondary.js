@@ -35,7 +35,7 @@ const CorporateSecondary = (props) => {
 
     // =========***Error Object***=========
     const errorsObj = initialState;
-    
+
     // =========***Primary data keys to check validations***=========
     const primaryKeyCheck = {
         corporateName: '',
@@ -73,6 +73,8 @@ const CorporateSecondary = (props) => {
     const dispatch = useDispatch();
 
     useEffect(async () => {
+        alert(storeData);
+        console.log(storeData);
         let isPrimaryDataFilled = false;
         for (const storeKey in storeData) {
             for (const key in primaryKeyCheck) {

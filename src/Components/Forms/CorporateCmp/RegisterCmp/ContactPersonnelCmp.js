@@ -37,7 +37,6 @@ const ContactPersonnelCmp = (props) => {
                                     value={props?.contactPersonnel?.primaryContactMiddleName}
                                     label={'Middle Name'}
                                     errorMessage={props?.errors?.primaryContactMiddleName}
-                                    required={true}
                                 />
                             </div>
                         </div>
@@ -72,7 +71,7 @@ const ContactPersonnelCmp = (props) => {
                                     type={'number'}
                                     name="primaryContactPhone"
                                     onChange={props?.handleChange}
-                                    value={props?.contactPersonnel?.primaryContactPhone}
+                                    value={props?.contactPersonnel?.primaryContactPhone ? props?.contactPersonnel?.primaryContactPhone.toString().replace('+91', '')  : ''}
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.primaryContactPhone}
                                     required={true}
@@ -156,7 +155,7 @@ const ContactPersonnelCmp = (props) => {
                                     type={'number'}
                                     name="secondaryContactPhone"
                                     onChange={props?.handleChange}
-                                    value={props?.contactPersonnel?.secondaryContactPhone}
+                                    value={props?.contactPersonnel?.secondaryContactPhone ? props?.contactPersonnel?.secondaryContactPhone?.toString().replace('+91', '')  : ''}
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.secondaryContactPhone}
                                     required={false}

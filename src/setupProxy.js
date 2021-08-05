@@ -6,8 +6,7 @@ module.exports = function(app) {
     createProxyMiddleware({
       target: 'http://api.c2hire.com/',
       changeOrigin: true,
-      prependPath: false,
-      pathRewrite: {'^/api' : ''}
+      prependPath: false
     })
   );
 };

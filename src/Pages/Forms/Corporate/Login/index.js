@@ -4,11 +4,13 @@ import LoginForm from './LoginForm';
 const $ = window.$;
 
 const Login = (props) => {
-    const [type, setType] = useState('');
+    const [type, setType] = useState('Corporate');
 
     useEffect(() => {
         $('#role').modal({ backdrop: 'static', keyboard: false });
-        $('#role').modal('show');
+        // $('#role').modal('show');
+        localStorage.setItem('type', 'Corporate');
+
     }, [])
 
     const closeModal = (event) => {
@@ -62,31 +64,6 @@ const Login = (props) => {
                     </div>
                 </div>
             </section>
-            {/* Modal */}
-            <div className="modal fade show" style={{ display: 'block' }} id="role" tabIndex={-1} role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
-                    <div className="modal-content modal-form">
-                        <div className="modal-body">
-                            <h4 className="modal-title mb-1 mt-0">You are a</h4>
-                            <form className="login-form mx-auto" onSubmit={closeModal}>
-                                <div className="login-grp mb-2 mx-auto">
-                                    <span className="modal-icon1"><i className="fas fa-envelope" /></span>
-                                    <select name="type" defaultValue={'DEFAULT'} onChange={handlerChange} className="modal-inp" required>
-                                        <option value={'DEFAULT'} disabled>Select type</option>
-                                        <option value="Corporate">Corporate</option>
-                                        <option value="University">University</option>
-                                        <option value="Student">Student</option>
-                                    </select>
-                                </div>
-                                <div className="text-center">
-                                    <button type="submit" className="login-btn mb-0">Proceed</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </>
     )
 }

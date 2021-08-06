@@ -10,7 +10,6 @@ import { actionUpdateGlobalLoaderSagaAction, actionSaveUniversalAccessToken, act
 const fullState = (state) => state;
 
 const getDependencyLookupsRequest = (queryString) => {
-    alert(queryString);
   const URL = `/lut/?${queryString}`;
   return Axios.get(URL).then((res) => {
     return res.data;

@@ -112,13 +112,14 @@ const CorporateSecondary = (props) => {
             //         getCitiesByStateName(storeData?.corporateLocalBranchAddressState, 'LOCAL');
             //     }
             // }, 3000);
-
-            setFilename(storeData?.attachment2?.name);
-            let reader = new FileReader();
-            reader.onload = function (ev) {
-                setPath(ev.target.result.split(',')[1]);
-            };
-            reader.readAsDataURL(storeData.attachment2);
+            if (storeData?.attachment2) {
+                setFilename(storeData?.attachment2?.name);
+                let reader = new FileReader();
+                reader.onload = function (ev) {
+                    setPath(ev.target.result.split(',')[1]);
+                };
+                reader.readAsDataURL(storeData.attachment2);
+            }
         }
 
     }, []);
@@ -157,8 +158,8 @@ const CorporateSecondary = (props) => {
 
     const handleChange = (name, value, errorMessage) => {
         if (['corporateHQAddressPhone', 'corporateLocalBranchAddressPhone'].includes(name)) {
-            while(value.toString().startsWith('+91')) {
-               value = value.replace('+91', '')
+            while (value.toString().startsWith('+91')) {
+                value = value.replace('+91', '')
             }
         }
         setCorporateSecondary(preState => ({
@@ -191,7 +192,7 @@ const CorporateSecondary = (props) => {
     const getStatesByCountryName = (countryName, type) => {
         dispatch(actionGetStatesByCountryNameRequest({
             countryName: countryName,
-            callback: (data) =>{ 
+            callback: (data) => {
                 setStatesByType(data, type);
             },
         }));

@@ -55,17 +55,36 @@ function MemberSection(props) {
               </div>
             </div>
           </div>
-          <div className="container team-container">
-            <div className="our-team">
+          <div className="row ourTeam-section">
+            <div className="col-4">
+              <div className="container team-container">
+                <div className="our-team">
+                  <div className="card-carousel">
+                    <Card list={data} openMember={handleMemberPopup} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-8 ourTeam-intro">
               <div>
                 <label className="team-head">
                   <span>Our</span>&nbsp;<span>{type}</span>
                 </label>
                 <hr />
               </div>
-              <div className="card-carousel">
-                <Card list={data} openMember={handleMemberPopup} />
-              </div>
+              <h5>Team Intro Sample Heading Text</h5>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
+                ea facere quaerat blanditiis quo nam consectetur voluptate
+                dolorum quasi molestiae similique debitis atque, exercitationem
+                ratione autem? In quae aliquam molestiae.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus,
+                reiciendis ipsum. Pariatur minima omnis quia! Maxime rem
+                ducimus, nostrum nemo aut voluptatibus nam porro impedit
+                doloribus hic eveniet tenetur at.
+              </p>
             </div>
           </div>
         </div>

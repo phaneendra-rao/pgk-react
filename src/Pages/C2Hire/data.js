@@ -3,7 +3,7 @@ export const teamMembers = [
     id: 1,
     name: "Ramesh Pisupati",
     designation: "Founder - Director",
-    imageUrl: "../../../images/c2hire/img/team_members/ramesh-pgk.png",
+    imageUrl: "../../../images/c2hire/img/team_members/Ramesh.jpeg",
     linkedinUrl: "https://linkedin.com",
     descriptionParagraphs: [
       `An outlier with his skin perennially in the game, Ramesh is a

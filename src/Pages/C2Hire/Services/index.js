@@ -1,4 +1,4 @@
 import axios from 'axios';
-const HOME_STATS_URL = "http://65.0.248.114:80/api/u/homeStats";
+import { HOME_STATS_URL } from '../constants';
 
 export const homeStatsData = () => axios.get(HOME_STATS_URL);

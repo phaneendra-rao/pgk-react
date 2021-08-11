@@ -10,6 +10,12 @@ p {
 .primary-color {
   color: $Primary-Color;
 }
+.primary-Bgcolor {
+  background-color: $Primary-Color !important;
+}
+.bg-white {
+  background: #ffffff;
+}
 
 // **************navbar*****************
 .navbar {
@@ -91,7 +97,7 @@ p {
     .nav-link {
       font-family: "Euclid Circular A";
       color: #ffffff;
-      padding: 10px 20px;
+      padding: 10px 30px;
       font-weight: 500;
     }
   }
@@ -238,143 +244,188 @@ p {
   }
   .showcaseBox {
     background-color: #f8f9fd;
-    padding: 5rem 0 2rem 0;
-    .bg-img1 {
-      position: absolute;
-      left: 54%;
-      width: 55%;
-      top: 160px;
-      transform: translateX(-50%);
+    padding: 4rem 0 2rem 0;
+    height: 455px;
+    .homeHero {
+      height: 300px;
+      padding-top: 5rem;
+      .left-text {
+        display: grid;
+        align-content: center;
+      }
+      .rightImg {
+        display: flex;
+        justify-content: center;
+      }
     }
-    .bg-img2 {
+    .heroBackgroundImg,
+    .heroHirepeople {
       position: absolute;
-      left: 54%;
-      width: 55%;
-      top: 250px;
-      transform: translateX(-50%);
     }
+    .heroBackgroundImg {
+      height: 300px;
+    }
+    .heroHirepeople {
+      width: auto;
+      height: 310px;
+    }
+    // .bg-img1 {
+    //   position: absolute;
+    //   left: 54%;
+    //   width: 55%;
+    //   top: 160px;
+    //   transform: translateX(-50%);
+    // }
+    // .bg-img2 {
+    //   position: absolute;
+    //   left: 54%;
+    //   width: 55%;
+    //   top: 250px;
+    //   transform: translateX(-50%);
+    // }
     .highlightText {
       font-family: "Euclid Circular A";
       height: 100%;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       width: 390px;
       font-weight: 600;
       color: #404143;
-      margin-left: 4rem;
+      margin-left: 6rem;
       letter-spacing: -0.14px;
       line-height: 1.1;
       font-size: 36px;
     }
-    .vid {
-      padding: 15px 2rem;
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-      .videoBlock {
-        position: relative;
-        height: 300px;
-        width: 560px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        // .vp-center {
-        //   background-image: url("../images/c2hire/img/platform-thumbnail.png");
-        // }
-        .c2hire-platform {
-          height: 300px !important;
-          width: 560px !important;
-          &:hover {
-            .react-player__preview {
-              background-image: linear-gradient(
-                  rgba(0, 0, 0, 0.1),
-                  rgba(0, 0, 0, 0.1)
-                ),
-                url("../images/c2hire/img/platform-thumbnail.png");
-            }
-            .react-player__shadow {
-              background-color: #033380 !important;
-              &::before {
-                content: "";
-                position: absolute !important;
-                z-index: 0;
-                left: 50%;
-                top: 50%;
-                transform: translateX(-50%) translateY(-50%);
-                display: block;
-                width: 95px;
-                height: 95px;
-                background: $Primary-Color;
-                border-radius: 50%;
-                animation: pulse-border 1500ms ease-out infinite;
-              }
-            }
-          }
+  }
+
+  .scrollText {
+    height: 80px;
+    position: relative;
+    span {
+      color: #ffffff;
+      font-size: 28px;
+    }
+  }
+
+  .homepage-info {
+    padding: 5rem 0;
+  }
+  .whyc2hireLeftBlock {
+    padding-top: 3rem;
+    padding-left: 40px;
+    .title {
+      font-family: Euclid Circular A;
+      font-size: 40px;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 16px;
+      padding-right: 73px;
+      margin-bottom: 15px;
+      font-weight: normal;
+      font-family: Euclid Circular A;
+    }
+    .Btn {
+      font-family: Euclid Circular A;
+      font-weight: 500;
+      border-radius: 20px;
+      padding: 8px 52px;
+    }
+  }
+  .vid {
+    padding: 15px 2rem;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    .videoBlock {
+      position: relative;
+      height: 300px;
+      width: 560px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      // .vp-center {
+      //   background-image: url("../images/c2hire/img/platform-thumbnail.png");
+      // }
+      .c2hire-platform {
+        height: 300px !important;
+        width: 560px !important;
+        &:hover {
           .react-player__preview {
             background-image: linear-gradient(
-                rgba(0, 0, 0, 0.3),
-                rgba(0, 0, 0, 0.3)
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1)
               ),
               url("../images/c2hire/img/platform-thumbnail.png");
           }
           .react-player__shadow {
-            background: $Primary-Color !important;
+            background-color: #033380 !important;
+            &::before {
+              content: "";
+              position: absolute !important;
+              z-index: 0;
+              left: 50%;
+              top: 50%;
+              transform: translateX(-50%) translateY(-50%);
+              display: block;
+              width: 95px;
+              height: 95px;
+              background: $Primary-Color;
+              border-radius: 50%;
+              animation: pulse-border 1500ms ease-out infinite;
+            }
           }
         }
-      }
-
-      .vidBtm-text {
-        font-family: "Euclid Circular A";
-        font-weight: 600;
-        margin: 1rem 0;
-        color: #404143;
-        font-size: 24px;
-        width: 100%;
-        text-align: center;
+        .react-player__preview {
+          background-image: linear-gradient(
+              rgba(0, 0, 0, 0.3),
+              rgba(0, 0, 0, 0.3)
+            ),
+            url("../images/c2hire/img/platform-thumbnail.png");
+        }
+        .react-player__shadow {
+          background: $Primary-Color !important;
+        }
       }
     }
-  }
-  .collab {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    width: 100%;
-    background-color: #b2cefe;
-    span {
+
+    .vidBtm-text {
       font-family: "Euclid Circular A";
       font-weight: 600;
-      font-size: 36px;
-      color: $Primary-Color;
+      margin: 1rem 0;
+      color: #404143;
+      font-size: 24px;
+      width: 100%;
+      text-align: center;
     }
-  }
-  .homepage-info {
-    padding: 5rem 0 3rem 0;
   }
   .reviewComments {
     padding: 1rem 0 1rem 0;
     background-color: #f8f9fd;
   }
+
   .corporates-slides {
-    margin: 5rem 0 3rem 0;
-    .carousel {
-      background-color: #ffffff;
+    .bg-white {
+      padding: 1rem 0;
     }
-    .container {
-      position: relative;
-    }
-    .carousel-control-prev {
-      width: 30px;
-      color: #00000032;
-      font-size: 30px;
-      opacity: 1;
-      background: #ffffff;
-    }
-    .carousel-control-next {
-      width: 30px;
-      color: #00000032;
-      font-size: 30px;
-      opacity: 1;
-      background: #ffffff;
+    .corporate-partner {
+      .corporateSlider {
+        margin: 0 1.5rem;
+        display: flex !important;
+        align-items: center;
+        span {
+          border: 1px solid #9c9c9c;
+          padding: 1.5rem 2rem;
+          font-family: "Euclid Circular A";
+          font-weight: bold;
+        }
+      }
+      .slick-arrow {
+        &::before {
+          color: #9c9c9c;
+          font-size: 38px;
+        }
+      }
     }
   }
   .stats-detail {
@@ -596,7 +647,25 @@ p {
     }
   }
 }
-
+.scrollText,
+.collab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  span {
+    font-family: "Euclid Circular A";
+    font-weight: 600;
+  }
+}
+.collab {
+  height: 100px;
+  background-color: #b2cefe;
+  span {
+    color: $Primary-Color;
+    font-size: 36px;
+  }
+}
 // **********Footer starts**************
 .footer-block {
   padding: 0rem;
@@ -772,156 +841,176 @@ p {
       }
     }
   }
-  .team-container {
-    display: flex;
-    justify-content: center;
-    padding: 4rem 0 9rem 0;
-    .our-team {
-      width: 327px;
-      .team-head {
-        display: flex;
-        justify-content: center;
-        span {
-          font-family: Euclid Circular A;
-          font-size: 40px;
-          color: #333333;
-          &:first-child {
-            font-weight: 400;
+  .ourTeam-section {
+    padding: 5rem 2rem;
+    .team-container {
+      display: flex;
+      justify-content: center;
+      .our-team {
+        width: 327px;
+        .card-carousel {
+          .slick-next {
+            height: 50px;
+            right: -72px;
+            width: 58px;
+            z-index: 10;
+            &::before {
+              font-size: 60px;
+              color: #9c9c9c;
+            }
           }
-          &:nth-child(2) {
-            font-weight: bold;
-          }
-        }
-      }
-      hr {
-        width: 80px;
-        margin-top: 0;
-        height: 2px;
-        background-color: $Primary-Color;
-      }
-      .card-carousel {
-        padding: 2rem 0;
-        .slick-next {
-          background-color: #00000056;
-          border-radius: 50%;
-        }
-        .card {
-          height: 440px;
-          border: 1px solid $Primary-Color;
-          width: 320px;
-          position: relative;
-          box-shadow: 0px 3px 60px #0000000f;
+          .card {
+            height: 440px;
+            border: 1px solid $Primary-Color;
+            width: 320px;
+            position: relative;
+            box-shadow: 0px 3px 60px #0000000f;
 
-          .name {
-            font-family: "Euclid Circular A";
-            font-weight: 600;
-            text-align: center;
-            color: $Primary-Color;
-            font-size: 24px;
-          }
-          .designation {
-            font-family: "Euclid Circular A";
-            color: #999999;
-            padding: 0 1.5rem;
-            text-align: center;
-            font-size: 18px;
-            line-height: 1.3;
-          }
-          .socials {
-            display: flex;
-            justify-content: space-evenly;
-            padding: 1rem 3rem;
-            width: 100%;
-            span {
-              width: 40px;
-              height: 40px;
+            .name {
+              font-family: "Euclid Circular A";
+              font-weight: 600;
+              text-align: center;
+              color: $Primary-Color;
+              font-size: 24px;
+            }
+            .designation {
+              font-family: "Euclid Circular A";
+              color: #999999;
+              padding: 0 1.5rem;
+              text-align: center;
+              font-size: 18px;
+              line-height: 1.3;
+            }
+            .socials {
               display: flex;
-              justify-content: center;
-              align-items: center;
-              cursor: pointer;
-              border-radius: 50%;
-              box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
-                0 5px 8px 0 rgba(0, 0, 0, 0.14),
-                0 1px 14px 0 rgba(0, 0, 0, 0.12);
-              &:hover {
-                box-shadow: none;
-              }
-              i {
-                color: #ffffff;
-                font-size: 24px;
-              }
-            }
-            .linkedin {
-              background-color: #0077b5;
-            }
-            .twitter {
-              background-color: #1da1f2;
-            }
-            .facebook {
-              background-color: #4267b2;
-            }
-          }
-          .bg-blue {
-            height: 142px;
-            position: absolute;
-            width: 100%;
-            background-color: $Primary-Color;
-          }
-          .center-bck {
-            display: flex;
-            padding-bottom: 3rem;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            height: 100%;
-          }
-          .circle {
-            top: 55px;
-            height: 160px;
-            width: 160px;
-            transform: translateX(-50%);
-            left: 50%;
-            overflow: hidden;
-            border: 2px solid #ffffff;
-            box-shadow: 0px 3px 25px #00000017;
-            position: absolute;
-            border-radius: 50%;
-            .Shalmali {
-              height: 221px;
-              width: 160px;
-              top: -8px;
-              left: -1px;
-            }
-            .Sumit {
-              height: 163px;
-              top: 0px;
-            }
-            .Srinikhil {
-              top: 0;
-              height: 100%;
-            }
-            .Prasada {
-              height: 100%;
-              top: 0px;
-            }
-            .Shaker,
-            .Sricharan {
-              top: -12px;
-            }
-            .REDDY {
-              top: 0;
-              left: -12px;
-              width: 177px;
-              height: 100%;
-            }
-            img {
-              height: 220px;
+              justify-content: space-evenly;
+              padding: 1rem 3rem;
               width: 100%;
-              top: -28px;
+              span {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                border-radius: 50%;
+                box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+                  0 5px 8px 0 rgba(0, 0, 0, 0.14),
+                  0 1px 14px 0 rgba(0, 0, 0, 0.12);
+                &:hover {
+                  box-shadow: none;
+                }
+                i {
+                  color: #ffffff;
+                  font-size: 24px;
+                }
+              }
+              .linkedin {
+                background-color: #0077b5;
+              }
+              .twitter {
+                background-color: #1da1f2;
+              }
+              .facebook {
+                background-color: #4267b2;
+              }
+            }
+            .bg-blue {
+              height: 142px;
               position: absolute;
+              width: 100%;
+              background-color: $Primary-Color;
+            }
+            .center-bck {
+              display: flex;
+              padding-bottom: 3rem;
+              flex-direction: column;
+              justify-content: flex-end;
+              align-items: center;
+              height: 100%;
+            }
+            .circle {
+              top: 55px;
+              height: 160px;
+              width: 160px;
+              transform: translateX(-50%);
+              left: 50%;
+              overflow: hidden;
+              border: 2px solid #ffffff;
+              box-shadow: 0px 3px 25px #00000017;
+              position: absolute;
+              border-radius: 50%;
+              .Ramesh {
+                top: -8px;
+                width: 100%;
+                height: 168px;
+              }
+              .Shalmali {
+                height: 221px;
+                width: 160px;
+                top: -8px;
+                left: -1px;
+              }
+              .Sumit {
+                height: 163px;
+                top: 0px;
+              }
+              .Srinikhil {
+                top: 0;
+                height: 100%;
+              }
+              .Prasada {
+                height: 100%;
+                top: 0px;
+              }
+              .Shaker,
+              .Sricharan {
+                top: -12px;
+              }
+              .REDDY {
+                top: 0;
+                left: -12px;
+                width: 177px;
+                height: 100%;
+              }
+              img {
+                height: 220px;
+                width: 100%;
+                top: -28px;
+                position: absolute;
+              }
             }
           }
         }
+      }
+    }
+    .team-head {
+      display: flex;
+      justify-content: center;
+      span {
+        font-family: Euclid Circular A;
+        font-size: 40px;
+        color: #333333;
+        &:first-child {
+          font-weight: 400;
+        }
+        &:nth-child(2) {
+          font-weight: bold;
+        }
+      }
+    }
+    hr {
+      width: 80px;
+      margin-top: 0;
+      height: 2px;
+      background-color: $Primary-Color;
+    }
+    .ourTeam-intro {
+      padding: 0 5rem;
+      h5 {
+        color: $Primary-Color;
+        margin-top: 3rem;
+        font-size: 28px;
       }
     }
   }
@@ -1160,6 +1249,47 @@ p {
 }
 
 .whyC2hire {
+  .postHeroContainer {
+    height: 150px;
+    background-color: #5e57a7;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    margin-top: 3rem;
+    .containerText {
+      padding: 0 7rem;
+    }
+  }
+  .imgContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3.5rem;
+  }
+  .leftTextContent-1 {
+    padding: 0 4rem;
+  }
+  .leftTextContent-2 {
+    padding-left: 4rem;
+  }
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding-right: 2.5rem;
+    .head {
+      font-size: 26px;
+      color: $Primary-Color;
+      font-family: "Euclid Circular A";
+      font-weight: 600;
+    }
+    p {
+      font-size: 16px;
+      font-family: "Euclid Circular A";
+      margin-bottom: 1.5rem;
+    }
+  }
   .c2hire-subTitle {
     font-family: "Euclid Circular A";
     font-weight: 600;
@@ -1167,9 +1297,6 @@ p {
   }
   label {
     font-size: 18px !important;
-  }
-  p {
-    font-size: 16px !important;
   }
 }
 
@@ -1420,7 +1547,7 @@ p {
 }
 @media (min-width: 320px) and (max-width: 768px) {
   .landing-bg-img1 {
-    height: 50px;
+    height: 35px;
     left: 0;
     top: 118px;
   }
@@ -1430,45 +1557,46 @@ p {
     right: 0px;
     width: 80px;
   }
-  .bg-img1,
-  .bg-img2 {
-    width: 100%;
-  }
+  // .bg-img1,
+  // .bg-img2 {
+  //   width: 100%;
+  // }
   .form-buttons {
     margin-top: 1rem;
   }
   .landing-page {
     .showcaseBox {
-      .bg-img1,
-      .bg-img2 {
-        width: 90%;
-        margin: 0 auto;
+      height: 289px;
+      .heroBackgroundImg {
+        height: 133px;
+      }
+      .homeHero {
+        padding-top: 0rem;
+        height: 120px;
+        .left-text {
+          align-content: start;
+        }
       }
       .bg-img2 {
         top: 197px;
       }
       .highlightText {
         margin: 0 auto;
-        font-size: 24px;
-        width: 266px;
-        padding: 3rem 0 2rem 0.5rem;
+        font-size: 18px;
+        width: 200px;
+        padding: 2.5rem 0 1rem 0.5em;
       }
-      .vid {
-        padding: 10px 0;
-        .vidBtm-text {
-          font-size: 16px;
-        }
-        .videoBlock {
-          width: 100%;
-          height: 200px;
-          .c2hire-platform {
-            width: 100% !important;
-            height: 200px !important;
-            .react-player__shadow {
-              background: $Primary-Color !important;
-            }
-          }
-        }
+      .heroHirepeople {
+        height: 129px;
+      }
+    }
+    .whyc2hireLeftBlock {
+      padding: 2rem;
+    }
+    .scrollText {
+      height: 40px;
+      span {
+        font-size: 16px;
       }
     }
     .collab {
@@ -1477,8 +1605,31 @@ p {
         font-size: 18px;
       }
     }
+    .homepage-info {
+      padding: 2rem 0;
+    }
+    .whyc2hireLeftBlock p {
+      padding-right: 0;
+    }
+    .vid {
+      padding: 10px 0;
+      .vidBtm-text {
+        font-size: 16px;
+      }
+      .videoBlock {
+        width: 100%;
+        height: 200px;
+        .c2hire-platform {
+          width: 100% !important;
+          height: 200px !important;
+          .react-player__shadow {
+            background: $Primary-Color !important;
+          }
+        }
+      }
+    }
     .corporates-slides {
-      margin: 2rem 0 1rem 0;
+      margin: 6rem 0 1rem 0;
     }
     .main-titles {
       font-size: 20px;
@@ -1490,6 +1641,24 @@ p {
       padding: 0 2rem;
       .stat-widget {
         border-radius: 10px;
+      }
+    }
+  }
+  .whyC2hire {
+    .postHeroContainer {
+      height: auto;
+      .containerText {
+        padding: 2rem 1rem;
+      }
+    }
+    .textContent {
+      padding: 2rem;
+    }
+    .collab {
+      margin: 0 2rem !important;
+      height: 75px;
+      span {
+        font-size: 18px;
       }
     }
   }
@@ -1648,25 +1817,25 @@ p {
         font-size: 42px;
         width: 455px;
       }
-      .vid {
-        .videoBlock {
-          width: 680px !important;
-          height: 386px !important;
-          .c2hire-platform {
-            width: 680px !important;
-            height: 386px !important;
-            .react-player__shadow {
-              background: $Primary-Color !important;
-            }
-          }
-        }
-        .vidBtm-text {
-          font-size: 30px;
-        }
-      }
     }
     .collab span {
       font-size: 40px;
+    }
+    .vid {
+      .videoBlock {
+        width: 680px !important;
+        height: 386px !important;
+        .c2hire-platform {
+          width: 680px !important;
+          height: 386px !important;
+          .react-player__shadow {
+            background: $Primary-Color !important;
+          }
+        }
+      }
+      .vidBtm-text {
+        font-size: 30px;
+      }
     }
     .main-titles {
       font-size: 33px;

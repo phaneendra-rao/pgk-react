@@ -70,7 +70,7 @@ function C2hireHeader() {
                 </div>
               </div>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <div className="dropdown">
                 <a className="nav-link" data-toggle="dropdown">
                   Stakeholders
@@ -87,7 +87,7 @@ function C2hireHeader() {
                   </a>
                 </div>
               </div>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a className="nav-link" href="#">
                 Partners
@@ -119,7 +119,22 @@ function C2hireHeader() {
               </div>
             </li>
             <li className="form-buttons ml-3">
-              <button className="form-btns Btn">Login / Sign Up</button>
+              <div className="dropdown">
+                <button className="form-btns Btn" data-toggle="dropdown">
+                  Login / Sign Up
+                </button>
+                <div className="dropdown-menu">
+                  <a className="dropdown-item" href="#">
+                    Corporate
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    University
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Student
+                  </a>
+                </div>
+              </div>
             </li>
           </ul>
         </div>

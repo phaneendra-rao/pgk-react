@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { homeStatsData } from "../Services";
+import { Link } from "react-router-dom";
+import { corporatesLogos } from "../constants";
 
 function C2hireHome() {
   const [homeStats, setHomeStats] = useState({});
@@ -17,7 +19,9 @@ function C2hireHome() {
     }
   };
 
-  useEffect(()=>{getHomeStats();},[])
+  useEffect(() => {
+    getHomeStats();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -54,6 +58,39 @@ function C2hireHome() {
       },
     ],
   };
+  const corporateSliderProp = {
+    dots: false,
+    infinite: true,
+    pauseOnHover: true,
+    variableWidth: true,
+    autoplay: true,
+    slidesToShow: 4,
+    autoplaySpeed: 1000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <section className="c2hirePage-body landing-page">
@@ -66,53 +103,40 @@ function C2hireHome() {
       />
       <div className="showcaseBox">
         <img
-          className="bg-img1"
-          src="../../../images/c2hire/img/Rectangle 341.png"
-          alt=""
-          width="80%"
-        />
-        <img
-          className="bg-img2"
-          src="../../../images/c2hire/img/Rectangle 342.png"
-          alt=""
-          width="80%"
-        />
+          className="heroBackgroundImg"
+          src="../../../images/c2hire/img/heroBackground.png"
+          width="100%"
+          height="auto"
+        ></img>
+
         <div className="container container-lg container-md container-xl">
           <img
             className="landing-bg-img1"
             src="../../../images/c2hire/img/ellipseSquare.svg"
-            height="180px"
-            width="180px"
+            height="160px"
+            width="150px"
             alt=""
           />
-          <div className="row">
-            <div className="col-lg-5 col-sm-12">
+          <div className="row homeHero">
+            <div className="col-lg-6 col-sm-12 col-md-12 left-text">
               <p className="highlightText">
-                India's First Blockchain Enabled Campus Hire Platform
+                India's First Blockchain Enabled{" "}
+                <span className="primary-color">Campus Hire Platform</span>
               </p>
             </div>
-            <div className="col-lg-7 col-sm-12">
-              <div className="vid">
-                <div className="videoBlock">
-                  <div>
-                    <ReactPlayer
-                      className="c2hire-platform"
-                      playing={true}
-                      controls={true}
-                      responsive={true}
-                      light={true}
-                      //light="../images/c2hire/img/platform-thumbnail.png"
-                      url="https://player.vimeo.com/video/562748881?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                    />
-                  </div>
-                </div>
-                <p className="vidBtm-text">
-                  {flashTexts[count] || "Validated and Verified profiles."}
-                </p>
-              </div>
+            <div className="col-lg-6 col-sm-12 col-md-12 rightImg">
+              <img
+                className="heroHirepeople"
+                src="../../../images/c2hire/img/heroHirePeople.png"
+                width="100%"
+                height="auto"
+              ></img>
             </div>
           </div>
         </div>
+      </div>
+      <div className=" scrollText primary-Bgcolor">
+        <span>Scroll text will be here</span>
       </div>
       <div className="collab">
         <span>JOIN. COLLABORATE. SUCCEED.</span>
@@ -125,6 +149,49 @@ function C2hireHome() {
           />
         </div>
       </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-6 col-sm-12 whyc2hireLeftBlock">
+            <h4 className="title">
+              Why <span className="primary-color"> C2Hire. ?</span>
+            </h4>
+            <p>
+              C2Hire. is the platform that stands and believes in the Vision -
+              the vision of making a difference to the Education ecosystem. It
+              is powered by a combined Management Experience of 100+ years
+              effectively driving to build a Scalable, Secure & Integrated
+              platform with required transparency and with built-in validation &
+              verification mechanism.
+            </p>
+            <Link to="/c2hire/whyc2hire">
+              <button className="Btn" rout="/c2hire/whyc2hire">
+                Read more
+              </button>
+            </Link>
+          </div>
+          <div className="col-lg-6 col-sm-12">
+            <div className="vid">
+              <div className="videoBlock">
+                <div>
+                  <ReactPlayer
+                    className="c2hire-platform"
+                    playing={true}
+                    controls={true}
+                    responsive={true}
+                    light={true}
+                    //light="../images/c2hire/img/platform-thumbnail.png"
+                    url="https://player.vimeo.com/video/562748881?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  />
+                </div>
+              </div>
+              <p className="vidBtm-text">
+                {flashTexts[count] || "Validated and Verified profiles."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="reviewComments">
         <div className="container container-lg container-md container-xl">
           <img
@@ -213,51 +280,23 @@ function C2hireHome() {
           <h5 className="main-titles text-center">
             Happy Corporates & Universities Partnered With Us
           </h5>
-          <div id="demo" className="carousel slide" data-ride="carousel">
-            <div className="container container-lg container-md container-xl">
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <div className="row commnets-detail">
+          <div className="bg-white">
+            <div className="container container-lg container-md container-xl corporate-partner">
+              <Slider {...corporateSliderProp}>
+                {corporatesLogos.map((item) => (
+                  <div className="corporateSlider" style={{ width: "auto" }}>
                     <img
-                      width="100%"
-                      src="../../../images/c2hire/img/partners.png"
+                      src={item.src}
+                      height="80px"
+                      width={item.width}
                       alt=""
                     />
                   </div>
+                ))}
+                <div className="corporateSlider" style={{ width: "auto" }}>
+                  <span>SSN Murthy & Company</span>
                 </div>
-                <div className="carousel-item">
-                  <div className="row commnets-detail">
-                    <img
-                      width="100%"
-                      src="../../../images/c2hire/img/partners.png"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="carousel-item">
-                  <div className="row commnets-detail">
-                    <img
-                      width="100%"
-                      src="../../../images/c2hire/img/partners.png"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <a
-                className="carousel-control-prev"
-                href="#demo"
-                data-slide="prev"
-              >
-                <i className="fas fa-angle-left"></i>
-              </a>
-              <a
-                className="carousel-control-next"
-                href="#demo"
-                data-slide="next"
-              >
-                <i className="fas fa-angle-right"></i>
-              </a>
+              </Slider>
             </div>
           </div>
         </div>

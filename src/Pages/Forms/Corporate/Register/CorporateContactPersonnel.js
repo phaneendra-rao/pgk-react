@@ -120,6 +120,11 @@ const CorporateContactPersonnel = (props) => {
     }, [errors, showError]);
 
     const handleChange = (name, value, errorMessage) => {
+        if (['primaryContactPhone', 'secondaryContactPhone'].includes(name)) {
+            while(value.toString().startsWith('+91')) {
+               value = value.replace('+91', '')
+            }
+        }
         if (name !== "repeatPassword") {
             setContactPersonnel(preState => ({
                 ...preState,
@@ -145,6 +150,16 @@ const CorporateContactPersonnel = (props) => {
         return keyList;
     }
 
+    const trimNumber = (number) => {
+        if(number!== undefined || number!== null && number.toString().trim()!=='') {
+            while(number.toString().startsWith('+91')) {
+                number = number.toString().replace('+91', '')
+            }
+        }
+
+        return number?.toString();
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const selectedName = localStorage.getItem('type');
@@ -159,11 +174,11 @@ const CorporateContactPersonnel = (props) => {
             // const file = image1?.name?.split('.').slice(0, -1).join('.')
             // const convertToFile = new File([file], image1?.name, { type: image1?.type, lastModified: image1?.lastModified });
             // finalData.attachment = convertToFile;
-            finalData.corporateHQAddressPhone = '+91' + storeData?.corporateHQAddressPhone?.toString();
-            finalData.corporateLocalBranchAddressPhone = storeData?.corporateLocalBranchAddressPhone ? storeData?.countryCode2 + storeData?.corporateLocalBranchAddressPhone?.toString() : '';
+            finalData.corporateHQAddressPhone = '+91' + trimNumber(storeData?.corporateHQAddressPhone);
+            finalData.corporateLocalBranchAddressPhone = storeData?.corporateLocalBranchAddressPhone ? '+91' + trimNumber(storeData?.corporateLocalBranchAddressPhone) : '';
             finalData.stakeholder = selectedName;
-            finalData.primaryContactPhone = '+91' + contactPersonnel?.primaryContactPhone?.toString();
-            finalData.secondaryContactPhone = contactPersonnel?.secondaryContactPhone ? '+91' + contactPersonnel?.secondaryContactPhone?.toString() : '';
+            finalData.primaryContactPhone = '+91' + trimNumber(contactPersonnel?.primaryContactPhone);
+            finalData.secondaryContactPhone = contactPersonnel?.secondaryContactPhone ? '+91' + trimNumber(contactPersonnel?.secondaryContactPhone) : '';
             // finalData.attachment = convertToFile;
             delete finalData.countryCode;
             delete finalData.countryCode2;

@@ -140,7 +140,7 @@ const CorporateSecondaryCmp = (props) => {
                                     type={'number'}
                                     name="corporateHQAddressPhone"
                                     onChange={props?.handleChange}
-                                    value={props?.corporateSecondary?.corporateHQAddressPhone}
+                                    value={props?.corporateSecondary?.corporateHQAddressPhone ? props?.corporateSecondary?.corporateHQAddressPhone.toString().replace('+91', '')  : ''}
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.corporateHQAddressPhone}
                                     required={true}
@@ -184,7 +184,6 @@ const CorporateSecondaryCmp = (props) => {
                             value={props?.corporateSecondary?.corporateLocalBranchAddressLine1}
                             label={'Address (Line 1)'}
                             errorMessage={props?.errors?.corporateLocalBranchAddressLine1}
-                            required={true}
                         />
                     </div>
                     <div className="mb-15">
@@ -194,7 +193,6 @@ const CorporateSecondaryCmp = (props) => {
                             value={props?.corporateSecondary?.corporateLocalBranchAddressLine2}
                             label={'Address (Line 2)'}
                             errorMessage={props?.errors?.corporateLocalBranchAddressLine2}
-                            required={true}
                         />
                     </div>
                     <div className="row">
@@ -208,7 +206,6 @@ const CorporateSecondaryCmp = (props) => {
                                     label={'Country'}
                                     options={countryCodes}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressCountry}
-                                    required={true}
                                 />
                             </div>
                         </div>
@@ -222,7 +219,6 @@ const CorporateSecondaryCmp = (props) => {
                                     label={'State'}
                                     options={props.stateListLocal}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressState}
-                                    required={true}
                                 />
                             </div>
                         </div>
@@ -239,7 +235,6 @@ const CorporateSecondaryCmp = (props) => {
                                     label={'City'}
                                     options={props.citylistLocal}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressCity}
-                                    required={true}
                                 />
                             </div>
                         </div>
@@ -251,7 +246,6 @@ const CorporateSecondaryCmp = (props) => {
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressDistrict}
                                     label={'District'}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressDistrict}
-                                    required={true}
                                 />
                             </div>
                         </div>
@@ -264,7 +258,6 @@ const CorporateSecondaryCmp = (props) => {
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressZipCode}
                                     label={'Zipcode'}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressZipCode}
-                                    required={true}
                                     validations={['minLength_6', 'maxLength_6']}
                                 />
                             </div>
@@ -278,10 +271,9 @@ const CorporateSecondaryCmp = (props) => {
                                     type={'number'}
                                     name="corporateLocalBranchAddressPhone"
                                     onChange={props?.handleChange}
-                                    value={props?.corporateSecondary?.corporateLocalBranchAddressPhone}
+                                    value={props?.corporateSecondary?.corporateLocalBranchAddressPhone ? props?.corporateSecondary?.corporateLocalBranchAddressPhone.toString().replace('+91', '')  : ''}
                                     label={'Phone Number'}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressPhone}
-                                    required={true}
                                     // validations={[(value) => updatePhone(value)]}
                                     validations={['minLength_10', 'maxLength_10']}
                                 />
@@ -295,7 +287,6 @@ const CorporateSecondaryCmp = (props) => {
                                     value={props?.corporateSecondary?.corporateLocalBranchAddressEmail}
                                     label={'Office mail'}
                                     errorMessage={props?.errors?.corporateLocalBranchAddressEmail}
-                                    required={true}
                                     validations={['isEmail']}
                                 />
                             </div>
@@ -322,7 +313,7 @@ const CorporateSecondaryCmp = (props) => {
                 </div>
                 <div className="col-md-12">
                     <div className="reg-attach">
-                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile</span>}
+                        {props?.filename ? <span style={{ fontSize: 14, top: 10, color: 'grey' }}>{props.filename}</span> : <span style={{ fontSize: 14, top: 10, color: 'grey' }}>Attachment for profile picture</span>}
                         <input
                             type="file"
                             onChange={props.handleChangeImg}

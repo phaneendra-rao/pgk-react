@@ -24,7 +24,7 @@ const RegistrationCompletedCmp = ({ history, data }) => {
                                 chose to pay now or pay later at your convenience
                             </p>
                             <div className="reg-payment-btns">
-                                <button type="button" onClick={() => { history.push('/register/CorporateSecondary') }} className="reg-payment-btn">
+                                <button type="button" onClick={() => { history.push('/') }} className="reg-payment-btn">
                                     <span><i className="fas fa-rupee-sign" /></span> Pay the fee now
                                 </button>
                                 <button type="button" onClick={() => { history.push('/') }} className="reg-payment-btn">

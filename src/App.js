@@ -15,8 +15,8 @@ function App() {
         <Route path="/login" strict={true} name="Login" render={props => <Login {...props} />} /> */}
         <Route path="/register" strict={true} name="RegisterLayout" render={props => <RegisterLayout {...props} />} />
         <Route path="/dashboard" strict={true} name="DashboardLayout" render={props => <DashboardLayout {...props}/>} />
-        <Route path="/c2hire" strict={true} name="C2HireLayout" render={props => <Landing {...props}/>} />
-        <Route path="/" strict={true} name="home" render={props => <Layout {...props} />} />
+        <Route path="/" strict={true} name="C2HireLayout" render={props => <Landing {...props}/>} />
+        {/* <Route path="/" strict={true} name="home" render={props => <Layout {...props} />} /> */}
         <Redirect to="/404" from="*" />
       </Switch>
       {/* </ErrorBoundary> */}

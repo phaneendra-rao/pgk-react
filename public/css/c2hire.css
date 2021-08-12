@@ -8,6 +8,14 @@ p {
   color: #004fd0;
 }
 
+.primary-Bgcolor {
+  background-color: #004fd0 !important;
+}
+
+.bg-white {
+  background: #ffffff;
+}
+
 .navbar {
   background-color: #004fd0;
   padding: 0.8rem 1rem;
@@ -18,14 +26,57 @@ p {
   position: relative;
 }
 
+.navbar .navbar-toggler {
+  padding: 0.5rem 0.75rem;
+}
+
 .navbar .navbar-toggler:focus {
   border: 1px solid #f4f4f4;
   outline: none;
 }
 
-.navbar .navbar-toggler .fa-bars {
+.navbar .navbar-toggler .fas {
   color: #ffffff;
   font-size: 34px;
+}
+
+.navbar .navbar-toggler span {
+  display: block;
+  height: 4px;
+  width: 30px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  margin: 6px 0;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.navbar .navbar-toggler[aria-expanded="true"] span:first-child {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  position: relative;
+  top: 4px;
+}
+
+.navbar .navbar-toggler[aria-expanded="true"] span:nth-child(2) {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  position: relative;
+  top: -7px;
+}
+
+.navbar .navbar-toggler[aria-expanded="false"] span:first-child {
+  -webkit-transform: rotate(0deg) !important;
+          transform: rotate(0deg) !important;
+  position: relative;
+  top: 0 !important;
+}
+
+.navbar .navbar-toggler[aria-expanded="false"] span:nth-child(2) {
+  -webkit-transform: rotate(0deg) !important;
+          transform: rotate(0deg) !important;
+  position: relative;
+  top: 0 !important;
 }
 
 .navbar .navbar-brand {
@@ -52,7 +103,7 @@ p {
 .navbar .nav-item .nav-link {
   font-family: "Euclid Circular A";
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 30px;
   font-weight: 500;
 }
 
@@ -192,6 +243,7 @@ p {
   right: 0px;
   z-index: 2;
   top: 3px;
+  width: auto;
 }
 
 .landing-page {
@@ -221,25 +273,43 @@ p {
 
 .landing-page .showcaseBox {
   background-color: #f8f9fd;
-  padding: 5rem 0 2rem 0;
+  padding: 4rem 0 2rem 0;
+  height: 455px;
 }
 
-.landing-page .showcaseBox .bg-img1 {
-  position: absolute;
-  left: 54%;
-  width: 55%;
-  top: 160px;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+.landing-page .showcaseBox .homeHero {
+  height: 300px;
+  padding-top: 5rem;
 }
 
-.landing-page .showcaseBox .bg-img2 {
+.landing-page .showcaseBox .homeHero .left-text {
+  display: -ms-grid;
+  display: grid;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.landing-page .showcaseBox .homeHero .rightImg {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.landing-page .showcaseBox .heroBackgroundImg,
+.landing-page .showcaseBox .heroHirepeople {
   position: absolute;
-  left: 54%;
-  width: 55%;
-  top: 250px;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+}
+
+.landing-page .showcaseBox .heroBackgroundImg {
+  height: 300px;
+}
+
+.landing-page .showcaseBox .heroHirepeople {
+  width: auto;
+  height: 310px;
 }
 
 .landing-page .showcaseBox .highlightText {
@@ -248,19 +318,61 @@ p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 390px;
   font-weight: 600;
   color: #404143;
-  margin-left: 4rem;
+  margin-left: 6rem;
   letter-spacing: -0.14px;
   line-height: 1.1;
   font-size: 36px;
 }
 
-.landing-page .showcaseBox .vid {
+.landing-page .scrollText {
+  height: 80px;
+  position: relative;
+}
+
+.landing-page .scrollText span {
+  color: #ffffff;
+  font-size: 28px;
+}
+
+.landing-page .homepage-info {
+  padding: 5rem 0;
+}
+
+.landing-page .whyc2hireLeftBlock {
+  padding-top: 3rem;
+  padding-left: 40px;
+}
+
+.landing-page .whyc2hireLeftBlock .title {
+  font-family: Euclid Circular A;
+  font-size: 40px;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.landing-page .whyc2hireLeftBlock p {
+  font-size: 16px;
+  padding-right: 73px;
+  margin-bottom: 15px;
+  font-weight: normal;
+  font-family: Euclid Circular A;
+}
+
+.landing-page .whyc2hireLeftBlock .Btn {
+  font-family: Euclid Circular A;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 8px 52px;
+}
+
+.landing-page .vid {
   padding: 15px 2rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -274,29 +386,29 @@ p {
           align-items: center;
 }
 
-.landing-page .showcaseBox .vid .videoBlock {
+.landing-page .vid .videoBlock {
   position: relative;
   height: 300px;
   width: 560px;
-  background-image: url("../images/c2hire/img/platform-thumbnail.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.landing-page .showcaseBox .vid .videoBlock .c2hire-platform {
+.landing-page .vid .videoBlock .c2hire-platform {
   height: 300px !important;
   width: 560px !important;
 }
 
-.landing-page .showcaseBox .vid .videoBlock .c2hire-platform:hover .react-player__preview {
-  background-color: #00000031 !important;
+.landing-page .vid .videoBlock .c2hire-platform:hover .react-player__preview {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.1))), url("../images/c2hire/img/platform-thumbnail.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../images/c2hire/img/platform-thumbnail.png");
 }
 
-.landing-page .showcaseBox .vid .videoBlock .c2hire-platform:hover .react-player__shadow {
+.landing-page .vid .videoBlock .c2hire-platform:hover .react-player__shadow {
   background-color: #033380 !important;
 }
 
-.landing-page .showcaseBox .vid .videoBlock .c2hire-platform:hover .react-player__shadow::before {
+.landing-page .vid .videoBlock .c2hire-platform:hover .react-player__shadow::before {
   content: "";
   position: absolute !important;
   z-index: 0;
@@ -313,15 +425,16 @@ p {
           animation: pulse-border 1500ms ease-out infinite;
 }
 
-.landing-page .showcaseBox .vid .videoBlock .c2hire-platform .react-player__preview {
-  background-color: #00000062;
+.landing-page .vid .videoBlock .c2hire-platform .react-player__preview {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.3))), url("../images/c2hire/img/platform-thumbnail.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../images/c2hire/img/platform-thumbnail.png");
 }
 
-.landing-page .showcaseBox .vid .videoBlock .c2hire-platform .react-player__shadow {
+.landing-page .vid .videoBlock .c2hire-platform .react-player__shadow {
   background: #004fd0 !important;
 }
 
-.landing-page .showcaseBox .vid .vidBtm-text {
+.landing-page .vid .vidBtm-text {
   font-family: "Euclid Circular A";
   font-weight: 600;
   margin: 1rem 0;
@@ -331,63 +444,35 @@ p {
   text-align: center;
 }
 
-.landing-page .collab {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 100px;
-  width: 100%;
-  background-color: #b2cefe;
-}
-
-.landing-page .collab span {
-  font-family: "Euclid Circular A";
-  font-weight: 600;
-  font-size: 36px;
-  color: #004fd0;
-}
-
-.landing-page .homepage-info {
-  padding: 3rem 0;
-}
-
 .landing-page .reviewComments {
   padding: 1rem 0 1rem 0;
   background-color: #f8f9fd;
 }
 
-.landing-page .corporates-slides {
-  margin: 5rem 0 3rem 0;
+.landing-page .corporates-slides .bg-white {
+  padding: 1rem 0;
 }
 
-.landing-page .corporates-slides .carousel {
-  background-color: #ffffff;
+.landing-page .corporates-slides .corporate-partner .corporateSlider {
+  margin: 0 1.5rem;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.landing-page .corporates-slides .container {
-  position: relative;
+.landing-page .corporates-slides .corporate-partner .corporateSlider span {
+  border: 1px solid #9c9c9c;
+  padding: 1.5rem 2rem;
+  font-family: "Euclid Circular A";
+  font-weight: bold;
 }
 
-.landing-page .corporates-slides .carousel-control-prev {
-  width: 30px;
-  color: #00000032;
-  font-size: 30px;
-  opacity: 1;
-  background: #ffffff;
-}
-
-.landing-page .corporates-slides .carousel-control-next {
-  width: 30px;
-  color: #00000032;
-  font-size: 30px;
-  opacity: 1;
-  background: #ffffff;
+.landing-page .corporates-slides .corporate-partner .slick-arrow::before {
+  color: #9c9c9c;
+  font-size: 38px;
 }
 
 .landing-page .stats-detail {
@@ -400,6 +485,7 @@ p {
   padding: 24px;
   display: block;
   width: 100%;
+  height: 100%;
 }
 
 .landing-page .stats-detail .stats-detail-block .icon {
@@ -486,7 +572,7 @@ p {
   font-family: "Circular Std";
   font-weight: 900;
   font-style: normal;
-  margin: 3rem 0 2rem 0;
+  margin: 3rem 2rem 2rem 2rem;
   font-size: 26px;
   letter-spacing: 0px;
   color: #425072;
@@ -579,8 +665,9 @@ p {
 .landing-page .commnets-detail .comments-detail-block .quote-icon {
   position: absolute;
   color: #000000;
-  font-size: 3rem;
-  left: 40px;
+  height: 75px;
+  left: 0;
+  top: 8px;
   opacity: 0.1;
 }
 
@@ -621,7 +708,6 @@ p {
 }
 
 .landing-page .commnets-detail .light-slider-box {
-  width: 350px;
   height: auto;
   border-radius: 10px;
   display: -webkit-box;
@@ -640,6 +726,36 @@ p {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 5px 10px;
+}
+
+.scrollText,
+.collab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.scrollText span,
+.collab span {
+  font-family: "Euclid Circular A";
+  font-weight: 600;
+}
+
+.collab {
+  height: 100px;
+  background-color: #b2cefe;
+}
+
+.collab span {
+  color: #004fd0;
+  font-size: 36px;
 }
 
 .footer-block {
@@ -876,60 +992,36 @@ p {
   width: 500px;
 }
 
-.Team-creds .team-container {
+.Team-creds .ourTeam-section {
+  padding: 5rem 2rem;
+}
+
+.Team-creds .ourTeam-section .team-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 4rem 0 9rem 0;
 }
 
-.Team-creds .team-container .our-team {
+.Team-creds .ourTeam-section .team-container .our-team {
   width: 327px;
 }
 
-.Team-creds .team-container .our-team .team-head {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .slick-next {
+  height: 50px;
+  right: -72px;
+  width: 58px;
+  z-index: 10;
 }
 
-.Team-creds .team-container .our-team .team-head span {
-  font-family: Euclid Circular A;
-  font-size: 40px;
-  color: #333333;
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .slick-next::before {
+  font-size: 60px;
+  color: #9c9c9c;
 }
 
-.Team-creds .team-container .our-team .team-head span:first-child {
-  font-weight: 400;
-}
-
-.Team-creds .team-container .our-team .team-head span:nth-child(2) {
-  font-weight: bold;
-}
-
-.Team-creds .team-container .our-team hr {
-  width: 80px;
-  margin-top: 0;
-  height: 2px;
-  background-color: #004fd0;
-}
-
-.Team-creds .team-container .our-team .card-carousel {
-  padding: 2rem 0;
-}
-
-.Team-creds .team-container .our-team .card-carousel .slick-next {
-  background-color: #00000056;
-  border-radius: 50%;
-}
-
-.Team-creds .team-container .our-team .card-carousel .card {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card {
   height: 440px;
   border: 1px solid #004fd0;
   width: 320px;
@@ -938,7 +1030,7 @@ p {
           box-shadow: 0px 3px 60px #0000000f;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .name {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .name {
   font-family: "Euclid Circular A";
   font-weight: 600;
   text-align: center;
@@ -946,15 +1038,16 @@ p {
   font-size: 24px;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .designation {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .designation {
   font-family: "Euclid Circular A";
   color: #999999;
   padding: 0 1.5rem;
   text-align: center;
   font-size: 18px;
+  line-height: 1.3;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .socials {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .socials {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -965,9 +1058,9 @@ p {
   width: 100%;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .socials span {
-  width: 30px;
-  height: 30px;
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .socials span {
+  width: 40px;
+  height: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -979,32 +1072,40 @@ p {
           align-items: center;
   cursor: pointer;
   border-radius: 50%;
+  -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12);
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .socials span i {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .socials span:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .socials span i {
   color: #ffffff;
+  font-size: 24px;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .socials .linkedin {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .socials .linkedin {
   background-color: #0077b5;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .socials .twitter {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .socials .twitter {
   background-color: #1da1f2;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .socials .facebook {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .socials .facebook {
   background-color: #4267b2;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .bg-blue {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .bg-blue {
   height: 142px;
   position: absolute;
   width: 100%;
   background-color: #004fd0;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .center-bck {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .center-bck {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1022,7 +1123,7 @@ p {
   height: 100%;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .circle {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle {
   top: 55px;
   height: 160px;
   width: 160px;
@@ -1037,28 +1138,91 @@ p {
   border-radius: 50%;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .circle .architect {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .Ramesh {
+  top: -8px;
+  width: 100%;
+  height: 168px;
+}
+
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .Shalmali {
   height: 221px;
   width: 160px;
   top: -8px;
   left: -1px;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .circle .strategy-ofc {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .Sumit {
   height: 163px;
   top: 0px;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .circle .intern {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .Srinikhil {
   top: 0;
   height: 100%;
 }
 
-.Team-creds .team-container .our-team .card-carousel .card .circle img {
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .Prasada {
+  height: 100%;
+  top: 0px;
+}
+
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .Shaker,
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .Sricharan {
+  top: -12px;
+}
+
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle .REDDY {
+  top: 0;
+  left: -12px;
+  width: 177px;
+  height: 100%;
+}
+
+.Team-creds .ourTeam-section .team-container .our-team .card-carousel .card .circle img {
   height: 220px;
   width: 100%;
   top: -28px;
   position: absolute;
+}
+
+.Team-creds .ourTeam-section .team-head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Team-creds .ourTeam-section .team-head span {
+  font-family: Euclid Circular A;
+  font-size: 40px;
+  color: #333333;
+}
+
+.Team-creds .ourTeam-section .team-head span:first-child {
+  font-weight: 400;
+}
+
+.Team-creds .ourTeam-section .team-head span:nth-child(2) {
+  font-weight: bold;
+}
+
+.Team-creds .ourTeam-section hr {
+  width: 80px;
+  margin-top: 0;
+  height: 2px;
+  background-color: #004fd0;
+}
+
+.Team-creds .ourTeam-section .ourTeam-intro {
+  padding: 0 5rem;
+}
+
+.Team-creds .ourTeam-section .ourTeam-intro h5 {
+  color: #004fd0;
+  margin-top: 3rem;
+  font-size: 28px;
 }
 
 .contact-Us .info-container {
@@ -1257,6 +1421,21 @@ p {
   width: 100%;
 }
 
+.team-modal .modal-dialog .modal-content .modal-body .description .title-block .circle .Sumit {
+  top: 16px;
+  position: relative;
+  width: 100%;
+  height: 125px;
+}
+
+.team-modal .modal-dialog .modal-content .modal-body .description .title-block .circle .Shalmali,
+.team-modal .modal-dialog .modal-content .modal-body .description .title-block .circle .Sricharan,
+.team-modal .modal-dialog .modal-content .modal-body .description .title-block .circle .Srinikhil,
+.team-modal .modal-dialog .modal-content .modal-body .description .title-block .circle .Shaker,
+.team-modal .modal-dialog .modal-content .modal-body .description .title-block .circle .Prasada {
+  margin-top: 0px;
+}
+
 .team-modal .modal-dialog .modal-content .modal-body .description .title-block .title {
   padding: 1rem 2rem;
   background-color: #004fd0;
@@ -1347,6 +1526,74 @@ p {
   background-color: #4267b2;
 }
 
+.whyC2hire .postHeroContainer {
+  height: 150px;
+  background-color: #5e57a7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #ffffff;
+  margin-top: 3rem;
+}
+
+.whyC2hire .postHeroContainer .containerText {
+  padding: 0 7rem;
+}
+
+.whyC2hire .imgContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 3.5rem;
+}
+
+.whyC2hire .leftTextContent-1 {
+  padding: 0 4rem;
+}
+
+.whyC2hire .leftTextContent-2 {
+  padding-left: 4rem;
+}
+
+.whyC2hire .textContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+  padding-right: 2.5rem;
+}
+
+.whyC2hire .textContent .head {
+  font-size: 26px;
+  color: #004fd0;
+  font-family: "Euclid Circular A";
+  font-weight: 600;
+}
+
+.whyC2hire .textContent p {
+  font-size: 16px;
+  font-family: "Euclid Circular A";
+  margin-bottom: 1.5rem;
+}
+
 .whyC2hire .c2hire-subTitle {
   font-family: "Euclid Circular A";
   font-weight: 600;
@@ -1355,10 +1602,6 @@ p {
 
 .whyC2hire label {
   font-size: 18px !important;
-}
-
-.whyC2hire p {
-  font-size: 16px !important;
 }
 
 .FAQs-page .Faqs-container {
@@ -1449,6 +1692,7 @@ p {
   position: absolute;
   right: 10px;
   top: 12px;
+  opacity: 0.8;
   font-size: 20px;
 }
 
@@ -1584,6 +1828,12 @@ p {
   }
 }
 
+@media (min-width: 576px) and (max-width: 1200px) {
+  .container {
+    max-width: 95%;
+  }
+}
+
 .react-player__shadow {
   position: absolute !important;
   z-index: 10;
@@ -1659,53 +1909,53 @@ p {
 
 @media (min-width: 320px) and (max-width: 768px) {
   .landing-bg-img1 {
-    height: 50px;
+    height: 35px;
     left: 0;
     top: 118px;
   }
   .landing-bg-img2 {
     height: 111px;
     top: 61px;
-    right: -12px;
+    right: 0px;
     width: 80px;
-  }
-  .bg-img1,
-  .bg-img2 {
-    width: 100%;
   }
   .form-buttons {
     margin-top: 1rem;
   }
-  .landing-page .showcaseBox .bg-img1,
-  .landing-page .showcaseBox .bg-img2 {
-    width: 90%;
-    margin: 0 auto;
+  .landing-page .showcaseBox {
+    height: 289px;
+  }
+  .landing-page .showcaseBox .heroBackgroundImg {
+    height: 133px;
+  }
+  .landing-page .showcaseBox .homeHero {
+    padding-top: 0rem;
+    height: 120px;
+  }
+  .landing-page .showcaseBox .homeHero .left-text {
+    -ms-flex-line-pack: start;
+        align-content: start;
   }
   .landing-page .showcaseBox .bg-img2 {
     top: 197px;
   }
   .landing-page .showcaseBox .highlightText {
     margin: 0 auto;
-    font-size: 24px;
-    width: 266px;
-    padding: 3rem 0 2rem 0.5rem;
+    font-size: 18px;
+    width: 200px;
+    padding: 2.5rem 0 1rem 0.5em;
   }
-  .landing-page .showcaseBox .vid {
-    padding: 10px 0;
+  .landing-page .showcaseBox .heroHirepeople {
+    height: 129px;
   }
-  .landing-page .showcaseBox .vid .vidBtm-text {
+  .landing-page .whyc2hireLeftBlock {
+    padding: 2rem;
+  }
+  .landing-page .scrollText {
+    height: 40px;
+  }
+  .landing-page .scrollText span {
     font-size: 16px;
-  }
-  .landing-page .showcaseBox .vid .videoBlock {
-    width: 100%;
-    height: 200px;
-  }
-  .landing-page .showcaseBox .vid .videoBlock .c2hire-platform {
-    width: 100% !important;
-    height: 200px !important;
-  }
-  .landing-page .showcaseBox .vid .videoBlock .c2hire-platform .react-player__shadow {
-    background: #004fd0 !important;
   }
   .landing-page .collab {
     height: 50px;
@@ -1713,16 +1963,61 @@ p {
   .landing-page .collab span {
     font-size: 18px;
   }
+  .landing-page .homepage-info {
+    padding: 2rem 0;
+  }
+  .landing-page .whyc2hireLeftBlock p {
+    padding-right: 0;
+  }
+  .landing-page .vid {
+    padding: 10px 0;
+  }
+  .landing-page .vid .vidBtm-text {
+    font-size: 16px;
+  }
+  .landing-page .vid .videoBlock {
+    width: 100%;
+    height: 200px;
+  }
+  .landing-page .vid .videoBlock .c2hire-platform {
+    width: 100% !important;
+    height: 200px !important;
+  }
+  .landing-page .vid .videoBlock .c2hire-platform .react-player__shadow {
+    background: #004fd0 !important;
+  }
   .landing-page .corporates-slides {
-    margin: 2rem 0 1rem 0;
+    margin: 6rem 0 1rem 0;
   }
   .landing-page .main-titles {
     font-size: 20px;
+    margin: 2rem 0 2rem 0;
   }
   .landing-page .Stats,
   .landing-page .stats-detail,
   .landing-page .CUS_Stats-block {
     padding: 0 2rem;
+  }
+  .landing-page .Stats .stat-widget,
+  .landing-page .stats-detail .stat-widget,
+  .landing-page .CUS_Stats-block .stat-widget {
+    border-radius: 10px;
+  }
+  .whyC2hire .postHeroContainer {
+    height: auto;
+  }
+  .whyC2hire .postHeroContainer .containerText {
+    padding: 2rem 1rem;
+  }
+  .whyC2hire .textContent {
+    padding: 2rem;
+  }
+  .whyC2hire .collab {
+    margin: 0 2rem !important;
+    height: 75px;
+  }
+  .whyC2hire .collab span {
+    font-size: 18px;
   }
   .policy-terms .policy-heading h1 {
     font-size: 28px;
@@ -1771,9 +2066,9 @@ p {
     font-size: 20px;
   }
   .contact-Us .info-container .get-direction .emptydirect {
-    width: 129px;
-    right: -78px;
-    height: 30px;
+    width: 147px;
+    right: -77px;
+    height: 10px;
     bottom: 57px;
   }
   .contact-Us .info-container .get-direction iframe {
@@ -1790,6 +2085,7 @@ p {
 .title-block
 .title {
     width: 178px;
+    padding: 1rem 0;
   }
   .team-modal
 .modal-dialog
@@ -1835,6 +2131,12 @@ p {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .footer-block .footer1stblc .followUs .socials .social-text {
+    margin: 0 7px;
   }
   .footer-block .message-btn {
     right: 50%;
@@ -1882,22 +2184,22 @@ p {
     font-size: 42px;
     width: 455px;
   }
-  .landing-page .showcaseBox .vid .videoBlock {
-    width: 680px !important;
-    height: 386px !important;
-  }
-  .landing-page .showcaseBox .vid .videoBlock .c2hire-platform {
-    width: 680px !important;
-    height: 386px !important;
-  }
-  .landing-page .showcaseBox .vid .videoBlock .c2hire-platform .react-player__shadow {
-    background: #004fd0 !important;
-  }
-  .landing-page .showcaseBox .vid .vidBtm-text {
-    font-size: 30px;
-  }
   .landing-page .collab span {
     font-size: 40px;
+  }
+  .landing-page .vid .videoBlock {
+    width: 680px !important;
+    height: 386px !important;
+  }
+  .landing-page .vid .videoBlock .c2hire-platform {
+    width: 680px !important;
+    height: 386px !important;
+  }
+  .landing-page .vid .videoBlock .c2hire-platform .react-player__shadow {
+    background: #004fd0 !important;
+  }
+  .landing-page .vid .vidBtm-text {
+    font-size: 30px;
   }
   .landing-page .main-titles {
     font-size: 33px;
@@ -2017,6 +2319,12 @@ p {
   }
   .footer-block .copyright-box .container {
     padding: 1.5rem 6rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    height: 50px;
   }
 }
 /*# sourceMappingURL=c2hire.css.map */

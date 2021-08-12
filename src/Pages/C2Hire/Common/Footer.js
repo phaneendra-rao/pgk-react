@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { C2HIRE_EMAIL } from "../constants";
+import { ADDRESS, C2HIRE_EMAIL } from "../constants";
 
 function C2hireFooter() {
   return (
@@ -10,11 +10,13 @@ function C2hireFooter() {
           <div className="logo">C2Hire.</div>
           <p className="address-details">
             <span>
-              Plot no 32, Jayabheri Enclave Phase-2, Gachibowli, Hyderabad -
-              500032.
+              {ADDRESS}
             </span>
             <span>
-              <i className="far fa-envelope"></i>&nbsp;<a style={{color:"white"}} href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a>
+              <i className="far fa-envelope"></i>&nbsp;
+              <a style={{ color: "white" }} href="mailto:contact@c2hire.com">
+                {C2HIRE_EMAIL}
+              </a>
             </span>
           </p>
           <div className="col-lg-6 followUs">
@@ -34,8 +36,7 @@ function C2hireFooter() {
             </div>
           </div>
           <button className="message-btn Btn">
-            <i className="far fa-envelope"></i>&nbsp;
-            Send us a message
+            <i className="far fa-envelope"></i>&nbsp; Send us a message
           </button>
         </div>
       </div>
@@ -46,11 +47,13 @@ function C2hireFooter() {
           </span>
           <div className=" policy-links">
             <NavLink exact to="/c2hire/userguide/privacypolicy">
-              Privacy Policy |
+              Privacy Policy
             </NavLink>
+            |
             <NavLink exact to="/c2hire/userguide/termsandconditions">
-              Terms and Conditions |
+              Terms and Conditions
             </NavLink>
+            |
             <NavLink exact to="/c2hire/userguide/refundpolicy">
               Refund Policy
             </NavLink>

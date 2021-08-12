@@ -5,7 +5,7 @@ function FAQs() {
     <section className="c2hirePage-body policy-terms FAQs-page">
       <img
         className="landing-bg-img2"
-        src="../../../images/c2hire/img/Group 591.svg"
+        src="../../../images/c2hire/img/Group 591.png"
         alt=""
         height="240px"
         width="230px"
@@ -81,7 +81,7 @@ function FAQs() {
                   className="form-control"
                   type="text"
                 />
-                <i className="far fa-search"></i>
+                <i className="fas fa-search"></i>
                 <p>Find topics by entering terms in the search box.</p>
               </div>
               <div className="faq-content">
@@ -100,60 +100,90 @@ function FAQs() {
                     <ol>
                       <li className="list">
                         <span className="question">
-                          What is the pricing for corporate?
+                          What is Collaborative Campus hiring platform (C2hire) and how does it work ?
                         </span>
                         <span className="answers">
-                          No, currently we do not support EU shipping.
+                          The Collaborative Campus Hiring Platform (C2Hire) is an integrated solution that enables the campus hiring ecosystem stakeholders to work in a seamless manner so that right talent is hired at the right time from the right source using this platform as tool that is scalable , secure, and transparent with built in validation and verification Mechanism
                         </span>
                       </li>
                       <li className="list">
                         <span className="question">
-                          How should we post the job on C2Hire?
+                          Who are the stakeholders who would benefit from C2Hire?
                         </span>
                         <span className="answers">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat. Duis aute irure dolor in
-                          reprehenderit in voluptate velit esse cillum dolore eu
-                          fugiat nulla pariatur. Excepteur sint occaecat
-                          cupidatat.
+                          C2Hire is designed to benefit the following stakeholders in the campus Ecosystem
+                        <ul>
+                            <li>Industry – includes corporates across all the domains</li>
+                            <li>Universities/ Colleges</li>
+                            <li>Students.</li>
+                            <li>Assessment & Hiring (Third-Party) organizations/ applications.</li>
+                            <li>Learning platforms</li>
+                          </ul>
                         </span>
                       </li>
                       <li className="list">
                         <span className="question">
-                          How does C2Hire help with our hiring process?
+                          Which business problems of the stakeholders does this platform solve?
                         </span>
                         <span className="answers">
-                          Facilisis leo vel fringilla est ullamcorper. Venenatis
-                          lectus magna fringilla urna porttitor rhoncus dolor
-                          purus. Nulla at volutpat diam ut venenatis tellus in
-                          metus vulputate. Faucibus pulvinar elementum integer
-                          enim neque volutpat ac. Consequat interdum varius sit
-                          amet mattis vulputate enim. Pharetra massa massa
-                          ultricies mi quis hendrerit dolor magna eget.
+                          The following are business problems of each of the stakeholders that the platform is helping to resolve
+                        <ul>
+                            <li>Corporate’s ability to recruit right student talent at the right time resulting in – reduced induction costs , avoiding onboarding delays and increase in productivity</li>
+                            <li>Universities requirement to have better Visibility to industry Skill-Needs so that the university curriculum can be designed to be in line with industry requirement which will increase the employability of the students,  better university rankings and more student admissions</li>
+                            <li>Assessment services platform can provide more effective assessment services by having visibility to the corporate skill and hiring needs </li>
+                            <li>Improving employment opportunities for the students by having increased/ better visibility into hiring, skills need of the industry</li>
+                            <li>Learning platform requirement to have better visibility to the Skill-needs of the market so that they can align and roll out relevant learning modules and also will be able establish partnerships with universities and corporates</li>
+                          </ul>
                         </span>
                       </li>
                       <li className="list">
                         <span className="question">
-                          What information does a corporate needs to furnish for
-                          registration on the portal?
+                          On what technology is the platform developed?
                         </span>
                         <span className="answers">
-                          Odio tempor orci dapibus ultrices in iaculis nunc sed
-                          augue, that you can read here.
+                          Solution is built using Blockchain as the foundation technology.
                         </span>
                       </li>
                       <li className="list">
                         <span className="question">
-                          What is Hiring Criteria and how to post it?
+                          How does a stakeholder get access to and start using the platform?
                         </span>
                         <span className="answers">
-                          Ed blandit libero volutpat sed cras ornare arcu.
-                          Mauris augue neque gravida in fermentum et
-                          sollicitudin. Rhoncus urna neque viverra justo nec
-                          ultrices dui sapien.
+                          Stakeholders can get the access to the platform by registration . The registered stakeholders will be able publish one’s own data and subscribe to the published data of the other stakeholders who are registered with the platform. The Payment for registration , publishing and subscription is done through Tokens
+                        </span>
+                      </li>
+                      <li className="list">
+
+                        <span className="question">
+                          What is a token and how does a stakeholder get these tokens?
+                        </span>
+                        <span className="answers">
+                          A token is a means of exchange to give value to a transaction. It is essentially a digital coupon that can be redeemed for special access to a product or service.  The stakeholder of the campus hiring platform are issued bonus tokens when they are registered on to the platform.  These tokens can be used to pay whenever they publish or subscribe data .  Bonus Tokens are also issued whenever the stakeholders publish their data.
+                        </span>
+                      </li>
+                      <li className="list">
+
+                        <span className="question">
+                          Are there any regulations compliance issues with usage of tokens?
+                        </span>
+                        <span className="answers">
+                          Unlike security tokens, these tokens are not used as investments hence can be exempted from the federal laws governing securities if they are properly set up. The real token is not subject to a capital market regulation as long as it is not designed/set up for security or a capital investment.                        </span>
+                      </li>
+                      <li className="list">
+
+                        <span className="question">
+                          How do you secure the data shared on the platform?
+                        </span>
+                        <span className="answers">
+                          Blockchain technology uses features like cryptography , smart contracts , Decentralized and peer to peer networking architecture tosecure the data that is shared on the platform
+                        </span>
+                      </li>
+                      <li className="list">
+                        <span className="question">
+                          Does the stakeholder need to publish all their data on the platform?
+                        </span>
+                        <span className="answers">
+                          The individual stakeholders will have the flexibility to publish all the data or only the data that they would want to share . Once published the other stakeholders can subscribe to the data by paying the subscription amount.
                         </span>
                       </li>
                     </ol>

@@ -6,7 +6,7 @@ function RefundPolicy() {
     <section className="c2hirePage-body policy-terms">
       <img
         className="landing-bg-img2"
-        src="../../../images/c2hire/img/Group 591.svg"
+        src="../../../images/c2hire/img/Group 591.png"
         alt=""
         height="240px"
         width="230px"
@@ -30,8 +30,8 @@ function RefundPolicy() {
               stakeholders have an exceptional experience. As with any online
               purchase experience, the below are the terms and conditions that
               govern the Refund Policy. When you registered for a service on the{" "}
-              <a href={C2HIRE_URL}>c2hire.com</a>, you agree to Terms
-              and Conditions covered below.
+              <a href={C2HIRE_URL}>c2hire.com</a>, you agree to Terms and
+              Conditions covered below.
             </p>
             <p>
               <label className="d-block">Cancellation & Refunds</label>
@@ -39,9 +39,9 @@ function RefundPolicy() {
               we cannot refund the payment. However, in remote circumstances
               which could be beyond the scope, we request you to send out an
               email to&nbsp;
-              <a href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a> with
-              the relevant information and we will try our best to accommodate
-              the cancellation and refund request.
+              <a href="mailto:contact@c2hire.com">{C2HIRE_EMAIL}</a> with the
+              relevant information and we will try our best to accommodate the
+              cancellation and refund request.
             </p>
             <p>
               <label className="d-block">Refunds: Duplicate payment</label>

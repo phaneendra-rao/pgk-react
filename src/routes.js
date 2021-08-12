@@ -97,9 +97,9 @@ const routes = [
     path: "/",
     strict: true,
     exact: true,
-    role: "corporate",
-    name: "Login",
-    component: Login,
+    role: "dashboard",
+    name: "C2Hire Home",
+    component: C2HireHome,
   },
   {
     path: "/register",

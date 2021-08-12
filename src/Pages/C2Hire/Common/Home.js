@@ -1,43 +1,41 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { homeStatsData } from '../Services';
+import { homeStatsData } from "../Services";
+import { Link } from "react-router-dom";
+import { corporatesLogos } from "../constants";
 
 function C2hireHome() {
-
-const [homeStats, setHomeStats] = useState({});
-const [count, setCount] = useState(0);
+  const [homeStats, setHomeStats] = useState({});
+  const [count, setCount] = useState(0);
 
   const getHomeStats = async () => {
     const result = await homeStatsData();
 
-    if(result.data){
+    if (result.data) {
       setHomeStats(result.data);
     }
+  };
 
-  }
-
-
-
-  useEffect(()=>{
+  useEffect(() => {
     getHomeStats();
-    setTimeout(() => {
-      setCount(1+count%flashTexts.length)
-    }, 2000);
-  },[count]
-  
-  )
+  }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setCount(1 + (count % flashTexts.length));
+    }, 2000);
+  }, [count]);
 
   const flashTexts = [
     "A marketplace to collaborateand hire.",
     "Earn credits as you Register and Publish.",
     "Token Payments.",
     "Futuristic Model : On demand subscription.",
-    "In-built analytics engine."
-];
+    "In-built analytics engine.",
+  ];
 
   const settings = {
     dots: true,
@@ -47,77 +45,98 @@ const [count, setCount] = useState(0);
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 478,
+        breakpoint: 620,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 1020,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
+  };
+  const corporateSliderProp = {
+    dots: false,
+    infinite: true,
+    pauseOnHover: true,
+    variableWidth: true,
+    autoplay: true,
+    slidesToShow: 4,
+    autoplaySpeed: 1000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: true,
-          dots: true,
         },
       },
     ],
   };
 
-
   return (
     <section className="c2hirePage-body landing-page">
       <img
         className="landing-bg-img2"
-        src="../../../images/c2hire/img/Group 591.svg"
+        src="../../../images/c2hire/img/Group 591.png"
         alt=""
         height="240px"
         width="230px"
       />
       <div className="showcaseBox">
         <img
-          className="bg-img1"
-          src="../../../images/c2hire/img/Rectangle 341.png"
-          alt=""
-          width="80%"
-        />
-        <img
-          className="bg-img2"
-          src="../../../images/c2hire/img/Rectangle 342.png"
-          alt=""
-          width="80%"
-        />
+          className="heroBackgroundImg"
+          src="../../../images/c2hire/img/heroBackground.png"
+          width="100%"
+          height="auto"
+        ></img>
+
         <div className="container container-lg container-md container-xl">
           <img
             className="landing-bg-img1"
             src="../../../images/c2hire/img/ellipseSquare.svg"
-            height="180px"
-            width="180px"
+            height="160px"
+            width="150px"
             alt=""
           />
-          <div className="row">
-            <div className="col-lg-5 col-sm-12">
+          <div className="row homeHero">
+            <div className="col-lg-6 col-sm-12 col-md-12 left-text">
               <p className="highlightText">
-                India's First Blockchain Enabled Campus Hire Platform
+                India's First Blockchain Enabled{" "}
+                <span className="primary-color">Campus Hire Platform</span>
               </p>
             </div>
-            <div className="col-lg-7 col-sm-12">
-              <div className="vid">
-                <div className="videoBlock">
-                  <div>
-                    <ReactPlayer
-                      className="c2hire-platform"
-                      playing={true}
-                      controls={true}
-                      light={true}
-                      url="https://player.vimeo.com/video/562748881?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                    />
-                  </div>
-                </div>
-                <p className="vidBtm-text">
-                  {flashTexts[count] || "Validated and Verified profiles."}
-                </p>                                
-                                    
-
-
-              </div>
+            <div className="col-lg-6 col-sm-12 col-md-12 rightImg">
+              <img
+                className="heroHirepeople"
+                src="../../../images/c2hire/img/heroHirePeople.png"
+                width="100%"
+                height="auto"
+              ></img>
             </div>
           </div>
         </div>
+      </div>
+      <div className=" scrollText primary-Bgcolor">
+        <span>Scroll text will be here</span>
       </div>
       <div className="collab">
         <span>JOIN. COLLABORATE. SUCCEED.</span>
@@ -130,6 +149,49 @@ const [count, setCount] = useState(0);
           />
         </div>
       </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-6 col-sm-12 whyc2hireLeftBlock">
+            <h4 className="title">
+              Why <span className="primary-color"> C2Hire. ?</span>
+            </h4>
+            <p>
+              C2Hire. is the platform that stands and believes in the Vision -
+              the vision of making a difference to the Education ecosystem. It
+              is powered by a combined Management Experience of 100+ years
+              effectively driving to build a Scalable, Secure & Integrated
+              platform with required transparency and with built-in validation &
+              verification mechanism.
+            </p>
+            <Link to="/c2hire/whyc2hire">
+              <button className="Btn" rout="/c2hire/whyc2hire">
+                Read more
+              </button>
+            </Link>
+          </div>
+          <div className="col-lg-6 col-sm-12">
+            <div className="vid">
+              <div className="videoBlock">
+                <div>
+                  <ReactPlayer
+                    className="c2hire-platform"
+                    playing={true}
+                    controls={true}
+                    responsive={true}
+                    light={true}
+                    //light="../images/c2hire/img/platform-thumbnail.png"
+                    url="https://player.vimeo.com/video/562748881?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  />
+                </div>
+              </div>
+              <p className="vidBtm-text">
+                {flashTexts[count] || "Validated and Verified profiles."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="reviewComments">
         <div className="container container-lg container-md container-xl">
           <img
@@ -145,7 +207,10 @@ const [count, setCount] = useState(0);
               <div>
                 <div className="comments-detail-block light-slider-box">
                   <div className="d-flex flex-column">
-                    <i className="fas fa-quote-left quote-icon"></i>
+                    <img
+                      className="quote-icon"
+                      src="../../../images/c2hire/icon/quotes.png"
+                    />
                     <div className="d-flex justify-content-center">
                       <span className="circle"></span>
                     </div>
@@ -162,7 +227,10 @@ const [count, setCount] = useState(0);
               <div>
                 <div className="comments-detail-block light-slider-box">
                   <div className="d-flex flex-column">
-                    <i className="fas fa-quote-left quote-icon"></i>
+                    <img
+                      className="quote-icon"
+                      src="../../../images/c2hire/icon/quotes.png"
+                    />
                     <div className="d-flex justify-content-center">
                       <span className="circle"></span>
                     </div>
@@ -178,7 +246,10 @@ const [count, setCount] = useState(0);
               </div>
               <div>
                 <div className="comments-detail-block light-slider-box">
-                  <i className="fas fa-quote-left quote-icon"></i>
+                  <img
+                    className="quote-icon"
+                    src="../../../images/c2hire/icon/quotes.png"
+                  />
                   <div className="d-flex flex-column">
                     <div className="d-flex justify-content-center">
                       <span className="circle"></span>
@@ -209,51 +280,23 @@ const [count, setCount] = useState(0);
           <h5 className="main-titles text-center">
             Happy Corporates & Universities Partnered With Us
           </h5>
-          <div id="demo" className="carousel slide" data-ride="carousel">
-            <div className="container container-lg container-md container-xl">
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <div className="row commnets-detail">
+          <div className="bg-white">
+            <div className="container container-lg container-md container-xl corporate-partner">
+              <Slider {...corporateSliderProp}>
+                {corporatesLogos.map((item) => (
+                  <div className="corporateSlider" style={{ width: "auto" }}>
                     <img
-                      width="100%"
-                      src="../../../images/c2hire/img/partners.png"
+                      src={item.src}
+                      height="80px"
+                      width={item.width}
                       alt=""
                     />
                   </div>
+                ))}
+                <div className="corporateSlider" style={{ width: "auto" }}>
+                  <span>SSN Murthy & Company</span>
                 </div>
-                <div className="carousel-item">
-                  <div className="row commnets-detail">
-                    <img
-                      width="100%"
-                      src="../../../images/c2hire/img/partners.png"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="carousel-item">
-                  <div className="row commnets-detail">
-                    <img
-                      width="100%"
-                      src="../../../images/c2hire/img/partners.png"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <a
-                className="carousel-control-prev"
-                href="#demo"
-                data-slide="prev"
-              >
-                <i className="fas fa-angle-left"></i>
-              </a>
-              <a
-                className="carousel-control-next"
-                href="#demo"
-                data-slide="next"
-              >
-                <i className="fas fa-angle-right"></i>
-              </a>
+              </Slider>
             </div>
           </div>
         </div>
@@ -264,7 +307,9 @@ const [count, setCount] = useState(0);
         </div>
         <div className="row Stats">
           <div className="col-lg-4 col-sm-12 col-md-6 stat-widget">
-            <p className="statNo">{homeStats.studentsRegisteredInLastWeek || 0}</p>
+            <p className="statNo">
+              {homeStats.studentsRegisteredInLastWeek || 0}
+            </p>
             <div className="d-flex align-items-center stat-content">
               <p className="title">
                 Student Registered <br /> in The Last week
@@ -299,7 +344,9 @@ const [count, setCount] = useState(0);
                   width="64px"
                   alt=""
                 />
-                <p className="text-center value">{homeStats.studentsRegistered || 0}</p>
+                <p className="text-center value">
+                  {homeStats.studentsRegistered || 0}
+                </p>
                 <p className="text">STUDENTS REGISTERED TILL DATE</p>
               </div>
             </div>
@@ -313,7 +360,9 @@ const [count, setCount] = useState(0);
                   width="64px"
                   alt=""
                 />
-                <p className="text-center value">{homeStats.candidatesHiredSoFar || 0}</p>
+                <p className="text-center value">
+                  {homeStats.candidatesHiredSoFar || 0}
+                </p>
                 <p className="text">CANDIDATES GOT HIRED SO FAR</p>
               </div>
             </div>
@@ -327,7 +376,9 @@ const [count, setCount] = useState(0);
                   width="64px"
                   alt=""
                 />
-                <p className="text-center value">{homeStats.jobsPostedTillDate || 0}</p>
+                <p className="text-center value">
+                  {homeStats.jobsPostedTillDate || 0}
+                </p>
                 <p className="text">JOBS POSTED TILL DATE</p>
               </div>
             </div>
@@ -339,7 +390,9 @@ const [count, setCount] = useState(0);
               <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                 <p className="title">Corporates</p>
                 <p className="sub-title">Registered</p>
-                <p className="stat-info-no">{homeStats.corporatesRegistered || 0}</p>
+                <p className="stat-info-no">
+                  {homeStats.corporatesRegistered || 0}
+                </p>
               </div>
               <i className="fas fa-briefcase stat-icons"></i>
             </div>
@@ -349,7 +402,9 @@ const [count, setCount] = useState(0);
               <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                 <p className="title">Universities</p>
                 <p className="sub-title">Registered</p>
-                <p className="stat-info-no">{homeStats.universitiesRegistered || 0}</p>
+                <p className="stat-info-no">
+                  {homeStats.universitiesRegistered || 0}
+                </p>
               </div>
               <i className="fas fa-university stat-icons"></i>
             </div>
@@ -359,7 +414,9 @@ const [count, setCount] = useState(0);
               <div className="d-flex flex-column justify-content-between align-items-start stat-info-content">
                 <p className="title">Students</p>
                 <p className="sub-title">Registered</p>
-                <p className="stat-info-no">{homeStats.studentsRegistered || 0}</p>
+                <p className="stat-info-no">
+                  {homeStats.studentsRegistered || 0}
+                </p>
               </div>
               <i className="fas fa-user-circle stat-icons"></i>
             </div>
